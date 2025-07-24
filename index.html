@@ -163,12 +163,21 @@
       pointer-events: none;
       transition: opacity 0.5s ease, bottom 0.5s ease;
       z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .toast.show {
       opacity: 1;
       pointer-events: auto;
       bottom: 60px;
+    }
+
+    .toast svg {
+      fill: #39f;
+      width: 20px;
+      height: 20px;
     }
 
     @keyframes fadeIn {
@@ -227,7 +236,12 @@
       </form>
     </div>
 
-    <div id="toast" class="toast">✅ You will be notified!</div>
+    <div id="toast" class="toast">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.854 10.854a.5.5 0 0 0 .707 0l4-4a.5.5 0 0 0-.707-.708L7.5 9.293 5.646 7.439a.5.5 0 1 0-.707.707l2 2z"/>
+      </svg>
+      <span>You will be notified!</span>
+    </div>
 
     <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_puciaact.json" background="transparent" speed="1" loop autoplay></lottie-player>
   </div>
@@ -237,12 +251,11 @@
   </footer>
 
   <script>
-    const now = new Date();
-    const launchDate = new Date(now.getTime() + 10 * 24 * 60 * 60 * 1000).getTime();
+    const launchDate = new Date("2025-08-07T00:00:00").getTime();
 
     const countdown = () => {
-      const current = new Date().getTime();
-      const distance = launchDate - current;
+      const now = new Date().getTime();
+      const distance = launchDate - now;
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -261,16 +274,14 @@
 
     setInterval(countdown, 1000);
 
-    // Toast Bildirimi
+    // Toast
     const form = document.getElementById("subscribe-form");
     const toast = document.getElementById("toast");
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       toast.classList.add("show");
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 4000);
+      setTimeout(() => toast.classList.remove("show"), 4000);
       form.reset();
     });
   </script>
