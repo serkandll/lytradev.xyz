@@ -535,9 +535,11 @@ document.addEventListener("DOMContentLoaded", function() {
 <!--PROOF PIXEL--><script src="https://cdn.useproof.com/proof.js?acc=VUpyZk26dbQkyGC92cCwhkezOxC2" async></script><!--END PROOF PIXEL-->
 
 <script>
-  window.intercomSettings = {
-    api_base: "https://api-iam.intercom.io",
-    app_id: "orf232br",
+import Intercom from '@intercom/messenger-js-sdk';
+
+Intercom({
+  app_id: 'orf232br',
+});
   };
 </script>
 
@@ -684,5 +686,3 @@ document.addEventListener("DOMContentLoaded", function() {
     updateProfit();
   });
 </script></body></html>
-
-
