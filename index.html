@@ -40,19 +40,13 @@
             background: var(--white);
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            padding: 40px 30px;
+            padding: 60px 40px;
             text-align: center;
             max-width: 800px;
             width: 100%;
             position: relative;
             overflow: hidden;
             color: var(--dark);
-            animation: fadeIn 0.8s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .testing-container::before {
@@ -66,7 +60,7 @@
         }
 
         .logo-section {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .logo {
@@ -74,57 +68,57 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .logo img {
-            height: 60px;
+            height: 70px;
         }
 
         .logo-text h1 {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: var(--primary);
             margin-bottom: 5px;
         }
 
         .logo-text p {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--dark);
             opacity: 0.8;
         }
 
         .testing-icon {
-            font-size: 3.5rem;
+            font-size: 4rem;
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
 
         .testing-title {
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .testing-subtitle {
             color: var(--danger);
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .testing-message {
             color: var(--dark);
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -132,154 +126,148 @@
 
         .testing-features {
             background: var(--light);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
             text-align: left;
         }
 
         .testing-features h3 {
             color: var(--primary);
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            font-size: 1.1rem;
+            gap: 10px;
         }
 
         .feature-list {
             list-style: none;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
         }
 
         .feature-list li {
-            padding: 6px 0;
+            padding: 8px 0;
             color: var(--dark);
             display: flex;
             align-items: center;
-            font-size: 0.9rem;
         }
 
         .feature-list li i {
             color: var(--info);
-            margin-right: 8px;
-            font-size: 1rem;
+            margin-right: 10px;
+            font-size: 1.1rem;
         }
 
         .testing-warning {
             background: #fff3cd;
             border: 2px solid var(--warning);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
         }
 
         .testing-warning h4 {
             color: #856404;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            font-size: 1rem;
+            gap: 8px;
         }
 
         .testing-warning p {
             color: #856404;
-            font-size: 0.85rem;
-            line-height: 1.4;
+            font-size: 0.95rem;
         }
 
         .contact-info {
             background: #e8f4fd;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
         }
 
         .contact-info h4 {
             color: #0066cc;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            font-size: 1rem;
+            gap: 8px;
         }
 
         .contact-info p {
             color: #0066cc;
-            font-size: 0.85rem;
-            line-height: 1.4;
+            font-size: 0.95rem;
         }
 
         .btn-container {
-            margin-top: 25px;
+            margin-top: 30px;
         }
 
         .btn {
             display: inline-block;
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 15px 40px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
             cursor: pointer;
             border: none;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 5px;
+            letter-spacing: 1px;
         }
 
         .btn-primary {
             background: var(--primary);
             color: var(--white);
-            box-shadow: 0 4px 12px rgba(106, 13, 173, 0.3);
+            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.3);
         }
 
         .btn-primary:hover {
             background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(106, 13, 173, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 13, 173, 0.4);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--primary);
             border: 2px solid var(--primary);
+            margin-left: 15px;
         }
 
         .btn-secondary:hover {
             background: var(--primary);
             color: var(--white);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
 
         .watermark {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
+            bottom: 20px;
+            right: 20px;
             color: rgba(106, 13, 173, 0.1);
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             font-weight: 600;
         }
 
         @media (max-width: 768px) {
             .testing-container {
-                padding: 30px 20px;
+                padding: 40px 25px;
             }
             
             .testing-title {
-                font-size: 1.7rem;
+                font-size: 2rem;
             }
             
             .testing-subtitle {
-                font-size: 1.1rem;
+                font-size: 1.3rem;
             }
             
             .testing-icon {
@@ -291,34 +279,34 @@
             }
             
             .btn {
-                padding: 10px 25px;
-                font-size: 0.9rem;
+                padding: 12px 30px;
+                font-size: 1rem;
                 display: block;
                 width: 100%;
-                margin: 8px 0;
+                margin-bottom: 15px;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
             }
         }
 
         @media (max-width: 480px) {
             .testing-container {
-                padding: 25px 15px;
+                padding: 30px 20px;
             }
             
             .testing-title {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
             
             .testing-subtitle {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             
             .logo {
                 flex-direction: column;
                 text-align: center;
-            }
-            
-            .logo img {
-                height: 50px;
             }
         }
     </style>
@@ -327,9 +315,7 @@
     <div class="testing-container">
         <div class="logo-section">
             <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-globe-americas" style="font-size: 2.5rem; color: #6a0dad;"></i>
-                </div>
+                <img src="https://static.wixstatic.com/media/9a503f_1e3f21a13d1c4c06b0bfedd3d3ab68af~mv2.png/v1/fill/w_144,h_136,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a-JxjflAtJn-transformed%20(2)_edited_edite.png" alt="Arel MUN Logo">
                 <div class="logo-text">
                     <h1>AREL MUN</h1>
                     <p>Model United Nations</p>
@@ -346,18 +332,19 @@
         
         <p class="testing-message">
             You are accessing a development version of the ARELMUN'25 website. 
-            This environment is used for testing new features and functionality.
+            This environment is used for testing new features, functionality, and design elements 
+            before they are deployed to the live production site.
         </p>
         
         <div class="testing-features">
             <h3><i class="fas fa-cogs"></i> Current Status</h3>
             <ul class="feature-list">
-                <li><i class="fas fa-check-circle"></i> Application forms functional</li>
-                <li><i class="fas fa-check-circle"></i> Admin panel active</li>
-                <li><i class="fas fa-sync-alt"></i> Temporary data storage</li>
-                <li><i class="fas fa-code"></i> Active development</li>
-                <li><i class="fas fa-bug"></i> May contain errors</li>
-                <li><i class="fas fa-palette"></i> Design may change</li>
+                <li><i class="fas fa-check-circle"></i> Application forms are functional</li>
+                <li><i class="fas fa-check-circle"></i> Admin panel is active</li>
+                <li><i class="fas fa-sync-alt"></i> Data storage is temporary</li>
+                <li><i class="fas fa-code"></i> Under active development</li>
+                <li><i class="fas fa-bug"></i> May contain bugs and errors</li>
+                <li><i class="fas fa-palette"></i> Design elements may change</li>
             </ul>
         </div>
         
@@ -365,22 +352,23 @@
             <h4><i class="fas fa-exclamation-triangle"></i> Important Notice</h4>
             <p>
                 <strong>Do not submit real personal information.</strong> This is a testing environment 
-                and all data may be cleared at any time.
+                and all data may be cleared at any time. For official ARELMUN'25 applications, 
+                please wait for the official launch announcement.
             </p>
         </div>
         
         <div class="contact-info">
             <h4><i class="fas fa-info-circle"></i> Development Information</h4>
             <p>
-                <strong>Team:</strong> Lytra Development<br>
+                <strong>Development Team:</strong> Lytra Development<br>
                 <strong>Contact:</strong> arelmun@gmail.com<br>
-                <strong>Version:</strong> 1.0.0 (Testing)
+                <strong>Version:</strong> 1.0.0 (Testing) | <strong>Last Updated:</strong> <span id="current-date"></span>
             </p>
         </div>
         
         <div class="btn-container">
             <button class="btn btn-primary" id="enter-site">
-                <i class="fas fa-arrow-right"></i> Enter Development Preview
+                <i class="fas fa-arrow-right"></i> Development Preview
             </button>
             <button class="btn btn-secondary" id="exit-site">
                 <i class="fas fa-times"></i> Exit Testing
@@ -394,906 +382,6 @@
 
     <script>
         // Set current date
-        const currentDate = new Date().toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-        
-        // Enter site button functionality
-        document.getElementById('enter-site').addEventListener('click', function() {
-            // Add loading animation
-            const originalText = this.innerHTML;
-            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-            this.disabled = true;
-            
-            // Simulate loading delay
-            setTimeout(function() {
-                // Redirect to main site (in real implementation)
-                // window.location.href = 'main-site.html';
-                
-                // For demo purposes, show success message
-                alert('Successfully entered ARELMUN development preview!\n\nIn a real implementation, you would be redirected to the main website.');
-                
-                // Reset button
-                document.getElementById('enter-site').innerHTML = originalText;
-                document.getElementById('enter-site').disabled = false;
-            }, 1500);
-        });
-        
-        // Exit site button functionality
-        document.getElementById('exit-site').addEventListener('click', function() {
-            if (confirm('Are you sure you want to leave the testing environment?')) {
-                // Close window or redirect
-                window.close();
-                // If window doesn't close (in some browsers), provide alternative
-                alert('To completely exit, please close this browser tab.');
-            }
-        });
-        
-        // Add interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.querySelector('.testing-container');
-            
-            // Add subtle hover effect
-            container.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px)';
-                this.style.boxShadow = '0 25px 50px rgba(0,0,0,0.25)';
-            });
-            
-            container.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
-            });
-        });
-    </script>
-</body>
-</html>
-
-    <!-- MAIN SITE -->
-    <div id="main-site">
-        <header>
-            <div class="container header-container">
-                <div class="logo-main">
-                    <img src="https://static.wixstatic.com/media/9a503f_1e3f21a13d1c4c06b0bfedd3d3ab68af~mv2.png/v1/fill/w_144,h_136,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a-JxjflAtJn-transformed%20(2)_edited_edite.png" alt="Arel MUN Logo">
-                    <div class="logo-text-main">
-                        <h1>AREL MUN</h1>
-                        <p>Model United Nations</p>
-                    </div>
-                </div>
-                
-                <nav>
-                    <ul id="nav-menu">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#schedule">Schedule</a></li>
-                        <li><a href="#applications">Applications</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-                
-                <div class="nav-actions">
-                    <button class="hamburger" id="hamburger">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <section class="hero" id="home">
-            <div class="container">
-                <h1>AREL MODEL UNITED NATIONS 2025</h1>
-                <p>"Shaping Future Leaders Through Diplomatic Dialogue"</p>
-                <div class="cta-buttons">
-                    <a href="#schedule" class="btn-main btn-main-primary">View Schedule</a>
-                    <a href="#applications" class="btn-main btn-main-secondary">Apply Now</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="schedule" id="schedule">
-            <div class="container">
-                <div class="schedule-header">
-                    <h2 class="section-title">CONFERENCE SCHEDULE</h2>
-                    <div class="schedule-dates">10 - 11 - 12 OCTOBER</div>
-                    <div class="schedule-subtitle">ARELMUN'25 Official Program</div>
-                </div>
-                
-                <div class="day-tabs">
-                    <button class="day-tab active" data-day="day1">10 OCTOBER</button>
-                    <button class="day-tab" data-day="day2">11 OCTOBER</button>
-                    <button class="day-tab" data-day="day3">12 OCTOBER</button>
-                </div>
-                
-                <div class="day-schedule active" id="day1">
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">09.30 - 11.00</div>
-                                <div class="duration">1.5 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Registration</h3>
-                                <p>Check-in and registration for all participants</p>
-                                <span class="event-type">General</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">10.30 - 11.30</div>
-                                <div class="duration">1 hour</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Staff Briefing</h3>
-                                <p>Briefing session for conference staff and volunteers</p>
-                                <span class="event-type">Staff Only</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">11.30 - 13.00</div>
-                                <div class="duration">1.5 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Opening Ceremony</h3>
-                                <p>Official opening of ARELMUN'25 conference</p>
-                                <span class="event-type">All Participants</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">13.00 - 13.30</div>
-                                <div class="duration">30 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Coffee Break</h3>
-                                <p>Refreshment break for all participants</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">13.30 - 15.15</div>
-                                <div class="duration">1.75 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>GA Plenary In Session</h3>
-                                <p>General Assembly committees begin their work</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">13.30 - 15.15</div>
-                                <div class="duration">1.75 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Special Plenary In Session</h3>
-                                <p>Specialized committees begin their work</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">13.30 - 15.15</div>
-                                <div class="duration">1.75 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Other Committees In Session</h3>
-                                <p>Additional committee sessions</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">15.15 - 16.00</div>
-                                <div class="duration">45 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Lunch Break</h3>
-                                <p>Lunch break for all participants</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">16.00 - 17.30</div>
-                                <div class="duration">1.5 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>All Committees In Session</h3>
-                                <p>Committee work continues across all sessions</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">17.30 - 17.45</div>
-                                <div class="duration">15 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Coffee Break</h3>
-                                <p>Short refreshment break</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">17.45 - 19.00</div>
-                                <div class="duration">1.25 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>All Committees In Session</h3>
-                                <p>Final committee sessions of the day</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">19.00 - 20.00</div>
-                                <div class="duration">1 hour</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Buses Depart</h3>
-                                <p>Transportation back to accommodation</p>
-                                <span class="event-type">Transportation</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="day-schedule" id="day2">
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">08.00 - 08.30</div>
-                                <div class="duration">30 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Buses Arrive</h3>
-                                <p>Transportation to conference venue</p>
-                                <span class="event-type">Transportation</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">08.30 - 09.00</div>
-                                <div class="duration">30 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Student Officer Meeting</h3>
-                                <p>Briefing for student officers</p>
-                                <span class="event-type">Officers Only</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">09.00 - 10.30</div>
-                                <div class="duration">1.5 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>All Committees In Session</h3>
-                                <p>Committee work continues</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">10.30 - 11.00</div>
-                                <div class="duration">30 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Coffee Break</h3>
-                                <p>Refreshment break</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">10.30 - 12.00</div>
-                                <div class="duration">1.5 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>All Committees In Session</h3>
-                                <p>Committee work continues</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">12.00 - 13.00</div>
-                                <div class="duration">1 hour</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Lunch Break</h3>
-                                <p>Lunch break for all participants</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">13.00 - 14.30</div>
-                                <div class="duration">1.5 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>All Committees In Session</h3>
-                                <p>Committee work continues</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">14.30 - 14.45</div>
-                                <div class="duration">15 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Coffee Break</h3>
-                                <p>Short refreshment break</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">14.45 - 16.00</div>
-                                <div class="duration">1.25 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>All Committees In Session</h3>
-                                <p>Committee work continues</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">16.00 - 16.15</div>
-                                <div class="duration">15 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Coffee Break</h3>
-                                <p>Short refreshment break</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">16.15 - 17.30</div>
-                                <div class="duration">1.25 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>All Committees In Session</h3>
-                                <p>Final committee sessions of the day</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">17.30 - 18.30</div>
-                                <div class="duration">1 hour</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Buses Depart</h3>
-                                <p>Transportation back to accommodation</p>
-                                <span class="event-type">Transportation</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">20.00</div>
-                                <div class="duration">Evening</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Social Event</h3>
-                                <p>Evening social gathering for participants</p>
-                                <span class="event-type">Social</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="day-schedule" id="day3">
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">08.00 - 08.30</div>
-                                <div class="duration">30 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Buses Arrive</h3>
-                                <p>Transportation to conference venue</p>
-                                <span class="event-type">Transportation</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">08.30 - 09.00</div>
-                                <div class="duration">30 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Student Officer Briefing</h3>
-                                <p>Final briefing for student officers</p>
-                                <span class="event-type">Officers Only</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">09.00 - 10.30</div>
-                                <div class="duration">1.5 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>All Committees In Session</h3>
-                                <p>Final committee sessions</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">10.30 - 11.00</div>
-                                <div class="duration">30 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Coffee Break</h3>
-                                <p>Refreshment break</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">11.00 - 12.30</div>
-                                <div class="duration">1.5 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>All Committees In Session</h3>
-                                <p>Committee work continues</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">12.30 - 13.30</div>
-                                <div class="duration">1 hour</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Lunch Break</h3>
-                                <p>Lunch break for all participants</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">13.30 - 15.00</div>
-                                <div class="duration">1.5 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>All Committees In Session</h3>
-                                <p>Final committee work sessions</p>
-                                <span class="event-type">Committee Session</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">15.00 - 15.15</div>
-                                <div class="duration">15 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Coffee Break</h3>
-                                <p>Short refreshment break</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">15.15 - 16.30</div>
-                                <div class="duration">1.25 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>GA Plenary Session</h3>
-                                <p>General Assembly plenary session</p>
-                                <span class="event-type">Plenary</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">15.15 - 16.30</div>
-                                <div class="duration">1.25 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Special Plenary In Session</h3>
-                                <p>Specialized committee plenary sessions</p>
-                                <span class="event-type">Plenary</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">15.15 - 16.30</div>
-                                <div class="duration">1.25 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Other Committees In Session</h3>
-                                <p>Additional committee plenary sessions</p>
-                                <span class="event-type">Plenary</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">16.30 - 16.45</div>
-                                <div class="duration">15 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Coffee Break</h3>
-                                <p>Short refreshment break</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">16.45 - 18.00</div>
-                                <div class="duration">1.25 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>GA Plenary Session</h3>
-                                <p>General Assembly final plenary session</p>
-                                <span class="event-type">Plenary</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">16.45 - 18.00</div>
-                                <div class="duration">1.25 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Special Plenary In Session</h3>
-                                <p>Specialized committee final plenary sessions</p>
-                                <span class="event-type">Plenary</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">16.45 - 18.00</div>
-                                <div class="duration">1.25 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Other Committees In Session</h3>
-                                <p>Additional committee final plenary sessions</p>
-                                <span class="event-type">Plenary</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">18.00 - 18.30</div>
-                                <div class="duration">30 minutes</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Coffee Break</h3>
-                                <p>Final refreshment break</p>
-                                <span class="event-type">Break</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">18.30 - 20.00</div>
-                                <div class="duration">1.5 hours</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Closing Ceremony</h3>
-                                <p>Official closing of ARELMUN'25 conference</p>
-                                <span class="event-type">All Participants</span>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="time-slot">
-                                <div class="time">20.00</div>
-                                <div class="duration">Evening</div>
-                            </div>
-                            <div class="event-details">
-                                <h3>Buses Depart</h3>
-                                <p>Final transportation from venue</p>
-                                <span class="event-type">Transportation</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="applications" id="applications">
-            <div class="container">
-                <h2 class="section-title">APPLICATION FORMS</h2>
-                <div class="application-grid">
-                    <div class="application-card">
-                        <div class="application-icon">
-                            <i class="fas fa-school"></i>
-                        </div>
-                        <div class="application-content">
-                            <h3>SCHOOLS AND GROUPS DELEGATION APPLICATION</h3>
-                            <p>Apply as a school or group delegation</p>
-                            <button class="btn-main btn-main-primary apply-form" data-form="school">Apply</button>
-                        </div>
-                    </div>
-                    
-                    <div class="application-card">
-                        <div class="application-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="application-content">
-                            <h3>INDIVIDUAL DELEGATE APPLICATION</h3>
-                            <p>Apply as an individual delegate</p>
-                            <button class="btn-main btn-main-primary apply-form" data-form="individual">Apply</button>
-                        </div>
-                    </div>
-                    
-                    <div class="application-card">
-                        <div class="application-icon">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="application-content">
-                            <h3>CHAIRBOARD APPLICATION</h3>
-                            <p>Apply for chairboard positions</p>
-                            <button class="btn-main btn-main-primary apply-form" data-form="chairboard">Apply</button>
-                        </div>
-                    </div>
-                    
-                    <div class="application-card">
-                        <div class="application-icon">
-                            <i class="fas fa-camera"></i>
-                        </div>
-                        <div class="application-content">
-                            <h3>PRESS TEAM MEMBER APPLICATION</h3>
-                            <p>Apply as a press team member</p>
-                            <button class="btn-main btn-main-primary apply-form" data-form="press">Apply</button>
-                        </div>
-                    </div>
-                    
-                    <div class="application-card">
-                        <div class="application-icon">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <div class="application-content">
-                            <h3>ADMINISTRATIVE STAFF MEMBER APPLICATION</h3>
-                            <p>Apply as an administrative staff member</p>
-                            <button class="btn-main btn-main-primary apply-form" data-form="admin-staff">Apply</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer id="contact">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-column">
-                        <h3>AREL MUN</h3>
-                        <p>Istanbul Arel University Model United Nations club aims to provide students with diplomacy, debate and leadership skills.</p>
-                        <div class="social-links">
-                            <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.tiktok.com/@arelmun23/" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        </div>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h3>Quick Links</h3>
-                        <ul class="footer-links">
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#schedule">Schedule</a></li>
-                            <li><a href="#applications">Applications</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h3>Contact</h3>
-                        <ul class="footer-links">
-                            <li><i class="fas fa-map-marker-alt"></i> YENIBOSNA MERKEZ, SELAHATTIN PINAR Sk. No 3, 34197 BAHÇELİEVLER/ISTANBUL</li>
-                            <li><i class="fas fa-phone"></i> 0535 547 70 46</li>
-                            <li><i class="fas fa-phone"></i> 0533 035 10 80</li>
-                            <li><i class="fas fa-envelope"></i> arelmun@gmail.com</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="location-navigation">
-                    <a href="https://www.google.com/maps/place/Bahçelievler+Arel+Koleji/@40.996583,28.838579,15z/data=!4m6!3m5!1s0x14cabd3c6e5b5a5b:0x2e6b8f1c8b3b3b3b!8m2!3d40.996583!4d28.838579!16s%2Fg%2F11b8z8z5z5?entry=ttu" target="_blank">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Navigate to Bahçelievler AREL Koleji</span>
-                    </a>
-                </div>
-                
-                <div class="footer-bottom">
-                    <p>Made by Lytra Development</p>
-                    <p>&copy; 2025 by ARELMUN</p>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Admin Panel -->
-    <div class="admin-panel">
-        <div class="admin-toggle" id="admin-toggle">
-            <i class="fas fa-cog"></i>
-        </div>
-    </div>
-
-    <div class="admin-modal" id="admin-modal">
-        <div class="admin-content">
-            <div class="admin-header">
-                <h2>Admin Panel</h2>
-                <button class="admin-close" id="admin-close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="admin-body" id="admin-body">
-                <!-- Login form will be shown by default -->
-                <div class="admin-login" id="admin-login">
-                    <h3>Admin Login</h3>
-                    <form class="login-form" id="login-form">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn-main btn-main-primary">Login</button>
-                    </form>
-                </div>
-                
-                <!-- Admin dashboard (hidden by default) -->
-                <div class="admin-dashboard" id="admin-dashboard" style="display: none;">
-                    <div class="admin-tabs">
-                        <button class="admin-tab active" data-tab="applications">Applications</button>
-                        <button class="admin-tab" data-tab="responses">Responses</button>
-                        <button class="admin-tab" data-tab="forms">Form Management</button>
-                        <button class="admin-tab" data-tab="stats">Statistics</button>
-                    </div>
-                    
-                    <div class="admin-tab-content active" id="applications-tab">
-                        <h3>Application Management</h3>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-number" id="total-applications">0</div>
-                                <div class="stat-label">Total Applications</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number" id="pending-applications">0</div>
-                                <div class="stat-label">Pending Applications</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number" id="approved-applications">0</div>
-                                <div class="stat-label">Approved Applications</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number" id="rejected-applications">0</div>
-                                <div class="stat-label">Rejected Applications</div>
-                            </div>
-                        </div>
-                        
-                        <table class="applications-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>School</th>
-                                    <th>Birth Date</th>
-                                    <th>Email</th>
-                                    <th>Form Type</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="applications-table-body">
-                                <!-- Applications will be populated here -->
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div class="admin-tab-content" id="responses-tab">
-                        <h3>View Responses</h3>
-                        <div class="form-group">
-                            <label for="response-applicant">Select Applicant</label>
-                            <select id="response-applicant" class="form-control">
-                                <option value="">Select an applicant</option>
-                            </select>
-                        </div>
-                        <div id="response-details">
-                            <!-- Response details will be shown here -->
-                        </div>
-                    </div>
-                    
-                    <div class="admin-tab-content" id="forms-tab">
-                        <h3>Form Management</h3>
-                        <div class="form-editor">
-                            <div class="form-selector">
-                                <label for="form-type-select">Select Form Type</label>
-                                <select id="form-type-select" class="form-control">
-                                    <option value="school">School Delegation</option>
-                                    <option value="individual">Individual Delegate</option>
-                                    <option value="chairboard">Chairboard</option>
-                                    <option value="press">Press Team</option>
-                                    <option value="admin-staff">Administrative Staff</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-preview" id="form-preview">
-                                <!-- Form preview will be shown here -->
-                            </div>
-                            
-                            <div class="form-editor-actions">
-                                <button class="btn-main btn-main-primary" id="edit-form-btn">Edit Form</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="admin-tab-content" id="stats-tab">
-                        <h3>Application Statistics</h3>
-                        <div id="applications-by-school">
-                            <!-- School statistics will be populated here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Response Viewer Modal -->
-    <div class="response-modal" id="response-modal">
-        <div class="response-content">
-            <div class="response-header">
-                <h2>Application Responses</h2>
-                <button class="response-close" id="response-close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="response-body" id="response-body">
-                <!-- Response details will be shown here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Notification Container -->
-    <div class="notification-container" id="notification-container">
-        <!-- Notifications will be added here -->
-    </div>
-
-    <script>
-        // Set current date for testing page
         document.getElementById('current-date').textContent = new Date().toLocaleDateString();
         
         // Enter site button functionality
@@ -1304,251 +392,43 @@
             
             // Simulate loading delay
             setTimeout(function() {
-                // Hide testing page and show main site
-                document.getElementById('testing-page').style.display = 'none';
-                document.getElementById('main-site').style.display = 'block';
+                // In a real implementation, you would redirect to the main site
+                // window.location.href = 'main-site.html';
                 
-                // Reset button (in case user goes back)
+                // For this demo, we'll just show an alert
+                alert('Redirecting to ARELMUN main site...\n\nIn a real implementation, this would take you to the actual website.');
+                
+                // Reset button
                 document.getElementById('enter-site').innerHTML = '<i class="fas fa-arrow-right"></i> Development Preview';
                 document.getElementById('enter-site').disabled = false;
-                
-                // Initialize main site functionality
-                initMainSite();
             }, 1500);
         });
         
         // Exit site button functionality
         document.getElementById('exit-site').addEventListener('click', function() {
             if (confirm('Are you sure you want to exit the testing environment?')) {
-                // Close the window or redirect
-                window.close();
+                // In a real implementation, you might redirect to a different page or close the window
+                // window.close(); or window.history.back();
+                
+                // For this demo, we'll just show an alert
+                alert('Exiting testing environment...\n\nIn a real implementation, this would close the window or redirect.');
             }
         });
         
-        // Main site initialization
-        function initMainSite() {
-            // Navigation Menu
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('nav-menu');
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.testing-container');
             
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                
-                if (navMenu.classList.contains('active')) {
-                    hamburger.innerHTML = '<i class="fas fa-times"></i>';
-                } else {
-                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            });
-            
-            document.addEventListener('click', (e) => {
-                if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-                    navMenu.classList.remove('active');
-                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            });
-            
-            // Scroll Header Effect
-            window.addEventListener('scroll', () => {
-                const header = document.querySelector('header');
-                if (window.scrollY > 100) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-            
-            // Day Tabs
-            const dayTabs = document.querySelectorAll('.day-tab');
-            const daySchedules = document.querySelectorAll('.day-schedule');
-            
-            dayTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const day = tab.getAttribute('data-day');
-                    
-                    // Remove active class from all tabs and schedules
-                    dayTabs.forEach(t => t.classList.remove('active'));
-                    daySchedules.forEach(s => s.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding schedule
-                    tab.classList.add('active');
-                    document.getElementById(day).classList.add('active');
-                });
-            });
-            
-            // Smooth scroll for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close mobile menu if open
-                        if (navMenu.classList.contains('active')) {
-                            navMenu.classList.remove('active');
-                            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-                        }
-                    }
-                });
-            });
-            
-            // Application form buttons
-            document.querySelectorAll('.apply-form').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const formType = button.getAttribute('data-form');
-                    alert(`This would open the ${formType} application form. In a real implementation, this would show a modal with the form.`);
-                });
-            });
-            
-            // Admin Panel Functionality
-            const adminToggle = document.getElementById('admin-toggle');
-            const adminModal = document.getElementById('admin-modal');
-            const adminClose = document.getElementById('admin-close');
-            const loginForm = document.getElementById('login-form');
-            const adminLogin = document.getElementById('admin-login');
-            const adminDashboard = document.getElementById('admin-dashboard');
-            const adminTabs = document.querySelectorAll('.admin-tab');
-            const adminTabContents = document.querySelectorAll('.admin-tab-content');
-            
-            // Open admin modal
-            adminToggle.addEventListener('click', () => {
-                adminModal.classList.add('active');
-            });
-            
-            // Close admin modal
-            adminClose.addEventListener('click', () => {
-                adminModal.classList.remove('active');
-            });
-            
-            // Close modal when clicking outside
-            adminModal.addEventListener('click', (e) => {
-                if (e.target === adminModal) {
-                    adminModal.classList.remove('active');
-                }
-            });
-            
-            // Admin login
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                
-                // Simple authentication
-                if (username === 'admin' && password === '1234') {
-                    adminLogin.style.display = 'none';
-                    adminDashboard.style.display = 'block';
-                    loadApplicationsData();
-                    loadFormPreview();
-                } else {
-                    showNotification('Error', 'Invalid credentials!', 'error');
-                }
-            });
-            
-            // Admin tabs
-            adminTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tabId = tab.getAttribute('data-tab');
-                    
-                    // Remove active class from all tabs and contents
-                    adminTabs.forEach(t => t.classList.remove('active'));
-                    adminTabContents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding content
-                    tab.classList.add('active');
-                    document.getElementById(`${tabId}-tab`).classList.add('active');
-                    
-                    // Load data for specific tabs
-                    if (tabId === 'responses') {
-                        loadResponseApplicants();
-                    } else if (tabId === 'forms') {
-                        loadFormPreview();
-                    }
-                });
-            });
-            
-            // Add some interactive elements
-            document.addEventListener('click', function(e) {
-                const container = document.querySelector('.testing-container');
-                
-                // Add click effect to testing container
-                if (container && e.target === container) {
-                    container.style.transform = 'scale(0.99)';
+            // Add click effect
+            container.addEventListener('click', function(e) {
+                if (e.target === container) {
+                    this.style.transform = 'scale(0.99)';
                     setTimeout(() => {
-                        container.style.transform = 'scale(1)';
+                        this.style.transform = 'scale(1)';
                     }, 150);
                 }
             });
-        }
-        
-        // Admin functions
-        function loadApplicationsData() {
-            // This would load applications from localStorage or API
-            document.getElementById('total-applications').textContent = '0';
-            document.getElementById('pending-applications').textContent = '0';
-            document.getElementById('approved-applications').textContent = '0';
-            document.getElementById('rejected-applications').textContent = '0';
-        }
-        
-        function loadFormPreview() {
-            // This would load form preview
-        }
-        
-        function loadResponseApplicants() {
-            // This would load response applicants
-        }
-        
-        function showNotification(title, message, type = 'info') {
-            const container = document.getElementById('notification-container');
-            const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
-            notification.innerHTML = `
-                <div class="notification-icon">
-                    <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation' : 'info'}"></i>
-                </div>
-                <div class="notification-content">
-                    <div class="notification-title">${title}</div>
-                    <div class="notification-message">${message}</div>
-                </div>
-                <button class="notification-close">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
-            
-            container.appendChild(notification);
-            
-            // Show notification with animation
-            setTimeout(() => {
-                notification.classList.add('active');
-            }, 100);
-            
-            // Auto remove after 5 seconds
-            setTimeout(() => {
-                closeNotification(notification);
-            }, 5000);
-            
-            // Close button event
-            notification.querySelector('.notification-close').addEventListener('click', () => {
-                closeNotification(notification);
-            });
-        }
-        
-        function closeNotification(notification) {
-            notification.classList.remove('active');
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }
+        });
     </script>
 </body>
 </html>
-
