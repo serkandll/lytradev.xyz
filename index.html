@@ -1,3 +1,6 @@
+<!-- This website was developed by Lytra Development-->
+<!-- Any usage without permission is going to result in a DMCA Alert.-->
+ <!--Kayra MEYDAN & Serkan TAŞKIN // for more information, please mail info@lytradev.com.-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,35 +29,35 @@
             --info: #4ecdc4;
         }
 
-.testing-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 20px;
-    color: var(--white);
-    z-index: 9999;
-    overflow-y: auto;
-}
+        .testing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+            color: var(--white);
+            z-index: 9999;
+            overflow-y: auto;
+        }
 
-.testing-container {
-    background: var(--white);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    padding: 30px 25px;
-    text-align: center;
-    max-width: 800px;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    color: var(--dark);
-    margin: 20px 0;
-}
+        .testing-container {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            padding: 30px 25px;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            color: var(--dark);
+            margin: 20px 0;
+        }
 
         .testing-container::before {
             content: '';
@@ -402,12 +405,6 @@
             }, 1500);
         });
         
-        document.getElementById('exit-site').addEventListener('click', function() {
-            if (confirm('Are you sure you want to exit the testing environment?')) {
-                alert('Exiting testing environment...\n\nIn a real implementation, this would close the window or redirect.');
-            }
-        });
-        
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.querySelector('.testing-container');
             
@@ -421,11 +418,7 @@
             });
         });
     </script>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARELMUN'25 Schedule</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
             --primary: #6a0dad;
@@ -591,6 +584,7 @@
         nav ul {
             display: flex;
             list-style: none;
+            align-items: center;
         }
 
         nav ul li {
@@ -626,6 +620,30 @@
 
         nav ul li a:hover:after {
             width: 100%;
+        }
+
+        .social-nav {
+            display: flex;
+            gap: 15px;
+            margin-left: 20px;
+        }
+
+        .social-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(106, 13, 173, 0.1);
+            border-radius: 50%;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .social-nav a:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
         }
 
         .hamburger {
@@ -1568,7 +1586,24 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
+        /* Mobile Optimizations */
         @media (max-width: 768px) {
+            .header-container {
+                padding: 10px 0;
+            }
+            
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.7rem;
+            }
+            
             nav ul {
                 display: none;
                 position: absolute;
@@ -1579,6 +1614,7 @@
                 flex-direction: column;
                 padding: 20px;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                z-index: 1000;
             }
             
             header.scrolled nav ul {
@@ -1593,8 +1629,18 @@
                 margin: 10px 0;
             }
             
+            .social-nav {
+                margin-left: 0;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            
             .hamburger {
                 display: block;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
             }
             
             .hero h1 {
@@ -1659,6 +1705,75 @@
                 flex-direction: column;
                 gap: 10px;
             }
+            
+            .form-content {
+                width: 95%;
+                max-height: 95vh;
+            }
+            
+            .form-body {
+                padding: 15px;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px; /* Prevents zoom on iOS */
+                padding: 14px 12px;
+            }
+            
+            .form-header {
+                padding: 15px;
+            }
+            
+            .form-footer {
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .form-footer .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .schedule-dates {
+                font-size: 1.5rem;
+            }
+            
+            .application-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-modal .admin-content {
+                width: 98%;
+                max-height: 95vh;
+            }
+            
+            .admin-body {
+                padding: 15px;
+            }
+            
+            .admin-header {
+                padding: 15px;
+            }
+            
+            .admin-tabs {
+                flex-direction: column;
+            }
+            
+            .admin-tab {
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -1679,6 +1794,10 @@
                     <li><a href="#schedule">Schedule</a></li>
                     <li><a href="#applications">Applications</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <div class="social-nav">
+                        <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@arelmun23/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
                 </ul>
             </nav>
             
@@ -2348,8 +2467,8 @@
             </div>
             
             <div class="footer-bottom">
-                <p>Made by Lytra Development</p>
-                <p>&copy; 2025 by ARELMUN</p>
+                <p>ARELMUN'25</p>
+                <p>&copy; 2025 by Lytradev</p>
             </div>
         </div>
     </footer>
@@ -2489,10 +2608,10 @@
 
     <script>
         const adminAccounts = {
-            'Kayra': 'lytradev145!',
-            'Beril': 'admin145!',
-            'Rengin': 'admin145!!',
-            'Kaan': 'admin145!!!'
+            'Kayra': btoa('lytradev145!'),
+            'Beril': btoa('admin145!'),
+            'Rengin': btoa('admin145!!'),
+            'Kaan': btoa('admin145!!!')
         };
 
         const formTemplates = {
@@ -2741,7 +2860,7 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            if (adminAccounts[username] && adminAccounts[username] === password) {
+            if (adminAccounts[username] && adminAccounts[username] === btoa(password)) {
                 currentAdmin = username;
                 adminLogin.style.display = 'none';
                 adminDashboard.style.display = 'block';
@@ -3339,5 +3458,3 @@
     </script>
 </body>
 </html>
-
-
