@@ -1,0 +1,941 @@
+<!--This website was developed by Lytra Development-->
+<!--Any usage of codes without permission will result in a DMCA notice.-->
+<!--Kayra MEYDAN // for more information, mail info@lytradev.com-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARELMUN'25 - Our Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/KvXAR6j.png">
+    <meta name="msapplication-TileColor" content="#6a0dad">
+    <meta name="theme-color" content="#6a0dad">
+    <style>
+        :root {
+            --primary: #6a0dad;
+            --primary-light: #8a2be2;
+            --primary-dark: #4b0082;
+            --secondary: #ffd700;
+            --white: #ffffff;
+            --light: #f8f8ff;
+            --dark: #333333;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        header.scrolled .logo-text h1,
+        header.scrolled nav ul li a,
+        header.scrolled .hamburger {
+            color: var(--white);
+        }
+
+        header.scrolled .social-nav a {
+            color: var(--white);
+        }
+
+        header.scrolled nav ul li a:after {
+            background: var(--white);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 50px;
+            transition: var(--transition);
+        }
+
+        header.scrolled .logo img {
+            content: url('https://i.imgur.com/KvXAR6j.png');
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            margin-bottom: 0;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        header.scrolled .logo-text p {
+            color: var(--white);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        header.scrolled nav ul li a:hover {
+            color: var(--secondary);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .social-nav {
+            display: flex;
+            gap: 15px;
+            margin-left: 20px;
+        }
+
+        .social-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(106, 13, 173, 0.1);
+            border-radius: 50%;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .social-nav a:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(106, 13, 173, 0.8), rgba(106, 13, 173, 0.9)), url('https://avatars.mds.yandex.net/get-altay/13206104/2a00000194e04e7c8d2aa85c947e12c1dcc8/orig');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 150px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .team-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .team-categories {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .team-member {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 5px solid var(--primary);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 5px solid var(--light);
+            overflow: hidden;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .member-photo i {
+            font-size: 4rem;
+            color: var(--primary);
+        }
+
+        .member-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .member-role {
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .member-description {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .member-contact {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .member-contact a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            border-radius: 50%;
+            color: var(--primary);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .member-contact a:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .advisors-section {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 50px;
+        }
+
+        .advisor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .advisor-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .advisor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .advisor-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .advisor-info h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .advisor-role {
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .location-navigation {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .location-navigation a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--white);
+            text-decoration: none;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+
+        .location-navigation a:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 10px 0;
+            }
+            
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.7rem;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                z-index: 1000;
+            }
+            
+            header.scrolled nav ul {
+                background: var(--primary);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .social-nav {
+                margin-left: 0;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero {
+                padding: 130px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .advisors-section {
+                padding: 30px 20px;
+            }
+            
+            .advisor-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .category-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://static.wixstatic.com/media/9a503f_1e3f21a13d1c4c06b0bfedd3d3ab68af~mv2.png/v1/fill/w_144,h_136,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a-JxjflAtJn-transformed%20(2)_edited_edite.png" alt="Arel MUN Logo">
+                <div class="logo-text">
+                    <h1>AREL MUN</h1>
+                    <p>Model United Nations</p>
+                </div>
+            </div>
+            
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="committees.html">Committees</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="applications.html">Applications</a></li>
+                    <li><a href="our-team.html">Our Team</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <div class="social-nav">
+                        <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@arelmun23/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Meet Our Team</h1>
+            <p>The dedicated individuals behind ARELMUN'25</p>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="container">
+            <div class="team-intro">
+                <h2 class="section-title">Executive Team</h2>
+                <p>Our team consists of passionate students who work tirelessly to make ARELMUN'25 an unforgettable experience for all participants.</p>
+            </div>
+
+            <div class="team-categories">
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>RENGİN ŞAHİN</h3>
+                            <div class="member-role">SECRETARY GENERAL</div>
+                            <p class="member-description">Leading the conference with diplomatic excellence and strategic vision.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>ZEYNEP NAZ BAYTAŞ</h3>
+                            <div class="member-role">DEPUTY SECRETARY GENERAL</div>
+                            <p class="member-description">Supporting the Secretary General in conference management and coordination.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>SELEN ARSLAN</h3>
+                            <div class="member-role">CONFERENCE MANAGER</div>
+                            <p class="member-description">Overseeing conference operations and event coordination.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-categories">
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>BERİL KARADENİZ</h3>
+                            <div class="member-role">PRESIDENT OF GENERAL ASSEMBLY</div>
+                            <p class="member-description">Presiding over General Assembly sessions and debates.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>LUKA IŞIL</h3>
+                            <div class="member-role">PRESIDENT OF SPECIAL ASSEMBLY</div>
+                            <p class="member-description">Leading Special Assembly discussions and procedures.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-categories">
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>KAYRA MEYDAN</h3>
+                            <div class="member-role">HEAD OF IT</div>
+                            <p class="member-description">Managing technical infrastructure and digital systems.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>KAAN DÖRTER</h3>
+                            <div class="member-role">CREATIVE DIRECTOR</div>
+                            <p class="member-description">Leading design and creative vision for the conference.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>DENİZ ÇALIŞKAN</h3>
+                            <div class="member-role">HEAD OF FINANCE</div>
+                            <p class="member-description">Managing budget and financial operations.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>CEYLİN RÜYA CEBE</h3>
+                            <div class="member-role">HEAD OF APPROVAL PANEL</div>
+                            <p class="member-description">Overseeing delegate applications and approvals.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>ELA GÜLÜSTAN</h3>
+                            <div class="member-role">HEAD OF PUBLIC RELATIONS</div>
+                            <p class="member-description">Managing communications and public outreach.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>HESNA DANIŞMAN</h3>
+                            <div class="member-role">HEAD OF ADMINISTRATIVE STAFF</div>
+                            <p class="member-description">Coordinating administrative operations and team management.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-truck-loading"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>ZÜMRA IŞIK</h3>
+                            <div class="member-role">HEAD OF LOGISTICS</div>
+                            <p class="member-description">Managing event logistics and operational coordination.</p>
+                            <div class="member-contact">
+                                <a href="mailto:arelmun@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AREL MUN</h3>
+                    <p>Istanbul Arel College Model United Nations club aims to provide students with diplomacy, debate and leadership skills.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@arelmun23/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="schedule.html">Schedule</a></li>
+                        <li><a href="applications.html">Applications</a></li>
+                        <li><a href="our-team.html">Our Team</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> YENIBOSNA MERKEZ, SELAHATTIN PINAR Sk. No 3, 34197 BAHÇELİEVLER/ISTANBUL</li>
+                        <li><i class="fas fa-phone"></i> 0535 547 70 46</li>
+                        <li><i class="fas fa-phone"></i> 0533 035 10 80</li>
+                        <li><i class="fas fa-envelope"></i> arelmun@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="location-navigation">
+                <a href="https://maps.app.goo.gl/q2Qz9Z3f55FRhKB88" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Navigate to Bahçelievler AREL Koleji</span>
+                </a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>ARELMUN'25</p>
+                <p>&copy; 2025 by Lytradev</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+            
+            if (navMenu.classList.contains('active')) {
+                hamburger.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        window.addEventListener('load', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const teamMembers = document.querySelectorAll('.team-member');
+            
+            teamMembers.forEach(member => {
+                member.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                member.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
