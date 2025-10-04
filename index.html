@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARELMUN'25 - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/KvXAR6j.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/KvXAR6j.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/KvXAR6j.png">
@@ -32,7 +35,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Source Sans 3', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         html {
@@ -43,6 +46,14 @@
             background-color: var(--white);
             color: var(--dark);
             line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .container {
@@ -56,13 +67,10 @@
             padding: 80px 0;
         }
 
-        h1, h2, h3, h4 {
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
         p {
             margin-bottom: 15px;
+            font-weight: 400;
+            line-height: 1.7;
         }
 
         .btn {
@@ -75,6 +83,7 @@
             cursor: pointer;
             border: none;
             font-size: 16px;
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         .btn-primary {
@@ -105,6 +114,7 @@
             text-align: center;
             margin-bottom: 50px;
             position: relative;
+            font-size: 2.2rem;
         }
 
         .section-title:after {
@@ -173,6 +183,7 @@
             margin-bottom: 0;
             color: var(--primary);
             transition: var(--transition);
+            font-family: 'Playfair Display', serif;
         }
 
         .logo-text p {
@@ -202,6 +213,7 @@
             font-weight: 500;
             transition: var(--transition);
             position: relative;
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         nav ul li a:hover {
@@ -274,12 +286,16 @@
             font-size: 3rem;
             margin-bottom: 20px;
             color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .hero p {
             font-size: 1.2rem;
             max-width: 700px;
             margin: 0 auto 30px;
+            font-weight: 400;
         }
 
         .cta-buttons {
@@ -312,6 +328,7 @@
 
         .about-text h2 {
             margin-bottom: 20px;
+            font-size: 2rem;
         }
 
         .about-image img {
@@ -356,6 +373,7 @@
             color: var(--primary);
             margin-bottom: 15px;
             font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
         }
 
         .highlight-content p {
@@ -380,6 +398,7 @@
             color: var(--white);
             margin-bottom: 20px;
             position: relative;
+            font-family: 'Playfair Display', serif;
         }
 
         .footer-column h3:after {
@@ -404,6 +423,7 @@
             color: rgba(255,255,255,0.8);
             text-decoration: none;
             transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         .footer-links a:hover {
@@ -455,6 +475,7 @@
             padding: 10px 20px;
             border-radius: 30px;
             transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         .location-navigation a:hover {
@@ -577,7 +598,7 @@
                     <li><a href="index.html#contact">Contact</a></li>
                     <div class="social-nav">
                         <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@arelmun25/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.tiktok.com/@arelmun23/" target="_blank"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </ul>
             </nav>
@@ -612,7 +633,51 @@
                     <p>Join us for an unforgettable experience that will challenge your perspectives, expand your horizons, and connect you with like-minded individuals from around the world.</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://cdn.discordapp.com/attachments/1385289017108463757/1424038293523402893/bb4442e6-fef8-43af-8f8b-11a01115cef9.jpeg?ex=68e27e82&is=68e12d02&hm=2c8bb9d71773a659a8073e221b822796b70fa1075673799b1867223e621f0095&" alt="ARELMUN">
+                    <img src="https://i.imgur.com/x5xRkRb.jpeg" alt="MUN Conference">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="highlights">
+        <div class="container">
+            <h2 class="section-title">Conference Highlights</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="highlight-content">
+                        <h3>Expert Committees</h3>
+                        <p>Participate in specialized committees simulating real UN bodies and international organizations.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="highlight-content">
+                        <h3>Diplomatic Debate</h3>
+                        <p>Engage in meaningful discussions on pressing global issues and develop diplomatic solutions.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="highlight-content">
+                        <h3>Networking</h3>
+                        <p>Connect with like-minded individuals and build relationships with future global leaders.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="highlight-content">
+                        <h3>Recognition</h3>
+                        <p>Outstanding delegates will be recognized with awards for their diplomatic skills and contributions.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -707,7 +772,3 @@
     </script>
 </body>
 </html>
-
-
-
-
