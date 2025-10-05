@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARELMUN'25 - Committees</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/KvXAR6j.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/KvXAR6j.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/KvXAR6j.png">
@@ -31,7 +34,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Source Sans 3', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         html {
@@ -42,6 +45,14 @@
             background-color: var(--white);
             color: var(--dark);
             line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .container {
@@ -55,13 +66,10 @@
             padding: 80px 0;
         }
 
-        h1, h2, h3, h4 {
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
         p {
             margin-bottom: 15px;
+            font-weight: 400;
+            line-height: 1.7;
         }
 
         .btn {
@@ -74,6 +82,7 @@
             cursor: pointer;
             border: none;
             font-size: 16px;
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         .btn-primary {
@@ -91,6 +100,7 @@
             text-align: center;
             margin-bottom: 50px;
             position: relative;
+            font-size: 2.2rem;
         }
 
         .section-title:after {
@@ -159,6 +169,7 @@
             margin-bottom: 0;
             color: var(--primary);
             transition: var(--transition);
+            font-family: 'Playfair Display', serif;
         }
 
         .logo-text p {
@@ -188,6 +199,7 @@
             font-weight: 500;
             transition: var(--transition);
             position: relative;
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         nav ul li a:hover {
@@ -260,12 +272,16 @@
             font-size: 3rem;
             margin-bottom: 20px;
             color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .hero p {
             font-size: 1.2rem;
             max-width: 700px;
             margin: 0 auto 30px;
+            font-weight: 400;
         }
 
         .committees-intro {
@@ -335,6 +351,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Playfair Display', serif;
         }
 
         .committee-content {
@@ -355,6 +372,7 @@
             font-weight: 600;
             margin-bottom: 20px;
             text-align: center;
+            font-family: 'Playfair Display', serif;
         }
 
         .agenda-item {
@@ -369,6 +387,7 @@
             color: var(--primary-dark);
             margin-bottom: 10px;
             font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
         }
 
         .agenda-item p {
@@ -386,6 +405,7 @@
             margin-bottom: 40px;
             color: var(--primary);
             font-size: 2rem;
+            font-family: 'Playfair Display', serif;
         }
 
         footer {
@@ -405,6 +425,7 @@
             color: var(--white);
             margin-bottom: 20px;
             position: relative;
+            font-family: 'Playfair Display', serif;
         }
 
         .footer-column h3:after {
@@ -429,6 +450,7 @@
             color: rgba(255,255,255,0.8);
             text-decoration: none;
             transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         .footer-links a:hover {
@@ -480,6 +502,7 @@
             padding: 10px 20px;
             border-radius: 30px;
             transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         .location-navigation a:hover {

@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARELMUN'25 - Schedule</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/KvXAR6j.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/KvXAR6j.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/KvXAR6j.png">
@@ -32,7 +35,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Source Sans 3', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         html {
@@ -43,6 +46,14 @@
             background-color: var(--white);
             color: var(--dark);
             line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .container {
@@ -56,13 +67,10 @@
             padding: 100px 0 80px;
         }
 
-        h1, h2, h3, h4 {
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
         p {
             margin-bottom: 15px;
+            font-weight: 400;
+            line-height: 1.7;
         }
 
         .btn {
@@ -75,6 +83,7 @@
             cursor: pointer;
             border: none;
             font-size: 16px;
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         .btn-primary {
@@ -92,6 +101,7 @@
             text-align: center;
             margin-bottom: 50px;
             position: relative;
+            font-size: 2.2rem;
         }
 
         .section-title:after {
@@ -160,6 +170,7 @@
             margin-bottom: 0;
             color: var(--primary);
             transition: var(--transition);
+            font-family: 'Playfair Display', serif;
         }
 
         .logo-text p {
@@ -189,6 +200,7 @@
             font-weight: 500;
             transition: var(--transition);
             position: relative;
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         nav ul li a:hover {
@@ -258,6 +270,7 @@
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
         }
 
         .schedule-subtitle {
@@ -282,6 +295,7 @@
             cursor: pointer;
             transition: var(--transition);
             border-bottom: 3px solid transparent;
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         .day-tab.active {
@@ -330,6 +344,7 @@
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
         }
 
         .time-slot .duration {
@@ -346,6 +361,7 @@
             color: var(--primary);
             margin-bottom: 10px;
             font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
         }
 
         .event-details p {
@@ -362,6 +378,7 @@
             font-size: 0.8rem;
             font-weight: 600;
             margin-top: 10px;
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         footer {
@@ -381,6 +398,7 @@
             color: var(--white);
             margin-bottom: 20px;
             position: relative;
+            font-family: 'Playfair Display', serif;
         }
 
         .footer-column h3:after {
@@ -405,6 +423,7 @@
             color: rgba(255,255,255,0.8);
             text-decoration: none;
             transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         .footer-links a:hover {
@@ -456,6 +475,7 @@
             padding: 10px 20px;
             border-radius: 30px;
             transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
         }
 
         .location-navigation a:hover {
@@ -585,7 +605,7 @@
         <div class="container">
             <div class="schedule-header">
                 <h2 class="section-title">CONFERENCE SCHEDULE</h2>
-                <div class="schedule-dates">5 - 6 - 7 December</div>
+                <div class="schedule-dates">5 - 6 - 7 DECEMBER</div>
                 <div class="schedule-subtitle">ARELMUN'25 Official Program</div>
             </div>
             
@@ -604,7 +624,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Registration</h3>
-                            <p></p>
+                            <p>Check-in and registration for all participants</p>
                             <span class="event-type">General</span>
                         </div>
                     </div>
@@ -616,7 +636,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Staff Briefing</h3>
-                            <p></p>
+                            <p>Briefing session for conference staff and volunteers</p>
                             <span class="event-type">Staff Only</span>
                         </div>
                     </div>
@@ -628,7 +648,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Opening Ceremony</h3>
-                            <p></p>
+                            <p>Official opening of ARELMUN'25 conference</p>
                             <span class="event-type">All Participants</span>
                         </div>
                     </div>
@@ -640,7 +660,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Coffee Break</h3>
-                            <p></p>
+                            <p>Refreshment break for all participants</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -652,7 +672,7 @@
                         </div>
                         <div class="event-details">
                             <h3>GA Plenary In Session</h3>
-                            <p></p>
+                            <p>General Assembly committees begin their work</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -664,7 +684,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Special Plenary In Session</h3>
-                            <p></p>
+                            <p>Specialized committees begin their work</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -676,7 +696,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Other Committees In Session</h3>
-                            <p></p>
+                            <p>Additional committee sessions</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -688,7 +708,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Lunch Break</h3>
-                            <p></p>
+                            <p>Lunch break for all participants</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -700,7 +720,7 @@
                         </div>
                         <div class="event-details">
                             <h3>All Committees In Session</h3>
-                            <p></p>
+                            <p>Committee work continues across all sessions</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -724,7 +744,7 @@
                         </div>
                         <div class="event-details">
                             <h3>All Committees In Session</h3>
-                            <p></p>
+                            <p>Final committee sessions of the day</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -736,7 +756,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Buses Depart</h3>
-                            <p>Transportation back to accommodation</p>
+                            <p></p>
                             <span class="event-type">Transportation</span>
                         </div>
                     </div>
@@ -764,7 +784,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Student Officer Meeting</h3>
-                            <p></p>
+                            <p>Briefing for student officers</p>
                             <span class="event-type">Officers Only</span>
                         </div>
                     </div>
@@ -776,7 +796,7 @@
                         </div>
                         <div class="event-details">
                             <h3>All Committees In Session</h3>
-                            <p></p>
+                            <p>Committee work continues</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -788,7 +808,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Coffee Break</h3>
-                            <p></p>
+                            <p>Refreshment break</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -800,7 +820,7 @@
                         </div>
                         <div class="event-details">
                             <h3>All Committees In Session</h3>
-                            <p></p>
+                            <p>Committee work continues</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -812,7 +832,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Lunch Break</h3>
-                            <p></p>
+                            <p>Lunch break for all participants</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -824,7 +844,7 @@
                         </div>
                         <div class="event-details">
                             <h3>All Committees In Session</h3>
-                            <p></p>
+                            <p>Committee work continues</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -836,7 +856,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Coffee Break</h3>
-                            <p></p>
+                            <p>Short refreshment break</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -848,7 +868,7 @@
                         </div>
                         <div class="event-details">
                             <h3>All Committees In Session</h3>
-                            <p></p>
+                            <p>Committee work continues</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -860,7 +880,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Coffee Break</h3>
-                            <p></p>
+                            <p>Short refreshment break</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -872,7 +892,7 @@
                         </div>
                         <div class="event-details">
                             <h3>All Committees In Session</h3>
-                            <p></p>
+                            <p>Final committee sessions of the day</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -896,7 +916,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Social Event</h3>
-                            <p></p>
+                            <p>Evening social gathering for participants</p>
                             <span class="event-type">Social</span>
                         </div>
                     </div>
@@ -924,7 +944,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Student Officer Briefing</h3>
-                            <p></p>
+                            <p>Final briefing for student officers</p>
                             <span class="event-type">Officers Only</span>
                         </div>
                     </div>
@@ -936,7 +956,7 @@
                         </div>
                         <div class="event-details">
                             <h3>All Committees In Session</h3>
-                            <p></p>
+                            <p>Final committee sessions</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -948,7 +968,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Coffee Break</h3>
-                            <p></p>
+                            <p>Refreshment break</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -960,7 +980,7 @@
                         </div>
                         <div class="event-details">
                             <h3>All Committees In Session</h3>
-                            <p></p>
+                            <p>Committee work continues</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -972,7 +992,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Lunch Break</h3>
-                            <p></p>
+                            <p>Lunch break for all participants</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -984,7 +1004,7 @@
                         </div>
                         <div class="event-details">
                             <h3>All Committees In Session</h3>
-                            <p></p>
+                            <p>Final committee work sessions</p>
                             <span class="event-type">Committee Session</span>
                         </div>
                     </div>
@@ -996,7 +1016,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Coffee Break</h3>
-                            <p></p>
+                            <p>Short refreshment break</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -1008,7 +1028,7 @@
                         </div>
                         <div class="event-details">
                             <h3>GA Plenary Session</h3>
-                            <p></p>
+                            <p>General Assembly plenary session</p>
                             <span class="event-type">Plenary</span>
                         </div>
                     </div>
@@ -1020,7 +1040,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Special Plenary In Session</h3>
-                            <p></p>
+                            <p>Specialized committee plenary sessions</p>
                             <span class="event-type">Plenary</span>
                         </div>
                     </div>
@@ -1032,7 +1052,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Other Committees In Session</h3>
-                            <p></p>
+                            <p>Additional committee plenary sessions</p>
                             <span class="event-type">Plenary</span>
                         </div>
                     </div>
@@ -1044,7 +1064,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Coffee Break</h3>
-                            <p></p>
+                            <p>Short refreshment break</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -1056,7 +1076,7 @@
                         </div>
                         <div class="event-details">
                             <h3>GA Plenary Session</h3>
-                            <p></p>
+                            <p>General Assembly final plenary session</p>
                             <span class="event-type">Plenary</span>
                         </div>
                     </div>
@@ -1068,7 +1088,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Special Plenary In Session</h3>
-                            <p></p>
+                            <p>Specialized committee final plenary sessions</p>
                             <span class="event-type">Plenary</span>
                         </div>
                     </div>
@@ -1080,7 +1100,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Other Committees In Session</h3>
-                            <p></p>
+                            <p>Additional committee final plenary sessions</p>
                             <span class="event-type">Plenary</span>
                         </div>
                     </div>
@@ -1092,7 +1112,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Coffee Break</h3>
-                            <p></p>
+                            <p>Final refreshment break</p>
                             <span class="event-type">Break</span>
                         </div>
                     </div>
@@ -1104,7 +1124,7 @@
                         </div>
                         <div class="event-details">
                             <h3>Closing Ceremony</h3>
-                            <p></p>
+                            <p>Official closing of ARELMUN'25 conference</p>
                             <span class="event-type">All Participants</span>
                         </div>
                     </div>
@@ -1130,7 +1150,7 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>AREL MUN</h3>
-                    <p>Istanbul Arel University Model United Nations club aims to provide students with diplomacy, debate and leadership skills.</p>
+                    <p>Istanbul Arel College Model United Nations club aims to provide students with diplomacy, debate and leadership skills.</p>
                     <div class="social-links">
                         <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.tiktok.com/@arelmun23/" target="_blank"><i class="fab fa-tiktok"></i></a>
