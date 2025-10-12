@@ -308,11 +308,206 @@
             color: var(--success);
             font-size: 0.9rem;
         }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(74, 123, 255, 0.2);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .admin-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--success), var(--accent));
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(74, 123, 255, 0.2);
+        }
+
+        .admin-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-title i {
+            font-size: 2.5rem;
+            color: var(--success);
+        }
+
+        .admin-title h1 {
+            margin: 0;
+            text-align: left;
+        }
+
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .file-card {
+            background: rgba(45, 62, 95, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid rgba(74, 123, 255, 0.2);
+        }
+
+        .file-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent);
+        }
+
+        .file-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .file-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text);
+            word-break: break-all;
+        }
+
+        .file-path {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            word-break: break-all;
+        }
+
+        .file-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .no-files {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        .no-files i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--warning);
+        }
+
+        .admin-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(74, 123, 255, 0.2);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        .loading i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .folder-structure {
+            background: rgba(45, 62, 95, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .folder-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .file-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .file-item {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(74, 123, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-item:hover {
+            background: rgba(74, 123, 255, 0.1);
+            padding-left: 10px;
+        }
+
+        .file-item i {
+            color: var(--accent);
+            width: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="test-banner">
+        <div class="test-banner" id="loginPage">
             <div class="test-icon">
                 <i class="fas fa-lock"></i>
             </div>
@@ -347,6 +542,38 @@
             
             <div class="footer">
                 &copy; 2025 Lytra Development. All rights reserved. | Testing Website
+            </div>
+        </div>
+
+        <div class="admin-panel" id="adminPanel">
+            <div class="admin-header">
+                <div class="admin-title">
+                    <i class="fas fa-cogs"></i>
+                    <div>
+                        <h1>Admin Panel</h1>
+                        <p>Available HTML Files</p>
+                    </div>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+            
+            <div class="folder-structure">
+                <div class="folder-title">
+                    <i class="fas fa-folder"></i>
+                    <h3>Repository Structure</h3>
+                </div>
+                <div id="fileStructure">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Scanning repository for HTML files...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-footer">
+                &copy; 2025 Lytra Development. Admin Panel v2.1.0
             </div>
         </div>
     </div>
@@ -386,6 +613,15 @@
         const closeModal = document.getElementById('closeModal');
         const loginForm = document.getElementById('loginForm');
         const errorMessage = document.getElementById('errorMessage');
+        const loginPage = document.getElementById('loginPage');
+        const adminPanel = document.getElementById('adminPanel');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const fileStructure = document.getElementById('fileStructure');
+
+        const knownFiles = [
+            'index.html',
+            'lytradevissocooldotcom.html'
+        ];
 
         loginBtn.addEventListener('click', function() {
             loginModal.style.display = 'flex';
@@ -429,7 +665,10 @@
                 submitBtn.disabled = true;
                 
                 setTimeout(function() {
-                    window.location.href = 'lytradevissocooldotcom.html';
+                    loginModal.style.display = 'none';
+                    loginPage.style.display = 'none';
+                    adminPanel.style.display = 'block';
+                    scanForHTMLFiles();
                 }, 1500);
             } else {
                 errorMessage.style.display = 'block';
@@ -441,6 +680,156 @@
                 }, 500);
             }
         });
+
+        logoutBtn.addEventListener('click', function() {
+            adminPanel.style.display = 'none';
+            loginPage.style.display = 'block';
+            resetForm();
+        });
+
+        async function scanForHTMLFiles() {
+            fileStructure.innerHTML = `
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Scanning repository for HTML files...</p>
+                </div>
+            `;
+
+            const foundFiles = [];
+            const checkedFiles = new Set();
+
+            for (const file of knownFiles) {
+                if (!checkedFiles.has(file)) {
+                    checkedFiles.add(file);
+                    if (await checkFileExists(file)) {
+                        foundFiles.push({
+                            name: file,
+                            path: file,
+                            type: 'file'
+                        });
+                    }
+                }
+            }
+
+            const commonPaths = [
+                '',
+                'pages/',
+                'templates/',
+                'views/',
+                'admin/',
+                'dashboard/',
+                'src/',
+                'public/'
+            ];
+
+            const commonFileNames = [
+                'index', 'home', 'main', 'app', 'dashboard', 'admin', 
+                'login', 'register', 'profile', 'settings', 'about',
+                'contact', 'portfolio', 'blog', 'shop', 'product'
+            ];
+
+            for (const path of commonPaths) {
+                for (const name of commonFileNames) {
+                    const filePath = `${path}${name}.html`;
+                    if (!checkedFiles.has(filePath)) {
+                        checkedFiles.add(filePath);
+                        if (await checkFileExists(filePath)) {
+                            foundFiles.push({
+                                name: `${name}.html`,
+                                path: filePath,
+                                type: 'file'
+                            });
+                        }
+                    }
+                }
+            }
+
+            displayFileStructure(foundFiles);
+        }
+
+        async function checkFileExists(url) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                return response.ok && response.headers.get('content-type')?.includes('text/html');
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function displayFileStructure(files) {
+            if (files.length === 0) {
+                fileStructure.innerHTML = `
+                    <div class="no-files">
+                        <i class="fas fa-folder-open"></i>
+                        <h3>No HTML Files Found</h3>
+                        <p>No HTML files were detected in the repository.</p>
+                        <p class="hint">Try adding files to the knownFiles array in the script.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const filesByDir = {};
+            files.forEach(file => {
+                const pathParts = file.path.split('/');
+                const fileName = pathParts.pop();
+                const directory = pathParts.join('/') || '/';
+                
+                if (!filesByDir[directory]) {
+                    filesByDir[directory] = [];
+                }
+                
+                filesByDir[directory].push({
+                    name: fileName,
+                    path: file.path,
+                    type: 'file'
+                });
+            });
+
+            let html = '<ul class="file-list">';
+            
+            const sortedDirs = Object.keys(filesByDir).sort();
+            
+            sortedDirs.forEach(dir => {
+                const displayDir = dir === '/' ? 'Root' : dir;
+                html += `
+                    <li>
+                        <div class="folder-title">
+                            <i class="fas fa-folder"></i>
+                            <strong>${displayDir}</strong>
+                        </div>
+                        <ul class="file-list">
+                `;
+                
+                filesByDir[dir].sort((a, b) => a.name.localeCompare(b.name));
+                
+                filesByDir[dir].forEach(file => {
+                    html += `
+                        <li class="file-item" onclick="navigateToFile('${file.path}')">
+                            <i class="fab fa-html5"></i>
+                            <span>${file.name}</span>
+                            <small style="margin-left: auto; color: var(--text-secondary);">${file.path}</small>
+                        </li>
+                    `;
+                });
+                
+                html += '</ul></li>';
+            });
+            
+            html += '</ul>';
+            fileStructure.innerHTML = html;
+        }
+
+        function navigateToFile(filePath) {
+            window.location.href = filePath;
+        }
+
+        knownFiles.push(
+            'lytradevissocooldotcom.html',
+            'lytradevissocooldotcom2.html',
+            'lytradevissocooldotcom3.html',
+            'lytradevissocooldotcom4.html'
+        );
 
         const style = document.createElement('style');
         style.textContent = `
