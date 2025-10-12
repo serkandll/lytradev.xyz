@@ -1,1340 +1,716 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LytrAI - Akıllı Asistanınız</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>LytrAI - Your AI Assistant</title>
     <style>
         :root {
-            --primary: #4a00e0;
-            --secondary: #8e2de2;
-            --accent: #00c6ff;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
+            --primary: #6d28d9;
+            --primary-dark: #5b21b6;
+            --secondary: #10b981;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --gray-light: #e5e7eb;
+            --danger: #ef4444;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: var(--dark);
-            min-height: 100vh;
+            background-color: #0f172a;
+            color: var(--light);
+            height: 100vh;
             display: flex;
             flex-direction: column;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            width: 100%;
         }
-
+        
         /* Header Styles */
         header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
         }
-
+        
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 0;
         }
-
+        
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 24px;
-            font-weight: 700;
         }
-
+        
         .logo-icon {
-            font-size: 28px;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
         nav ul {
             display: flex;
             list-style: none;
             gap: 25px;
         }
-
-        nav ul li a {
-            color: white;
+        
+        nav a {
+            color: var(--light);
             text-decoration: none;
             font-weight: 500;
-            transition: opacity 0.3s;
-            padding: 8px 12px;
-            border-radius: 4px;
+            transition: color 0.3s;
         }
-
-        nav ul li a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        
+        nav a:hover {
+            color: var(--secondary);
         }
-
-        .user-info {
+        
+        .auth-buttons {
             display: flex;
-            align-items: center;
             gap: 15px;
         }
-
-        .user-type {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 14px;
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 0.9rem;
         }
-
-        .user-type.admin {
-            background-color: var(--accent);
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray);
+            color: var(--light);
         }
-
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
         /* Main Content */
         main {
             flex: 1;
-            padding: 40px 0;
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 30px;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background-color: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            height: fit-content;
-        }
-
-        .user-card {
-            text-align: center;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--light-gray);
-        }
-
-        .avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 32px;
-        }
-
-        .user-name {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .usage-stats {
-            margin-top: 25px;
-        }
-
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--light-gray);
-        }
-
-        .stat-label {
-            color: var(--gray);
-        }
-
-        .stat-value {
-            font-weight: 600;
-        }
-
-        .admin-panel {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid var(--light-gray);
-        }
-
-        .admin-panel h3 {
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-
-        .admin-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 10px;
-            transition: background-color 0.3s;
-        }
-
-        .admin-btn:hover {
-            background-color: #00b3e6;
-        }
-
-        /* Chat Area */
-        .chat-area {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
-            height: 600px;
+            padding: 40px 0;
         }
-
+        
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-light);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .chat-container {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+        
         .chat-header {
             padding: 20px;
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
-
-        .chat-title {
-            font-size: 20px;
+        
+        .chat-header h2 {
+            font-size: 1.2rem;
             font-weight: 600;
         }
-
-        .new-chat-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background-color 0.3s;
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            animation: pulse 2s infinite;
         }
-
-        .new-chat-btn:hover {
-            background-color: #3a00b3;
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
-
+        
         .chat-messages {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
-
+        
         .message {
-            max-width: 80%;
+            display: flex;
+            gap: 12px;
+            max-width: 85%;
+        }
+        
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .user .avatar {
+            background: var(--primary);
+        }
+        
+        .ai .avatar {
+            background: var(--secondary);
+        }
+        
+        .message-content {
             padding: 12px 16px;
             border-radius: 18px;
             line-height: 1.5;
         }
-
-        .user-message {
-            align-self: flex-end;
-            background-color: var(--primary);
-            color: white;
-            border-bottom-right-radius: 4px;
+        
+        .user .message-content {
+            background: var(--primary);
+            border-top-right-radius: 4px;
         }
-
-        .ai-message {
-            align-self: flex-start;
-            background-color: var(--light-gray);
-            border-bottom-left-radius: 4px;
+        
+        .ai .message-content {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top-left-radius: 4px;
         }
-
-        .message-time {
-            font-size: 12px;
-            opacity: 0.7;
-            margin-top: 5px;
-            text-align: right;
-        }
-
-        .chat-input-area {
+        
+        .chat-input-container {
             padding: 20px;
-            border-top: 1px solid var(--light-gray);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .chat-input-wrapper {
             display: flex;
             gap: 10px;
+            align-items: flex-end;
         }
-
+        
         .chat-input {
             flex: 1;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             padding: 12px 16px;
-            border: 1px solid var(--light-gray);
-            border-radius: 24px;
-            outline: none;
-            font-size: 16px;
+            color: var(--light);
+            font-size: 1rem;
+            resize: none;
+            min-height: 50px;
+            max-height: 120px;
         }
-
+        
         .chat-input:focus {
+            outline: none;
             border-color: var(--primary);
         }
-
+        
         .send-btn {
-            background-color: var(--primary);
+            background: var(--primary);
             color: white;
             border: none;
+            border-radius: 12px;
             width: 50px;
             height: 50px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background 0.3s;
         }
-
+        
         .send-btn:hover {
-            background-color: #3a00b3;
+            background: var(--primary-dark);
         }
-
+        
         .send-btn:disabled {
-            background-color: var(--gray);
+            background: var(--gray);
             cursor: not-allowed;
         }
-
-        .limits-info {
-            padding: 10px 20px;
-            background-color: var(--light-gray);
-            font-size: 14px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 30px 0 20px;
-            margin-top: 40px;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .footer-section {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 20px;
-            color: var(--accent);
-        }
-
-        .footer-section p, .footer-section a {
-            color: #adb5bd;
-            line-height: 1.6;
-            text-decoration: none;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            margin-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #adb5bd;
-        }
-
-        /* Login Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            border-radius: 12px;
-            padding: 30px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-header {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--light-gray);
-            border-radius: 6px;
-            font-size: 16px;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #3a00b3;
-        }
-
-        .btn-secondary {
-            background-color: var(--gray);
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
-        }
-
-        .login-options {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .login-option {
-            flex: 1;
-            padding: 10px;
-            background-color: var(--light-gray);
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .login-option:hover {
-            background-color: #dae0e5;
-        }
-
-        .login-option.active {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                order: 2;
-            }
-            
-            .chat-area {
-                order: 1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            nav ul {
-                gap: 15px;
-            }
-            
-            .chat-messages {
-                padding: 15px;
-            }
-            
-            .message {
-                max-width: 90%;
-            }
-        }
-
+        
         .typing-indicator {
-            display: inline-block;
+            display: flex;
+            gap: 5px;
             padding: 12px 16px;
-            background-color: var(--light-gray);
-            border-radius: 18px;
-            border-bottom-left-radius: 4px;
-            align-self: flex-start;
+            align-items: center;
+            color: var(--gray);
         }
-
+        
+        .typing-dots {
+            display: flex;
+            gap: 3px;
+        }
+        
         .typing-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background-color: var(--gray);
-            margin: 0 2px;
             animation: typing 1.4s infinite ease-in-out;
         }
-
+        
         .typing-dot:nth-child(1) { animation-delay: -0.32s; }
         .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-
+        
         @keyframes typing {
             0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
             40% { transform: scale(1); opacity: 1; }
         }
-
-        .image-upload {
+        
+        /* Features Section */
+        .features {
+            margin-top: 80px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
         }
-
-        .image-upload-btn {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
         }
-
-        .chat-history {
-            margin-top: 20px;
+        
+        .feature-description {
+            color: var(--gray-light);
+            line-height: 1.6;
         }
-
-        .chat-history-item {
-            padding: 10px;
-            border-bottom: 1px solid var(--light-gray);
-            cursor: pointer;
-            transition: background-color 0.2s;
+        
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 0;
+            margin-top: 80px;
         }
-
-        .chat-history-item:hover {
-            background-color: var(--light-gray);
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
-        .chat-history-item.active {
-            background-color: var(--primary);
-            color: white;
+        
+        .footer-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .message {
+                max-width: 95%;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">LytrAI'ye Hoş Geldiniz</h2>
-                <p>Hesap türünüzü seçin</p>
-            </div>
-            <div class="login-options">
-                <button class="login-option active" data-type="admin">Admin Hesabı</button>
-                <button class="login-option" data-type="user">Düz Hesap</button>
-            </div>
-            <div class="form-group">
-                <label for="username">Kullanıcı Adı</label>
-                <input type="text" id="username" class="form-control" placeholder="Kullanıcı adınızı girin">
-            </div>
-            <button class="btn" id="loginBtn">Giriş Yap</button>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header style="display: none;" id="mainHeader">
+    <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <span class="logo-icon">🧠</span>
-                    <span>LytrAI</span>
+                    <div class="logo-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">LytrAI</div>
                 </div>
+                
                 <nav>
                     <ul>
-                        <li><a href="#" class="active" id="chatLink">Sohbet</a></li>
-                        <li><a href="#" id="trainingLink">Eğitim</a></li>
-                        <li><a href="#" id="historyLink">Geçmiş</a></li>
-                        <li><a href="#" id="helpLink">Yardım</a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">About</a></li>
                     </ul>
                 </nav>
-                <div class="user-info">
-                    <div class="user-type" id="userTypeDisplay">Admin</div>
-                    <div id="usernameDisplay">Ahmet Yılmaz</div>
-                    <button id="logoutBtn" style="background: none; border: none; color: white; cursor: pointer;">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </button>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-outline">Log In</button>
+                    <button class="btn btn-primary">Sign Up</button>
                 </div>
             </div>
         </div>
     </header>
-
-    <!-- Main Content -->
-    <main style="display: none;" id="mainContent">
+    
+    <main>
         <div class="container">
-            <div class="dashboard">
-                <!-- Sidebar -->
-                <div class="sidebar">
-                    <div class="user-card">
-                        <div class="avatar" id="userAvatar">A</div>
-                        <div class="user-name" id="sidebarUsername">Ahmet Yılmaz</div>
-                        <div class="user-type" id="sidebarUserType">Admin Hesabı</div>
-                    </div>
-                    
-                    <div class="usage-stats">
-                        <h3>Kullanım İstatistikleri</h3>
-                        <div class="stat-item">
-                            <span class="stat-label">Kullanılan Mesaj</span>
-                            <span class="stat-value" id="messageCount">0 / 20</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Kullanılan Görsel</span>
-                            <span class="stat-value" id="imageCount">0 / 3</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Aktif Sohbetler</span>
-                            <span class="stat-value" id="activeChats">1</span>
-                        </div>
-                    </div>
-                    
-                    <div class="admin-panel" id="adminPanel">
-                        <h3>Admin Kontrolleri</h3>
-                        <button class="admin-btn" id="trainingModuleBtn">Genel Eğitim Modülü</button>
-                        <button class="admin-btn" id="userManagementBtn">Kullanıcı Yönetimi</button>
-                        <button class="admin-btn" id="systemSettingsBtn">Sistem Ayarları</button>
-                        <button class="admin-btn" id="analyticsBtn">Analiz Raporları</button>
-                    </div>
-
-                    <div class="chat-history" id="chatHistoryPanel">
-                        <h3>Sohbet Geçmişi</h3>
-                        <div id="chatHistoryList">
-                            <!-- Chat history will be populated here -->
+            <section class="hero">
+                <h1>Your AI Assistant for Everything</h1>
+                <p>Ask me anything, and I'll respond like a human. A single conversational interface that understands natural language and generates relevant replies.</p>
+                <button class="btn btn-primary" style="padding: 12px 30px; font-size: 1.1rem;">Start Chatting</button>
+            </section>
+            
+            <section class="chat-container">
+                <div class="chat-header">
+                    <div class="status-indicator"></div>
+                    <h2>LytrAI Assistant</h2>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai">
+                        <div class="avatar">AI</div>
+                        <div class="message-content">
+                            Hello! I'm LytrAI, your AI assistant. How can I help you today?
                         </div>
                     </div>
                 </div>
                 
-                <!-- Chat Area -->
-                <div class="chat-area">
-                    <div class="chat-header">
-                        <div class="chat-title">LytrAI Asistan - <span id="currentChatTitle">Yeni Sohbet</span></div>
-                        <button class="new-chat-btn" id="newChatBtn">Yeni Sohbet</button>
-                    </div>
-                    
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="message ai-message">
-                            Merhaba! Ben LytrAI, size nasıl yardımcı olabilirim?
-                            <div class="message-time" id="initialTime">10:24</div>
-                        </div>
-                    </div>
-                    
-                    <div class="limits-info" id="limitsInfo">
-                        <span id="memoryInfo">Admin Hesabı: Tüm sohbetlerde hafıza aktif</span>
-                        <span id="trainingInfo">Genel eğitim modülüne erişim: Var</span>
-                    </div>
-                    
-                    <div class="chat-input-area">
-                        <input type="text" class="chat-input" id="chatInput" placeholder="LytrAI'ye bir mesaj yazın...">
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper">
+                        <textarea class="chat-input" id="chatInput" placeholder="Type your message here..." rows="1"></textarea>
                         <button class="send-btn" id="sendBtn">
-                            <i class="fas fa-paper-plane"></i>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </button>
-                    </div>
-                    <div class="image-upload">
-                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-                        <button class="image-upload-btn" id="imageUploadBtn">
-                            <i class="fas fa-image"></i> Görsel Yükle
-                        </button>
-                        <span id="imageUploadStatus"></span>
                     </div>
                 </div>
-            </div>
+            </section>
+            
+            <section class="features">
+                <h2 class="section-title">Why Choose LytrAI</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15848 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 17H12.01" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Natural Conversations</h3>
+                        <p class="feature-description">Engage in fluid, human-like conversations with our advanced AI that understands context and nuance.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 20H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16.5 3.5C16.8978 3.10217 17.4374 2.87868 18 2.87868C18.2786 2.87868 18.5544 2.93353 18.8118 3.04015C19.0692 3.14676 19.303 3.30301 19.5 3.5C19.697 3.69698 19.8532 3.93083 19.9598 4.1882C20.0665 4.44557 20.1213 4.72142 20.1213 5C20.1213 5.27858 20.0665 5.55443 19.9598 5.8118C19.8532 6.06917 19.697 6.30302 19.5 6.5L7 19L3 20L4 16L16.5 3.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Writing Assistance</h3>
+                        <p class="feature-description">Get help with writing, editing, and brainstorming ideas for any type of content or project.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 2V8H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 9H9H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Code Generation</h3>
+                        <p class="feature-description">Generate code snippets, debug programs, and get programming help in multiple languages.</p>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
-
-    <!-- Training Modal -->
-    <div class="modal" id="trainingModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Genel Eğitim Modülü</h2>
-                <p>LytrAI'yi genel olarak eğitin</p>
-            </div>
-            <div class="form-group">
-                <label for="trainingInput">Eğitim Komutu</label>
-                <textarea id="trainingInput" class="form-control" rows="4" placeholder="LytrAI'ye öğretmek istediğiniz bilgiyi girin..."></textarea>
-            </div>
-            <div class="form-group">
-                <label for="trainingResponse">AI Yanıtı</label>
-                <textarea id="trainingResponse" class="form-control" rows="4" placeholder="AI'nın vereceği yanıtı belirleyin..."></textarea>
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn" id="saveTrainingBtn">Eğitimi Kaydet</button>
-                <button class="btn btn-secondary" id="closeTrainingBtn">Kapat</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer style="display: none;" id="mainFooter">
+    
+    <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h3>LytrAI Hakkında</h3>
-                    <p>LytrAI, gelişmiş yapay zeka teknolojisi ile kullanıcılarına kişisel asistan hizmeti sunan bir platformdur.</p>
+                <div class="logo">
+                    <div class="logo-text">LytrAI</div>
                 </div>
-                <div class="footer-section">
-                    <h3>Hızlı Bağlantılar</h3>
-                    <p><a href="#">Ana Sayfa</a></p>
-                    <p><a href="#">Özellikler</a></p>
-                    <p><a href="#">Fiyatlandırma</a></p>
-                    <p><a href="#">SSS</a></p>
+                
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
                 </div>
-                <div class="footer-section">
-                    <h3>İletişim</h3>
-                    <p>Email: info@lytrai.com</p>
-                    <p>Telefon: +90 212 555 12 34</p>
-                    <p>Adres: Teknopark İstanbul, TR</p>
+                
+                <div class="copyright">
+                    &copy; 2023 LytrAI. All rights reserved.
                 </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 LytrAI. Tüm hakları saklıdır.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // API anahtarını buraya girin
-        const OPENAI_API_KEY = "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";
-        
-        // Uygulama durumu
-        const state = {
-            currentUser: null,
-            userType: 'admin',
-            messageCount: 0,
-            imageCount: 0,
-            currentChatId: null,
-            chats: {},
-            isTyping: false,
-            memoryEnabled: true,
-            trainingData: [],
-            currentChatMessages: []
-        };
-
-        // DOM Elementleri
-        const loginModal = document.getElementById('loginModal');
-        const mainHeader = document.getElementById('mainHeader');
-        const mainContent = document.getElementById('mainContent');
-        const mainFooter = document.getElementById('mainFooter');
-        const loginBtn = document.getElementById('loginBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const userTypeDisplay = document.getElementById('userTypeDisplay');
-        const usernameDisplay = document.getElementById('usernameDisplay');
-        const sidebarUsername = document.getElementById('sidebarUsername');
-        const sidebarUserType = document.getElementById('sidebarUserType');
-        const userAvatar = document.getElementById('userAvatar');
-        const messageCount = document.getElementById('messageCount');
-        const imageCount = document.getElementById('imageCount');
-        const activeChats = document.getElementById('activeChats');
-        const adminPanel = document.getElementById('adminPanel');
+        // DOM Elements
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
-        const newChatBtn = document.getElementById('newChatBtn');
-        const memoryInfo = document.getElementById('memoryInfo');
-        const trainingInfo = document.getElementById('trainingInfo');
-        const trainingLink = document.getElementById('trainingLink');
-        const trainingModal = document.getElementById('trainingModal');
-        const trainingModuleBtn = document.getElementById('trainingModuleBtn');
-        const trainingInput = document.getElementById('trainingInput');
-        const trainingResponse = document.getElementById('trainingResponse');
-        const saveTrainingBtn = document.getElementById('saveTrainingBtn');
-        const closeTrainingBtn = document.getElementById('closeTrainingBtn');
-        const loginOptions = document.querySelectorAll('.login-option');
-        const usernameInput = document.getElementById('username');
-        const imageUpload = document.getElementById('imageUpload');
-        const imageUploadBtn = document.getElementById('imageUploadBtn');
-        const imageUploadStatus = document.getElementById('imageUploadStatus');
-        const chatHistoryList = document.getElementById('chatHistoryList');
-        const currentChatTitle = document.getElementById('currentChatTitle');
-        const chatHistoryPanel = document.getElementById('chatHistoryPanel');
-
-        // Uygulama başlatma
-        document.addEventListener('DOMContentLoaded', function() {
-            // Login modalını göster
-            loginModal.style.display = 'flex';
-            
-            // Login seçeneklerini ayarla
-            loginOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    loginOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                    state.userType = this.dataset.type;
-                });
-            });
-            
-            // Login butonu
-            loginBtn.addEventListener('click', handleLogin);
-            
-            // Logout butonu
-            logoutBtn.addEventListener('click', handleLogout);
-            
-            // Mesaj gönderme
-            sendBtn.addEventListener('click', sendMessage);
-            chatInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            });
-            
-            // Yeni sohbet
-            newChatBtn.addEventListener('click', startNewChat);
-            
-            // Eğitim modülü
-            trainingLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (state.userType === 'admin') {
-                    openTrainingModal();
-                } else {
-                    alert('Eğitim modülüne erişim yetkiniz yok. Yalnızca admin hesapları LytrAI\'yi genel olarak eğitebilir.');
-                }
-            });
-            
-            trainingModuleBtn.addEventListener('click', openTrainingModal);
-            closeTrainingBtn.addEventListener('click', function() {
-                trainingModal.style.display = 'none';
-            });
-            
-            saveTrainingBtn.addEventListener('click', saveTraining);
-            
-            // Görsel yükleme
-            imageUploadBtn.addEventListener('click', function() {
-                imageUpload.click();
-            });
-            
-            imageUpload.addEventListener('change', handleImageUpload);
-            
-            // Admin panel butonları
-            document.getElementById('userManagementBtn').addEventListener('click', function() {
-                alert('Kullanıcı yönetimi paneli açılıyor...');
-            });
-            
-            document.getElementById('systemSettingsBtn').addEventListener('click', function() {
-                alert('Sistem ayarları paneli açılıyor...');
-            });
-            
-            document.getElementById('analyticsBtn').addEventListener('click', function() {
-                alert('Analiz raporları paneli açılıyor...');
-            });
-            
-            // Sayfa yüklendiğinde yeni sohbet başlat
-            startNewChat();
+        
+        // Auto-resize textarea
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
         });
-
-        // Giriş işlemi
-        function handleLogin() {
-            const username = usernameInput.value.trim();
-            if (!username) {
-                alert('Lütfen bir kullanıcı adı girin.');
-                return;
-            }
+        
+        // Send message function
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
             
-            state.currentUser = username;
-            state.userType = document.querySelector('.login-option.active').dataset.type;
+            // Add user message to chat
+            addMessage(message, 'user');
             
-            // Kullanıcı arayüzünü güncelle
-            updateUI();
-            
-            // Modalı kapat, ana içeriği göster
-            loginModal.style.display = 'none';
-            mainHeader.style.display = 'block';
-            mainContent.style.display = 'block';
-            mainFooter.style.display = 'block';
-            
-            // Kullanıcı tipine göre limitleri ayarla
-            if (state.userType === 'user') {
-                state.messageCount = 0;
-                state.imageCount = 0;
-                state.memoryEnabled = false;
-                updateUsageStats();
-                updateLimitsInfo();
-            }
-            
-            // Sohbet geçmişini yükle
-            loadChatHistory();
-        }
-
-        // Çıkış işlemi
-        function handleLogout() {
-            state.currentUser = null;
-            state.currentChatId = null;
-            state.chats = {};
-            
-            // Modalı göster, ana içeriği gizle
-            loginModal.style.display = 'flex';
-            mainHeader.style.display = 'none';
-            mainContent.style.display = 'none';
-            mainFooter.style.display = 'none';
-            
-            // Formu sıfırla
-            usernameInput.value = '';
-        }
-
-        // Kullanıcı arayüzünü güncelle
-        function updateUI() {
-            const isAdmin = state.userType === 'admin';
-            const userTypeText = isAdmin ? 'Admin Hesabı' : 'Düz Hesap';
-            
-            // Kullanıcı bilgilerini güncelle
-            userTypeDisplay.textContent = userTypeText;
-            userTypeDisplay.className = `user-type ${isAdmin ? 'admin' : ''}`;
-            usernameDisplay.textContent = state.currentUser;
-            sidebarUsername.textContent = state.currentUser;
-            sidebarUserType.textContent = userTypeText;
-            userAvatar.textContent = state.currentUser.charAt(0).toUpperCase();
-            
-            // Admin panelini göster/gizle
-            adminPanel.style.display = isAdmin ? 'block' : 'none';
-            
-            // Limit bilgilerini güncelle
-            updateLimitsInfo();
-        }
-
-        // Limit bilgilerini güncelle
-        function updateLimitsInfo() {
-            const isAdmin = state.userType === 'admin';
-            
-            if (isAdmin) {
-                memoryInfo.textContent = 'Admin Hesabı: Tüm sohbetlerde hafıza aktif';
-                trainingInfo.textContent = 'Genel eğitim modülüne erişim: Var';
-            } else {
-                memoryInfo.textContent = `Düz Hesap: ${state.messageCount}/20 mesaj, ${state.imageCount}/3 görsel kullanıldı`;
-                trainingInfo.textContent = 'Genel eğitim modülüne erişim: Yok';
-            }
-        }
-
-        // Kullanım istatistiklerini güncelle
-        function updateUsageStats() {
-            const isAdmin = state.userType === 'admin';
-            
-            if (isAdmin) {
-                messageCount.textContent = `${state.messageCount} / Sınırsız`;
-                imageCount.textContent = `${state.imageCount} / Sınırsız`;
-            } else {
-                messageCount.textContent = `${state.messageCount} / 20`;
-                imageCount.textContent = `${state.imageCount} / 3`;
-            }
-            
-            activeChats.textContent = Object.keys(state.chats).length;
-        }
-
-        // Mesaj gönderme
-        async function sendMessage() {
-            const messageText = chatInput.value.trim();
-            if (!messageText) return;
-            
-            // Düz kullanıcılar için mesaj limiti kontrolü
-            if (state.userType === 'user' && state.messageCount >= 20) {
-                alert('Mesaj limitinize ulaştınız. Yeni sohbet başlatabilirsiniz.');
-                return;
-            }
-            
-            // Kullanıcı mesajını ekle
-            addMessage(messageText, 'user');
+            // Clear input
             chatInput.value = '';
+            chatInput.style.height = 'auto';
             
-            // Mesaj sayacını güncelle
-            state.messageCount++;
-            updateUsageStats();
-            updateLimitsInfo();
-            
-            // Sohbete mesajı ekle
-            state.currentChatMessages.push({ role: 'user', content: messageText });
-            
-            // Typing indicator göster
+            // Show typing indicator
             showTypingIndicator();
             
-            try {
-                // OpenAI API'ye istek gönder
-                const response = await callOpenAI(messageText);
-                
-                // Typing indicator'ı kaldır
+            // Simulate AI response after a delay
+            setTimeout(() => {
                 removeTypingIndicator();
-                
-                // AI yanıtını ekle
-                addMessage(response, 'ai');
-                
-                // Sohbete AI yanıtını ekle
-                state.currentChatMessages.push({ role: 'assistant', content: response });
-                
-                // Sohbeti güncelle
-                if (state.currentChatId) {
-                    state.chats[state.currentChatId].messages = [...state.currentChatMessages];
-                    updateChatHistory();
-                }
-            } catch (error) {
-                // Typing indicator'ı kaldır
-                removeTypingIndicator();
-                
-                // Hata mesajı göster
-                addMessage('Üzgünüm, bir hata oluştu. Lütfen daha sonra tekrar deneyin.', 'ai');
-                console.error('OpenAI API Hatası:', error);
-            }
+                addMessage(generateResponse(message), 'ai');
+            }, 1500);
         }
-
-        // OpenAI API çağrısı
-        async function callOpenAI(message) {
-            const messages = [];
+        
+        // Add message to chat
+        function addMessage(content, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
             
-            // Sistem mesajını ekle
-            messages.push({
-                role: 'system',
-                content: 'Sen LytrAI adında bir yapay zeka asistanısın. Kullanıcıya yardımcı ve dostane bir şekilde yanıt ver. Kullanıcının diline uygun şekilde Türkçe yanıt ver.'
-            });
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'avatar';
+            avatarDiv.textContent = sender === 'user' ? 'You' : 'AI';
             
-            // Eğitim verilerini ekle (sadece admin için)
-            if (state.userType === 'admin' && state.trainingData.length > 0) {
-                state.trainingData.forEach(data => {
-                    messages.push({ role: 'user', content: data.input });
-                    messages.push({ role: 'assistant', content: data.response });
-                });
-            }
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = content;
             
-            // Geçmiş sohbeti ekle (eğer hafıza aktifse)
-            if (state.memoryEnabled && state.currentChatMessages.length > 0) {
-                // Son 10 mesajı al (performans için)
-                const recentMessages = state.currentChatMessages.slice(-10);
-                messages.push(...recentMessages);
-            } else {
-                // Sadece mevcut mesajı ekle
-                messages.push({ role: 'user', content: message });
-            }
+            messageDiv.appendChild(avatarDiv);
+            messageDiv.appendChild(contentDiv);
             
-            try {
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${OPENAI_API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        model: 'gpt-3.5-turbo',
-                        messages: messages,
-                        max_tokens: 500,
-                        temperature: 0.7
-                    })
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`API hatası: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                return data.choices[0].message.content;
-            } catch (error) {
-                console.error('OpenAI API Hatası:', error);
-                throw error;
-            }
-        }
-
-        // Mesaj ekleme
-        function addMessage(text, sender) {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            messageElement.classList.add(sender === 'user' ? 'user-message' : 'ai-message');
+            chatMessages.appendChild(messageDiv);
             
-            const time = new Date();
-            const timeString = `${time.getHours()}:${time.getMinutes().toString().padStart(2, '0')}`;
-            
-            messageElement.innerHTML = `
-                ${text}
-                <div class="message-time">${timeString}</div>
-            `;
-            
-            chatMessages.appendChild(messageElement);
-            
-            // En alta kaydır
+            // Scroll to bottom
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
-
-        // Typing indicator göster
+        
+        // Show typing indicator
         function showTypingIndicator() {
-            if (state.isTyping) return;
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
             
-            state.isTyping = true;
-            const typingElement = document.createElement('div');
-            typingElement.classList.add('typing-indicator');
-            typingElement.id = 'typingIndicator';
-            typingElement.innerHTML = `
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-            `;
+            const dotsDiv = document.createElement('div');
+            dotsDiv.className = 'typing-dots';
             
-            chatMessages.appendChild(typingElement);
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'typing-dot';
+                dotsDiv.appendChild(dot);
+            }
+            
+            typingDiv.appendChild(dotsDiv);
+            typingDiv.appendChild(document.createTextNode('LytrAI is typing...'));
+            
+            chatMessages.appendChild(typingDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
-
-        // Typing indicator kaldır
+        
+        // Remove typing indicator
         function removeTypingIndicator() {
-            state.isTyping = false;
             const typingIndicator = document.getElementById('typingIndicator');
             if (typingIndicator) {
                 typingIndicator.remove();
             }
         }
-
-        // Yeni sohbet başlat
-        function startNewChat() {
-            // Düz kullanıcılar için mesaj limiti kontrolü
-            if (state.userType === 'user' && state.messageCount >= 20) {
-                if (!confirm('Mesaj limitinize ulaştınız. Yeni sohbet başlatmak için mevcut sohbet sıfırlanacak. Devam etmek istiyor musunuz?')) {
-                    return;
-                }
+        
+        // Generate AI response (simulated)
+        function generateResponse(userMessage) {
+            const responses = [
+                "I understand what you're asking. Based on my knowledge, here's what I can tell you...",
+                "That's an interesting question! Let me break it down for you.",
+                "I can help with that. Here are my thoughts on the matter.",
+                "Thanks for your question. I've analyzed the topic and here's my response.",
+                "I've considered your query carefully. Here's what I think would be most helpful.",
+                "Based on the information you've provided, I'd recommend the following approach."
+            ];
+            
+            // Simple keyword matching for more contextual responses
+            if (userMessage.toLowerCase().includes('hello') || userMessage.toLowerCase().includes('hi')) {
+                return "Hello! How can I assist you today?";
+            } else if (userMessage.toLowerCase().includes('help')) {
+                return "I'm here to help! Whether you need writing assistance, code generation, or just someone to chat with, I'm ready.";
+            } else if (userMessage.toLowerCase().includes('code')) {
+                return "I can help with code! I can generate snippets, explain concepts, or help debug issues. What programming language are you working with?";
+            } else if (userMessage.toLowerCase().includes('write')) {
+                return "I'd be happy to help with writing! I can assist with emails, essays, creative writing, or any other type of content.";
             }
             
-            // Yeni sohbet ID'si oluştur
-            const chatId = 'chat_' + Date.now();
-            state.currentChatId = chatId;
-            
-            // Yeni sohbet oluştur
-            state.chats[chatId] = {
-                id: chatId,
-                title: 'Yeni Sohbet',
-                messages: [],
-                createdAt: new Date()
-            };
-            
-            // Mevcut sohbet mesajlarını sıfırla
-            state.currentChatMessages = [];
-            
-            // Mesajları temizle
-            chatMessages.innerHTML = `
-                <div class="message ai-message">
-                    Yeni sohbet başlatıldı! Ben LytrAI, size nasıl yardımcı olabilirim?
-                    <div class="message-time">${new Date().getHours()}:${new Date().getMinutes().toString().padStart(2, '0')}</div>
-                </div>
-            `;
-            
-            // İlk mesajı ekle
-            state.currentChatMessages.push({ 
-                role: 'assistant', 
-                content: 'Yeni sohbet başlatıldı! Ben LytrAI, size nasıl yardımcı olabilirim?' 
-            });
-            
-            // Düz kullanıcılar için sayaçları sıfırla
-            if (state.userType === 'user') {
-                state.messageCount = 0;
-                state.imageCount = 0;
-                updateUsageStats();
-                updateLimitsInfo();
+            // Return a random response if no keywords match
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+        
+        // Event listeners
+        sendBtn.addEventListener('click', sendMessage);
+        
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
             }
-            
-            // Sohbet başlığını güncelle
-            currentChatTitle.textContent = 'Yeni Sohbet';
-            
-            // Sohbet geçmişini güncelle
-            updateChatHistory();
-        }
-
-        // Sohbet geçmişini yükle
-        function loadChatHistory() {
-            chatHistoryList.innerHTML = '';
-            
-            Object.values(state.chats).forEach(chat => {
-                const chatItem = document.createElement('div');
-                chatItem.classList.add('chat-history-item');
-                if (chat.id === state.currentChatId) {
-                    chatItem.classList.add('active');
-                }
-                
-                chatItem.innerHTML = `
-                    <div><strong>${chat.title}</strong></div>
-                    <div style="font-size: 12px; color: ${chat.id === state.currentChatId ? 'white' : 'var(--gray)'};">
-                        ${new Date(chat.createdAt).toLocaleDateString()}
-                    </div>
-                `;
-                
-                chatItem.addEventListener('click', () => {
-                    loadChat(chat.id);
-                });
-                
-                chatHistoryList.appendChild(chatItem);
-            });
-        }
-
-        // Sohbeti yükle
-        function loadChat(chatId) {
-            const chat = state.chats[chatId];
-            if (!chat) return;
-            
-            state.currentChatId = chatId;
-            state.currentChatMessages = [...chat.messages];
-            
-            // Mesajları temizle ve yükle
-            chatMessages.innerHTML = '';
-            chat.messages.forEach(msg => {
-                addMessage(msg.content, msg.role === 'user' ? 'user' : 'ai');
-            });
-            
-            // Sohbet başlığını güncelle
-            currentChatTitle.textContent = chat.title;
-            
-            // Sohbet geçmişini güncelle
-            updateChatHistory();
-        }
-
-        // Sohbet geçmişini güncelle
-        function updateChatHistory() {
-            if (state.currentChatId && state.chats[state.currentChatId]) {
-                // Sohbet başlığını güncelle (ilk kullanıcı mesajına göre)
-                const userMessages = state.currentChatMessages.filter(msg => msg.role === 'user');
-                if (userMessages.length > 0) {
-                    const firstUserMessage = userMessages[0].content;
-                    const newTitle = firstUserMessage.length > 20 
-                        ? firstUserMessage.substring(0, 20) + '...' 
-                        : firstUserMessage;
-                    
-                    state.chats[state.currentChatId].title = newTitle;
-                    currentChatTitle.textContent = newTitle;
-                }
-            }
-            
-            loadChatHistory();
-        }
-
-        // Eğitim modalını aç
-        function openTrainingModal() {
-            trainingModal.style.display = 'flex';
-            trainingInput.value = '';
-            trainingResponse.value = '';
-        }
-
-        // Eğitimi kaydet
-        function saveTraining() {
-            const input = trainingInput.value.trim();
-            const response = trainingResponse.value.trim();
-            
-            if (!input || !response) {
-                alert('Lütfen hem eğitim komutunu hem de AI yanıtını girin.');
-                return;
-            }
-            
-            // Eğitim verisine ekle
-            state.trainingData.push({
-                input: input,
-                response: response
-            });
-            
-            alert('LytrAI başarıyla eğitildi! Artık tüm kullanıcılar bu bilgiyi görebilecek.');
-            trainingModal.style.display = 'none';
-        }
-
-        // Görsel yükleme işlemi
-        function handleImageUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            // Düz kullanıcılar için görsel limiti kontrolü
-            if (state.userType === 'user' && state.imageCount >= 3) {
-                alert('Görsel yükleme limitinize ulaştınız.');
-                event.target.value = '';
-                return;
-            }
-            
-            // Dosya türü kontrolü
-            if (!file.type.startsWith('image/')) {
-                alert('Lütfen sadece görsel dosyaları yükleyin.');
-                event.target.value = '';
-                return;
-            }
-            
-            // Dosya boyutu kontrolü (max 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                alert('Dosya boyutu 5MB\'dan küçük olmalıdır.');
-                event.target.value = '';
-                return;
-            }
-            
-            // Görsel yükleme simülasyonu
-            imageUploadStatus.textContent = 'Görsel yükleniyor...';
-            imageUploadStatus.style.color = 'var(--warning)';
-            
-            setTimeout(() => {
-                state.imageCount++;
-                updateUsageStats();
-                updateLimitsInfo();
-                
-                imageUploadStatus.textContent = 'Görsel başarıyla yüklendi!';
-                imageUploadStatus.style.color = 'var(--success)';
-                
-                // Mesaj olarak ekle
-                addMessage(`Görsel yüklendi: ${file.name}`, 'user');
-                state.currentChatMessages.push({ 
-                    role: 'user', 
-                    content: `[GÖRSEL: ${file.name}]` 
-                });
-                
-                // 3 saniye sonra durumu temizle
-                setTimeout(() => {
-                    imageUploadStatus.textContent = '';
-                }, 3000);
-                
-                // Input'u temizle
-                event.target.value = '';
-            }, 1500);
-        }
+        });
+        
+        // Initial greeting
+        setTimeout(() => {
+            addMessage("I'm here to help with writing, coding, research, or just having a conversation. What would you like to know?", 'ai');
+        }, 1000);
     </script>
 </body>
 </html>
