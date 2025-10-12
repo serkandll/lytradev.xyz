@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oyun Dünyası - Eğlenceye Hazır Ol!</title>
+    <title>LytrAI - Akıllı Asistanınız</title>
     <style>
-        /* Genel Stiller */
+        :root {
+            --primary: #4a00e0;
+            --secondary: #8e2de2;
+            --accent: #00c6ff;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,10 +26,11 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: #fff;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
             min-height: 100vh;
-            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
@@ -26,11 +39,12 @@
             padding: 0 20px;
         }
 
-        /* Header Stilleri */
+        /* Header Styles */
         header {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -43,311 +57,348 @@
         }
 
         .logo {
-            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
             font-weight: 700;
-            color: #fdbb2d;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-icon {
+            font-size: 28px;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 25px;
+            gap: 25px;
         }
 
         nav ul li a {
-            color: #fff;
+            color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: opacity 0.3s;
             padding: 8px 12px;
             border-radius: 4px;
         }
 
         nav ul li a:hover {
-            color: #fdbb2d;
             background-color: rgba(255, 255, 255, 0.1);
         }
 
-        /* Hero Bölümü */
-        .hero {
-            padding: 80px 0;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.4);
-            margin-bottom: 40px;
-            border-radius: 0 0 20px 20px;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        .user-type {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
         }
 
-        .hero p {
-            font-size: 20px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
+        .user-type.admin {
+            background-color: var(--accent);
         }
 
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(to right, #fdbb2d, #b21f1f);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Oyunlar Bölümü */
-        .games-section {
+        /* Main Content */
+        main {
+            flex: 1;
             padding: 40px 0;
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 36px;
-            position: relative;
-        }
-
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: #fdbb2d;
-            margin: 10px auto;
-            border-radius: 2px;
-        }
-
-        .games-grid {
+        .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: 300px 1fr;
             gap: 30px;
         }
 
-        .game-card {
-            background: rgba(255, 255, 255, 0.1);
+        /* Sidebar */
+        .sidebar {
+            background-color: white;
             border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            height: fit-content;
         }
 
-        .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        .user-card {
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
         }
 
-        .game-image {
-            height: 180px;
-            width: 100%;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .game-content {
-            padding: 20px;
-        }
-
-        .game-title {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #fdbb2d;
-        }
-
-        .game-description {
-            font-size: 14px;
-            margin-bottom: 15px;
-            line-height: 1.5;
-            color: #e0e0e0;
-        }
-
-        .play-button {
-            display: inline-block;
-            background: rgba(253, 187, 45, 0.9);
-            color: #333;
-            padding: 8px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-        .play-button:hover {
-            background: rgba(253, 187, 45, 1);
-        }
-
-        /* Oyun Oynama Alanı */
-        .game-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            flex-direction: column;
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 0 auto 15px;
+            display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            font-size: 32px;
         }
 
-        .game-header {
+        .user-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .usage-stats {
+            margin-top: 25px;
+        }
+
+        .stat-item {
             display: flex;
             justify-content: space-between;
-            width: 90%;
-            max-width: 800px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
         }
 
-        .game-title-large {
-            font-size: 28px;
-            color: #fdbb2d;
+        .stat-label {
+            color: var(--gray);
         }
 
-        .close-button {
-            background: #b21f1f;
+        .stat-value {
+            font-weight: 600;
+        }
+
+        .admin-panel {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .admin-panel h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .admin-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .admin-btn:hover {
+            background-color: #00b3e6;
+        }
+
+        /* Chat Area */
+        .chat-area {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .new-chat-btn {
+            background-color: var(--primary);
             color: white;
             border: none;
             padding: 8px 16px;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 500;
+            transition: background-color 0.3s;
         }
 
-        .game-frame {
-            width: 90%;
-            max-width: 800px;
-            height: 70vh;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
+        .new-chat-btn:hover {
+            background-color: #3a00b3;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .ai-message {
+            align-self: flex-start;
+            background-color: var(--light-gray);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .chat-input-area {
+            padding: 20px;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--light-gray);
+            border-radius: 24px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary);
+        }
+
+        .send-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .send-btn:hover {
+            background-color: #3a00b3;
+        }
+
+        .send-btn:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        .limits-info {
+            padding: 10px 20px;
+            background-color: var(--light-gray);
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
         }
 
         /* Footer */
         footer {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 40px 0 20px;
-            margin-top: 60px;
+            background-color: var(--dark);
+            color: white;
+            padding: 30px 0 20px;
+            margin-top: 40px;
         }
 
         .footer-content {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
         }
 
         .footer-section {
             flex: 1;
-            min-width: 250px;
-            margin-bottom: 30px;
+            min-width: 200px;
         }
 
         .footer-section h3 {
-            font-size: 20px;
             margin-bottom: 20px;
-            color: #fdbb2d;
+            color: var(--accent);
         }
 
         .footer-section p, .footer-section a {
-            color: #ccc;
+            color: #adb5bd;
             line-height: 1.6;
             text-decoration: none;
         }
 
         .footer-section a:hover {
-            color: #fdbb2d;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .social-links a {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            transition: background 0.3s;
-        }
-
-        .social-links a:hover {
-            background: rgba(253, 187, 45, 0.8);
+            color: white;
         }
 
         .copyright {
             text-align: center;
             padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
             margin-top: 20px;
-            color: #999;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
         }
 
-        /* Responsive Tasarım */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 20px;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 0 10px;
-            }
-            
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .games-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .games-grid {
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .dashboard {
                 grid-template-columns: 1fr;
             }
             
-            .game-frame {
-                height: 60vh;
+            .sidebar {
+                order: 2;
+            }
+            
+            .chat-area {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .chat-messages {
+                padding: 15px;
+            }
+            
+            .message {
+                max-width: 90%;
             }
         }
     </style>
@@ -357,175 +408,231 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">Oyun Dünyası</div>
+                <div class="logo">
+                    <span class="logo-icon">🧠</span>
+                    <span>LytrAI</span>
+                </div>
                 <nav>
                     <ul>
-                        <li><a href="#home">Ana Sayfa</a></li>
-                        <li><a href="#games">Oyunlar</a></li>
-                        <li><a href="#about">Hakkımızda</a></li>
-                        <li><a href="#contact">İletişim</a></li>
+                        <li><a href="#" class="active">Sohbet</a></li>
+                        <li><a href="#">Eğitim</a></li>
+                        <li><a href="#">Ayarlar</a></li>
+                        <li><a href="#">Yardım</a></li>
                     </ul>
                 </nav>
+                <div class="user-info">
+                    <div class="user-type admin">Admin</div>
+                    <div>Ahmet Yılmaz</div>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Bölümü -->
-    <section class="hero" id="home">
+    <!-- Main Content -->
+    <main>
         <div class="container">
-            <h1>Eğlenceye Hazır Mısın?</h1>
-            <p>En popüler ve eğlenceli oyunları bir arada bulabileceğiniz platform. Ücretsiz, reklamsız ve tamamen sizin için!</p>
-            <a href="#games" class="cta-button">Hemen Oyna</a>
-        </div>
-    </section>
-
-    <!-- Oyunlar Bölümü -->
-    <section class="games-section" id="games">
-        <div class="container">
-            <h2 class="section-title">Popüler Oyunlar</h2>
-            <div class="games-grid">
-                <!-- Oyun 1 -->
-                <div class="game-card">
-                    <div class="game-image" style="background-image: url('https://via.placeholder.com/300x180/1a2a6c/ffffff?text=Zeka+Oyunu')"></div>
-                    <div class="game-content">
-                        <h3 class="game-title">Zeka Küpü</h3>
-                        <p class="game-description">Renkli küpleri doğru sıraya dizmeye çalıştığınız eğlenceli bir zeka oyunu.</p>
-                        <a href="#" class="play-button" data-game="game1">Oyna</a>
+            <div class="dashboard">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="user-card">
+                        <div class="avatar">A</div>
+                        <div class="user-name">Ahmet Yılmaz</div>
+                        <div class="user-type admin">Admin Hesabı</div>
+                    </div>
+                    
+                    <div class="usage-stats">
+                        <h3>Kullanım İstatistikleri</h3>
+                        <div class="stat-item">
+                            <span class="stat-label">Kullanılan Mesaj</span>
+                            <span class="stat-value">12 / Sınırsız</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Kullanılan Görsel</span>
+                            <span class="stat-value">2 / Sınırsız</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Aktif Sohbetler</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-panel">
+                        <h3>Admin Kontrolleri</h3>
+                        <button class="admin-btn">Genel Eğitim Modülü</button>
+                        <button class="admin-btn">Kullanıcı Yönetimi</button>
+                        <button class="admin-btn">Sistem Ayarları</button>
+                        <button class="admin-btn">Analiz Raporları</button>
                     </div>
                 </div>
-
-                <!-- Oyun 2 -->
-                <div class="game-card">
-                    <div class="game-image" style="background-image: url('https://via.placeholder.com/300x180/b21f1f/ffffff?text=Yılan+Oyunu')"></div>
-                    <div class="game-content">
-                        <h3 class="game-title">Klasik Yılan</h3>
-                        <p class="game-description">Nostaljik yılan oyununun modern versiyonu. Yılanınızı büyütmeye çalışın!</p>
-                        <a href="#" class="play-button" data-game="game2">Oyna</a>
+                
+                <!-- Chat Area -->
+                <div class="chat-area">
+                    <div class="chat-header">
+                        <div class="chat-title">LytrAI Asistan</div>
+                        <button class="new-chat-btn">Yeni Sohbet</button>
                     </div>
-                </div>
-
-                <!-- Oyun 3 -->
-                <div class="game-card">
-                    <div class="game-image" style="background-image: url('https://via.placeholder.com/300x180/fdbb2d/333333?text=Hafıza+Oyunu')"></div>
-                    <div class="game-content">
-                        <h3 class="game-title">Hafıza Testi</h3>
-                        <p class="game-description">Hafızanızı test edin! Aynı kartları eşleştirmeye çalıştığınız eğlenceli bir oyun.</p>
-                        <a href="#" class="play-button" data-game="game3">Oyna</a>
+                    
+                    <div class="chat-messages">
+                        <div class="message ai-message">
+                            Merhaba! Ben LytrAI, size nasıl yardımcı olabilirim?
+                            <div class="message-time">10:24</div>
+                        </div>
+                        
+                        <div class="message user-message">
+                            Bugünkü hava durumu hakkında bilgi verebilir misin?
+                            <div class="message-time">10:25</div>
+                        </div>
+                        
+                        <div class="message ai-message">
+                            Tabii ki! Şu anda İstanbul'da hava parçalı bulutlu ve sıcaklık 24°C. Yarın için hafif yağmur bekleniyor.
+                            <div class="message-time">10:25</div>
+                        </div>
+                        
+                        <div class="message user-message">
+                            Teşekkürler! Peki yapay zeka teknolojileri hakkında bilgi verebilir misin?
+                            <div class="message-time">10:26</div>
+                        </div>
+                        
+                        <div class="message ai-message">
+                            Yapay zeka, bilgisayar sistemlerinin insan zekasını taklit edebilme yeteneğidir. Makine öğrenmesi, derin öğrenme, doğal dil işleme gibi alt dalları bulunur. Günümüzde sağlık, finans, ulaşım gibi birçok alanda kullanılmaktadır.
+                            <div class="message-time">10:26</div>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Oyun 4 -->
-                <div class="game-card">
-                    <div class="game-image" style="background-image: url('https://via.placeholder.com/300x180/1a2a6c/ffffff?text=Labirent')"></div>
-                    <div class="game-content">
-                        <h3 class="game-title">Labirent Kaçış</h3>
-                        <p class="game-description">Karmaşık labirentlerden çıkış yolunu bulmaya çalıştığınız macera dolu bir oyun.</p>
-                        <a href="#" class="play-button" data-game="game4">Oyna</a>
+                    
+                    <div class="limits-info">
+                        <span>Admin Hesabı: Tüm sohbetlerde hafıza aktif</span>
+                        <span>Genel eğitim modülüne erişim: Var</span>
                     </div>
-                </div>
-
-                <!-- Oyun 5 -->
-                <div class="game-card">
-                    <div class="game-image" style="background-image: url('https://via.placeholder.com/300x180/b21f1f/ffffff?text=Kelime+Oyunu')"></div>
-                    <div class="game-content">
-                        <h3 class="game-title">Kelime Avcısı</h3>
-                        <p class="game-description">Karışık harflerden anlamlı kelimeler oluşturmaya çalıştığınız eğitici bir oyun.</p>
-                        <a href="#" class="play-button" data-game="game5">Oyna</a>
-                    </div>
-                </div>
-
-                <!-- Oyun 6 -->
-                <div class="game-card">
-                    <div class="game-image" style="background-image: url('https://via.placeholder.com/300x180/fdbb2d/333333?text=Matematik+Oyunu')"></div>
-                    <div class="game-content">
-                        <h3 class="game-title">Matematik Yarışı</h3>
-                        <p class="game-description">Matematik becerilerinizi test edin! Hızlı ve doğru cevaplar vererek puan kazanın.</p>
-                        <a href="#" class="play-button" data-game="game6">Oyna</a>
+                    
+                    <div class="chat-input-area">
+                        <input type="text" class="chat-input" placeholder="LytrAI'ye bir mesaj yazın...">
+                        <button class="send-btn">➤</button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Oyun Oynama Alanı -->
-    <div class="game-container" id="gameContainer">
-        <div class="game-header">
-            <h2 class="game-title-large" id="gameTitle">Oyun Başlığı</h2>
-            <button class="close-button" id="closeGame">Kapat</button>
-        </div>
-        <div class="game-frame" id="gameFrame">
-            <!-- Oyun burada yüklenecek -->
-        </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Oyun Dünyası</h3>
-                    <p>En kaliteli ve eğlenceli oyunları ücretsiz olarak sunan platform. Herkes için eğlence!</p>
+                    <h3>LytrAI Hakkında</h3>
+                    <p>LytrAI, gelişmiş yapay zeka teknolojisi ile kullanıcılarına kişisel asistan hizmeti sunan bir platformdur.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Hızlı Bağlantılar</h3>
-                    <p><a href="#home">Ana Sayfa</a></p>
-                    <p><a href="#games">Oyunlar</a></p>
-                    <p><a href="#about">Hakkımızda</a></p>
-                    <p><a href="#contact">İletişim</a></p>
+                    <p><a href="#">Ana Sayfa</a></p>
+                    <p><a href="#">Özellikler</a></p>
+                    <p><a href="#">Fiyatlandırma</a></p>
+                    <p><a href="#">SSS</a></p>
                 </div>
                 <div class="footer-section">
-                    <h3>Bize Ulaşın</h3>
-                    <p>Email: info@oyundunyasi.com</p>
-                    <p>Telefon: +90 555 123 45 67</p>
-                    <div class="social-links">
-                        <a href="#">FB</a>
-                        <a href="#">TW</a>
-                        <a href="#">IG</a>
-                        <a href="#">YT</a>
-                    </div>
+                    <h3>İletişim</h3>
+                    <p>Email: info@lytrai.com</p>
+                    <p>Telefon: +90 212 555 12 34</p>
+                    <p>Adres: Teknopark İstanbul, TR</p>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 Oyun Dünyası. Tüm hakları saklıdır.</p>
+                <p>&copy; 2023 LytrAI. Tüm hakları saklıdır.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Oyun açma/kapama işlevselliği
-        document.querySelectorAll('.play-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const gameId = this.getAttribute('data-game');
-                const gameTitle = this.parentElement.querySelector('.game-title').textContent;
-                
-                document.getElementById('gameTitle').textContent = gameTitle;
-                document.getElementById('gameContainer').style.display = 'flex';
-                
-                // Burada gerçek oyunlar yüklenecek
-                // Şu an için basit bir oyun gösteriyoruz
-                document.getElementById('gameFrame').innerHTML = `
-                    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; background:#f0f0f0; color:#333; padding:20px;">
-                        <h2 style="margin-bottom:20px;">${gameTitle}</h2>
-                        <p style="text-align:center; margin-bottom:30px;">Bu oyun şu anda demo modundadır. Gerçek oyun geliştirme aşamasındadır.</p>
-                        <div style="width:200px; height:200px; background:#1a2a6c; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:24px; margin-bottom:30px;">
-                            OYUN
-                        </div>
-                        <button style="background:#fdbb2d; color:#333; border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer;">Başlat</button>
+        // Chat functionality
+        const chatInput = document.querySelector('.chat-input');
+        const sendButton = document.querySelector('.send-btn');
+        const chatMessages = document.querySelector('.chat-messages');
+        const newChatButton = document.querySelector('.new-chat-btn');
+        
+        // Sample AI responses
+        const aiResponses = [
+            "Bu konuda daha fazla bilgi verebilirim. Özellikle hangi alanı merak ediyorsunuz?",
+            "Anladığım kadarıyla şunu sormak istiyorsunuz: ",
+            "Bu sorunuzu yanıtlamak için gerekli bilgilere sahibim. İşte detaylar:",
+            "Harika bir soru! LytrAI olarak bu konuda size rehberlik edebilirim.",
+            "Bu konu hakkında daha önce de bilgi paylaşmıştım. Hatırlatmamı ister misiniz?"
+        ];
+        
+        // Send message function
+        function sendMessage() {
+            const messageText = chatInput.value.trim();
+            
+            if (messageText === '') return;
+            
+            // Add user message
+            addMessage(messageText, 'user');
+            
+            // Clear input
+            chatInput.value = '';
+            
+            // Simulate AI response after a short delay
+            setTimeout(() => {
+                const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+                addMessage(randomResponse, 'ai');
+            }, 1000);
+        }
+        
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(sender === 'user' ? 'user-message' : 'ai-message');
+            
+            const time = new Date();
+            const timeString = `${time.getHours()}:${time.getMinutes().toString().padStart(2, '0')}`;
+            
+            messageElement.innerHTML = `
+                ${text}
+                <div class="message-time">${timeString}</div>
+            `;
+            
+            chatMessages.appendChild(messageElement);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+        
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        newChatButton.addEventListener('click', () => {
+            if (confirm('Yeni bir sohbet başlatmak istediğinizden emin misiniz? Mevcut konuşma kaydedilecek.')) {
+                // In a real app, this would save the current chat and start a new one
+                chatMessages.innerHTML = `
+                    <div class="message ai-message">
+                        Yeni sohbet başlatıldı! Ben LytrAI, size nasıl yardımcı olabilirim?
+                        <div class="message-time">${new Date().getHours()}:${new Date().getMinutes().toString().padStart(2, '0')}</div>
                     </div>
                 `;
-            });
+            }
         });
-
-        // Oyunu kapatma
-        document.getElementById('closeGame').addEventListener('click', function() {
-            document.getElementById('gameContainer').style.display = 'none';
-        });
-
-        // ESC tuşu ile oyunu kapatma
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.getElementById('gameContainer').style.display = 'none';
+        
+        // Simulate user type toggle (for demo purposes)
+        document.querySelector('.user-type').addEventListener('click', function() {
+            if (this.classList.contains('admin')) {
+                this.classList.remove('admin');
+                this.textContent = 'Düz Hesap';
+                document.querySelector('.limits-info').innerHTML = `
+                    <span>Düz Hesap: 12/20 mesaj, 2/3 görsel kullanıldı</span>
+                    <span>Genel eğitim modülüne erişim: Yok</span>
+                `;
+            } else {
+                this.classList.add('admin');
+                this.textContent = 'Admin Hesabı';
+                document.querySelector('.limits-info').innerHTML = `
+                    <span>Admin Hesabı: Tüm sohbetlerde hafıza aktif</span>
+                    <span>Genel eğitim modülüne erişim: Var</span>
+                `;
             }
         });
     </script>
