@@ -1,843 +1,948 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LytrAI - Your Intelligent AI Assistant</title>
+    <title>LytrAI - Geleceğin Yapay Zekası</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #6d28d9;
-            --primary-dark: #5b21b6;
-            --secondary: #10b981;
-            --dark: #1f2937;
-            --light: #f9fafb;
-            --gray: #6b7280;
-            --gray-light: #e5e7eb;
-            --danger: #ef4444;
+            --primary: #6c63ff;
+            --primary-dark: #5a52d5;
+            --secondary: #ff6584;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --light: #f5f5f7;
+            --gray: #8a8a9c;
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --glow: 0 0 20px rgba(108, 99, 255, 0.3);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: #0f172a;
+            background-color: var(--darker);
             color: var(--light);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
-        
+
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-            width: 100%;
         }
-        
+
         /* Header Styles */
         header {
-            background-color: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+            background: rgba(10, 10, 20, 0.8);
+            backdrop-filter: blur(10px);
         }
-        
-        .header-content {
+
+        header.scrolled {
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-        
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .logo-text {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--light);
+            text-decoration: none;
         }
-        
-        nav ul {
+
+        .logo i {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .nav-links {
             display: flex;
-            list-style: none;
-            gap: 25px;
+            gap: 30px;
         }
-        
-        nav a {
+
+        .nav-links a {
             color: var(--light);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: var(--transition);
+            position: relative;
         }
-        
-        nav a:hover {
-            color: var(--secondary);
-        }
-        
-        .auth-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            font-size: 0.9rem;
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--gray);
-            color: var(--light);
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: var(--primary-dark);
-        }
-        
-        .btn-outline:hover {
-            border-color: var(--primary);
+
+        .nav-links a:hover {
             color: var(--primary);
         }
-        
-        /* Main Content */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 40px 0;
-        }
-        
-        .hero {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 50px;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--gray-light);
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-        
-        .chat-container {
-            background: rgba(30, 41, 59, 0.6);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            height: 500px;
-        }
-        
-        .chat-header {
-            padding: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .chat-header h2 {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--secondary);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-        
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .message {
-            display: flex;
-            gap: 12px;
-            max-width: 85%;
-        }
-        
-        .message.user {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
-        
-        .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-        
-        .user .avatar {
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
             background: var(--primary);
+            transition: var(--transition);
         }
-        
-        .ai .avatar {
-            background: var(--secondary);
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
-        
-        .message-content {
-            padding: 12px 16px;
-            border-radius: 18px;
-            line-height: 1.5;
-        }
-        
-        .user .message-content {
-            background: var(--primary);
-            border-top-right-radius: 4px;
-        }
-        
-        .ai .message-content {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-top-left-radius: 4px;
-        }
-        
-        .chat-input-container {
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .chat-input-wrapper {
-            display: flex;
-            gap: 10px;
-            align-items: flex-end;
-        }
-        
-        .chat-input {
-            flex: 1;
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 12px 16px;
-            color: var(--light);
-            font-size: 1rem;
-            resize: none;
-            min-height: 50px;
-            max-height: 120px;
-        }
-        
-        .chat-input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .send-btn {
+
+        .cta-button {
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 12px;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: var(--transition);
+            box-shadow: var(--glow);
         }
-        
-        .send-btn:hover {
+
+        .cta-button:hover {
             background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(108, 99, 255, 0.4);
         }
-        
-        .send-btn:disabled {
-            background: var(--gray);
-            cursor: not-allowed;
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
-        
-        .typing-indicator {
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
             display: flex;
-            gap: 5px;
-            padding: 12px 16px;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(108, 99, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(255, 101, 132, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
             color: var(--gray);
+            margin-bottom: 30px;
         }
-        
-        .typing-dots {
+
+        .hero-buttons {
             display: flex;
-            gap: 3px;
+            gap: 15px;
+            margin-top: 30px;
         }
-        
-        .typing-dot {
-            width: 6px;
-            height: 6px;
+
+        .secondary-button {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .secondary-button:hover {
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            max-width: 600px;
+            opacity: 0.8;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(108, 99, 255, 0.1);
             border-radius: 50%;
-            background-color: var(--gray);
-            animation: typing 1.4s infinite ease-in-out;
+            animation: float 15s infinite linear;
         }
-        
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        
-        @keyframes typing {
-            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-            40% { transform: scale(1); opacity: 1; }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
         }
-        
+
+        .floating-element:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            left: 5%;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 40%;
+            right: 10%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
         /* Features Section */
-        .features {
-            margin-top: 80px;
+        .section {
+            padding: 100px 0;
         }
-        
+
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            font-weight: 700;
+            margin-bottom: 60px;
         }
-        
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
-        
+
         .feature-card {
-            background: rgba(30, 41, 59, 0.6);
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
             padding: 30px;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
         }
-        
+
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
         }
-        
+
         .feature-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 70px;
+            height: 70px;
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: var(--primary);
         }
-        
-        .feature-title {
-            font-size: 1.3rem;
-            font-weight: 600;
+
+        .feature-card h3 {
+            font-size: 1.5rem;
             margin-bottom: 15px;
         }
-        
-        .feature-description {
-            color: var(--gray-light);
-            line-height: 1.6;
+
+        .feature-card p {
+            color: var(--gray);
         }
-        
+
+        /* Demo Section */
+        .demo {
+            background: rgba(10, 10, 20, 0.5);
+            border-radius: 20px;
+            padding: 60px;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(108, 99, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .demo-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .demo-text {
+            flex: 1;
+        }
+
+        .demo-visual {
+            flex: 1;
+            position: relative;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .demo-visual::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(from 0deg, var(--primary), var(--secondary), var(--primary));
+            animation: rotate 10s linear infinite;
+        }
+
+        .demo-visual::after {
+            content: '';
+            position: absolute;
+            width: calc(100% - 4px);
+            height: calc(100% - 4px);
+            background: var(--darker);
+            border-radius: 13px;
+        }
+
+        .demo-visual-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: var(--glow);
+        }
+
+        .pricing-card.popular::before {
+            content: 'POPÜLER';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 20px 0;
+            color: var(--primary);
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 100px 0;
+            background: radial-gradient(circle at center, rgba(108, 99, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
         /* Footer */
         footer {
-            background: rgba(15, 23, 42, 0.9);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px 0;
-            margin-top: 80px;
+            background: rgba(5, 5, 10, 0.8);
+            padding: 60px 0 30px;
         }
-        
+
         .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
         }
-        
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
         .footer-links {
-            display: flex;
-            gap: 25px;
+            list-style: none;
         }
-        
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
         .footer-links a {
-            color: var(--gray-light);
+            color: var(--gray);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: var(--transition);
         }
-        
+
         .footer-links a:hover {
-            color: var(--secondary);
+            color: var(--primary);
         }
-        
-        .copyright {
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--light);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--gray);
             font-size: 0.9rem;
         }
-        
-        /* API Key Input */
-        .api-key-container {
-            background: rgba(30, 41, 59, 0.6);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .api-key-input {
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transform: translateX(150%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1001;
             display: flex;
+            align-items: center;
             gap: 10px;
         }
-        
-        .api-key-input input {
-            flex: 1;
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 12px 16px;
-            color: var(--light);
-            font-size: 1rem;
+
+        .notification.show {
+            transform: translateX(0);
         }
-        
-        .api-key-input input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .api-key-note {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
+
+        /* Responsive */
+        @media (max-width: 992px) {
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
-            .message {
-                max-width: 95%;
-            }
-            
-            .footer-content {
+            .demo-content {
                 flex-direction: column;
-                gap: 20px;
-                text-align: center;
             }
             
-            nav ul {
+            .hero-image {
+                position: relative;
+                width: 100%;
+                transform: none;
+                margin-top: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
                 display: none;
             }
             
-            .mobile-menu-btn {
+            .mobile-menu {
                 display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .demo {
+                padding: 40px 20px;
+            }
+            
+            .pricing-card.popular {
+                transform: none;
+            }
+            
+            .pricing-card.popular:hover {
+                transform: translateY(-10px);
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <!-- Header -->
+    <header id="header">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="logo-text">LytrAI</div>
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-brain"></i>
+                    LytrAI
+                </a>
+                <div class="nav-links">
+                    <a href="#features">Özellikler</a>
+                    <a href="#demo">Demo</a>
+                    <a href="#pricing">Fiyatlandırma</a>
+                    <a href="#contact">İletişim</a>
                 </div>
-                
-                <nav>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">About</a></li>
-                    </ul>
-                </nav>
-                
-                <div class="auth-buttons">
-                    <button class="btn btn-outline">Log In</button>
-                    <button class="btn btn-primary">Sign Up</button>
+                <button class="cta-button">Hemen Dene</button>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Geleceğin Yapay Zekası ile Tanışın</h1>
+                <p>LytrAI, işletmeler ve bireyler için geliştirilmiş, sektöründe devrim yaratacak yapay zeka çözümleri sunar. Daha akıllı, daha hızlı, daha verimli.</p>
+                <div class="hero-buttons">
+                    <button class="cta-button">Ücretsiz Başla</button>
+                    <button class="secondary-button">Demo İzle</button>
                 </div>
             </div>
         </div>
-    </header>
-    
-    <main>
-        <div class="container">
-            <section class="hero">
-                <h1>Your AI Assistant for Everything</h1>
-                <p>Ask me anything, and I'll respond like a human. A single conversational interface that understands natural language and generates relevant replies.</p>
-                <button class="btn btn-primary" style="padding: 12px 30px; font-size: 1.1rem;">Start Chatting</button>
-            </section>
-            
-            <section class="api-key-container">
-                <h3>OpenAI API Key</h3>
-                <div class="api-key-input">
-                    <input type="password" id="apiKeyInput" placeholder="Enter your OpenAI API key to enable real AI responses">
-                    <button class="btn btn-primary" id="saveApiKey">Save Key</button>
-                </div>
-                <p class="api-key-note">Your API key is stored locally in your browser and never sent to our servers.</p>
-            </section>
-            
-            <section class="chat-container">
-                <div class="chat-header">
-                    <div class="status-indicator"></div>
-                    <h2>LytrAI Assistant</h2>
-                </div>
-                
-                <div class="chat-messages" id="chatMessages">
-                    <div class="message ai">
-                        <div class="avatar">AI</div>
-                        <div class="message-content">
-                            Hello! I'm LytrAI, your intelligent AI assistant. To enable real AI responses, please enter your OpenAI API key above. Otherwise, I'll use my simulated intelligence to help you.
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="chat-input-container">
-                    <div class="chat-input-wrapper">
-                        <textarea class="chat-input" id="chatInput" placeholder="Type your message here..." rows="1"></textarea>
-                        <button class="send-btn" id="sendBtn">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="features">
-                <h2 class="section-title">Why Choose LytrAI</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15848 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 17H12.01" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Natural Conversations</h3>
-                        <p class="feature-description">Engage in fluid, human-like conversations with our advanced AI that understands context and nuance.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 20H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M16.5 3.5C16.8978 3.10217 17.4374 2.87868 18 2.87868C18.2786 2.87868 18.5544 2.93353 18.8118 3.04015C19.0692 3.14676 19.303 3.30301 19.5 3.5C19.697 3.69698 19.8532 3.93083 19.9598 4.1882C20.0665 4.44557 20.1213 4.72142 20.1213 5C20.1213 5.27858 20.0665 5.55443 19.9598 5.8118C19.8532 6.06917 19.697 6.30302 19.5 6.5L7 19L3 20L4 16L16.5 3.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Writing Assistance</h3>
-                        <p class="feature-description">Get help with writing, editing, and brainstorming ideas for any type of content or project.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M14 2V8H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M10 9H9H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Code Generation</h3>
-                        <p class="feature-description">Generate code snippets, debug programs, and get programming help in multiple languages.</p>
-                    </div>
-                </div>
-            </section>
+        <div class="hero-image">
+            <!-- AI visualization would go here -->
         </div>
-    </main>
-    
-    <footer>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Güçlü Özellikler</h2>
+                <p>LytrAI'nin sunduğu benzersiz özelliklerle işlerinizi kolaylaştırın ve verimliliğinizi artırın.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Akıllı Asistan</h3>
+                    <p>Gelişmiş doğal dil işleme ile sorularınızı anlar ve en doğru cevapları sunar.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Veri Analizi</h3>
+                    <p>Karmaşık veri setlerini analiz ederek anlamlı öngörüler ve tahminler sunar.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Görsel İşleme</h3>
+                    <p>Görselleri analiz eder, nesneleri tanır ve içerik hakkında detaylı bilgi verir.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>Çok Dilli Destek</h3>
+                    <p>100'den fazla dilde sorularınızı yanıtlar ve metinlerinizi çevirir.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Yüksek Hız</h3>
+                    <p>Saniyeler içinde karmaşık soruları yanıtlar ve işlemleri tamamlar.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Güvenlik</h3>
+                    <p>En son güvenlik protokolleri ile verileriniz her zaman koruma altında.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="section" id="demo">
+        <div class="container">
+            <div class="section-title">
+                <h2>Canlı Demo</h2>
+                <p>LytrAI'nin gücünü kendiniz deneyimleyin. Aşağıdaki demo ile neler yapabileceğini görün.</p>
+            </div>
+            <div class="demo">
+                <div class="demo-content">
+                    <div class="demo-text">
+                        <h3>LytrAI ile Tanışın</h3>
+                        <p>Bu demo, LytrAI'nin nasıl çalıştığını ve size nasıl yardımcı olabileceğini göstermek için tasarlandı. Aşağıdaki örnekleri deneyebilir veya kendi sorularınızı sorabilirsiniz.</p>
+                        <div class="demo-examples">
+                            <p><strong>Örnek Sorular:</strong></p>
+                            <ul>
+                                <li>"Yapay zeka nedir ve nasıl çalışır?"</li>
+                                <li>"Şirketim için verimliliği nasıl artırabilirim?"</li>
+                                <li>"En son teknoloji trendleri nelerdir?"</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="demo-visual">
+                        <div class="demo-visual-content">
+                            <i class="fas fa-comment-alt" style="font-size: 3rem; margin-bottom: 20px; color: var(--primary);"></i>
+                            <h3>LytrAI Demo</h3>
+                            <p>Demo etkinleştirildiğinde burada gerçek zamanlı etkileşim gösterilecek</p>
+                            <button class="cta-button" style="margin-top: 20px;">Demo'yu Başlat</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Fiyatlandırma</h2>
+                <p>İhtiyaçlarınıza uygun, esnek fiyatlandırma planları. İstediğiniz zaman yükseltin veya düşürün.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Başlangıç</h3>
+                    <div class="price">₺0 <span>/ay</span></div>
+                    <ul class="pricing-features">
+                        <li>Günde 10 sorgu</li>
+                        <li>Temel özellikler</li>
+                        <li>E-posta desteği</li>
+                        <li>Standart yanıt süresi</li>
+                    </ul>
+                    <button class="secondary-button">Ücretsiz Başla</button>
+                </div>
+                <div class="pricing-card popular">
+                    <h3>Profesyonel</h3>
+                    <div class="price">₺99 <span>/ay</span></div>
+                    <ul class="pricing-features">
+                        <li>Günde 100 sorgu</li>
+                        <li>Tüm gelişmiş özellikler</li>
+                        <li>Öncelikli destek</li>
+                        <li>API erişimi</li>
+                        <li>Özelleştirilebilir modeller</li>
+                    </ul>
+                    <button class="cta-button">Hemen Başla</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>Kurumsal</h3>
+                    <div class="price">Özel <span>fiyat</span></div>
+                    <ul class="pricing-features">
+                        <li>Sınırsız sorgu</li>
+                        <li>Özel model eğitimi</li>
+                        <li>7/24 öncelikli destek</li>
+                        <li>Gelişmiş güvenlik</li>
+                        <li>Özel entegrasyon</li>
+                    </ul>
+                    <button class="secondary-button">İletişime Geç</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>LytrAI ile Geleceği Şekillendirin</h2>
+            <p>Binlerce şirket ve birey LytrAI ile işlerini dönüştürdü. Sıra sizde!</p>
+            <button class="cta-button">Hemen Ücretsiz Deneyin</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
         <div class="container">
             <div class="footer-content">
-                <div class="logo">
-                    <div class="logo-text">LytrAI</div>
+                <div class="footer-column">
+                    <h3>LytrAI</h3>
+                    <p>Geleceğin yapay zekası ile işlerinizi dönüştürün. Daha akıllı, daha hızlı, daha verimli.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
-                
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Contact Us</a>
+                <div class="footer-column">
+                    <h3>Ürün</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Özellikler</a></li>
+                        <li><a href="#">Fiyatlandırma</a></li>
+                        <li><a href="#">Kullanım Durumları</a></li>
+                        <li><a href="#">API Dokümantasyonu</a></li>
+                    </ul>
                 </div>
-                
-                <div class="copyright">
-                    &copy; 2023 LytrAI. All rights reserved.
+                <div class="footer-column">
+                    <h3>Şirket</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Hakkımızda</a></li>
+                        <li><a href="#">Kariyer</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Basın</a></li>
+                    </ul>
                 </div>
+                <div class="footer-column">
+                    <h3>Destek</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Yardım Merkezi</a></li>
+                        <li><a href="#">İletişim</a></li>
+                        <li><a href="#">SSS</a></li>
+                        <li><a href="#">Gizlilik Politikası</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LytrAI. Tüm hakları saklıdır.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-bell"></i>
+        <span>Hoş geldiniz! LytrAI'yi keşfedin.</span>
+    </div>
+
     <script>
-        // DOM Elements
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const apiKeyInput = document.getElementById('apiKeyInput');
-        const saveApiKeyBtn = document.getElementById('saveApiKey');
-        
-        // State
-        let apiKey = localStorage.getItem('lytrai-api-key') || '';
-        let conversationHistory = [];
-        
-        // Initialize
-        if (apiKey) {
-            apiKeyInput.value = '••••••••••••••••';
-            addMessage("I'm ready with real AI capabilities! Your API key is saved. How can I help you today?", 'ai');
-        }
-        
-        // Auto-resize textarea
-        chatInput.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-        
-        // Save API Key
-        saveApiKeyBtn.addEventListener('click', function() {
-            const key = apiKeyInput.value.trim();
-            if (key) {
-                apiKey = key;
-                localStorage.setItem('lytrai-api-key', key);
-                apiKeyInput.type = 'password';
-                apiKeyInput.value = '••••••••••••••••';
-                addMessage("API key saved! I now have real AI capabilities. How can I assist you?", 'ai');
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
         });
-        
-        // Toggle API key visibility
-        apiKeyInput.addEventListener('focus', function() {
-            if (this.value === '••••••••••••••••') {
-                this.value = apiKey;
-            }
-        });
-        
-        apiKeyInput.addEventListener('blur', function() {
-            if (this.value === apiKey && apiKey) {
-                this.value = '••••••••••••••••';
-            }
-        });
-        
-        // Send message function
-        async function sendMessage() {
-            const message = chatInput.value.trim();
-            if (!message) return;
-            
-            // Add user message to chat
-            addMessage(message, 'user');
-            conversationHistory.push({ role: 'user', content: message });
-            
-            // Clear input
-            chatInput.value = '';
-            chatInput.style.height = 'auto';
-            
-            // Show typing indicator
-            showTypingIndicator();
-            
-            try {
-                let response;
-                if (apiKey) {
-                    // Use real OpenAI API
-                    response = await getOpenAIResponse(message);
-                } else {
-                    // Use simulated response
-                    response = generateSimulatedResponse(message);
-                }
+
+        // Show notification after page load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const notification = document.getElementById('notification');
+                notification.classList.add('show');
                 
-                removeTypingIndicator();
-                addMessage(response, 'ai');
-                conversationHistory.push({ role: 'assistant', content: response });
-            } catch (error) {
-                removeTypingIndicator();
-                addMessage("I'm having trouble connecting to the AI service. Please check your API key or try again later.", 'ai');
-                console.error('Error:', error);
-            }
-        }
-        
-        // Get response from OpenAI API
-        async function getOpenAIResponse(userMessage) {
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiKey}`
-                },
-                body: JSON.stringify({
-                    model: 'gpt-3.5-turbo',
-                    messages: [
-                        { role: 'system', content: 'You are LytrAI, a helpful and friendly AI assistant. Provide concise, helpful responses.' },
-                        ...conversationHistory.slice(-6), // Keep last 3 exchanges for context
-                        { role: 'user', content: userMessage }
-                    ],
-                    max_tokens: 500,
-                    temperature: 0.7
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error(`API error: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            return data.choices[0].message.content;
-        }
-        
-        // Generate simulated response (fallback)
-        function generateSimulatedResponse(userMessage) {
-            const lowerMessage = userMessage.toLowerCase();
-            
-            // Greeting responses
-            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
-                return "Hello! I'm LytrAI, your simulated AI assistant. For more advanced responses, please add your OpenAI API key above. How can I help you today?";
-            }
-            
-            // Help responses
-            if (lowerMessage.includes('help')) {
-                return "I can help with general questions, writing assistance, and basic problem-solving. For more advanced AI capabilities like code generation or complex reasoning, please add your OpenAI API key.";
-            }
-            
-            // Writing assistance
-            if (lowerMessage.includes('write') || lowerMessage.includes('email') || lowerMessage.includes('essay')) {
-                return "I'd be happy to help with writing! I can assist with structuring your content and providing suggestions. For more sophisticated writing assistance, consider adding your API key for access to advanced language models.";
-            }
-            
-            // Code-related
-            if (lowerMessage.includes('code') || lowerMessage.includes('program') || lowerMessage.includes('python') || lowerMessage.includes('javascript')) {
-                return "I can provide general programming guidance and explain concepts. For actual code generation or debugging, you'll need to add your OpenAI API key to access code-capable models.";
-            }
-            
-            // Default responses
-            const defaultResponses = [
-                "That's an interesting question! With my current simulated capabilities, I can provide general information and assistance.",
-                "I understand what you're asking. For the most accurate and detailed response, consider adding your OpenAI API key.",
-                "Thanks for your message! I'm operating in simulated mode right now. Add your API key for enhanced AI capabilities.",
-                "I can help with that! For more advanced assistance with complex topics, please add your OpenAI API key above.",
-                "That's a great question! My simulated responses are limited, but I'd be happy to help with general guidance."
-            ];
-            
-            return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-        }
-        
-        // Add message to chat
-        function addMessage(content, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}`;
-            
-            const avatarDiv = document.createElement('div');
-            avatarDiv.className = 'avatar';
-            avatarDiv.textContent = sender === 'user' ? 'You' : 'AI';
-            
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'message-content';
-            contentDiv.textContent = content;
-            
-            messageDiv.appendChild(avatarDiv);
-            messageDiv.appendChild(contentDiv);
-            
-            chatMessages.appendChild(messageDiv);
-            
-            // Scroll to bottom
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-        
-        // Show typing indicator
-        function showTypingIndicator() {
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'typing-indicator';
-            typingDiv.id = 'typingIndicator';
-            
-            const dotsDiv = document.createElement('div');
-            dotsDiv.className = 'typing-dots';
-            
-            for (let i = 0; i < 3; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'typing-dot';
-                dotsDiv.appendChild(dot);
-            }
-            
-            typingDiv.appendChild(dotsDiv);
-            typingDiv.appendChild(document.createTextNode('LytrAI is thinking...'));
-            
-            chatMessages.appendChild(typingDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-        
-        // Remove typing indicator
-        function removeTypingIndicator() {
-            const typingIndicator = document.getElementById('typingIndicator');
-            if (typingIndicator) {
-                typingIndicator.remove();
-            }
-        }
-        
-        // Event listeners
-        sendBtn.addEventListener('click', sendMessage);
-        
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
+                // Hide notification after 5 seconds
+                setTimeout(function() {
+                    notification.classList.remove('show');
+                }, 5000);
+            }, 1000);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                sendMessage();
-            }
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', function() {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // CTA button interactions
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Show success notification
+                const notification = document.getElementById('notification');
+                notification.querySelector('span').textContent = 'Teşekkürler! LytrAI deneyimine hoş geldiniz.';
+                notification.classList.add('show');
+                
+                // Hide notification after 5 seconds
+                setTimeout(function() {
+                    notification.classList.remove('show');
+                }, 5000);
+            });
         });
     </script>
 </body>
