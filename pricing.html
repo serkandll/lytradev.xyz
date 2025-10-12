@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiyatlandırma - LytrAI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #5a52d5;
+            --secondary: #ff6584;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --light: #f5f5f7;
+            --gray: #8a8a9c;
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --glow: 0 0 20px rgba(108, 99, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+            background: rgba(10, 10, 20, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--glow);
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(108, 99, 255, 0.4);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 140px 0 60px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(108, 99, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 60px 0 100px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: var(--glow);
+        }
+
+        .pricing-card.popular::before {
+            content: 'POPÜLER';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 20px 0;
+            color: var(--primary);
+        }
+
+        .pricing-card .price span {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        .pricing-card .description {
+            color: var(--gray);
+            margin-bottom: 25px;
+            min-height: 60px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li i {
+            color: var(--primary);
+        }
+
+        .pricing-card .cta-button {
+            margin-top: auto;
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .secondary-button:hover {
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: rgba(5, 5, 10, 0.5);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 25px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            color: var(--gray);
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-toggle {
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 100px 0;
+            background: radial-gradient(circle at center, rgba(108, 99, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 5, 10, 0.8);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--light);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transform: translateX(150%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .pricing-card.popular {
+                transform: none;
+            }
+            
+            .pricing-card.popular:hover {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-brain"></i>
+                    LytrAI
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Ana Sayfa</a>
+                    <a href="chat.html">Sohbet</a>
+                    <a href="pricing.html" class="active">Fiyatlandırma</a>
+                    <a href="#contact">İletişim</a>
+                </div>
+                <button class="cta-button" onclick="window.location.href='chat.html'">Hemen Dene</button>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Fiyatlandırma Planları</h1>
+            <p>İhtiyaçlarınıza uygun, esnek fiyatlandırma planları. İstediğiniz zaman yükseltin veya düşürün.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Başlangıç</h3>
+                    <div class="price">₺0 <span>/ay</span></div>
+                    <p class="description">Bireysel kullanıcılar için mükemmel başlangıç</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Günde 10 sorgu</li>
+                        <li><i class="fas fa-check"></i> Temel özellikler</li>
+                        <li><i class="fas fa-check"></i> E-posta desteği</li>
+                        <li><i class="fas fa-check"></i> Standart yanıt süresi</li>
+                        <li><i class="fas fa-times"></i> API erişimi</li>
+                        <li><i class="fas fa-times"></i> Özel model eğitimi</li>
+                    </ul>
+                    <button class="secondary-button">Ücretsiz Başla</button>
+                </div>
+                <div class="pricing-card popular">
+                    <h3>Profesyonel</h3>
+                    <div class="price">₺99 <span>/ay</span></div>
+                    <p class="description">Küçük işletmeler ve geliştiriciler için</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Günde 100 sorgu</li>
+                        <li><i class="fas fa-check"></i> Tüm gelişmiş özellikler</li>
+                        <li><i class="fas fa-check"></i> Öncelikli destek</li>
+                        <li><i class="fas fa-check"></i> API erişimi</li>
+                        <li><i class="fas fa-check"></i> Özelleştirilebilir modeller</li>
+                        <li><i class="fas fa-times"></i> Özel entegrasyon</li>
+                    </ul>
+                    <button class="cta-button">Hemen Başla</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>Kurumsal</h3>
+                    <div class="price">Özel <span>fiyat</span></div>
+                    <p class="description">Büyük ölçekli işletmeler için</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Sınırsız sorgu</li>
+                        <li><i class="fas fa-check"></i> Özel model eğitimi</li>
+                        <li><i class="fas fa-check"></i> 7/24 öncelikli destek</li>
+                        <li><i class="fas fa-check"></i> Gelişmiş güvenlik</li>
+                        <li><i class="fas fa-check"></i> Özel entegrasyon</li>
+                        <li><i class="fas fa-check"></i> Özel SLA garantisi</li>
+                    </ul>
+                    <button class="secondary-button">İletişime Geç</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sıkça Sorulan Sorular</h2>
+                <p>LytrAI hakkında merak edilen sorular ve cevapları</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Ödeme yöntemleri nelerdir?
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Kredi kartı, banka kartı ve banka havalesi ile ödeme yapabilirsiniz. Ayrıca kurumsal müşterilerimiz için fatura ile ödeme seçeneği de mevcuttur.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Planlar arasında geçiş yapabilir miyim?
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Evet, istediğiniz zaman planınızı yükseltebilir veya düşürebilirsiniz. Yükseltmeler anında geçerli olurken, düşürmeler fatura dönemi sonunda geçerli olur.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Ücretsiz planın sınırlamaları nelerdir?
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Ücretsiz plan günde 10 sorgu ile sınırlıdır ve temel özellikleri içerir. API erişimi ve özel model eğitimi gibi gelişmiş özellikler ücretli planlarda mevcuttur.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        İade politikası nedir?
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        14 gün içinde memnun kalmazsanız ücret iadesi yapıyoruz. Kurumsal planlar için özel iade koşulları geçerlidir.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>LytrAI ile Geleceği Şekillendirin</h2>
+            <p>Binlerce şirket ve birey LytrAI ile işlerini dönüştürdü. Sıra sizde!</p>
+            <div class="hero-buttons" style="justify-content: center;">
+                <button class="cta-button" onclick="window.location.href='chat.html'">Hemen Deneyin</button>
+                <button class="secondary-button">Daha Fazla Bilgi</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>LytrAI</h3>
+                    <p>Geleceğin yapay zekası ile işlerinizi dönüştürün. Daha akıllı, daha hızlı, daha verimli.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Ürün</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="chat.html">Sohbet</a></li>
+                        <li><a href="pricing.html">Fiyatlandırma</a></li>
+                        <li><a href="#">API Dokümantasyonu</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Şirket</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Hakkımızda</a></li>
+                        <li><a href="#">Kariyer</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Basın</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Destek</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Yardım Merkezi</a></li>
+                        <li><a href="#">İletişim</a></li>
+                        <li><a href="#">SSS</a></li>
+                        <li><a href="#">Gizlilik Politikası</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LytrAI. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-bell"></i>
+        <span>Teşekkürler! Planınız başarıyla seçildi.</span>
+    </div>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Show notification after page load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const notification = document.getElementById('notification');
+                notification.classList.add('show');
+                
+                // Hide notification after 5 seconds
+                setTimeout(function() {
+                    notification.classList.remove('show');
+                }, 5000);
+            }, 1000);
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', function() {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // FAQ functionality
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Plan selection
+        document.querySelectorAll('.pricing-card .cta-button, .pricing-card .secondary-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const plan = this.closest('.pricing-card').querySelector('h3').textContent;
+                const notification = document.getElementById('notification');
+                notification.querySelector('span').textContent = `Teşekkürler! ${plan} planını seçtiniz.`;
+                notification.classList.add('show');
+                
+                // Hide notification after 5 seconds
+                setTimeout(function() {
+                    notification.classList.remove('show');
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>
