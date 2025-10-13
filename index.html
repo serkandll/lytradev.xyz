@@ -95,6 +95,13 @@
             gap: 10px;
         }
 
+        h3 {
+            color: var(--text);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
         p {
             color: var(--text-secondary);
             line-height: 1.6;
@@ -249,7 +256,7 @@
             color: var(--text);
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 15px;
             background: rgba(45, 62, 95, 0.6);
@@ -260,7 +267,7 @@
             color: var(--text);
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             border-color: var(--accent);
             outline: none;
             box-shadow: 0 0 0 2px rgba(74, 123, 255, 0.2);
@@ -287,6 +294,14 @@
 
         .error-message {
             color: var(--danger);
+            margin-top: 15px;
+            font-size: 0.9rem;
+            display: none;
+            text-align: center;
+        }
+
+        .success-message {
+            color: var(--success);
             margin-top: 15px;
             font-size: 0.9rem;
             display: none;
@@ -377,6 +392,42 @@
         .logout-btn:hover {
             background: rgba(239, 68, 68, 0.3);
             transform: translateY(-2px);
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            background: rgba(45, 62, 95, 0.4);
+            color: var(--text-secondary);
+            border: 1px solid rgba(74, 123, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: rgba(74, 123, 255, 0.2);
+            color: var(--accent-light);
+            border-color: var(--accent);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(74, 123, 255, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .file-grid {
@@ -503,6 +554,181 @@
             color: var(--accent);
             width: 20px;
         }
+
+        .user-management {
+            margin-top: 20px;
+        }
+
+        .user-form {
+            background: rgba(45, 62, 95, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .user-list {
+            background: rgba(45, 62, 95, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(74, 123, 255, 0.1);
+        }
+
+        .user-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .user-assigned {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .action-btn.edit:hover {
+            color: var(--accent);
+        }
+
+        .action-btn.delete:hover {
+            color: var(--danger);
+        }
+
+        .customer-panel {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(74, 123, 255, 0.2);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .customer-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--warning), var(--accent));
+        }
+
+        .customer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(74, 123, 255, 0.2);
+        }
+
+        .customer-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .customer-title i {
+            font-size: 2.5rem;
+            color: var(--warning);
+        }
+
+        .customer-title h1 {
+            margin: 0;
+            text-align: left;
+        }
+
+        .customer-logout-btn {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .customer-logout-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .customer-content {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .assigned-site {
+            background: rgba(45, 62, 95, 0.4);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 1px solid rgba(74, 123, 255, 0.2);
+        }
+
+        .assigned-site h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .customer-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(74, 123, 255, 0.2);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
     </style>
 </head>
 <body>
@@ -551,7 +777,7 @@
                     <i class="fas fa-cogs"></i>
                     <div>
                         <h1>Admin Panel</h1>
-                        <p>Available HTML Files</p>
+                        <p>User & File Management</p>
                     </div>
                 </div>
                 <button class="logout-btn" id="logoutBtn">
@@ -559,21 +785,96 @@
                 </button>
             </div>
             
-            <div class="folder-structure">
-                <div class="folder-title">
-                    <i class="fas fa-folder"></i>
-                    <h3>Repository Structure</h3>
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="files">Files</button>
+                <button class="tab-btn" data-tab="users">User Management</button>
+            </div>
+            
+            <div class="tab-content active" id="files-tab">
+                <div class="folder-structure">
+                    <div class="folder-title">
+                        <i class="fas fa-folder"></i>
+                        <h3>Repository Structure</h3>
+                    </div>
+                    <div id="fileStructure">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Scanning repository for HTML files...</p>
+                        </div>
+                    </div>
                 </div>
-                <div id="fileStructure">
-                    <div class="loading">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        <p>Scanning repository for HTML files...</p>
+            </div>
+            
+            <div class="tab-content" id="users-tab">
+                <div class="user-management">
+                    <h3>Create New User</h3>
+                    <div class="user-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newUsername">Username</label>
+                                <input type="text" id="newUsername" placeholder="Enter username">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">Password</label>
+                                <input type="password" id="newPassword" placeholder="Enter password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="assignedSite">Assign Site</label>
+                            <select id="assignedSite">
+                                <option value="">Select a site</option>
+                            </select>
+                        </div>
+                        <button class="submit-btn" id="createUserBtn">
+                            <i class="fas fa-user-plus"></i> Create User
+                        </button>
+                        <div class="success-message" id="userSuccessMessage">
+                            <i class="fas fa-check-circle"></i> User created successfully!
+                        </div>
+                        <div class="error-message" id="userErrorMessage">
+                            <i class="fas fa-exclamation-circle"></i> Error creating user. Please try again.
+                        </div>
+                    </div>
+                    
+                    <h3>Existing Users</h3>
+                    <div class="user-list" id="userList">
+                        <!-- User list will be populated here -->
                     </div>
                 </div>
             </div>
             
             <div class="admin-footer">
                 &copy; 2025 Lytra Development. Admin Panel v2.1.0
+            </div>
+        </div>
+
+        <div class="customer-panel" id="customerPanel">
+            <div class="customer-header">
+                <div class="customer-title">
+                    <i class="fas fa-user"></i>
+                    <div>
+                        <h1>Customer Panel</h1>
+                        <p>Your Assigned Testing Site</p>
+                    </div>
+                </div>
+                <button class="customer-logout-btn" id="customerLogoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+            
+            <div class="customer-content">
+                <h2>Welcome, <span id="customerUsername"></span>!</h2>
+                <p>You have access to the following testing site:</p>
+                
+                <div class="assigned-site" id="assignedSiteContainer">
+                    <!-- Assigned site will be displayed here -->
+                </div>
+                
+                <p>Click on the site above to access it.</p>
+            </div>
+            
+            <div class="customer-footer">
+                &copy; 2025 Lytra Development. Customer Panel v2.1.0
             </div>
         </div>
     </div>
@@ -615,13 +916,44 @@
         const errorMessage = document.getElementById('errorMessage');
         const loginPage = document.getElementById('loginPage');
         const adminPanel = document.getElementById('adminPanel');
+        const customerPanel = document.getElementById('customerPanel');
         const logoutBtn = document.getElementById('logoutBtn');
+        const customerLogoutBtn = document.getElementById('customerLogoutBtn');
         const fileStructure = document.getElementById('fileStructure');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const createUserBtn = document.getElementById('createUserBtn');
+        const userSuccessMessage = document.getElementById('userSuccessMessage');
+        const userErrorMessage = document.getElementById('userErrorMessage');
+        const assignedSiteSelect = document.getElementById('assignedSite');
+        const userList = document.getElementById('userList');
+        const customerUsername = document.getElementById('customerUsername');
+        const assignedSiteContainer = document.getElementById('assignedSiteContainer');
 
         const knownFiles = [
             'index.html',
             'lytradevissocooldotcom.html'
         ];
+
+        // User management system
+        let users = JSON.parse(localStorage.getItem('lytradev_users')) || [];
+        let currentUser = null;
+
+        // Tab functionality
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // Update active tab button
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show active tab content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
 
         loginBtn.addEventListener('click', function() {
             loginModal.style.display = 'flex';
@@ -645,12 +977,24 @@
         }
 
         function checkCredentials(u, p) {
+            // Check if it's the admin
             const chars = [76,121,116,114,97,100,101,118,49,52,53,33,33];
             let correctPass = "";
             for (let i = 0; i < chars.length; i++) {
                 correctPass += String.fromCharCode(chars[i]);
             }
-            return u === "admin" && p === correctPass;
+            
+            if (u === "admin" && p === correctPass) {
+                return { role: 'admin' };
+            }
+            
+            // Check if it's a customer user
+            const user = users.find(user => user.username === u && user.password === p);
+            if (user) {
+                return { role: 'customer', username: user.username, assignedSite: user.assignedSite };
+            }
+            
+            return null;
         }
 
         loginForm.addEventListener('submit', function(e) {
@@ -659,7 +1003,9 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            if (checkCredentials(username, password)) {
+            const userData = checkCredentials(username, password);
+            
+            if (userData) {
                 const submitBtn = loginForm.querySelector('.submit-btn');
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
                 submitBtn.disabled = true;
@@ -667,8 +1013,19 @@
                 setTimeout(function() {
                     loginModal.style.display = 'none';
                     loginPage.style.display = 'none';
-                    adminPanel.style.display = 'block';
-                    scanForHTMLFiles();
+                    
+                    if (userData.role === 'admin') {
+                        adminPanel.style.display = 'block';
+                        currentUser = { role: 'admin' };
+                        scanForHTMLFiles();
+                        loadUserManagement();
+                    } else if (userData.role === 'customer') {
+                        customerPanel.style.display = 'block';
+                        currentUser = userData;
+                        displayCustomerSite();
+                    }
+                    
+                    resetForm();
                 }, 1500);
             } else {
                 errorMessage.style.display = 'block';
@@ -684,8 +1041,163 @@
         logoutBtn.addEventListener('click', function() {
             adminPanel.style.display = 'none';
             loginPage.style.display = 'block';
+            currentUser = null;
             resetForm();
         });
+
+        customerLogoutBtn.addEventListener('click', function() {
+            customerPanel.style.display = 'none';
+            loginPage.style.display = 'block';
+            currentUser = null;
+            resetForm();
+        });
+
+        // User management functions
+        function loadUserManagement() {
+            // Populate the assigned site dropdown
+            assignedSiteSelect.innerHTML = '<option value="">Select a site</option>';
+            knownFiles.forEach(file => {
+                const option = document.createElement('option');
+                option.value = file;
+                option.textContent = file;
+                assignedSiteSelect.appendChild(option);
+            });
+            
+            // Display existing users
+            displayUsers();
+        }
+
+        function displayUsers() {
+            if (users.length === 0) {
+                userList.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No users created yet.</p>';
+                return;
+            }
+            
+            userList.innerHTML = '';
+            users.forEach((user, index) => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                userItem.innerHTML = `
+                    <div class="user-info">
+                        <div class="user-name">${user.username}</div>
+                        <div class="user-assigned">Assigned site: ${user.assignedSite || 'None'}</div>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn edit" data-index="${index}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete" data-index="${index}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                userList.appendChild(userItem);
+            });
+            
+            // Add event listeners for edit and delete buttons
+            document.querySelectorAll('.action-btn.edit').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    editUser(index);
+                });
+            });
+            
+            document.querySelectorAll('.action-btn.delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    deleteUser(index);
+                });
+            });
+        }
+
+        function createUser() {
+            const username = document.getElementById('newUsername').value;
+            const password = document.getElementById('newPassword').value;
+            const assignedSite = document.getElementById('assignedSite').value;
+            
+            if (!username || !password) {
+                userErrorMessage.textContent = 'Username and password are required.';
+                userErrorMessage.style.display = 'block';
+                userSuccessMessage.style.display = 'none';
+                return;
+            }
+            
+            // Check if username already exists
+            if (users.some(user => user.username === username)) {
+                userErrorMessage.textContent = 'Username already exists.';
+                userErrorMessage.style.display = 'block';
+                userSuccessMessage.style.display = 'none';
+                return;
+            }
+            
+            // Create new user
+            users.push({
+                username,
+                password,
+                assignedSite
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('lytradev_users', JSON.stringify(users));
+            
+            // Show success message
+            userSuccessMessage.style.display = 'block';
+            userErrorMessage.style.display = 'none';
+            
+            // Reset form
+            document.getElementById('newUsername').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('assignedSite').value = '';
+            
+            // Update user list
+            displayUsers();
+            
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                userSuccessMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        function editUser(index) {
+            const user = users[index];
+            document.getElementById('newUsername').value = user.username;
+            document.getElementById('newPassword').value = user.password;
+            document.getElementById('assignedSite').value = user.assignedSite;
+            
+            // Remove the user from the list (will be re-added when created)
+            users.splice(index, 1);
+            localStorage.setItem('lytradev_users', JSON.stringify(users));
+            displayUsers();
+        }
+
+        function deleteUser(index) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                users.splice(index, 1);
+                localStorage.setItem('lytradev_users', JSON.stringify(users));
+                displayUsers();
+            }
+        }
+
+        function displayCustomerSite() {
+            customerUsername.textContent = currentUser.username;
+            
+            if (currentUser.assignedSite) {
+                assignedSiteContainer.innerHTML = `
+                    <h3>${currentUser.assignedSite}</h3>
+                    <p>This is your assigned testing site.</p>
+                    <button class="login-btn" onclick="navigateToFile('${currentUser.assignedSite}')">
+                        <i class="fas fa-external-link-alt"></i> Open Site
+                    </button>
+                `;
+            } else {
+                assignedSiteContainer.innerHTML = `
+                    <h3>No Site Assigned</h3>
+                    <p>You don't have any site assigned yet. Please contact the administrator.</p>
+                `;
+            }
+        }
+
+        createUserBtn.addEventListener('click', createUser);
 
         async function scanForHTMLFiles() {
             fileStructure.innerHTML = `
