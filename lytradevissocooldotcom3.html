@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liberty County USMS | Emergency Response Division</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>United States Marshals Service - ER:LC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for consistent theming */
         :root {
-            --primary: #1a365d;
-            --secondary: #e53e3e;
-            --accent: #f6ad55;
-            --light: #f7fafc;
-            --dark: #2d3748;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --usms-blue: #1a3a6c;
+            --usms-gold: #d4af37;
+            --usms-dark: #0a1a33;
+            --usms-light: #2a4a7a;
+            --text-light: #f8f9fa;
+            --text-gray: #adb5bd;
         }
 
-        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -25,555 +24,496 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom, var(--usms-dark), #000);
+            color: var(--text-light);
             line-height: 1.6;
-            color: var(--dark);
-            background-color: var(--light);
             overflow-x: hidden;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
-        }
-
         .container {
-            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn:hover {
-            background: #c53030;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--secondary);
-        }
-
-        /* Header Styles */
+        /* Header & Navigation */
         header {
-            background: var(--primary);
-            color: white;
+            background: rgba(10, 26, 51, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             position: fixed;
             width: 100%;
-            top: 0;
             z-index: 1000;
-            box-shadow: var(--shadow);
         }
 
-        .header-container {
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 1rem 0;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .logo-img {
-            width: 60px;
-            height: 60px;
-            background: white;
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--usms-gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary);
-            font-size: 24px;
+            color: var(--usms-dark);
             font-weight: bold;
         }
 
-        .logo-text h1 {
+        .logo-text {
+            font-weight: 700;
             font-size: 1.5rem;
-            line-height: 1.2;
         }
 
-        .logo-text span {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .nav-menu {
+        .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 2rem;
         }
 
-        .nav-link {
-            position: relative;
-            padding: 10px 0;
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
             font-weight: 500;
-            transition: var(--transition);
+            transition: color 0.3s;
+            position: relative;
         }
 
-        .nav-link:after {
+        .nav-links a:hover {
+            color: var(--usms-gold);
+        }
+
+        .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
             width: 0;
             height: 2px;
-            background: var(--accent);
-            transition: var(--transition);
+            bottom: -5px;
+            left: 0;
+            background-color: var(--usms-gold);
+            transition: width 0.3s;
         }
 
-        .nav-link:hover {
-            color: var(--accent);
-        }
-
-        .nav-link:hover:after {
+        .nav-links a:hover::after {
             width: 100%;
         }
 
-        .mobile-toggle {
+        .mobile-menu-btn {
             display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
             font-size: 1.5rem;
             cursor: pointer;
         }
 
         /* Hero Section */
         .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(26, 54, 93, 0.9)), url('https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
+            min-height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
             text-align: center;
+            padding-top: 80px;
+            background: linear-gradient(rgba(10, 26, 51, 0.7), rgba(10, 26, 51, 0.9)), url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
             position: relative;
-            overflow: hidden;
         }
 
         .hero-content {
             max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
+            padding: 2rem;
         }
 
         .hero h1 {
             font-size: 3.5rem;
-            margin-bottom: 20px;
+            font-weight: 700;
+            margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--text-gray);
         }
 
-        .hero-btns {
+        .cta-buttons {
             display: flex;
-            gap: 20px;
+            gap: 1rem;
             justify-content: center;
-            margin-top: 30px;
+            flex-wrap: wrap;
         }
 
-        /* Emergency Alert */
-        .emergency-alert {
-            background: var(--secondary);
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-            position: relative;
-            animation: pulse 2s infinite;
-        }
-
-        .emergency-alert h3 {
-            margin-bottom: 5px;
-            font-size: 1.3rem;
-        }
-
-        .emergency-alert p {
-            font-size: 1rem;
-        }
-
-        @keyframes pulse {
-            0% { background-color: var(--secondary); }
-            50% { background-color: #c53030; }
-            100% { background-color: var(--secondary); }
-        }
-
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .service-icon {
-            height: 120px;
-            background: var(--primary);
-            display: flex;
+        .btn {
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
+            gap: 8px;
         }
 
-        .service-content {
-            padding: 25px;
+        .btn-primary {
+            background: var(--usms-gold);
+            color: var(--usms-dark);
         }
 
-        .service-content h3 {
-            margin-bottom: 15px;
-            color: var(--primary);
+        .btn-primary:hover {
+            background: #e6c158;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--usms-gold);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: var(--usms-gold);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title p {
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* About Section */
-        .about {
-            background: var(--primary);
-            color: white;
-        }
-
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            gap: 3rem;
             align-items: center;
         }
 
-        .about-text h2 {
-            margin-bottom: 20px;
+        .about-text h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
         }
 
         .about-text p {
-            margin-bottom: 20px;
-            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            color: var(--text-gray);
         }
 
         .about-image {
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .about-image img {
             width: 100%;
             height: auto;
             display: block;
-            transition: var(--transition);
         }
 
-        .about-image:hover img {
-            transform: scale(1.05);
+        /* Features Section */
+        .features {
+            background: rgba(10, 26, 51, 0.5);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(26, 58, 108, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--usms-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--usms-dark);
+            font-size: 1.75rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-gray);
+        }
+
+        /* Join Section */
+        .join-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .join-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(26, 58, 108, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--usms-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--usms-dark);
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .step h3 {
+            margin-bottom: 1rem;
+        }
+
+        .step p {
+            color: var(--text-gray);
         }
 
         /* Team Section */
+        .team {
+            background: rgba(10, 26, 51, 0.5);
+        }
+
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 2rem;
         }
 
         .team-member {
             text-align: center;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            background: rgba(26, 58, 108, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.1);
         }
 
-        .team-member:hover {
-            transform: translateY(-5px);
-        }
-
-        .member-image {
-            height: 250px;
-            background: var(--dark);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .member-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .team-member:hover .member-image img {
-            transform: scale(1.1);
-        }
-
-        .member-info {
-            padding: 20px;
-        }
-
-        .member-info h3 {
-            margin-bottom: 5px;
-            color: var(--primary);
-        }
-
-        .member-info p {
-            color: var(--secondary);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        /* Contact Section */
-        .contact {
-            background: var(--light);
-        }
-
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            color: white;
+        .member-avatar {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: var(--usms-light);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
+            font-size: 2.5rem;
+            color: var(--usms-gold);
+            border: 3px solid var(--usms-gold);
         }
 
-        .contact-details h3 {
-            margin-bottom: 5px;
-            color: var(--primary);
+        .team-member h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
         }
 
-        .contact-form {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
+        .team-member .role {
+            color: var(--usms-gold);
+            font-weight: 500;
+            margin-bottom: 1rem;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            font-family: inherit;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
+        .team-member p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
         }
 
         /* Footer */
         footer {
-            background: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
+            background: var(--usms-dark);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .footer-column h3 {
-            margin-bottom: 20px;
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo .logo-icon {
+            width: 30px;
+            height: 30px;
+            font-size: 0.8rem;
+        }
+
+        .footer-logo .logo-text {
+            font-size: 1.25rem;
+        }
+
+        .footer-about p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
             position: relative;
-            padding-bottom: 10px;
         }
 
-        .footer-column h3:after {
+        .footer-links h3::after, .footer-contact h3::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--usms-gold);
+            bottom: -8px;
             left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--secondary);
+        }
+
+        .footer-links ul {
+            list-style: none;
         }
 
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 0.75rem;
         }
 
         .footer-links a {
-            transition: var(--transition);
-            opacity: 0.8;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
         .footer-links a:hover {
-            opacity: 1;
-            color: var(--accent);
-            padding-left: 5px;
+            color: var(--usms-gold);
         }
 
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+        .footer-contact p {
+            color: var(--text-gray);
+            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: var(--transition);
+            gap: 10px;
         }
 
-        .social-link:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
+        .footer-bottom {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.7;
+            color: var(--text-gray);
+            font-size: 0.9rem;
         }
 
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .about-content,
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .mobile-toggle {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--usms-dark);
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
                 display: block;
             }
 
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 80%;
-                height: calc(100vh - 80px);
-                background: var(--primary);
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 50px;
-                transition: var(--transition);
-                box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
 
-            .hero-btns {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
                 flex-direction: column;
                 align-items: center;
             }
@@ -581,246 +521,181 @@
             .btn {
                 width: 100%;
                 max-width: 300px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .section {
-                padding: 60px 0;
-            }
-
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Emergency Alert Banner -->
-    <div class="emergency-alert">
-        <div class="container">
-            <h3><i class="fas fa-exclamation-triangle"></i> EMERGENCY ALERT</h3>
-            <p>For immediate assistance, call 911. For non-emergency inquiries, call (555) 123-4567.</p>
-        </div>
-    </div>
-
     <!-- Header -->
     <header>
-        <div class="container header-container">
-            <div class="logo">
-                <div class="logo-img">USMS</div>
-                <div class="logo-text">
-                    <h1>Liberty County USMS</h1>
-                    <span>Emergency Response Division</span>
-                </div>
-            </div>
-            
-            <div class="mobile-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            
+        <div class="container">
             <nav>
-                <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#team" class="nav-link">Team</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
+                <div class="logo">
+                    <div class="logo-icon">USMS</div>
+                    <div class="logo-text">United States Marshals Service</div>
+                </div>
+                <div class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#features">Features</a>
+                    <a href="#join">Join</a>
+                    <a href="#team">Team</a>
+                </div>
+                <button class="mobile-menu-btn">☰</button>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protecting Liberty County in Times of Crisis</h1>
-            <p>The Liberty County USMS Emergency Response Division is dedicated to ensuring public safety through rapid response, specialized training, and community partnership.</p>
-            <div class="hero-btns">
-                <a href="#contact" class="btn">Request Assistance</a>
-                <a href="#about" class="btn btn-outline">Learn More</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="section" id="services">
+    <section id="home" class="hero">
         <div class="container">
-            <h2 class="section-title">Our Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Emergency Response</h3>
-                        <p>24/7 rapid deployment for critical incidents including natural disasters, civil disturbances, and high-risk situations.</p>
-                    </div>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Search & Rescue</h3>
-                        <p>Specialized teams equipped for urban and wilderness search and rescue operations with advanced technology.</p>
-                    </div>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Community Training</h3>
-                        <p>Public education programs and emergency preparedness training for schools, businesses, and community organizations.</p>
-                    </div>
+            <div class="hero-content">
+                <h1>UNITED STATES MARSHALS SERVICE</h1>
+                <p>Justice, Integrity, Service. The nation's oldest federal law enforcement agency, now serving in Emergency Response: Liberty County.</p>
+                <div class="cta-buttons">
+                    <a href="#join" class="btn btn-primary">Join USMS</a>
+                    <a href="#about" class="btn btn-secondary">Learn More</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="section about" id="about">
+    <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title" style="color: white;">About Our Division</h2>
+            <div class="section-title">
+                <h2>About USMS</h2>
+                <p>Learn about our mission, values, and role within the ER:LC community</p>
+            </div>
             <div class="about-content">
                 <div class="about-text">
-                    <h2>Dedicated to Serving Liberty County</h2>
-                    <p>The Liberty County USMS Emergency Response Division was established to provide specialized support during critical incidents that threaten public safety and security.</p>
-                    <p>Our highly trained personnel utilize state-of-the-art equipment and follow proven protocols to effectively respond to emergencies while minimizing risk to the community.</p>
-                    <p>We work in close coordination with local law enforcement, fire departments, and emergency medical services to ensure a unified response to any crisis situation.</p>
-                    <a href="#contact" class="btn" style="margin-top: 20px;">Contact Us</a>
+                    <h3>Justice, Integrity, Service</h3>
+                    <p>The United States Marshals Service is the nation's oldest and most versatile federal law enforcement agency. Since 1789, federal marshals have served the nation through dedication to the principles of justice, integrity, and service.</p>
+                    <p>In Emergency Response: Liberty County, our USMS division focuses on fugitive apprehension, witness protection, prisoner transport, and specialized tactical operations. We work alongside other agencies to maintain law and order in Liberty County.</p>
+                    <p>Our members are held to the highest standards of professionalism and are expected to exemplify the core values of the Marshals Service in all their interactions.</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="USMS Team">
+                    <img src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="USMS Operations">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Operations</h2>
+                <p>Specialized divisions and responsibilities within our ER:LC department</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚖️</div>
+                    <h3>Fugitive Apprehension</h3>
+                    <p>Tracking and capturing the most dangerous fugitives in Liberty County with precision and professionalism.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Witness Protection</h3>
+                    <p>Ensuring the safety of key witnesses in high-profile cases through secure relocation and protection details.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚔</div>
+                    <h3>Prisoner Transport</h3>
+                    <p>Secure transportation of federal prisoners between facilities with maximum security protocols.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔫</div>
+                    <h3>Tactical Operations</h3>
+                    <p>Specialized response teams for high-risk warrants, hostage situations, and other critical incidents.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Asset Forfeiture</h3>
+                    <p>Managing seized assets from criminal enterprises and ensuring proper legal procedures are followed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏛️</div>
+                    <h3>Court Security</h3>
+                    <p>Protecting federal judiciary, courthouses, and ensuring the integrity of judicial proceedings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section id="join" class="join">
+        <div class="container">
+            <div class="section-title">
+                <h2>Join USMS</h2>
+                <p>Become part of our elite team in Emergency Response: Liberty County</p>
+            </div>
+            <div class="join-content">
+                <p>We're looking for dedicated, professional roleplayers who are committed to upholding the values of the United States Marshals Service. Our selection process is rigorous to ensure we maintain the highest standards.</p>
+                
+                <div class="join-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Application</h3>
+                        <p>Submit a detailed application through our Discord server with your roleplay experience and motivation.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Interview</h3>
+                        <p>Successful applicants will be invited for an interview with our command staff to assess suitability.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Training</h3>
+                        <p>Complete our comprehensive training program covering USMS procedures, tactics, and protocols.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Field Training</h3>
+                        <p>Work alongside experienced deputies to apply your training in real scenarios before solo assignment.</p>
+                    </div>
+                </div>
+                
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">Apply Now</a>
+                    <a href="#" class="btn btn-secondary">Join Our Discord</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Team Section -->
-    <section class="section" id="team">
+    <section id="team" class="team">
         <div class="container">
-            <h2 class="section-title">Our Leadership Team</h2>
+            <div class="section-title">
+                <h2>Command Staff</h2>
+                <p>Meet the leadership team of our ER:LC USMS division</p>
+            </div>
             <div class="team-grid">
                 <div class="team-member">
-                    <div class="member-image">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=634&q=80" alt="Director Johnson">
-                    </div>
-                    <div class="member-info">
-                        <h3>Michael Johnson</h3>
-                        <p>Division Director</p>
-                        <p>20+ years in emergency response and law enforcement.</p>
-                    </div>
+                    <div class="member-avatar">JD</div>
+                    <h3>Serkan Taşkın</h3>
+                    <div class="role">Head of IT</div>
+                    <p>Oversees all techincal operations with 5+ years of coding experience.</p>
                 </div>
-                
                 <div class="team-member">
-                    <div class="member-image">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=634&q=80" alt="Commander Rodriguez">
-                    </div>
-                    <div class="member-info">
-                        <h3>Maria Rodriguez</h3>
-                        <p>Field Operations Commander</p>
-                        <p>Specialized in tactical response and crisis management.</p>
-                    </div>
+                    <div class="member-avatar">SR</div>
+                    <h3>Uncle Josh</h3>
+                    <div class="role">Nigger</div>
+                    <p>Noob</p>
                 </div>
-                
                 <div class="team-member">
-                    <div class="member-image">
-                        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=634&q=80" alt="Chief Williams">
-                    </div>
-                    <div class="member-info">
-                        <h3>Robert Williams</h3>
-                        <p>Training & Preparedness Chief</p>
-                        <p>Develops emergency protocols and training programs.</p>
-                    </div>
+                    <div class="member-avatar">MT</div>
+                    <h3>Gaadus</h3>
+                    <div class="role">Nigger #2</div>
+                    <p>Very nerd</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
-        <div class="container">
-            <h2 class="section-title">Contact Us</h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Our Location</h3>
-                            <p>123 Justice Avenue<br>Liberty County, TX 77500</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Phone Numbers</h3>
-                            <p>Emergency: 911<br>Non-Emergency: (555) 123-4567<br>Administration: (555) 123-4568</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email Address</h3>
-                            <p>emergency.response@libertycounty.usms.gov</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Operating Hours</h3>
-                            <p>24/7 Emergency Response<br>Administrative: Mon-Fri 8am-5pm</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" class="form-control">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" class="form-control" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn" style="width: 100%;">Send Message</button>
-                    </form>
+                <div class="team-member">
+                    <div class="member-avatar">EJ</div>
+                    <h3>BARK</h3>
+                    <div class="role">Dog ig</div>
+                    <p>Rawr</p>
                 </div>
             </div>
         </div>
@@ -830,92 +705,59 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Liberty County USMS</h3>
-                    <p>Emergency Response Division dedicated to protecting and serving the residents of Liberty County during times of crisis.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-icon">USMS</div>
+                        <div class="logo-text">United States Marshals Service</div>
                     </div>
+                    <p>Justice, Integrity, Service. The United States Marshals Service division in Emergency Response: Liberty County.</p>
                 </div>
-                
-                <div class="footer-column">
+                <div class="footer-links">
                     <h3>Quick Links</h3>
-                    <ul class="footer-links">
+                    <ul>
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#team">Our Team</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#features">Operations</a></li>
+                        <li><a href="#join">Join USMS</a></li>
+                        <li><a href="#team">Command Staff</a></li>
                     </ul>
                 </div>
-                
-                <div class="footer-column">
-                    <h3>Emergency Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Emergency Preparedness</a></li>
-                        <li><a href="#">Evacuation Routes</a></li>
-                        <li><a href="#">Shelter Locations</a></li>
-                        <li><a href="#">Weather Alerts</a></li>
-                        <li><a href="#">Community Training</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Contact Info</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Justice Ave, Liberty County</li>
-                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
-                        <li><i class="fas fa-envelope"></i> emergency.response@libertycounty.usms.gov</li>
-                    </ul>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>📱 Join our Discord server</p>
+                    <p>📧 Email: usms.erlc@example.com</p>
+                    <p>📍 Emergency Response: Liberty County</p>
                 </div>
             </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 Liberty County USMS Emergency Response Division. All rights reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Lytra Development - USMS ER:LC Division. This is a roleplay community and is not affiliated with the actual USMS.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile Navigation Toggle
-        const mobileToggle = document.querySelector('.mobile-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        mobileToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
         });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
-        
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message. We will respond as soon as possible.');
-            this.reset();
-        });
-        
-        // Smooth scrolling for navigation links
+
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
+                if (targetId === '#') return;
                 
                 const targetElement = document.querySelector(targetId);
-                if(targetElement) {
+                if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
                 }
             });
         });
