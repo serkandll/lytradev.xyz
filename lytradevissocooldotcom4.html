@@ -27,6 +27,7 @@
             background-color: #f5f7ff;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
@@ -94,6 +95,7 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
+            display: inline-block;
         }
 
         .cta-button:hover {
@@ -195,6 +197,8 @@
             padding: 100px 0;
             background: linear-gradient(135deg, #f5f7ff 0%, #e6e9ff 100%);
             border-radius: 50px;
+            position: relative;
+            overflow: hidden;
         }
 
         .payment-container {
@@ -323,6 +327,43 @@
 
         .flip-button:hover {
             background: var(--secondary);
+        }
+
+        /* Floating Credit Card */
+        .floating-card {
+            position: fixed;
+            width: 320px;
+            height: 200px;
+            background: linear-gradient(135deg, #6c63ff 0%, #4a44c9 100%);
+            border-radius: 15px;
+            padding: 25px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+            z-index: 999;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .floating-card.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .floating-card.animate-in {
+            animation: cardAppear 0.8s forwards;
+        }
+
+        @keyframes cardAppear {
+            0% {
+                transform: translateY(100px) scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
         }
 
         /* Products Section */
@@ -489,13 +530,33 @@
                 flex-direction: column;
             }
 
-            .credit-card {
+            .credit-card, .floating-card {
                 width: 280px;
+            }
+            
+            .floating-card {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Credit Card -->
+    <div class="floating-card">
+        <div class="card-chip"></div>
+        <div class="card-number">**** **** **** 4242</div>
+        <div class="card-details">
+            <div class="card-holder">
+                <div class="card-label">CARD HOLDER</div>
+                <div>John Doe</div>
+            </div>
+            <div class="card-expiry">
+                <div class="card-label">EXPIRES</div>
+                <div>12/25</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -706,35 +767,102 @@
     </footer>
 
     <script>
-        // Credit Card Flip Animation
-        document.querySelector('.flip-button').addEventListener('click', function() {
-            const cardFront = document.querySelector('.card-front');
-            const cardBack = document.querySelector('.card-back');
+        // Credit Card Animation on Scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const floatingCard = document.querySelector('.floating-card');
+            const paymentSection = document.querySelector('.payment-section');
+            const paymentCards = document.querySelector('.payment-cards');
             
-            if (cardFront.style.transform === 'rotateY(180deg)') {
-                cardFront.style.transform = 'rotateY(0deg)';
-                cardBack.style.transform = 'rotateY(180deg)';
-            } else {
-                cardFront.style.transform = 'rotateY(180deg)';
-                cardBack.style.transform = 'rotateY(360deg)';
+            // Initial position of the floating card
+            let isAnimating = false;
+            let cardPositioned = false;
+            
+            // Function to position the floating card
+            function positionFloatingCard() {
+                if (window.innerWidth <= 768) return; // Disable on mobile
+                
+                const scrollY = window.scrollY;
+                const paymentSectionTop = paymentSection.offsetTop;
+                const paymentSectionHeight = paymentSection.offsetHeight;
+                const paymentCardsRect = paymentCards.getBoundingClientRect();
+                
+                // Show card when we're near the payment section
+                if (scrollY > paymentSectionTop - 500 && scrollY < paymentSectionTop + paymentSectionHeight - 300) {
+                    if (!cardPositioned) {
+                        floatingCard.classList.add('active', 'animate-in');
+                        cardPositioned = true;
+                    }
+                    
+                    // Calculate position based on scroll
+                    const progress = Math.min(Math.max((scrollY - (paymentSectionTop - 500)) / 800, 0), 1);
+                    
+                    // Move card from right side of screen to its final position
+                    const startX = window.innerWidth - 100;
+                    const endX = paymentCardsRect.left + (paymentCardsRect.width - 320) / 2;
+                    const currentX = startX + (endX - startX) * progress;
+                    
+                    const startY = 150;
+                    const endY = paymentCardsRect.top + (paymentCardsRect.height - 200) / 2;
+                    const currentY = startY + (endY - startY) * progress;
+                    
+                    floatingCard.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                    
+                    // Scale effect
+                    const scale = 0.8 + 0.2 * progress;
+                    floatingCard.style.transform += ` scale(${scale})`;
+                    
+                } else {
+                    if (cardPositioned && (scrollY < paymentSectionTop - 600 || scrollY > paymentSectionTop + paymentSectionHeight - 200)) {
+                        floatingCard.classList.remove('active');
+                        cardPositioned = false;
+                    }
+                }
             }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
+            
+            // Listen for scroll events
+            window.addEventListener('scroll', function() {
+                if (!isAnimating) {
+                    isAnimating = true;
+                    requestAnimationFrame(function() {
+                        positionFloatingCard();
+                        isAnimating = false;
                     });
                 }
+            });
+            
+            // Initial positioning
+            positionFloatingCard();
+            
+            // Credit Card Flip Animation
+            document.querySelector('.flip-button').addEventListener('click', function() {
+                const cardFront = document.querySelector('.card-front');
+                const cardBack = document.querySelector('.card-back');
+                
+                if (cardFront.style.transform === 'rotateY(180deg)') {
+                    cardFront.style.transform = 'rotateY(0deg)';
+                    cardBack.style.transform = 'rotateY(180deg)';
+                } else {
+                    cardFront.style.transform = 'rotateY(180deg)';
+                    cardBack.style.transform = 'rotateY(360deg)';
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
             });
         });
     </script>
