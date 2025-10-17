@@ -518,7 +518,7 @@
             border-radius: 12px;
             padding: 20px;
             margin-top: 20px;
-            max-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
         }
 
@@ -729,6 +729,33 @@
             font-size: 0.8rem;
             color: var(--text-secondary);
         }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(45, 62, 95, 0.6);
+            border: 1px solid rgba(74, 123, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 123, 255, 0.2);
+        }
+
+        .file-count {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -791,11 +818,11 @@
             </div>
             
             <div class="tab-content active" id="files-tab">
+                <div class="search-box">
+                    <input type="text" id="fileSearch" placeholder="Search HTML files...">
+                </div>
+                <div class="file-count" id="fileCount">Scanning for HTML files...</div>
                 <div class="folder-structure">
-                    <div class="folder-title">
-                        <i class="fas fa-folder"></i>
-                        <h3>Repository Structure</h3>
-                    </div>
                     <div id="fileStructure">
                         <div class="loading">
                             <i class="fas fa-spinner fa-spin"></i>
@@ -838,7 +865,6 @@
                     
                     <h3>Existing Users</h3>
                     <div class="user-list" id="userList">
-                        <!-- User list will be populated here -->
                     </div>
                 </div>
             </div>
@@ -867,7 +893,6 @@
                 <p>You have access to the following testing site:</p>
                 
                 <div class="assigned-site" id="assignedSiteContainer">
-                    <!-- Assigned site will be displayed here -->
                 </div>
                 
                 <p>Click on the site above to access it.</p>
@@ -928,32 +953,55 @@
         const userList = document.getElementById('userList');
         const customerUsername = document.getElementById('customerUsername');
         const assignedSiteContainer = document.getElementById('assignedSiteContainer');
+        const fileSearch = document.getElementById('fileSearch');
+        const fileCount = document.getElementById('fileCount');
 
-        const knownFiles = [
-            'index.html',
-            'lytradevissocooldotcom.html'
+        const predefinedUsers = [
+            { username: "demo", password: "demo123", assignedSite: "index.html" },
+            { username: "test", password: "test123", assignedSite: "index.html" }
         ];
 
-        // User management system
-        let users = JSON.parse(localStorage.getItem('lytradev_users')) || [];
+        let users = JSON.parse(localStorage.getItem('lytradev_users')) || predefinedUsers;
         let currentUser = null;
+        let allHtmlFiles = [];
 
-        // Tab functionality
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const tabId = btn.getAttribute('data-tab');
                 
-                // Update active tab button
                 tabBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                // Show active tab content
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.classList.remove('active');
                 });
                 document.getElementById(`${tabId}-tab`).classList.add('active');
             });
         });
+
+        fileSearch.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            filterFiles(searchTerm);
+        });
+
+        function filterFiles(searchTerm) {
+            const fileItems = fileStructure.querySelectorAll('.file-item');
+            let visibleCount = 0;
+
+            fileItems.forEach(item => {
+                const fileName = item.querySelector('span').textContent.toLowerCase();
+                const filePath = item.querySelector('small').textContent.toLowerCase();
+                
+                if (fileName.includes(searchTerm) || filePath.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            fileCount.textContent = `${visibleCount} HTML files found${searchTerm ? ` (filtered from ${allHtmlFiles.length})` : ` (out of ${allHtmlFiles.length} total)`}`;
+        }
 
         loginBtn.addEventListener('click', function() {
             loginModal.style.display = 'flex';
@@ -977,23 +1025,26 @@
         }
 
         function checkCredentials(u, p) {
-            // Check if it's the admin
-            const chars = [76,121,116,114,97,100,101,118,49,52,53,33,33];
-            let correctPass = "";
-            for (let i = 0; i < chars.length; i++) {
-                correctPass += String.fromCharCode(chars[i]);
-            }
+            console.log('Login attempt:', u, p);
+            console.log('Available users:', users);
             
-            if (u === "admin" && p === correctPass) {
+            const adminPassword = "Lytradev1453!!";
+            if (u === "admin" && p === adminPassword) {
+                console.log('Admin login successful');
                 return { role: 'admin' };
             }
             
-            // Check if it's a customer user
-            const user = users.find(user => user.username === u && user.password === p);
+            const allUsers = [...predefinedUsers, ...users.filter(user => 
+                !predefinedUsers.some(predefined => predefined.username === user.username)
+            )];
+            
+            const user = allUsers.find(user => user.username === u && user.password === p);
             if (user) {
+                console.log('Customer login successful:', user);
                 return { role: 'customer', username: user.username, assignedSite: user.assignedSite };
             }
             
+            console.log('Login failed - no matching user found');
             return null;
         }
 
@@ -1052,18 +1103,15 @@
             resetForm();
         });
 
-        // User management functions
         function loadUserManagement() {
-            // Populate the assigned site dropdown
             assignedSiteSelect.innerHTML = '<option value="">Select a site</option>';
-            knownFiles.forEach(file => {
+            allHtmlFiles.forEach(file => {
                 const option = document.createElement('option');
-                option.value = file;
-                option.textContent = file;
+                option.value = file.path;
+                option.textContent = file.path;
                 assignedSiteSelect.appendChild(option);
             });
             
-            // Display existing users
             displayUsers();
         }
 
@@ -1094,7 +1142,6 @@
                 userList.appendChild(userItem);
             });
             
-            // Add event listeners for edit and delete buttons
             document.querySelectorAll('.action-btn.edit').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const index = parseInt(this.getAttribute('data-index'));
@@ -1111,7 +1158,7 @@
         }
 
         function createUser() {
-            const username = document.getElementById('newUsername').value;
+            const username = document.getElementById('newUsername').value.trim();
             const password = document.getElementById('newPassword').value;
             const assignedSite = document.getElementById('assignedSite').value;
             
@@ -1122,7 +1169,6 @@
                 return;
             }
             
-            // Check if username already exists
             if (users.some(user => user.username === username)) {
                 userErrorMessage.textContent = 'Username already exists.';
                 userErrorMessage.style.display = 'block';
@@ -1130,32 +1176,31 @@
                 return;
             }
             
-            // Create new user
-            users.push({
-                username,
-                password,
-                assignedSite
-            });
+            const newUser = {
+                username: username,
+                password: password,
+                assignedSite: assignedSite
+            };
             
-            // Save to localStorage
+            users.push(newUser);
+            
             localStorage.setItem('lytradev_users', JSON.stringify(users));
             
-            // Show success message
             userSuccessMessage.style.display = 'block';
             userErrorMessage.style.display = 'none';
             
-            // Reset form
             document.getElementById('newUsername').value = '';
             document.getElementById('newPassword').value = '';
             document.getElementById('assignedSite').value = '';
             
-            // Update user list
             displayUsers();
             
-            // Hide success message after 3 seconds
             setTimeout(() => {
                 userSuccessMessage.style.display = 'none';
             }, 3000);
+            
+            console.log('Created user:', newUser);
+            console.log('All users:', users);
         }
 
         function editUser(index) {
@@ -1164,7 +1209,6 @@
             document.getElementById('newPassword').value = user.password;
             document.getElementById('assignedSite').value = user.assignedSite;
             
-            // Remove the user from the list (will be re-added when created)
             users.splice(index, 1);
             localStorage.setItem('lytradev_users', JSON.stringify(users));
             displayUsers();
@@ -1208,14 +1252,22 @@
             `;
 
             const foundFiles = [];
-            const checkedFiles = new Set();
+            const checkedPaths = new Set();
+
+            const knownFiles = [
+                'index.html',
+                'lytradevissocooldotcom.html',
+                'lytradevissocooldotcom2.html',
+                'lytradevissocooldotcom3.html',
+                'lytradevissocooldotcom4.html'
+            ];
 
             for (const file of knownFiles) {
-                if (!checkedFiles.has(file)) {
-                    checkedFiles.add(file);
+                if (!checkedPaths.has(file)) {
+                    checkedPaths.add(file);
                     if (await checkFileExists(file)) {
                         foundFiles.push({
-                            name: file,
+                            name: file.split('/').pop(),
                             path: file,
                             type: 'file'
                         });
@@ -1224,39 +1276,112 @@
             }
 
             const commonPaths = [
-                '',
-                'pages/',
-                'templates/',
-                'views/',
-                'admin/',
-                'dashboard/',
-                'src/',
-                'public/'
+                '', // root
+                'pages/', 'templates/', 'views/', 'admin/', 'dashboard/', 
+                'src/', 'public/', 'html/', 'web/', 'site/', 'projects/',
+                'portfolio/', 'blog/', 'shop/', 'products/', 'users/',
+                'account/', 'profile/', 'settings/', 'auth/', 'login/',
+                'register/', 'contact/', 'about/', 'services/', 'work/'
             ];
 
             const commonFileNames = [
                 'index', 'home', 'main', 'app', 'dashboard', 'admin', 
-                'login', 'register', 'profile', 'settings', 'about',
-                'contact', 'portfolio', 'blog', 'shop', 'product'
+                'login', 'register', 'signin', 'signup', 'profile', 
+                'account', 'settings', 'about', 'contact', 'portfolio',
+                'blog', 'shop', 'products', 'services', 'work', 'projects',
+                'gallery', 'team', 'pricing', 'faq', 'help', 'support',
+                'privacy', 'terms', 'conditions', 'cookies', 'sitemap',
+                'comingsoon', 'maintenance', 'error', '404', '500'
             ];
 
             for (const path of commonPaths) {
                 for (const name of commonFileNames) {
                     const filePath = `${path}${name}.html`;
-                    if (!checkedFiles.has(filePath)) {
-                        checkedFiles.add(filePath);
-                        if (await checkFileExists(filePath)) {
-                            foundFiles.push({
-                                name: `${name}.html`,
-                                path: filePath,
-                                type: 'file'
-                            });
+                    const filePath2 = `${path}${name}/index.html`;
+                    const filePath3 = `${path}${name}.htm`;
+                    
+                    const pathsToCheck = [filePath, filePath2, filePath3];
+                    
+                    for (const checkPath of pathsToCheck) {
+                        if (!checkedPaths.has(checkPath)) {
+                            checkedPaths.add(checkPath);
+                            if (await checkFileExists(checkPath)) {
+                                foundFiles.push({
+                                    name: checkPath.split('/').pop(),
+                                    path: checkPath,
+                                    type: 'file'
+                                });
+                            }
                         }
                     }
                 }
             }
 
+            // Ek olarak robots.txt ve sitemap.xml'den dosya yollarını çıkarmaya çalış
+            await scanFromRobotsAndSitemap(foundFiles, checkedPaths);
+
+            // Dosyaları yola göre sırala
+            foundFiles.sort((a, b) => a.path.localeCompare(b.path));
+            
+            allHtmlFiles = foundFiles;
             displayFileStructure(foundFiles);
+            
+            fileCount.textContent = `${foundFiles.length} HTML files found`;
+            fileSearch.placeholder = `Search ${foundFiles.length} HTML files...`;
+        }
+
+        async function scanFromRobotsAndSitemap(foundFiles, checkedPaths) {
+            try {
+                // robots.txt'den dosya yollarını çıkar
+                const robotsResponse = await fetch('robots.txt');
+                if (robotsResponse.ok) {
+                    const robotsText = await robotsResponse.text();
+                    const lines = robotsText.split('\n');
+                    
+                    for (const line of lines) {
+                        if (line.toLowerCase().includes('sitemap:')) {
+                            const sitemapUrl = line.split(':')[1].trim();
+                            await parseSitemap(sitemapUrl, foundFiles, checkedPaths);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('Robots.txt not found or inaccessible');
+            }
+
+            await parseSitemap('sitemap.xml', foundFiles, checkedPaths);
+            await parseSitemap('sitemap_index.xml', foundFiles, checkedPaths);
+        }
+
+        async function parseSitemap(sitemapUrl, foundFiles, checkedPaths) {
+            try {
+                const response = await fetch(sitemapUrl);
+                if (response.ok) {
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const xml = parser.parseFromString(text, 'text/xml');
+                    
+                    const urls = xml.getElementsByTagName('url');
+                    for (let url of urls) {
+                        const loc = url.getElementsByTagName('loc')[0];
+                        if (loc) {
+                            const urlPath = new URL(loc.textContent).pathname;
+                            if (urlPath.endsWith('.html') && !checkedPaths.has(urlPath)) {
+                                checkedPaths.add(urlPath);
+                                if (await checkFileExists(urlPath)) {
+                                    foundFiles.push({
+                                        name: urlPath.split('/').pop(),
+                                        path: urlPath,
+                                        type: 'file'
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log(`Sitemap ${sitemapUrl} not found or inaccessible`);
+            }
         }
 
         async function checkFileExists(url) {
@@ -1275,7 +1400,6 @@
                         <i class="fas fa-folder-open"></i>
                         <h3>No HTML Files Found</h3>
                         <p>No HTML files were detected in the repository.</p>
-                        <p class="hint">Try adding files to the knownFiles array in the script.</p>
                     </div>
                 `;
                 return;
@@ -1335,13 +1459,6 @@
         function navigateToFile(filePath) {
             window.location.href = filePath;
         }
-
-        knownFiles.push(
-            'lytradevissocooldotcom.html',
-            'lytradevissocooldotcom2.html',
-            'lytradevissocooldotcom3.html',
-            'lytradevissocooldotcom4.html'
-        );
 
         const style = document.createElement('style');
         style.textContent = `
