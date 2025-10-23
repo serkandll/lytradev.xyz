@@ -6,7 +6,6 @@
     <title>Testing Environment - Lytradev</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS kodu aynı kalıyor, değişiklik yok */
         * {
             margin: 0;
             padding: 0;
@@ -519,7 +518,7 @@
             border-radius: 12px;
             padding: 20px;
             margin-top: 20px;
-            max-height: 400px;
+            max-height: 300px;
             overflow-y: auto;
         }
 
@@ -730,44 +729,6 @@
             font-size: 0.8rem;
             color: var(--text-secondary);
         }
-
-        .search-box {
-            margin-bottom: 20px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(45, 62, 95, 0.6);
-            border: 1px solid rgba(74, 123, 255, 0.3);
-            border-radius: 8px;
-            color: var(--text);
-            font-size: 0.9rem;
-        }
-
-        .search-box input:focus {
-            border-color: var(--accent);
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(74, 123, 255, 0.2);
-        }
-
-        .file-count {
-            text-align: center;
-            margin-bottom: 15px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .sync-notice {
-            background: rgba(59, 130, 246, 0.15);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin: 10px 0;
-            font-size: 0.8rem;
-            color: var(--text);
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -830,11 +791,11 @@
             </div>
             
             <div class="tab-content active" id="files-tab">
-                <div class="search-box">
-                    <input type="text" id="fileSearch" placeholder="Search HTML files...">
-                </div>
-                <div class="file-count" id="fileCount">Scanning for HTML files...</div>
                 <div class="folder-structure">
+                    <div class="folder-title">
+                        <i class="fas fa-folder"></i>
+                        <h3>Repository Structure</h3>
+                    </div>
                     <div id="fileStructure">
                         <div class="loading">
                             <i class="fas fa-spinner fa-spin"></i>
@@ -845,10 +806,6 @@
             </div>
             
             <div class="tab-content" id="users-tab">
-                <div class="sync-notice">
-                    <i class="fas fa-sync-alt"></i> 
-                    Users are synchronized across all devices using cloud storage.
-                </div>
                 <div class="user-management">
                     <h3>Create New User</h3>
                     <div class="user-form">
@@ -952,15 +909,6 @@
     </div>
 
     <script>
-        // ÖNEMLİ: Bu kullanıcılar TÜM cihazlarda çalışacak
-        const GLOBAL_USERS = [
-            { username: "demo", password: "demo123", assignedSite: "index.html" },
-            { username: "test", password: "test123", assignedSite: "index.html" },
-            { username: "client", password: "client123", assignedSite: "lytradevissocooldotcom.html" }
-        ];
-
-        const ADMIN_PASSWORD = "Lytradev1453!!";
-
         const loginBtn = document.getElementById('developerLogin');
         const loginModal = document.getElementById('loginModal');
         const closeModal = document.getElementById('closeModal');
@@ -980,53 +928,32 @@
         const userList = document.getElementById('userList');
         const customerUsername = document.getElementById('customerUsername');
         const assignedSiteContainer = document.getElementById('assignedSiteContainer');
-        const fileSearch = document.getElementById('fileSearch');
-        const fileCount = document.getElementById('fileCount');
 
-        // Kullanıcı yönetimi sistemi - localStorage YERİNE sabit kullanıcılar
-        let users = [...GLOBAL_USERS]; // Her zaman global kullanıcıları kullan
+        const knownFiles = [
+            'index.html',
+            'lytradevissocooldotcom.html'
+        ];
+
+        // User management system
+        let users = JSON.parse(localStorage.getItem('lytradev_users')) || [];
         let currentUser = null;
-        let allHtmlFiles = [];
 
         // Tab functionality
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const tabId = btn.getAttribute('data-tab');
                 
+                // Update active tab button
                 tabBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
+                // Show active tab content
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.classList.remove('active');
                 });
                 document.getElementById(`${tabId}-tab`).classList.add('active');
             });
         });
-
-        // Arama kutusu işlevselliği
-        fileSearch.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            filterFiles(searchTerm);
-        });
-
-        function filterFiles(searchTerm) {
-            const fileItems = fileStructure.querySelectorAll('.file-item');
-            let visibleCount = 0;
-
-            fileItems.forEach(item => {
-                const fileName = item.querySelector('span').textContent.toLowerCase();
-                const filePath = item.querySelector('small').textContent.toLowerCase();
-                
-                if (fileName.includes(searchTerm) || filePath.includes(searchTerm)) {
-                    item.style.display = 'flex';
-                    visibleCount++;
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-
-            fileCount.textContent = `${visibleCount} HTML files found${searchTerm ? ` (filtered from ${allHtmlFiles.length})` : ` (out of ${allHtmlFiles.length} total)`}`;
-        }
 
         loginBtn.addEventListener('click', function() {
             loginModal.style.display = 'flex';
@@ -1050,23 +977,23 @@
         }
 
         function checkCredentials(u, p) {
-            console.log('Login attempt:', u, p);
-            console.log('Available users:', users);
+            // Check if it's the admin
+            const chars = [76,121,116,114,97,100,101,118,49,52,53,33,33];
+            let correctPass = "";
+            for (let i = 0; i < chars.length; i++) {
+                correctPass += String.fromCharCode(chars[i]);
+            }
             
-            // Admin kontrolü
-            if (u === "admin" && p === ADMIN_PASSWORD) {
-                console.log('Admin login successful');
+            if (u === "admin" && p === correctPass) {
                 return { role: 'admin' };
             }
             
-            // Kullanıcı kontrolü - SADECE global kullanıcılar
+            // Check if it's a customer user
             const user = users.find(user => user.username === u && user.password === p);
             if (user) {
-                console.log('Customer login successful:', user);
                 return { role: 'customer', username: user.username, assignedSite: user.assignedSite };
             }
             
-            console.log('Login failed - no matching user found');
             return null;
         }
 
@@ -1125,46 +1052,28 @@
             resetForm();
         });
 
-        // Kullanıcı yönetimi fonksiyonları - ARTIK ÇALIŞACAK
+        // User management functions
         function loadUserManagement() {
-            // Taranan HTML dosyalarını dropdown'a ekle
+            // Populate the assigned site dropdown
             assignedSiteSelect.innerHTML = '<option value="">Select a site</option>';
-            if (allHtmlFiles.length > 0) {
-                allHtmlFiles.forEach(file => {
-                    const option = document.createElement('option');
-                    option.value = file.path;
-                    option.textContent = file.path;
-                    assignedSiteSelect.appendChild(option);
-                });
-            } else {
-                // Eğer henüz tarama yapılmadıysa, bilinen dosyaları ekle
-                const knownFiles = [
-                    'index.html',
-                    'lytradevissocooldotcom.html',
-                    'lytradevissocooldotcom2.html', 
-                    'lytradevissocooldotcom3.html',
-                    'lytradevissocooldotcom4.html'
-                ];
-                knownFiles.forEach(file => {
-                    const option = document.createElement('option');
-                    option.value = file;
-                    option.textContent = file;
-                    assignedSiteSelect.appendChild(option);
-                });
-            }
+            knownFiles.forEach(file => {
+                const option = document.createElement('option');
+                option.value = file;
+                option.textContent = file;
+                assignedSiteSelect.appendChild(option);
+            });
             
-            // Mevcut kullanıcıları göster
+            // Display existing users
             displayUsers();
         }
 
         function displayUsers() {
-            userList.innerHTML = '';
-            
             if (users.length === 0) {
                 userList.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No users created yet.</p>';
                 return;
             }
             
+            userList.innerHTML = '';
             users.forEach((user, index) => {
                 const userItem = document.createElement('div');
                 userItem.className = 'user-item';
@@ -1174,10 +1083,10 @@
                         <div class="user-assigned">Assigned site: ${user.assignedSite || 'None'}</div>
                     </div>
                     <div class="user-actions">
-                        <button class="action-btn edit" data-index="${index}" ${user.username === 'demo' || user.username === 'test' || user.username === 'client' ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        <button class="action-btn edit" data-index="${index}">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="action-btn delete" data-index="${index}" ${user.username === 'demo' || user.username === 'test' || user.username === 'client' ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        <button class="action-btn delete" data-index="${index}">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -1185,15 +1094,15 @@
                 userList.appendChild(userItem);
             });
             
-            // Edit ve delete butonları için event listener ekle
-            document.querySelectorAll('.action-btn.edit:not([disabled])').forEach(btn => {
+            // Add event listeners for edit and delete buttons
+            document.querySelectorAll('.action-btn.edit').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const index = parseInt(this.getAttribute('data-index'));
                     editUser(index);
                 });
             });
             
-            document.querySelectorAll('.action-btn.delete:not([disabled])').forEach(btn => {
+            document.querySelectorAll('.action-btn.delete').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const index = parseInt(this.getAttribute('data-index'));
                     deleteUser(index);
@@ -1202,7 +1111,7 @@
         }
 
         function createUser() {
-            const username = document.getElementById('newUsername').value.trim();
+            const username = document.getElementById('newUsername').value;
             const password = document.getElementById('newPassword').value;
             const assignedSite = document.getElementById('assignedSite').value;
             
@@ -1213,7 +1122,7 @@
                 return;
             }
             
-            // Kullanıcı adı zaten var mı kontrol et
+            // Check if username already exists
             if (users.some(user => user.username === username)) {
                 userErrorMessage.textContent = 'Username already exists.';
                 userErrorMessage.style.display = 'block';
@@ -1221,36 +1130,32 @@
                 return;
             }
             
-            // Yeni kullanıcı oluştur
-            const newUser = {
-                username: username,
-                password: password,
-                assignedSite: assignedSite
-            };
+            // Create new user
+            users.push({
+                username,
+                password,
+                assignedSite
+            });
             
-            // NOT: Bu kullanıcı sadece bu cihazda kalacak
-            // Gerçek bir uygulamada bu veriler bir sunucuya kaydedilmeli
-            users.push(newUser);
+            // Save to localStorage
+            localStorage.setItem('lytradev_users', JSON.stringify(users));
             
-            // Başarı mesajını göster
-            userSuccessMessage.innerHTML = '<i class="fas fa-check-circle"></i> User created! <strong>Note:</strong> This user will only work on this device. For multi-device access, use the predefined users.';
+            // Show success message
             userSuccessMessage.style.display = 'block';
             userErrorMessage.style.display = 'none';
             
-            // Formu sıfırla
+            // Reset form
             document.getElementById('newUsername').value = '';
             document.getElementById('newPassword').value = '';
             document.getElementById('assignedSite').value = '';
             
-            // Kullanıcı listesini güncelle
+            // Update user list
             displayUsers();
             
-            // Başarı mesajını 5 saniye sonra gizle
+            // Hide success message after 3 seconds
             setTimeout(() => {
                 userSuccessMessage.style.display = 'none';
-            }, 5000);
-            
-            console.log('Created user (local only):', newUser);
+            }, 3000);
         }
 
         function editUser(index) {
@@ -1259,14 +1164,16 @@
             document.getElementById('newPassword').value = user.password;
             document.getElementById('assignedSite').value = user.assignedSite;
             
-            // Kullanıcıyı listeden kaldır (oluşturulduğunda yeniden eklenecek)
+            // Remove the user from the list (will be re-added when created)
             users.splice(index, 1);
+            localStorage.setItem('lytradev_users', JSON.stringify(users));
             displayUsers();
         }
 
         function deleteUser(index) {
             if (confirm('Are you sure you want to delete this user?')) {
                 users.splice(index, 1);
+                localStorage.setItem('lytradev_users', JSON.stringify(users));
                 displayUsers();
             }
         }
@@ -1292,7 +1199,6 @@
 
         createUserBtn.addEventListener('click', createUser);
 
-        // Tüm HTML dosyalarını taramak için gelişmiş fonksiyon
         async function scanForHTMLFiles() {
             fileStructure.innerHTML = `
                 <div class="loading">
@@ -1302,23 +1208,14 @@
             `;
 
             const foundFiles = [];
-            const checkedPaths = new Set();
-
-            // Önce bilinen dosyaları kontrol et
-            const knownFiles = [
-                'index.html',
-                'lytradevissocooldotcom.html',
-                'lytradevissocooldotcom2.html',
-                'lytradevissocooldotcom3.html',
-                'lytradevissocooldotcom4.html'
-            ];
+            const checkedFiles = new Set();
 
             for (const file of knownFiles) {
-                if (!checkedPaths.has(file)) {
-                    checkedPaths.add(file);
+                if (!checkedFiles.has(file)) {
+                    checkedFiles.add(file);
                     if (await checkFileExists(file)) {
                         foundFiles.push({
-                            name: file.split('/').pop(),
+                            name: file,
                             path: file,
                             type: 'file'
                         });
@@ -1326,59 +1223,40 @@
                 }
             }
 
-            // Yaygın dizin yapılarını taramak için
             const commonPaths = [
-                '', // root
-                'pages/', 'templates/', 'views/', 'admin/', 'dashboard/', 
-                'src/', 'public/', 'html/', 'web/', 'site/', 'projects/',
-                'portfolio/', 'blog/', 'shop/', 'products/', 'users/',
-                'account/', 'profile/', 'settings/', 'auth/', 'login/',
-                'register/', 'contact/', 'about/', 'services/', 'work/'
+                '',
+                'pages/',
+                'templates/',
+                'views/',
+                'admin/',
+                'dashboard/',
+                'src/',
+                'public/'
             ];
 
-            // Yaygın HTML dosya isimleri
             const commonFileNames = [
                 'index', 'home', 'main', 'app', 'dashboard', 'admin', 
-                'login', 'register', 'signin', 'signup', 'profile', 
-                'account', 'settings', 'about', 'contact', 'portfolio',
-                'blog', 'shop', 'products', 'services', 'work', 'projects',
-                'gallery', 'team', 'pricing', 'faq', 'help', 'support',
-                'privacy', 'terms', 'conditions', 'cookies', 'sitemap',
-                'comingsoon', 'maintenance', 'error', '404', '500'
+                'login', 'register', 'profile', 'settings', 'about',
+                'contact', 'portfolio', 'blog', 'shop', 'product'
             ];
 
-            // Tüm kombinasyonları kontrol et
             for (const path of commonPaths) {
                 for (const name of commonFileNames) {
                     const filePath = `${path}${name}.html`;
-                    const filePath2 = `${path}${name}/index.html`;
-                    const filePath3 = `${path}${name}.htm`;
-                    
-                    const pathsToCheck = [filePath, filePath2, filePath3];
-                    
-                    for (const checkPath of pathsToCheck) {
-                        if (!checkedPaths.has(checkPath)) {
-                            checkedPaths.add(checkPath);
-                            if (await checkFileExists(checkPath)) {
-                                foundFiles.push({
-                                    name: checkPath.split('/').pop(),
-                                    path: checkPath,
-                                    type: 'file'
-                                });
-                            }
+                    if (!checkedFiles.has(filePath)) {
+                        checkedFiles.add(filePath);
+                        if (await checkFileExists(filePath)) {
+                            foundFiles.push({
+                                name: `${name}.html`,
+                                path: filePath,
+                                type: 'file'
+                            });
                         }
                     }
                 }
             }
 
-            // Dosyaları yola göre sırala
-            foundFiles.sort((a, b) => a.path.localeCompare(b.path));
-            
-            allHtmlFiles = foundFiles;
             displayFileStructure(foundFiles);
-            
-            fileCount.textContent = `${foundFiles.length} HTML files found`;
-            fileSearch.placeholder = `Search ${foundFiles.length} HTML files...`;
         }
 
         async function checkFileExists(url) {
@@ -1397,6 +1275,7 @@
                         <i class="fas fa-folder-open"></i>
                         <h3>No HTML Files Found</h3>
                         <p>No HTML files were detected in the repository.</p>
+                        <p class="hint">Try adding files to the knownFiles array in the script.</p>
                     </div>
                 `;
                 return;
@@ -1457,7 +1336,13 @@
             window.location.href = filePath;
         }
 
-        // Sayfa yüklendiğinde animasyon için CSS ekle
+        knownFiles.push(
+            'lytradevissocooldotcom.html',
+            'lytradevissocooldotcom2.html',
+            'lytradevissocooldotcom3.html',
+            'lytradevissocooldotcom4.html'
+        );
+
         const style = document.createElement('style');
         style.textContent = `
             @keyframes shake {
@@ -1467,13 +1352,6 @@
             }
         `;
         document.head.appendChild(style);
-
-        // Sayfa yüklendiğinde bilgi mesajı göster
-        console.log('Available users for login:');
-        GLOBAL_USERS.forEach(user => {
-            console.log(`Username: ${user.username}, Password: ${user.password}, Site: ${user.assignedSite}`);
-        });
-        console.log('Admin password:', ADMIN_PASSWORD);
     </script>
 </body>
 </html>
