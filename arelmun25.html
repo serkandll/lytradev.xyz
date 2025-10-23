@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARELMUN'25 - Hatıralar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/KvXAR6j.png">
+    <meta name="msapplication-TileColor" content="#6a0dad">
+    <meta name="theme-color" content="#6a0dad">
+    <style>
+        :root {
+            --primary: #6a0dad;
+            --primary-light: #8a2be2;
+            --primary-dark: #4b0082;
+            --secondary: #ffd700;
+            --white: #ffffff;
+            --light: #f8f8ff;
+            --dark: #333333;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Source Sans 3', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            font-size: 2.2rem;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        header.scrolled .logo-text h1,
+        header.scrolled nav ul li a,
+        header.scrolled .hamburger {
+            color: var(--white);
+        }
+
+        header.scrolled .social-nav a {
+            color: var(--white);
+        }
+
+        header.scrolled nav ul li a:after {
+            background: var(--white);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 50px;
+            transition: var(--transition);
+        }
+
+        header.scrolled .logo img {
+            content: url('https://i.imgur.com/KvXAR6j.png');
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            color: var(--primary);
+            transition: var(--transition);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            margin-bottom: 0;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        header.scrolled .logo-text p {
+            color: var(--white);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        header.scrolled nav ul li a:hover {
+            color: var(--secondary);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .social-nav {
+            display: flex;
+            gap: 15px;
+            margin-left: 20px;
+        }
+
+        .social-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(106, 13, 173, 0.1);
+            border-radius: 50%;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .social-nav a:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(106, 13, 173, 0.8), rgba(106, 13, 173, 0.9)), url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 150px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-weight: 400;
+        }
+
+        .memories-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-light);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: var(--white);
+            border: 4px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -12px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-date i {
+            color: var(--secondary);
+        }
+
+        .timeline-content h3 {
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .timeline-content p {
+            margin-bottom: 15px;
+        }
+
+        .timeline-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .timeline-image:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-section {
+            background-color: var(--light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(106, 13, 173, 0.8));
+            color: var(--white);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h4 {
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .stats-section .section-title {
+            color: var(--white);
+        }
+
+        .stats-section .section-title:after {
+            background: var(--secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .testimonials-section {
+            background-color: var(--light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .testimonial-text:before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary-light);
+            opacity: 0.3;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-light);
+        }
+
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .author-info p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            position: relative;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .location-navigation {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .location-navigation a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--white);
+            text-decoration: none;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .location-navigation a:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 10px 0;
+            }
+            
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.7rem;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                z-index: 1000;
+            }
+            
+            header.scrolled nav ul {
+                background: var(--primary);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .social-nav {
+                margin-left: 0;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero {
+                padding: 130px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 20px;
+            }
+            
+            .timeline-item:nth-child(odd)::after {
+                right: auto;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://static.wixstatic.com/media/9a503f_1e3f21a13d1c4c06b0bfedd3d3ab68af~mv2.png/v1/fill/w_144,h_136,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a-JxjflAtJn-transformed%20(2)_edited_edite.png" alt="Arel MUN Logo">
+                <div class="logo-text">
+                    <h1>AREL MUN</h1>
+                    <p>Model United Nations</p>
+                </div>
+            </div>
+            
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="committees.html">Komiteler</a></li>
+                    <li><a href="schedule.html">Program</a></li>
+                    <li><a href="applications.html">Başvurular</a></li>
+                    <li><a href="our-team.html">Ekibimiz</a></li>
+                    <li><a href="memories.html" class="active">Hatıralar</a></li>
+                    <li><a href="venue.html">İletişim</a></li>
+                    <div class="social-nav">
+                        <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@arelmun25/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>ARELMUN'25 Hatıraları</h1>
+            <p>Unutulmaz anlar, değerli dostluklar ve başarı hikayeleri</p>
+        </div>
+    </section>
+
+    <section class="memories-section">
+        <div class="container">
+            <div class="memories-intro">
+                <h2 class="section-title">Hatıralarımız</h2>
+                <p>ARELMUN'25 konferansımızda yaşadığımız unutulmaz anıları, çekilen fotoğrafları ve katılımcılarımızın deneyimlerini bu sayfada bulabilirsiniz.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>15 Mart 2025</span>
+                        </div>
+                        <h3>Açılış Töreni</h3>
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Açılış Töreni" class="timeline-image">
+                        <p>Konferansımız görkemli bir açılış töreni ile başladı. 300'den fazla delege, akademik kadro ve organizasyon ekibinin katılımıyla gerçekleşen törende coşkulu anlar yaşandı.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>16 Mart 2025</span>
+                        </div>
+                        <h3>Komite Çalışmaları</h3>
+                        <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Komite Çalışmaları" class="timeline-image">
+                        <p>Delegeler komitelerde yoğun tartışmalar yürüttü, küresel sorunlara çözüm önerileri geliştirdi. Özellikle UNSC komitesindeki gerilimli oturumlar dikkat çekti.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>16 Mart 2025 - Akşam</span>
+                        </div>
+                        <h3>Sosyal Etkinlik</h3>
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sosyal Etkinlik" class="timeline-image">
+                        <p>Günün yorgunluğunu atmak için düzenlenen sosyal etkinlikte delegeler kaynaşma fırsatı buldu. Müzik, dans ve eğlence dolu anlar yaşandı.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>17 Mart 2025</span>
+                        </div>
+                        <h3>Karar Taslakları ve Müzakereler</h3>
+                        <img src="https://images.unsplash.com/photo-1551135049-8a33b42738b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Müzakereler" class="timeline-image">
+                        <p>Komiteler karar taslakları üzerinde yoğun müzakereler yürüttü. Delegeler diplomatik becerilerini konuşturarak uzlaşma aradı.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>17 Mart 2025 - Öğleden Sonra</span>
+                        </div>
+                        <h3>Kapanış Töreni ve Ödüller</h3>
+                        <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kapanış Töreni" class="timeline-image">
+                        <p>Üç günlük maratonun ardından kapanış töreni düzenlendi. En iyi delege, en iyi konuşmacı ve diğer kategorilerde ödüller sahiplerini buldu.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Fotoğraf Galerisi</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Açılış Konuşması">
+                    <div class="gallery-overlay">
+                        <h4>Açılış Konuşması</h4>
+                        <p>Genel Sekreter'in açılış konuşması</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551836026-d5c8c2a53c64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Komite Çalışması">
+                    <div class="gallery-overlay">
+                        <h4>Komite Çalışması</h4>
+                        <p>UNSC komitesinde yoğun tartışmalar</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Müzakere Anı">
+                    <div class="gallery-overlay">
+                        <h4>Müzakere Anı</h4>
+                        <p>Delegeler arasında diplomatik müzakereler</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sosyal Etkinlik">
+                    <div class="gallery-overlay">
+                        <h4>Sosyal Etkinlik</h4>
+                        <p>Delegeler kaynaşma fırsatı buldu</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ödül Töreni">
+                    <div class="gallery-overlay">
+                        <h4>Ödül Töreni</h4>
+                        <p>Başarılı delegelere ödülleri verildi</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ekip Fotoğrafı">
+                    <div class="gallery-overlay">
+                        <h4>Ekip Fotoğrafı</h4>
+                        <p>Organizasyon ekibi ve akademik kadro</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title">ARELMUN'25 Rakamlarla</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">312</div>
+                    <div class="stat-label">Katılımcı Delege</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Farklı Komite</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">28</div>
+                    <div class="stat-label">Gündem Maddesi</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">45</div>
+                    <div class="stat-label">Ödül Alan Delege</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">Katılımcı Görüşleri</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        ARELMUN'25 benim için unutulmaz bir deneyim oldu. Hem diplomatik becerilerimi geliştirdim hem de yeni arkadaşlıklar edindim. Özellikle UNSC komitesindeki tartışmalar çok heyecanlıydı.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Mehmet Yılmaz" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Mehmet Yılmaz</h4>
+                            <p>UNSC - Amerika Birleşik Devletleri</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        İlk MUN deneyimimdi ve mükemmel geçti. Organizasyon ekibi çok yardımcı oldu, akademik kadro bilgili ve destekleyiciydi. Kesinlikle gelecek sene tekrar katılacağım.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Ayşe Demir" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Ayşe Demir</h4>
+                            <p>WHO - Fransa</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        ARELMUN'25'in akademik kalitesi ve organizasyonu gerçekten takdire şayan. Komitelerdeki tartışma düzeyi çok yüksekti ve bu beni geliştirdi. Sosyal etkinlikler de harikaydı!
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Can Öztürk" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Can Öztürk</h4>
+                            <p>DISEC - Rusya Federasyonu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AREL MUN</h3>
+                    <p>İstanbul Arel Koleji Model United Nations kulübü, öğrencilere diplomasi, münazara ve liderlik becerileri kazandırmayı amaçlamaktadır.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@arelmun25/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Hızlı Bağlantılar</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="committees.html">Komiteler</a></li>
+                        <li><a href="schedule.html">Program</a></li>
+                        <li><a href="applications.html">Başvurular</a></li>
+                        <li><a href="our-team.html">Ekibimiz</a></li>
+                        <li><a href="memories.html">Hatıralar</a></li>
+                        <li><a href="venue.html">İletişim</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>İletişim</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> YENİBOSNA MERKEZ, SELAHATTİN PINAR Sk. No 3, 34197 BAHÇELİEVLER/İSTANBUL</li>
+                        <li><i class="fas fa-phone"></i> 0535 547 70 46</li>
+                        <li><i class="fas fa-phone"></i> 0533 035 10 80</li>
+                        <li><i class="fas fa-envelope"></i> arelmun@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="location-navigation">
+                <a href="https://maps.app.goo.gl/q2Qz9Z3f55FRhKB88" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Bahçelievler AREL Koleji'ne Yol Tarifi Al</span>
+                </a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>ARELMUN'25 Resmi Web Sitesi</p>
+                <p>&copy; 2025 <a href="https://lytradev.com" target="_blank" style="color: white;">Lytradev</a> tarafından geliştirilmiştir</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+            
+            if (navMenu.classList.contains('active')) {
+                hamburger.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        window.addEventListener('load', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
