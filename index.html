@@ -518,7 +518,7 @@
             border-radius: 12px;
             padding: 20px;
             margin-top: 20px;
-            max-height: 300px;
+            max-height: 500px;
             overflow-y: auto;
         }
 
@@ -536,12 +536,11 @@
         }
 
         .file-item {
-            padding: 8px 0;
+            padding: 12px 0;
             border-bottom: 1px solid rgba(74, 123, 255, 0.1);
             display: flex;
             align-items: center;
             gap: 10px;
-            cursor: pointer;
             transition: all 0.2s;
         }
 
@@ -733,7 +732,7 @@
         .file-actions {
             display: flex;
             gap: 8px;
-            margin-top: 10px;
+            margin-left: auto;
         }
 
         .file-action-btn {
@@ -775,6 +774,15 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             position: relative;
             border: 1px solid rgba(74, 123, 255, 0.2);
+        }
+
+        .file-display-name {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .file-display-name:hover {
+            color: var(--accent-light);
         }
     </style>
 </head>
@@ -885,7 +893,6 @@
                     
                     <h3>Existing Users</h3>
                     <div class="user-list" id="userList">
-                        <!-- User list will be populated here -->
                     </div>
                 </div>
             </div>
@@ -914,7 +921,6 @@
                 <p>You have access to the following testing site:</p>
                 
                 <div class="assigned-site" id="assignedSiteContainer">
-                    <!-- Assigned site will be displayed here -->
                 </div>
                 
                 <p>Click on the site above to access it.</p>
@@ -959,23 +965,23 @@
         <div class="rename-modal-content">
             <span class="close-btn" id="closeRenameModal">&times;</span>
             <h2 style="margin-bottom: 25px; text-align: center;">
-                <i class="fas fa-edit"></i> Rename File
+                <i class="fas fa-edit"></i> Rename File Display
             </h2>
             <form id="renameForm">
                 <div class="form-group">
-                    <label for="currentFileName">Current File Name</label>
+                    <label for="currentFileName">Current File Path</label>
                     <input type="text" id="currentFileName" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="newFileName">New File Name</label>
-                    <input type="text" id="newFileName" required placeholder="Enter new file name">
-                    <div class="hint">Make sure to include the .html extension</div>
+                    <label for="newDisplayName">New Display Name</label>
+                    <input type="text" id="newDisplayName" required placeholder="Enter new display name">
+                    <div class="hint">This will only change how the file appears in the interface, not the actual file name.</div>
                 </div>
                 <button type="submit" class="submit-btn">
-                    <i class="fas fa-save"></i> Rename File
+                    <i class="fas fa-save"></i> Update Display Name
                 </button>
                 <div class="error-message" id="renameErrorMessage">
-                    <i class="fas fa-exclamation-circle"></i> Error renaming file. Please try again.
+                    <i class="fas fa-exclamation-circle"></i> Error updating display name. Please try again.
                 </div>
             </form>
         </div>
@@ -1006,14 +1012,16 @@
         const renameForm = document.getElementById('renameForm');
         const renameErrorMessage = document.getElementById('renameErrorMessage');
         const currentFileName = document.getElementById('currentFileName');
-        const newFileName = document.getElementById('newFileName');
-
-        // Simulated server storage for users (in a real app, this would be a backend API)
+        const newDisplayName = document.getElementById('newDisplayName');
         const serverStorage = {
             users: JSON.parse(localStorage.getItem('lytradev_users')) || [],
+            fileDisplayNames: JSON.parse(localStorage.getItem('lytradev_file_display_names')) || {},
             files: JSON.parse(localStorage.getItem('lytradev_files')) || [],
             saveUsers: function() {
                 localStorage.setItem('lytradev_users', JSON.stringify(this.users));
+            },
+            saveFileDisplayNames: function() {
+                localStorage.setItem('lytradev_file_display_names', JSON.stringify(this.fileDisplayNames));
             },
             saveFiles: function() {
                 localStorage.setItem('lytradev_files', JSON.stringify(this.files));
@@ -1022,17 +1030,11 @@
 
         let currentUser = null;
         let currentFileToRename = null;
-
-        // Tab functionality
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const tabId = btn.getAttribute('data-tab');
-                
-                // Update active tab button
                 tabBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
-                // Show active tab content
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.classList.remove('active');
                 });
@@ -1077,7 +1079,6 @@
         }
 
         function checkCredentials(u, p) {
-            // Check if it's the admin
             const chars = [76,121,116,114,97,100,101,118,49,52,53,33,33];
             let correctPass = "";
             for (let i = 0; i < chars.length; i++) {
@@ -1087,8 +1088,6 @@
             if (u === "admin" && p === correctPass) {
                 return { role: 'admin' };
             }
-            
-            // Check if it's a customer user
             const user = serverStorage.users.find(user => user.username === u && user.password === p);
             if (user) {
                 return { role: 'customer', username: user.username, assignedSite: user.assignedSite };
@@ -1151,23 +1150,16 @@
             currentUser = null;
             resetForm();
         });
-
-        // User management functions
         function loadUserManagement() {
-            // Populate the assigned site dropdown
             assignedSiteSelect.innerHTML = '<option value="">Select a site</option>';
-            
-            // Get all available files
             const allFiles = serverStorage.files.length > 0 ? serverStorage.files : [];
             
             allFiles.forEach(file => {
                 const option = document.createElement('option');
                 option.value = file.path;
-                option.textContent = file.name;
+                option.textContent = serverStorage.fileDisplayNames[file.path] || file.name;
                 assignedSiteSelect.appendChild(option);
             });
-            
-            // Display existing users
             displayUsers();
         }
 
@@ -1197,8 +1189,6 @@
                 `;
                 userList.appendChild(userItem);
             });
-            
-            // Add event listeners for edit and delete buttons
             document.querySelectorAll('.action-btn.edit').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const index = parseInt(this.getAttribute('data-index'));
@@ -1225,38 +1215,24 @@
                 userSuccessMessage.style.display = 'none';
                 return;
             }
-            
-            // Check if username already exists
             if (serverStorage.users.some(user => user.username === username)) {
                 userErrorMessage.textContent = 'Username already exists.';
                 userErrorMessage.style.display = 'block';
                 userSuccessMessage.style.display = 'none';
                 return;
             }
-            
-            // Create new user
             serverStorage.users.push({
                 username,
                 password,
                 assignedSite
             });
-            
-            // Save to server storage
             serverStorage.saveUsers();
-            
-            // Show success message
             userSuccessMessage.style.display = 'block';
             userErrorMessage.style.display = 'none';
-            
-            // Reset form
             document.getElementById('newUsername').value = '';
             document.getElementById('newPassword').value = '';
             document.getElementById('assignedSite').value = '';
-            
-            // Update user list
             displayUsers();
-            
-            // Hide success message after 3 seconds
             setTimeout(() => {
                 userSuccessMessage.style.display = 'none';
             }, 3000);
@@ -1267,8 +1243,6 @@
             document.getElementById('newUsername').value = user.username;
             document.getElementById('newPassword').value = user.password;
             document.getElementById('assignedSite').value = user.assignedSite;
-            
-            // Remove the user from the list (will be re-added when created)
             serverStorage.users.splice(index, 1);
             serverStorage.saveUsers();
             displayUsers();
@@ -1286,8 +1260,9 @@
             customerUsername.textContent = currentUser.username;
             
             if (currentUser.assignedSite) {
+                const displayName = serverStorage.fileDisplayNames[currentUser.assignedSite] || currentUser.assignedSite;
                 assignedSiteContainer.innerHTML = `
-                    <h3>${currentUser.assignedSite}</h3>
+                    <h3>${displayName}</h3>
                     <p>This is your assigned testing site.</p>
                     <button class="login-btn" onclick="navigateToFile('${currentUser.assignedSite}')">
                         <i class="fas fa-external-link-alt"></i> Open Site
@@ -1310,28 +1285,19 @@
                     <p>Scanning repository for HTML files...</p>
                 </div>
             `;
-
-            // First, check if we have cached files
             if (serverStorage.files.length > 0) {
                 displayFileStructure(serverStorage.files);
                 return;
             }
-
-            // If no cached files, scan the repository
             const foundFiles = await scanRepository();
-            
-            // Cache the found files
             serverStorage.files = foundFiles;
             serverStorage.saveFiles();
             
             displayFileStructure(foundFiles);
         }
-
         async function scanRepository() {
             const foundFiles = [];
             const checkedFiles = new Set();
-            
-            // Common HTML file names to check
             const commonFileNames = [
                 'index', 'home', 'main', 'app', 'dashboard', 'admin', 
                 'login', 'register', 'profile', 'settings', 'about',
@@ -1340,14 +1306,10 @@
                 'lytradevissocooldotcom', 'lytradevissocooldotcom2', 
                 'lytradevissocooldotcom3', 'lytradevissocooldotcom4'
             ];
-            
-            // Common directories to check
             const commonPaths = [
                 '', 'pages/', 'templates/', 'views/', 'admin/', 
                 'dashboard/', 'src/', 'public/', 'html/', 'sites/'
             ];
-            
-            // Scan for files in common locations
             for (const path of commonPaths) {
                 for (const name of commonFileNames) {
                     const filePath = `${path}${name}.html`;
@@ -1361,8 +1323,6 @@
                             });
                         }
                     }
-                    
-                    // Also check for index.html in subdirectories
                     if (path && await checkFileExists(`${path}index.html`)) {
                         const indexPath = `${path}index.html`;
                         if (!checkedFiles.has(indexPath)) {
@@ -1376,11 +1336,7 @@
                     }
                 }
             }
-            
-            // Try to discover additional files by scanning the current directory
             try {
-                // This is a simulated file discovery - in a real environment
-                // you would need server-side support for directory listing
                 const additionalFiles = await discoverAdditionalFiles();
                 additionalFiles.forEach(file => {
                     if (!checkedFiles.has(file.path)) {
@@ -1397,9 +1353,6 @@
 
         async function discoverAdditionalFiles() {
             const additionalFiles = [];
-            
-            // Try to get a list of all HTML files using a simulated approach
-            // In a real environment, this would be done server-side
             const simulatedFiles = [
                 'index.html',
                 'lytradevissocooldotcom.html',
@@ -1485,11 +1438,12 @@
                 filesByDir[dir].sort((a, b) => a.name.localeCompare(b.name));
                 
                 filesByDir[dir].forEach(file => {
+                    const displayName = serverStorage.fileDisplayNames[file.path] || file.name;
                     html += `
                         <li class="file-item">
                             <i class="fab fa-html5"></i>
-                            <span onclick="navigateToFile('${file.path}')">${file.name}</span>
-                            <small style="margin-left: auto; color: var(--text-secondary);">${file.path}</small>
+                            <span class="file-display-name" onclick="navigateToFile('${file.path}')">${displayName}</span>
+                            <small style="color: var(--text-secondary);">(${file.path})</small>
                             <div class="file-actions">
                                 <button class="file-action-btn" onclick="openRenameModal('${file.path}')">
                                     <i class="fas fa-edit"></i> Rename
@@ -1509,7 +1463,7 @@
         function openRenameModal(filePath) {
             currentFileToRename = filePath;
             currentFileName.value = filePath;
-            newFileName.value = filePath.split('/').pop();
+            newDisplayName.value = serverStorage.fileDisplayNames[filePath] || filePath.split('/').pop();
             renameModal.style.display = 'flex';
         }
 
@@ -1522,57 +1476,23 @@
                 return;
             }
             
-            const newName = newFileName.value.trim();
+            const newName = newDisplayName.value.trim();
             if (!newName) {
-                renameErrorMessage.textContent = 'New file name cannot be empty.';
+                renameErrorMessage.textContent = 'New display name cannot be empty.';
                 renameErrorMessage.style.display = 'block';
                 return;
             }
+            serverStorage.fileDisplayNames[currentFileToRename] = newName;
+            serverStorage.saveFileDisplayNames();
             
-            if (!newName.endsWith('.html')) {
-                renameErrorMessage.textContent = 'File name must end with .html extension.';
-                renameErrorMessage.style.display = 'block';
-                return;
-            }
+            displayFileStructure(serverStorage.files);
             
-            // In a real application, you would make an API call to rename the file
-            // For this demo, we'll simulate the renaming by updating our file list
+            loadUserManagement();
             
-            // Find the file in our storage
-            const fileIndex = serverStorage.files.findIndex(file => file.path === currentFileToRename);
-            if (fileIndex !== -1) {
-                const oldPath = serverStorage.files[fileIndex].path;
-                const pathParts = oldPath.split('/');
-                pathParts.pop(); // Remove the old file name
-                pathParts.push(newName); // Add the new file name
-                const newPath = pathParts.join('/');
-                
-                // Update the file in storage
-                serverStorage.files[fileIndex].name = newName;
-                serverStorage.files[fileIndex].path = newPath;
-                serverStorage.saveFiles();
-                
-                // Update the assigned sites for users if needed
-                serverStorage.users.forEach(user => {
-                    if (user.assignedSite === oldPath) {
-                        user.assignedSite = newPath;
-                    }
-                });
-                serverStorage.saveUsers();
-                
-                // Refresh the file display
-                displayFileStructure(serverStorage.files);
-                
-                // Close the modal
-                renameModal.style.display = 'none';
-                resetRenameForm();
-                
-                // Show success message
-                alert(`File renamed successfully from ${oldPath} to ${newPath}`);
-            } else {
-                renameErrorMessage.textContent = 'File not found in storage.';
-                renameErrorMessage.style.display = 'block';
-            }
+            renameModal.style.display = 'none';
+            resetRenameForm();
+            
+            alert(`Display name updated successfully for ${currentFileToRename}`);
         });
 
         function navigateToFile(filePath) {
