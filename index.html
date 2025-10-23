@@ -729,6 +729,53 @@
             font-size: 0.8rem;
             color: var(--text-secondary);
         }
+
+        .file-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .file-action-btn {
+            background: rgba(45, 62, 95, 0.6);
+            border: 1px solid rgba(74, 123, 255, 0.3);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-action-btn:hover {
+            background: rgba(74, 123, 255, 0.2);
+            border-color: var(--accent);
+        }
+
+        .rename-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .rename-modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            border: 1px solid rgba(74, 123, 255, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -908,6 +955,32 @@
         </div>
     </div>
 
+    <div class="rename-modal" id="renameModal">
+        <div class="rename-modal-content">
+            <span class="close-btn" id="closeRenameModal">&times;</span>
+            <h2 style="margin-bottom: 25px; text-align: center;">
+                <i class="fas fa-edit"></i> Rename File
+            </h2>
+            <form id="renameForm">
+                <div class="form-group">
+                    <label for="currentFileName">Current File Name</label>
+                    <input type="text" id="currentFileName" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="newFileName">New File Name</label>
+                    <input type="text" id="newFileName" required placeholder="Enter new file name">
+                    <div class="hint">Make sure to include the .html extension</div>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-save"></i> Rename File
+                </button>
+                <div class="error-message" id="renameErrorMessage">
+                    <i class="fas fa-exclamation-circle"></i> Error renaming file. Please try again.
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         const loginBtn = document.getElementById('developerLogin');
         const loginModal = document.getElementById('loginModal');
@@ -928,15 +1001,27 @@
         const userList = document.getElementById('userList');
         const customerUsername = document.getElementById('customerUsername');
         const assignedSiteContainer = document.getElementById('assignedSiteContainer');
+        const renameModal = document.getElementById('renameModal');
+        const closeRenameModal = document.getElementById('closeRenameModal');
+        const renameForm = document.getElementById('renameForm');
+        const renameErrorMessage = document.getElementById('renameErrorMessage');
+        const currentFileName = document.getElementById('currentFileName');
+        const newFileName = document.getElementById('newFileName');
 
-        const knownFiles = [
-            'index.html',
-            'lytradevissocooldotcom.html'
-        ];
+        // Simulated server storage for users (in a real app, this would be a backend API)
+        const serverStorage = {
+            users: JSON.parse(localStorage.getItem('lytradev_users')) || [],
+            files: JSON.parse(localStorage.getItem('lytradev_files')) || [],
+            saveUsers: function() {
+                localStorage.setItem('lytradev_users', JSON.stringify(this.users));
+            },
+            saveFiles: function() {
+                localStorage.setItem('lytradev_files', JSON.stringify(this.files));
+            }
+        };
 
-        // User management system
-        let users = JSON.parse(localStorage.getItem('lytradev_users')) || [];
         let currentUser = null;
+        let currentFileToRename = null;
 
         // Tab functionality
         tabBtns.forEach(btn => {
@@ -964,16 +1049,31 @@
             resetForm();
         });
 
+        closeRenameModal.addEventListener('click', function() {
+            renameModal.style.display = 'none';
+            resetRenameForm();
+        });
+
         window.addEventListener('click', function(event) {
             if (event.target === loginModal) {
                 loginModal.style.display = 'none';
                 resetForm();
+            }
+            if (event.target === renameModal) {
+                renameModal.style.display = 'none';
+                resetRenameForm();
             }
         });
 
         function resetForm() {
             loginForm.reset();
             errorMessage.style.display = 'none';
+        }
+
+        function resetRenameForm() {
+            renameForm.reset();
+            renameErrorMessage.style.display = 'none';
+            currentFileToRename = null;
         }
 
         function checkCredentials(u, p) {
@@ -989,7 +1089,7 @@
             }
             
             // Check if it's a customer user
-            const user = users.find(user => user.username === u && user.password === p);
+            const user = serverStorage.users.find(user => user.username === u && user.password === p);
             if (user) {
                 return { role: 'customer', username: user.username, assignedSite: user.assignedSite };
             }
@@ -1056,10 +1156,14 @@
         function loadUserManagement() {
             // Populate the assigned site dropdown
             assignedSiteSelect.innerHTML = '<option value="">Select a site</option>';
-            knownFiles.forEach(file => {
+            
+            // Get all available files
+            const allFiles = serverStorage.files.length > 0 ? serverStorage.files : [];
+            
+            allFiles.forEach(file => {
                 const option = document.createElement('option');
-                option.value = file;
-                option.textContent = file;
+                option.value = file.path;
+                option.textContent = file.name;
                 assignedSiteSelect.appendChild(option);
             });
             
@@ -1068,13 +1172,13 @@
         }
 
         function displayUsers() {
-            if (users.length === 0) {
+            if (serverStorage.users.length === 0) {
                 userList.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No users created yet.</p>';
                 return;
             }
             
             userList.innerHTML = '';
-            users.forEach((user, index) => {
+            serverStorage.users.forEach((user, index) => {
                 const userItem = document.createElement('div');
                 userItem.className = 'user-item';
                 userItem.innerHTML = `
@@ -1123,7 +1227,7 @@
             }
             
             // Check if username already exists
-            if (users.some(user => user.username === username)) {
+            if (serverStorage.users.some(user => user.username === username)) {
                 userErrorMessage.textContent = 'Username already exists.';
                 userErrorMessage.style.display = 'block';
                 userSuccessMessage.style.display = 'none';
@@ -1131,14 +1235,14 @@
             }
             
             // Create new user
-            users.push({
+            serverStorage.users.push({
                 username,
                 password,
                 assignedSite
             });
             
-            // Save to localStorage
-            localStorage.setItem('lytradev_users', JSON.stringify(users));
+            // Save to server storage
+            serverStorage.saveUsers();
             
             // Show success message
             userSuccessMessage.style.display = 'block';
@@ -1159,21 +1263,21 @@
         }
 
         function editUser(index) {
-            const user = users[index];
+            const user = serverStorage.users[index];
             document.getElementById('newUsername').value = user.username;
             document.getElementById('newPassword').value = user.password;
             document.getElementById('assignedSite').value = user.assignedSite;
             
             // Remove the user from the list (will be re-added when created)
-            users.splice(index, 1);
-            localStorage.setItem('lytradev_users', JSON.stringify(users));
+            serverStorage.users.splice(index, 1);
+            serverStorage.saveUsers();
             displayUsers();
         }
 
         function deleteUser(index) {
             if (confirm('Are you sure you want to delete this user?')) {
-                users.splice(index, 1);
-                localStorage.setItem('lytradev_users', JSON.stringify(users));
+                serverStorage.users.splice(index, 1);
+                serverStorage.saveUsers();
                 displayUsers();
             }
         }
@@ -1207,39 +1311,43 @@
                 </div>
             `;
 
-            const foundFiles = [];
-            const checkedFiles = new Set();
-
-            for (const file of knownFiles) {
-                if (!checkedFiles.has(file)) {
-                    checkedFiles.add(file);
-                    if (await checkFileExists(file)) {
-                        foundFiles.push({
-                            name: file,
-                            path: file,
-                            type: 'file'
-                        });
-                    }
-                }
+            // First, check if we have cached files
+            if (serverStorage.files.length > 0) {
+                displayFileStructure(serverStorage.files);
+                return;
             }
 
-            const commonPaths = [
-                '',
-                'pages/',
-                'templates/',
-                'views/',
-                'admin/',
-                'dashboard/',
-                'src/',
-                'public/'
-            ];
+            // If no cached files, scan the repository
+            const foundFiles = await scanRepository();
+            
+            // Cache the found files
+            serverStorage.files = foundFiles;
+            serverStorage.saveFiles();
+            
+            displayFileStructure(foundFiles);
+        }
 
+        async function scanRepository() {
+            const foundFiles = [];
+            const checkedFiles = new Set();
+            
+            // Common HTML file names to check
             const commonFileNames = [
                 'index', 'home', 'main', 'app', 'dashboard', 'admin', 
                 'login', 'register', 'profile', 'settings', 'about',
-                'contact', 'portfolio', 'blog', 'shop', 'product'
+                'contact', 'portfolio', 'blog', 'shop', 'product',
+                'test', 'demo', 'example', 'sample', 'template',
+                'lytradevissocooldotcom', 'lytradevissocooldotcom2', 
+                'lytradevissocooldotcom3', 'lytradevissocooldotcom4'
             ];
-
+            
+            // Common directories to check
+            const commonPaths = [
+                '', 'pages/', 'templates/', 'views/', 'admin/', 
+                'dashboard/', 'src/', 'public/', 'html/', 'sites/'
+            ];
+            
+            // Scan for files in common locations
             for (const path of commonPaths) {
                 for (const name of commonFileNames) {
                     const filePath = `${path}${name}.html`;
@@ -1253,10 +1361,71 @@
                             });
                         }
                     }
+                    
+                    // Also check for index.html in subdirectories
+                    if (path && await checkFileExists(`${path}index.html`)) {
+                        const indexPath = `${path}index.html`;
+                        if (!checkedFiles.has(indexPath)) {
+                            checkedFiles.add(indexPath);
+                            foundFiles.push({
+                                name: 'index.html',
+                                path: indexPath,
+                                type: 'file'
+                            });
+                        }
+                    }
                 }
             }
+            
+            // Try to discover additional files by scanning the current directory
+            try {
+                // This is a simulated file discovery - in a real environment
+                // you would need server-side support for directory listing
+                const additionalFiles = await discoverAdditionalFiles();
+                additionalFiles.forEach(file => {
+                    if (!checkedFiles.has(file.path)) {
+                        checkedFiles.add(file.path);
+                        foundFiles.push(file);
+                    }
+                });
+            } catch (error) {
+                console.log("Could not discover additional files:", error);
+            }
+            
+            return foundFiles;
+        }
 
-            displayFileStructure(foundFiles);
+        async function discoverAdditionalFiles() {
+            const additionalFiles = [];
+            
+            // Try to get a list of all HTML files using a simulated approach
+            // In a real environment, this would be done server-side
+            const simulatedFiles = [
+                'index.html',
+                'lytradevissocooldotcom.html',
+                'lytradevissocooldotcom2.html',
+                'lytradevissocooldotcom3.html',
+                'lytradevissocooldotcom4.html',
+                'test.html',
+                'demo.html',
+                'admin/index.html',
+                'dashboard/index.html',
+                'pages/home.html',
+                'pages/about.html',
+                'pages/contact.html'
+            ];
+            
+            for (const file of simulatedFiles) {
+                if (await checkFileExists(file)) {
+                    additionalFiles.push({
+                        name: file.split('/').pop(),
+                        path: file,
+                        type: 'file'
+                    });
+                }
+            }
+            
+            return additionalFiles;
         }
 
         async function checkFileExists(url) {
@@ -1275,7 +1444,7 @@
                         <i class="fas fa-folder-open"></i>
                         <h3>No HTML Files Found</h3>
                         <p>No HTML files were detected in the repository.</p>
-                        <p class="hint">Try adding files to the knownFiles array in the script.</p>
+                        <p class="hint">Try adding files to the repository or check file permissions.</p>
                     </div>
                 `;
                 return;
@@ -1317,10 +1486,15 @@
                 
                 filesByDir[dir].forEach(file => {
                     html += `
-                        <li class="file-item" onclick="navigateToFile('${file.path}')">
+                        <li class="file-item">
                             <i class="fab fa-html5"></i>
-                            <span>${file.name}</span>
+                            <span onclick="navigateToFile('${file.path}')">${file.name}</span>
                             <small style="margin-left: auto; color: var(--text-secondary);">${file.path}</small>
+                            <div class="file-actions">
+                                <button class="file-action-btn" onclick="openRenameModal('${file.path}')">
+                                    <i class="fas fa-edit"></i> Rename
+                                </button>
+                            </div>
                         </li>
                     `;
                 });
@@ -1332,16 +1506,78 @@
             fileStructure.innerHTML = html;
         }
 
+        function openRenameModal(filePath) {
+            currentFileToRename = filePath;
+            currentFileName.value = filePath;
+            newFileName.value = filePath.split('/').pop();
+            renameModal.style.display = 'flex';
+        }
+
+        renameForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!currentFileToRename) {
+                renameErrorMessage.textContent = 'No file selected for renaming.';
+                renameErrorMessage.style.display = 'block';
+                return;
+            }
+            
+            const newName = newFileName.value.trim();
+            if (!newName) {
+                renameErrorMessage.textContent = 'New file name cannot be empty.';
+                renameErrorMessage.style.display = 'block';
+                return;
+            }
+            
+            if (!newName.endsWith('.html')) {
+                renameErrorMessage.textContent = 'File name must end with .html extension.';
+                renameErrorMessage.style.display = 'block';
+                return;
+            }
+            
+            // In a real application, you would make an API call to rename the file
+            // For this demo, we'll simulate the renaming by updating our file list
+            
+            // Find the file in our storage
+            const fileIndex = serverStorage.files.findIndex(file => file.path === currentFileToRename);
+            if (fileIndex !== -1) {
+                const oldPath = serverStorage.files[fileIndex].path;
+                const pathParts = oldPath.split('/');
+                pathParts.pop(); // Remove the old file name
+                pathParts.push(newName); // Add the new file name
+                const newPath = pathParts.join('/');
+                
+                // Update the file in storage
+                serverStorage.files[fileIndex].name = newName;
+                serverStorage.files[fileIndex].path = newPath;
+                serverStorage.saveFiles();
+                
+                // Update the assigned sites for users if needed
+                serverStorage.users.forEach(user => {
+                    if (user.assignedSite === oldPath) {
+                        user.assignedSite = newPath;
+                    }
+                });
+                serverStorage.saveUsers();
+                
+                // Refresh the file display
+                displayFileStructure(serverStorage.files);
+                
+                // Close the modal
+                renameModal.style.display = 'none';
+                resetRenameForm();
+                
+                // Show success message
+                alert(`File renamed successfully from ${oldPath} to ${newPath}`);
+            } else {
+                renameErrorMessage.textContent = 'File not found in storage.';
+                renameErrorMessage.style.display = 'block';
+            }
+        });
+
         function navigateToFile(filePath) {
             window.location.href = filePath;
         }
-
-        knownFiles.push(
-            'lytradevissocooldotcom.html',
-            'lytradevissocooldotcom2.html',
-            'lytradevissocooldotcom3.html',
-            'lytradevissocooldotcom4.html'
-        );
 
         const style = document.createElement('style');
         style.textContent = `
