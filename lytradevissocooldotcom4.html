@@ -594,28 +594,8 @@
             </div>
             <div class="closed-content">
                 <h2>Applications Are Currently Closed</h2>
-                <p>We are currently processing applications and will reopen for new submissions on Saturday. Please check back then to submit your application.</p>
-                
-                <div class="countdown" id="countdown">
-                    <div class="countdown-item">
-                        <div class="countdown-number" id="days">0</div>
-                        <div class="countdown-label">Days</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-number" id="hours">0</div>
-                        <div class="countdown-label">Hours</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-number" id="minutes">0</div>
-                        <div class="countdown-label">Minutes</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-number" id="seconds">0</div>
-                        <div class="countdown-label">Seconds</div>
-                    </div>
-                </div>
-                
-                <p>In the meantime, you can explore our committees and prepare your application materials.</p>
+                <p>ARELMUN'25 is officially over! Please stay tuned for the ARELMUN'26 experience.</p>
+                <p>You can still explore our committees and prepare your application materials. (For the next year)</p>
                 <div class="action-buttons">
                     <a href="committees.html" class="btn btn-primary">View Committees</a>
                     <a href="index.html" class="btn btn-secondary">Return to Home</a>
@@ -634,7 +614,7 @@
                     </div>
                     <div class="info-content">
                         <h3>School Delegations</h3>
-                        <p>Apply as a school or group delegation when applications reopen on Saturday.</p>
+                        <p>Apply as a School or Group Delegation when applications reopen.</p>
                     </div>
                 </div>
                 
@@ -644,7 +624,7 @@
                     </div>
                     <div class="info-content">
                         <h3>Individual Delegates</h3>
-                        <p>Individual delegate applications will be available starting Saturday.</p>
+                        <p>Apply as a Individual Delegate when applications reopen.</p>
                     </div>
                 </div>
                 
@@ -654,7 +634,7 @@
                     </div>
                     <div class="info-content">
                         <h3>Chairboard Positions</h3>
-                        <p>Chairboard applications will reopen for submissions on Saturday.</p>
+                        <p>Apply as Chairboard when applications reopen.</p>
                     </div>
                 </div>
                 
@@ -664,7 +644,7 @@
                     </div>
                     <div class="info-content">
                         <h3>Press Team</h3>
-                        <p>Press team member applications will be available on Saturday.</p>
+                        <p>Apply as Press Team member when applications reopen.</p>
                     </div>
                 </div>
                 
@@ -674,7 +654,7 @@
                     </div>
                     <div class="info-content">
                         <h3>Administrative Staff</h3>
-                        <p>Administrative staff applications will reopen on Saturday.</p>
+                        <p>Apply as Administrative Staff when applications reopen.</p>
                     </div>
                 </div>
                 
@@ -742,7 +722,6 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         
@@ -764,7 +743,6 @@
             }
         });
         
-        // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
@@ -783,21 +761,17 @@
             }
         });
 
-        // Countdown timer
         function updateCountdown() {
-            // Set the target date (next Saturday)
             const now = new Date();
             const targetDate = new Date();
             
-            // Calculate days until next Saturday
             const daysUntilSaturday = (6 - now.getDay() + 7) % 7;
             targetDate.setDate(now.getDate() + daysUntilSaturday);
-            targetDate.setHours(0, 0, 0, 0); // Set to midnight on Saturday
+            targetDate.setHours(0, 0, 0, 0);
             
             const timeRemaining = targetDate - now;
             
             if (timeRemaining <= 0) {
-                // If it's already Saturday, show a message
                 document.getElementById('countdown').innerHTML = '<div class="countdown-item"><div class="countdown-number">Applications Open!</div></div>';
                 return;
             }
@@ -813,9 +787,8 @@
             document.getElementById('seconds').textContent = seconds;
         }
         
-        // Update countdown every second
         setInterval(updateCountdown, 1000);
-        updateCountdown(); // Initial call
+        updateCountdown();
     </script>
 </body>
 </html>
