@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AnonImageSearch — Görsel Benzerlik Arama</title>
+
+<!-- Basit, tek dosya CSS -->
+<style>
+  :root{
+    --max-width:1000px;
+    --accent:#1e88e5;
+    --muted:#666;
+    --card-bg:#fafafa;
+  }
+  body{font-family:Inter,system-ui,Arial;margin:0;background:#f3f4f6;color:#111}
+  .wrap{max-width:var(--max-width);margin:28px auto;padding:20px}
+  header{display:flex;align-items:center;gap:16px}
+  h1{margin:0;font-size:1.25rem}
+  p.lead{margin:6px 0 18px;color:var(--muted)}
+  .uploader{display:flex;gap:12px;align-items:center}
+  .drop{
+    width:220px;height:160px;border:2px dashed #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;
+    background:white;padding:12px;text-align:center;color:#666;cursor:pointer;
+  }
+  .controls{flex:1}
+  input[type=file]{display:none}
+  button.primary{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+  button.ghost{background:transparent;border:1px solid #ddd;padding:8px 12px;border-radius:8px;cursor:pointer}
+  .preview{margin-top:12px;display:flex;gap:12px;align-items:center}
+  img.preview-img{max-width:220px;max-height:160px;border-radius:6px;object-fit:cover;border:1px solid #e6e6e6}
+  .meta{font-size:0.9rem;color:var(--muted)}
+  .results{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+  .card{background:var(--card-bg);padding:8px;border-radius:8px;border:1px solid #eee;display:flex;flex-direction:column;gap:8px}
+  .card img{width:100%;height:120px;object-fit:cover;border-radius:6px}
+  .domain{font-size:0.85rem;color:#333;word-break:break-all}
+  .score{font-size:0.8rem;color:var(--muted)}
+  footer{margin-top:28px;font-size:0.85rem;color:var(--muted)}
+  .consent{background:white;border-radius:8px;padding:12px;border:1px solid #eee}
+  .badge{display:inline-block;background:#fff1c6;padding:6px 8px;border-radius:6px;border:1px solid #f0d37a;font-size:0.85rem}
+  .error{color:#b00020}
+  @media (max-width:640px){ .uploader{flex-direction:column;align-items:stretch} .drop{width:100%} }
+</style>
+
+<!-- face-api.js (age estimation & face detection on client) -->
+<script defer src="https://unpkg.com/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>AnonImageSearch</h1>
+    <div class="badge">Görsel-Benzerlik (identity-free)</div>
+  </header>
+  <p class="lead">
+    Bir fotoğraf yükleyerek **görsel olarak benzer** halka açık görselleri bul. <strong>Kişi kimliği veya sosyal hesap bilgileri gösterilmez.</strong>
+  </p>
+
+  <div class="consent">
+    <strong>Hukuki & gizlilik notu:</strong>
+    Bu hizmet <em>kimlik tespiti yapmaz</em>. Yüklenen görseller geçici tutulur. Yüklemeye devam ederek bu koşulları kabul etmiş olursun.
+  </div>
+
+  <div style="height:12px"></div>
+
+  <div class="uploader">
+    <label class="drop" id="dropZone">
+      <div>
+        <div style="font-weight:600">Fotoğraf sürükle veya tıkla</div>
+        <div style="font-size:0.85rem;color:var(--muted);margin-top:6px">JPG/PNG, max 6 MB</div>
+      </div>
+      <input id="fileInput" type="file" accept="image/*"/>
+    </label>
+
+    <div class="controls">
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="primary" id="searchBtn" disabled>Arama Başlat</button>
+        <button class="ghost" id="clearBtn">Temizle</button>
+        <label style="margin-left:auto;display:flex;gap:6px;align-items:center">
+          <input id="domainOnly" type="checkbox" checked/> Sadece domain göster
+        </label>
+      </div>
+      <div class="preview" id="previewArea" style="display:none">
+        <img id="previewImg" class="preview-img" src="" alt="preview"/>
+        <div>
+          <div class="meta" id="fileMeta"></div>
+          <div style="height:8px"></div>
+          <div id="status" class="meta"></div>
+          <div id="error" class="error"></div>
+        </div>
+      </div>
+      <div id="loader" style="display:none;margin-top:10px">Aranıyor… lütfen bekleyin.</div>
+    </div>
+  </div>
+
+  <div id="resultsWrap">
+    <h3 style="margin-top:22px">Sonuçlar</h3>
+    <div id="results" class="results"></div>
+  </div>
+
+  <footer>
+    <div>Not: Bu istemci uygulaması yalnızca görsel-benzerlik araması gösterir. Sunucu tarafı <code>/api/search</code> endpoint'inin CORS izinleri ile çalışmalıdır.</div>
+  </footer>
+</div>
+
+<script>
+/*
+  Tek dosya frontend:
+  - BACKEND_URL değişkenini kendi backend adresine göre ayarla.
+  - Beklenen backend: POST /api/search -> JSON { results: [ { score, preview_url, source_domain } ] }
+  - preview_url: küçük resim (thumbnail) http(s) URL'si
+  - source_domain: sadece domain veya domain+path (frontend'de domainOnly opsiyonu ile kısaltılabilir)
+*/
+
+const BACKEND_URL = (function(){
+  // Varsayılan: aynı host'ta backend 8000 portunda
+  // Eğer backend farklıysa burayı değiştir.
+  const u = new URL(window.location.href);
+  return `${u.protocol}//${u.hostname}:8000`; // örn http://localhost:8000
+})();
+
+const MAX_SIZE_BYTES = 6 * 1024 * 1024; // 6 MB
+const fileInput = document.getElementById('fileInput');
+const dropZone = document.getElementById('dropZone');
+const previewArea = document.getElementById('previewArea');
+const previewImg = document.getElementById('previewImg');
+const fileMeta = document.getElementById('fileMeta');
+const statusEl = document.getElementById('status');
+const errorEl = document.getElementById('error');
+const searchBtn = document.getElementById('searchBtn');
+const clearBtn = document.getElementById('clearBtn');
+const loader = document.getElementById('loader');
+const resultsEl = document.getElementById('results');
+const domainOnly = document.getElementById('domainOnly');
+
+let currentFile = null;
+let rateLock = false;
+
+// face-api models will be loaded for client-side age estimation
+let modelsLoaded = false;
+
+async function loadFaceApiModels(){
+  // load from CDN; only load once
+  if(modelsLoaded) return;
+  const base = 'https://unpkg.com/face-api.js@0.22.2/models/';
+  statusEl.textContent = 'Yaş algılama modelleri yükleniyor...';
+  try {
+    await faceapi.nets.tinyFaceDetector.loadFromUri(base);
+    await faceapi.nets.ageGenderNet.loadFromUri(base);
+    modelsLoaded = true;
+    statusEl.textContent = 'Modeller yüklendi.';
+  } catch (e){
+    console.warn('model load error', e);
+    statusEl.textContent = 'Yaş algılama modeli yüklenemedi (isteğe bağlı).';
+  }
+}
+
+// Drag & drop
+dropZone.addEventListener('click', ()=> fileInput.click());
+dropZone.addEventListener('dragover', (e)=> { e.preventDefault(); dropZone.style.borderColor='#bbb'; });
+dropZone.addEventListener('dragleave', (e)=> { e.preventDefault(); dropZone.style.borderColor='#ddd'; });
+dropZone.addEventListener('drop', (e)=> {
+  e.preventDefault(); dropZone.style.borderColor='#ddd';
+  if(e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
+
+fileInput.addEventListener('change', (e)=> {
+  if(e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
+});
+
+clearBtn.addEventListener('click', clearAll);
+
+searchBtn.addEventListener('click', async ()=>{
+  if(!currentFile) return;
+  if(rateLock) return;
+  // Consent modal
+  const ok = await showConsentModal();
+  if(!ok) return;
+
+  // Load models for age estimate
+  await loadFaceApiModels();
+
+  // Run client-side child detection (age estimation)
+  const isChild = await detectChild(currentFile);
+  if(isChild === true){
+    showError('Yüklenen fotoğraf çocuk içeriyor — arama engellendi.');
+    return;
+  }
+
+  // send to backend
+  try {
+    rateLock = true;
+    searchBtn.disabled = true;
+    loader.style.display = 'block';
+    statusEl.textContent = 'Sunucuya gönderiliyor...';
+
+    const form = new FormData();
+    form.append('file', currentFile, currentFile.name);
+
+    const resp = await fetch(BACKEND_URL + '/api/search', {
+      method: 'POST',
+      body: form,
+    });
+    if(!resp.ok){
+      const txt = await resp.text();
+      throw new Error(`Sunucu hata: ${resp.status} ${txt}`);
+    }
+    const json = await resp.json();
+    renderResults(json.results || []);
+    statusEl.textContent = 'Tamamlandı.';
+  } catch (err){
+    console.error(err);
+    showError('Arama başarısız: ' + (err.message || err));
+  } finally {
+    loader.style.display = 'none';
+    searchBtn.disabled = false;
+    // simple client-side cooldown to mitigate accidental rapid queries
+    setTimeout(()=>{ rateLock = false; }, 3000);
+  }
+});
+
+/* --- helper functions --- */
+
+function showError(msg){
+  errorEl.textContent = msg;
+  setTimeout(()=> errorEl.textContent = '', 7000);
+}
+
+function clearAll(){
+  currentFile = null;
+  previewArea.style.display = 'none';
+  previewImg.src = '';
+  fileMeta.textContent = '';
+  statusEl.textContent = '';
+  resultsEl.innerHTML = '';
+  fileInput.value = '';
+}
+
+function humanFileSize(bytes){
+  const thresh = 1024;
+  if(Math.abs(bytes) < thresh) return bytes + ' B';
+  const units = ['KB','MB','GB','TB','PB','EB','ZB','YB'];
+  let u = -1;
+  do {
+    bytes /= thresh;
+    ++u;
+  } while(Math.abs(bytes) >= thresh && u < units.length-1);
+  return bytes.toFixed(1)+' '+units[u];
+}
+
+function handleFile(file){
+  errorEl.textContent = '';
+  if(!file.type.startsWith('image/')) { showError('Lütfen bir görsel dosyası seç.'); return; }
+  if(file.size > MAX_SIZE_BYTES){ showError('Dosya çok büyük (max 6 MB).'); return; }
+  currentFile = file;
+  previewImg.src = URL.createObjectURL(file);
+  fileMeta.textContent = `${file.name} — ${humanFileSize(file.size)}`;
+  previewArea.style.display = 'flex';
+  searchBtn.disabled = false;
+  resultsEl.innerHTML = '';
+  statusEl.textContent = '';
+}
+
+// Consent modal (simple)
+function showConsentModal(){
+  return new Promise((resolve) => {
+    const modal = document.createElement('div');
+    Object.assign(modal.style, {
+      position:'fixed',left:0,top:0,right:0,bottom:0,display:'flex',alignItems:'center',justifyContent:'center',
+      background:'rgba(0,0,0,0.45)',zIndex:9999
+    });
+    modal.innerHTML = `
+      <div style="background:white;padding:18px;border-radius:10px;max-width:560px;width:92%;box-shadow:0 6px 24px rgba(0,0,0,.12)">
+        <h3 style="margin:0 0 8px">Aramayı onayla</h3>
+        <p style="margin:0 0 12px;color:#444">Bu arama <strong>kişisel kimlik tespiti yapmaz</strong> ve yalnızca görsel-benzerlik örneklerini sunar. Yüklenen görsel cihazında veya sunucuda kısa süreli saklanabilir. Devam ediyorsan 'Onaylıyorum' seç.</p>
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button id="consCancel" class="ghost">Vazgeç</button>
+          <button id="consOk" class="primary">Onaylıyorum</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.querySelector('#consCancel').addEventListener('click', ()=>{ document.body.removeChild(modal); resolve(false); });
+    modal.querySelector('#consOk').addEventListener('click', ()=>{ document.body.removeChild(modal); resolve(true); });
+  });
+}
+
+// Client-side child detection using face-api age estimation
+async function detectChild(file){
+  // If models couldn't load, be permissive (return false)
+  if(!modelsLoaded){
+    try { await loadFaceApiModels(); } catch(e){ return false; }
+  }
+  // read image as HTMLImageElement
+  const img = await new Promise((res, rej)=>{
+    const url = URL.createObjectURL(file);
+    const i = new Image();
+    i.onload = ()=> { URL.revokeObjectURL(url); res(i); };
+    i.onerror = (e)=> rej(e);
+    i.src = url;
+  });
+
+  // detect faces
+  const detections = await faceapi.detectAllFaces(img, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender();
+  if(!detections || detections.length === 0) {
+    // no face detected -> allow (we're not asserting identity)
+    return false;
+  }
+  // if any detection reports age < 18 (with margin), treat as child
+  for(const d of detections){
+    // face-api ages are approximate; use threshold 18 with margin
+    const age = d.age || 0;
+    if(age < 18.5) return true;
+  }
+  return false;
+}
+
+// Render results list
+function renderResults(items){
+  resultsEl.innerHTML = '';
+  if(!items || items.length === 0){
+    resultsEl.innerHTML = '<div class="meta">Eşleşme bulunamadı.</div>';
+    return;
+  }
+  for(const it of items){
+    const card = document.createElement('div'); card.className='card';
+    const img = document.createElement('img'); img.src = it.preview_url || '';
+    const domain = document.createElement('div'); domain.className='domain';
+    // show only domain if checked
+    try {
+      const u = new URL(it.source_domain || it.preview_url || '');
+      domain.textContent = domainOnly.checked ? u.hostname : (it.source_domain || u.href);
+    } catch(e){
+      domain.textContent = it.source_domain || '';
+    }
+    const score = document.createElement('div'); score.className='score';
+    score.textContent = 'Benzerlik skoru: ' + (typeof it.score === 'number' ? it.score.toFixed(4) : it.score);
+    card.appendChild(img);
+    card.appendChild(domain);
+    card.appendChild(score);
+    resultsEl.appendChild(card);
+  }
+}
+
+/* Initialize: load face-api models in background (optional) */
+loadFaceApiModels().catch(()=>{ /* ignore */ });
+
+</script>
+</body>
+</html>
