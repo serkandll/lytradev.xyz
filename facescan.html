@@ -3,27 +3,20 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>AnonImageSearch — Görsel Benzerlik Arama</title>
-
-<!-- Basit, tek dosya CSS -->
+<title>AnonImageSearch — GitHub Pages Uyumlu</title>
 <style>
-  :root{
-    --max-width:1000px;
-    --accent:#1e88e5;
-    --muted:#666;
-    --card-bg:#fafafa;
-  }
+  :root{--accent:#1e88e5;--muted:#666;--card-bg:#fafafa}
   body{font-family:Inter,system-ui,Arial;margin:0;background:#f3f4f6;color:#111}
-  .wrap{max-width:var(--max-width);margin:28px auto;padding:20px}
-  header{display:flex;align-items:center;gap:16px}
-  h1{margin:0;font-size:1.25rem}
-  p.lead{margin:6px 0 18px;color:var(--muted)}
-  .uploader{display:flex;gap:12px;align-items:center}
-  .drop{
-    width:220px;height:160px;border:2px dashed #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;
-    background:white;padding:12px;text-align:center;color:#666;cursor:pointer;
-  }
-  .controls{flex:1}
+  .wrap{max-width:1000px;margin:28px auto;padding:20px}
+  header{display:flex;align-items:center;gap:12px}
+  h1{margin:0;font-size:1.15rem}
+  .badge{display:inline-block;background:#fff1c6;padding:6px 8px;border-radius:6px;border:1px solid #f0d37a;font-size:0.85rem}
+  .controls-top{margin-left:auto;display:flex;gap:8px;align-items:center}
+  input.backend-input{padding:8px;border-radius:8px;border:1px solid #ddd;width:320px}
+  button.set-backend{background:var(--accent);color:white;border:none;padding:8px 10px;border-radius:8px;cursor:pointer}
+  .consent{background:white;border-radius:8px;padding:12px;border:1px solid #eee;margin-top:12px}
+  .uploader{display:flex;gap:12px;align-items:center;margin-top:12px}
+  .drop{width:220px;height:160px;border:2px dashed #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;background:white;padding:12px;text-align:center;color:#666;cursor:pointer}
   input[type=file]{display:none}
   button.primary{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
   button.ghost{background:transparent;border:1px solid #ddd;padding:8px 12px;border-radius:8px;cursor:pointer}
@@ -35,30 +28,27 @@
   .card img{width:100%;height:120px;object-fit:cover;border-radius:6px}
   .domain{font-size:0.85rem;color:#333;word-break:break-all}
   .score{font-size:0.8rem;color:var(--muted)}
-  footer{margin-top:28px;font-size:0.85rem;color:var(--muted)}
-  .consent{background:white;border-radius:8px;padding:12px;border:1px solid #eee}
-  .badge{display:inline-block;background:#fff1c6;padding:6px 8px;border-radius:6px;border:1px solid #f0d37a;font-size:0.85rem}
   .error{color:#b00020}
-  @media (max-width:640px){ .uploader{flex-direction:column;align-items:stretch} .drop{width:100%} }
+  @media (max-width:640px){ .uploader{flex-direction:column;align-items:stretch} .drop{width:100%} .backend-input{width:100%} }
 </style>
 
-<!-- face-api.js (age estimation & face detection on client) -->
+<!-- face-api for optional client-side child detection -->
 <script defer src="https://unpkg.com/face-api.js@0.22.2/dist/face-api.min.js"></script>
-
 </head>
 <body>
 <div class="wrap">
   <header>
     <h1>AnonImageSearch</h1>
-    <div class="badge">Görsel-Benzerlik (identity-free)</div>
+    <div class="badge">Identity-free görsel benzerlik</div>
+
+    <div class="controls-top" title="Backend URL (public, HTTPS required).">
+      <input id="backendInput" class="backend-input" placeholder="Backend URL (örn: https://mybackend.example.com)" />
+      <button id="saveBackendBtn" class="set-backend">Ayarla</button>
+    </div>
   </header>
-  <p class="lead">
-    Bir fotoğraf yükleyerek **görsel olarak benzer** halka açık görselleri bul. <strong>Kişi kimliği veya sosyal hesap bilgileri gösterilmez.</strong>
-  </p>
 
   <div class="consent">
-    <strong>Hukuki & gizlilik notu:</strong>
-    Bu hizmet <em>kimlik tespiti yapmaz</em>. Yüklenen görseller geçici tutulur. Yüklemeye devam ederek bu koşulları kabul etmiş olursun.
+    <strong>Not:</strong> Bu uygulama <em>kimlik tespiti yapmaz</em>. GitHub Pages (HTTPS) üzerinde çalışıyorsan backend'in <strong>public ve HTTPS</strong> erişilebilir olması gerekir. Backend ayrıca CORS ayarlarında bu GitHub Pages origin'ine izin vermelidir (veya `*` test amaçlı).
   </div>
 
   <div style="height:12px"></div>
@@ -67,12 +57,12 @@
     <label class="drop" id="dropZone">
       <div>
         <div style="font-weight:600">Fotoğraf sürükle veya tıkla</div>
-        <div style="font-size:0.85rem;color:var(--muted);margin-top:6px">JPG/PNG, max 6 MB</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:6px">JPG/PNG, max 6 MB</div>
       </div>
       <input id="fileInput" type="file" accept="image/*"/>
     </label>
 
-    <div class="controls">
+    <div style="flex:1">
       <div style="display:flex;gap:8px;align-items:center">
         <button class="primary" id="searchBtn" disabled>Arama Başlat</button>
         <button class="ghost" id="clearBtn">Temizle</button>
@@ -80,6 +70,7 @@
           <input id="domainOnly" type="checkbox" checked/> Sadece domain göster
         </label>
       </div>
+
       <div class="preview" id="previewArea" style="display:none">
         <img id="previewImg" class="preview-img" src="" alt="preview"/>
         <div>
@@ -89,7 +80,7 @@
           <div id="error" class="error"></div>
         </div>
       </div>
-      <div id="loader" style="display:none;margin-top:10px">Aranıyor… lütfen bekleyin.</div>
+      <div id="loader" style="display:none;margin-top:10px">Aranıyor…</div>
     </div>
   </div>
 
@@ -98,26 +89,26 @@
     <div id="results" class="results"></div>
   </div>
 
-  <footer>
-    <div>Not: Bu istemci uygulaması yalnızca görsel-benzerlik araması gösterir. Sunucu tarafı <code>/api/search</code> endpoint'inin CORS izinleri ile çalışmalıdır.</div>
+  <footer style="margin-top:18px;font-size:0.9rem;color:#555">
+    <div><strong>Backend gereklilikleri:</strong></div>
+    <ul>
+      <li>POST /api/search (multipart/form-data, alan adı 'file')</li>
+      <li>CORS: <code>Access-Control-Allow-Origin</code> olarak Pages origin (ör. <code>https://&lt;kullanici&gt;.github.io</code>) veya <code>*</code> (test için)</li>
+      <li>HTTPS zorunlu (GitHub Pages HTTPS olduğundan). Aksi takdirde tarayıcı isteği engeller.</li>
+    </ul>
+    <div style="margin-top:6px">Backend CORS (FastAPI) örneği aşağıda yer alıyor.</div>
   </footer>
 </div>
 
 <script>
-/*
-  Tek dosya frontend:
-  - BACKEND_URL değişkenini kendi backend adresine göre ayarla.
-  - Beklenen backend: POST /api/search -> JSON { results: [ { score, preview_url, source_domain } ] }
-  - preview_url: küçük resim (thumbnail) http(s) URL'si
-  - source_domain: sadece domain veya domain+path (frontend'de domainOnly opsiyonu ile kısaltılabilir)
-*/
-
-const BACKEND_URL = (function(){
-  // Varsayılan: aynı host'ta backend 8000 portunda
-  // Eğer backend farklıysa burayı değiştir.
-  const u = new URL(window.location.href);
-  return `${u.protocol}//${u.hostname}:8000`; // örn http://localhost:8000
-})();
+/* -------------------------
+   Uygulama: BACKEND URL tespiti
+   - Öncelik sırası:
+     1) URL query param 'backend'
+     2) localStorage'ta kaydedilmiş backend
+     3) kullanıcı girişi (üst kutu)
+   - Eğer backend yoksa kullanıcıyı uyar ve arama butonunu devre dışı bırak.
+   -------------------------*/
 
 const MAX_SIZE_BYTES = 6 * 1024 * 1024; // 6 MB
 const fileInput = document.getElementById('fileInput');
@@ -133,29 +124,87 @@ const loader = document.getElementById('loader');
 const resultsEl = document.getElementById('results');
 const domainOnly = document.getElementById('domainOnly');
 
+const backendInput = document.getElementById('backendInput');
+const saveBackendBtn = document.getElementById('saveBackendBtn');
+
 let currentFile = null;
+let backendURL = null;
 let rateLock = false;
 
-// face-api models will be loaded for client-side age estimation
+// yüz-api modelleri (isteğe bağlı yaş algılama)
 let modelsLoaded = false;
-
 async function loadFaceApiModels(){
-  // load from CDN; only load once
   if(modelsLoaded) return;
   const base = 'https://unpkg.com/face-api.js@0.22.2/models/';
-  statusEl.textContent = 'Yaş algılama modelleri yükleniyor...';
   try {
     await faceapi.nets.tinyFaceDetector.loadFromUri(base);
     await faceapi.nets.ageGenderNet.loadFromUri(base);
     modelsLoaded = true;
-    statusEl.textContent = 'Modeller yüklendi.';
-  } catch (e){
-    console.warn('model load error', e);
-    statusEl.textContent = 'Yaş algılama modeli yüklenemedi (isteğe bağlı).';
+  } catch(e){
+    console.warn('face-api model yüklenemedi', e);
   }
 }
 
-// Drag & drop
+/* --- Backend URL yönetimi --- */
+function getQueryParam(name){
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
+function setBackend(url){
+  if(!url) return;
+  // normalize: remove trailing slash
+  if(url.endsWith('/')) url = url.slice(0,-1);
+  backendURL = url;
+  localStorage.setItem('anonsearch_backend', backendURL);
+  backendInput.value = backendURL;
+  updateBackendUI();
+}
+
+function loadBackendFromStorageOrQuery(){
+  const q = getQueryParam('backend');
+  if(q){
+    setBackend(q);
+    return;
+  }
+  const saved = localStorage.getItem('anonsearch_backend');
+  if(saved){
+    backendURL = saved;
+    backendInput.value = backendURL;
+  }
+  updateBackendUI();
+}
+
+function updateBackendUI(){
+  // if backend exists and has https -> enable search
+  if(!backendURL){
+    searchBtn.disabled = true;
+    statusEl.textContent = 'Backend yok — üstten backend URL gir veya sayfayı ?backend=https://... ile aç.';
+    return;
+  }
+  try {
+    const u = new URL(backendURL);
+    if(u.protocol !== 'https:' && location.protocol === 'https:'){
+      statusEl.textContent = 'UYARI: GitHub Pages HTTPS sunduğu için backend HTTPS olmalıdır.';
+      // still allow user to try (but likely blocked by browser)
+    } else {
+      statusEl.textContent = 'Backend ayarlı: ' + backendURL;
+    }
+    // only enable search if a file selected
+    searchBtn.disabled = !currentFile;
+  } catch(e){
+    statusEl.textContent = 'Geçersiz backend URL.';
+    searchBtn.disabled = true;
+  }
+}
+
+saveBackendBtn.addEventListener('click', ()=>{
+  const v = backendInput.value.trim();
+  if(!v) { localStorage.removeItem('anonsearch_backend'); backendURL = null; updateBackendUI(); return; }
+  setBackend(v);
+});
+
+/* --- Dosya işlemleri --- */
 dropZone.addEventListener('click', ()=> fileInput.click());
 dropZone.addEventListener('dragover', (e)=> { e.preventDefault(); dropZone.style.borderColor='#bbb'; });
 dropZone.addEventListener('dragleave', (e)=> { e.preventDefault(); dropZone.style.borderColor='#ddd'; });
@@ -163,67 +212,22 @@ dropZone.addEventListener('drop', (e)=> {
   e.preventDefault(); dropZone.style.borderColor='#ddd';
   if(e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
 });
-
 fileInput.addEventListener('change', (e)=> {
   if(e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
 });
-
 clearBtn.addEventListener('click', clearAll);
 
-searchBtn.addEventListener('click', async ()=>{
-  if(!currentFile) return;
-  if(rateLock) return;
-  // Consent modal
-  const ok = await showConsentModal();
-  if(!ok) return;
-
-  // Load models for age estimate
-  await loadFaceApiModels();
-
-  // Run client-side child detection (age estimation)
-  const isChild = await detectChild(currentFile);
-  if(isChild === true){
-    showError('Yüklenen fotoğraf çocuk içeriyor — arama engellendi.');
-    return;
-  }
-
-  // send to backend
-  try {
-    rateLock = true;
-    searchBtn.disabled = true;
-    loader.style.display = 'block';
-    statusEl.textContent = 'Sunucuya gönderiliyor...';
-
-    const form = new FormData();
-    form.append('file', currentFile, currentFile.name);
-
-    const resp = await fetch(BACKEND_URL + '/api/search', {
-      method: 'POST',
-      body: form,
-    });
-    if(!resp.ok){
-      const txt = await resp.text();
-      throw new Error(`Sunucu hata: ${resp.status} ${txt}`);
-    }
-    const json = await resp.json();
-    renderResults(json.results || []);
-    statusEl.textContent = 'Tamamlandı.';
-  } catch (err){
-    console.error(err);
-    showError('Arama başarısız: ' + (err.message || err));
-  } finally {
-    loader.style.display = 'none';
-    searchBtn.disabled = false;
-    // simple client-side cooldown to mitigate accidental rapid queries
-    setTimeout(()=>{ rateLock = false; }, 3000);
-  }
-});
-
-/* --- helper functions --- */
-
-function showError(msg){
-  errorEl.textContent = msg;
-  setTimeout(()=> errorEl.textContent = '', 7000);
+function handleFile(file){
+  errorEl.textContent = '';
+  if(!file.type.startsWith('image/')) { showError('Lütfen bir görsel dosyası seç.'); return; }
+  if(file.size > MAX_SIZE_BYTES){ showError('Dosya çok büyük (max 6 MB).'); return; }
+  currentFile = file;
+  previewImg.src = URL.createObjectURL(file);
+  fileMeta.textContent = `${file.name} — ${humanFileSize(file.size)}`;
+  previewArea.style.display = 'flex';
+  searchBtn.disabled = !backendURL;
+  resultsEl.innerHTML = '';
+  statusEl.textContent = '';
 }
 
 function clearAll(){
@@ -234,12 +238,18 @@ function clearAll(){
   statusEl.textContent = '';
   resultsEl.innerHTML = '';
   fileInput.value = '';
+  searchBtn.disabled = true;
+}
+
+function showError(msg){
+  errorEl.textContent = msg;
+  setTimeout(()=> errorEl.textContent = '', 7000);
 }
 
 function humanFileSize(bytes){
   const thresh = 1024;
   if(Math.abs(bytes) < thresh) return bytes + ' B';
-  const units = ['KB','MB','GB','TB','PB','EB','ZB','YB'];
+  const units = ['KB','MB','GB','TB','PB'];
   let u = -1;
   do {
     bytes /= thresh;
@@ -248,20 +258,57 @@ function humanFileSize(bytes){
   return bytes.toFixed(1)+' '+units[u];
 }
 
-function handleFile(file){
-  errorEl.textContent = '';
-  if(!file.type.startsWith('image/')) { showError('Lütfen bir görsel dosyası seç.'); return; }
-  if(file.size > MAX_SIZE_BYTES){ showError('Dosya çok büyük (max 6 MB).'); return; }
-  currentFile = file;
-  previewImg.src = URL.createObjectURL(file);
-  fileMeta.textContent = `${file.name} — ${humanFileSize(file.size)}`;
-  previewArea.style.display = 'flex';
-  searchBtn.disabled = false;
-  resultsEl.innerHTML = '';
-  statusEl.textContent = '';
-}
+/* --- Arama işlemi --- */
+searchBtn.addEventListener('click', async ()=>{
+  if(!currentFile) { showError('Önce bir dosya seç.'); return; }
+  if(!backendURL) { showError('Backend ayarlı değil.'); return; }
+  if(rateLock) return;
 
-// Consent modal (simple)
+  const ok = await showConsentModal();
+  if(!ok) return;
+
+  await loadFaceApiModels();
+  const isChild = await detectChild(currentFile).catch(()=>false);
+  if(isChild === true){
+    showError('Yüklenen fotoğraf çocuk içeriyor — arama engellendi.');
+    return;
+  }
+
+  try {
+    rateLock = true;
+    searchBtn.disabled = true;
+    loader.style.display = 'block';
+    statusEl.textContent = 'Sunucuya gönderiliyor...';
+
+    const form = new FormData();
+    form.append('file', currentFile, currentFile.name);
+
+    // POST to backendURL + /api/search
+    const endpoint = backendURL.replace(/\/+$/,'') + '/api/search';
+    const resp = await fetch(endpoint, { method: 'POST', body: form });
+
+    if(!resp.ok){
+      const txt = await resp.text();
+      throw new Error(`Sunucu hata: ${resp.status} ${txt}`);
+    }
+    const json = await resp.json();
+    renderResults(json.results || []);
+    statusEl.textContent = 'Tamamlandı.';
+  } catch (err){
+    console.error(err);
+    showError('Arama başarısız: ' + (err.message || err));
+    // If CORS issue, provide hint
+    if(err.message && err.message.includes('Failed to fetch')){
+      showError('Sunucuya erişilemiyor. Backend HTTPS olmalı ve CORS izinleri doğru ayarlanmış olmalı.');
+    }
+  } finally {
+    loader.style.display = 'none';
+    searchBtn.disabled = false;
+    setTimeout(()=>{ rateLock = false; }, 3000);
+  }
+});
+
+/* --- Consent modal --- */
 function showConsentModal(){
   return new Promise((resolve) => {
     const modal = document.createElement('div');
@@ -270,9 +317,9 @@ function showConsentModal(){
       background:'rgba(0,0,0,0.45)',zIndex:9999
     });
     modal.innerHTML = `
-      <div style="background:white;padding:18px;border-radius:10px;max-width:560px;width:92%;box-shadow:0 6px 24px rgba(0,0,0,.12)">
+      <div style="background:white;padding:18px;border-radius:10px;max-width:560px;width:92%">
         <h3 style="margin:0 0 8px">Aramayı onayla</h3>
-        <p style="margin:0 0 12px;color:#444">Bu arama <strong>kişisel kimlik tespiti yapmaz</strong> ve yalnızca görsel-benzerlik örneklerini sunar. Yüklenen görsel cihazında veya sunucuda kısa süreli saklanabilir. Devam ediyorsan 'Onaylıyorum' seç.</p>
+        <p style="margin:0 0 12px;color:#444">Bu arama <strong>kişisel kimlik tespiti yapmaz</strong> ve yalnızca görsel-benzerlik örneklerini sunar. Yüklenen görsel kısa süreli saklanabilir. Devam etmek istiyor musunuz?</p>
         <div style="display:flex;gap:8px;justify-content:flex-end">
           <button id="consCancel" class="ghost">Vazgeç</button>
           <button id="consOk" class="primary">Onaylıyorum</button>
@@ -285,13 +332,11 @@ function showConsentModal(){
   });
 }
 
-// Client-side child detection using face-api age estimation
+/* --- Client-side child detection --- */
 async function detectChild(file){
-  // If models couldn't load, be permissive (return false)
   if(!modelsLoaded){
     try { await loadFaceApiModels(); } catch(e){ return false; }
   }
-  // read image as HTMLImageElement
   const img = await new Promise((res, rej)=>{
     const url = URL.createObjectURL(file);
     const i = new Image();
@@ -299,23 +344,16 @@ async function detectChild(file){
     i.onerror = (e)=> rej(e);
     i.src = url;
   });
-
-  // detect faces
   const detections = await faceapi.detectAllFaces(img, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender();
-  if(!detections || detections.length === 0) {
-    // no face detected -> allow (we're not asserting identity)
-    return false;
-  }
-  // if any detection reports age < 18 (with margin), treat as child
+  if(!detections || detections.length === 0) return false;
   for(const d of detections){
-    // face-api ages are approximate; use threshold 18 with margin
     const age = d.age || 0;
     if(age < 18.5) return true;
   }
   return false;
 }
 
-// Render results list
+/* --- Render sonuçlar --- */
 function renderResults(items){
   resultsEl.innerHTML = '';
   if(!items || items.length === 0){
@@ -326,7 +364,6 @@ function renderResults(items){
     const card = document.createElement('div'); card.className='card';
     const img = document.createElement('img'); img.src = it.preview_url || '';
     const domain = document.createElement('div'); domain.className='domain';
-    // show only domain if checked
     try {
       const u = new URL(it.source_domain || it.preview_url || '');
       domain.textContent = domainOnly.checked ? u.hostname : (it.source_domain || u.href);
@@ -342,8 +379,8 @@ function renderResults(items){
   }
 }
 
-/* Initialize: load face-api models in background (optional) */
-loadFaceApiModels().catch(()=>{ /* ignore */ });
+/* --- Init --- */
+loadBackendFromStorageOrQuery();
 
 </script>
 </body>
