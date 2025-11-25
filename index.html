@@ -6,61 +6,60 @@
 <title>Bu İnternet Adresi Erişime Kapatılmıştır</title>
 
 <style>
-  /* FONT TANIMLARI */
-  @font-face { 
+@font-face { 
     font-family: "Nexa"; 
     src: url("Nexa-ExtraLight.ttf") format("truetype"); 
     font-weight: normal;
-  }
+}
 
-  @font-face { 
+@font-face { 
     font-family: "Nexa"; 
     src: url("Nexa-Heavy.ttf") format("truetype"); 
     font-weight: bold;
-  }
+}
 
-  /* GENEL SIFIRLAMA */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 100%; height: 100%; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; }
 
-  body {
-    background: #2f2f2f;  /* GRİ ARKAPLAN */
+body {
+    background: url("https://hexnox.pro/Background.jpg") no-repeat center center fixed;
+    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: "Nexa", sans-serif;
     color: #fff;
-  }
+}
 
-  main { width: 1200px; max-width: 100%; padding: 2vw; }
-  main > h1 {
+main { width: 1200px; max-width: 100%; padding: 2vw; }
+main > h1 {
     text-align: center;
     margin-bottom: clamp(16px, 1.8vw, 28px);
     font-size: clamp(22px, 1.9vw, 34px);
-  }
-  main > p {
+}
+main > p {
     text-align: justify;
     font-size: clamp(15px, 1.35vw, 23px);
     line-height: 1.55;
-  }
-  main > p:nth-child(2) { margin-bottom: clamp(16px, 1.8vw, 28px); }
+}
+main > p:nth-child(2) { margin-bottom: clamp(16px, 1.8vw, 28px); }
 
-  .logos {
+.logos {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
     margin-top: clamp(24px, 6vw, 64px);
-  }
+}
 
-  .logos > img { height: auto; display: block; object-fit: contain; }
+.logos > img { height: auto; display: block; object-fit: contain; }
 
-  .logo-mit   { width: 190px; }
-  .logo-jgk   { width: 160px; }
-  .logo-usom  { width: 240px; }
-  .logo-masak { width: 140px; }
+.logo-mit   { width: 190px; }
+.logo-jgk   { width: 160px; }
+.logo-usom  { width: 240px; }
+.logo-masak { width: 140px; }
 
-  @media (max-width: 640px) {
+@media (max-width: 640px) {
     main { padding: 6vw; }
     main > h1 { font-size: clamp(20px, 6vw, 30px); margin-bottom: 5vw; }
     main > p { font-size: clamp(14px, 3.4vw, 20px); line-height: 1.6; }
@@ -71,12 +70,12 @@
     .logo-jgk   { max-height: 57px; width: auto; }
     .logo-usom  { max-height: 57px; width: auto; }
     .logo-masak { max-height: 55px; width: auto; }
-  }
+}
 </style>
 </head>
 
 <body>
-  <main>
+<main>
     <h1>BU İNTERNET ADRESİ ERİŞİME KAPATILMIŞTIR</h1>
 
     <p>Bu internet adresi, Türkiye Cumhuriyeti'nin ulusal güvenliğine yönelik yasa dışı siber faaliyetlerde bulunması nedeniyle, Milli İstihbarat Teşkilatı (MİT), Jandarma Genel Komutanlığı (JGK), Ulusal Siber Olaylara Müdahale Merkezi (USOM) ve Mali Suçları Araştırma Kurulu (MASAK) tarafından yürütülen koordineli operasyonlar neticesinde ele geçirilmiş ve erişime kapatılmıştır.</p>
@@ -84,11 +83,11 @@
     <p>Yasa dışı faaliyetlerde bulunan siber teröristlere karşı önleyici ve caydırıcı tedbirler kararlılıkla sürdürülecektir.</p>
 
     <section class="logos">
-      <img class="logo-mit"   src="https://hexnox.pro/M%C4%B0T.png"   alt="MİT">
-      <img class="logo-jgk"   src="https://hexnox.pro/JGK.png"   alt="JGK">
-      <img class="logo-usom"  src="https://hexnox.pro/USOM.png"  alt="USOM">
-      <img class="logo-masak" src="https://hexnox.pro/MASAK.png" alt="MASAK">
+        <img class="logo-mit"   src="https://hexnox.pro/M%C4%B0T.png"   alt="MİT">
+        <img class="logo-jgk"   src="https://hexnox.pro/JGK.png"   alt="JGK">
+        <img class="logo-usom"  src="https://hexnox.pro/USOM.png"  alt="USOM">
+        <img class="logo-masak" src="https://hexnox.pro/MASAK.png" alt="MASAK">
     </section>
-  </main>
+</main>
 </body>
 </html>
