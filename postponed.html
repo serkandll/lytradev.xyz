@@ -1,0 +1,760 @@
+<html lang="en">
+<!-- The script tag remains the same as in your original code -->
+<!-- ... script content ... -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARELMUN'25 - Schedule</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="shortcut icon" href="https://i.imgur.com/KvXAR6j.png">
+    <meta name="msapplication-TileColor" content="#6a0dad">
+    <meta name="theme-color" content="#6a0dad">
+    <style>
+        :root {
+            --primary: #6a0dad;
+            --primary-light: #8a2be2;
+            --primary-dark: #4b0082;
+            --secondary: #ffd700;
+            --white: #ffffff;
+            --light: #f8f8ff;
+            --dark: #333333;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Source Sans 3', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        section {
+            padding: 100px 0 80px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            font-size: 2.2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        header.scrolled .logo-text h1,
+        header.scrolled nav ul li a,
+        header.scrolled .hamburger {
+            color: var(--white);
+        }
+        
+        header.scrolled .social-nav a {
+            color: var(--white);
+        }
+        
+        header.scrolled nav ul li a:after {
+            background: var(--white);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 50px;
+            transition: var(--transition);
+        }
+        
+        header.scrolled .logo img {
+            content: url('https://i.imgur.com/KvXAR6j.png');
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            color: var(--primary);
+            transition: var(--transition);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo-text p {
+            font-size: 0.8rem;
+            margin-bottom: 0;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        
+        header.scrolled .logo-text p {
+            color: var(--white);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        header.scrolled nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .social-nav {
+            display: flex;
+            gap: 15px;
+            margin-left: 20px;
+        }
+        
+        .social-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(106, 13, 173, 0.1);
+            border-radius: 50%;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .social-nav a:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+        
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        
+        .postponed-notice {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .postponed-notice h3 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+        
+        .postponed-notice p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .schedule-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .schedule-dates {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .schedule-subtitle {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .coming-soon {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: var(--light);
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+        
+        .coming-soon i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .coming-soon h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .coming-soon p {
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        
+        .day-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .day-tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+        
+        .day-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .day-tab:hover {
+            color: var(--primary);
+        }
+        
+        .day-schedule {
+            display: none;
+        }
+        
+        .day-schedule.active {
+            display: block;
+        }
+        
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .time-slot {
+            background: var(--primary);
+            color: var(--white);
+            padding: 20px;
+            min-width: 150px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .time-slot .time {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .time-slot .duration {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .event-details {
+            padding: 20px;
+            flex-grow: 1;
+        }
+        
+        .event-details h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .event-details p {
+            margin-bottom: 0;
+            color: var(--dark);
+        }
+        
+        .event-type {
+            display: inline-block;
+            padding: 5px 12px;
+            background: var(--secondary);
+            color: var(--dark);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            position: relative;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .location-navigation {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .location-navigation a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--white);
+            text-decoration: none;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
+        }
+        
+        .location-navigation a:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 10px 0;
+            }
+            
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.7rem;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                z-index: 1000;
+            }
+            
+            header.scrolled nav ul {
+                background: var(--primary);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .social-nav {
+                margin-left: 0;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            section {
+                padding: 120px 0 80px;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .time-slot {
+                min-width: 100%;
+                padding: 15px;
+            }
+            
+            .day-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .day-tab {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .schedule-dates {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://static.wixstatic.com/media/9a503f_1e3f21a13d1c4c06b0bfedd3d3ab68af~mv2.png/v1/fill/w_144,h_136,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a-JxjflAtJn-transformed%20(2)_edited_edite.png" alt="Arel MUN Logo">
+                <div class="logo-text">
+                    <h1>AREL MUN</h1>
+                    <p>Model United Nations</p>
+                </div>
+            </div>
+
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="committees.html">Committees</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="applications.html">Applications</a></li>
+                    <li><a href="our-team.html">Our Team</a></li>
+                    <li><a href="venue.html">Contact</a></li>
+                    <div class="social-nav">
+                        <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&amp;utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@arelmun25/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="schedule">
+        <div class="container">
+            <div class="schedule-header">
+                <h2 class="section-title">CONFERENCE SCHEDULE</h2>
+                <div class="postponed-notice">
+                    <h3><i class="fas fa-calendar-times"></i> Important Announcement</h3>
+                    <p><strong>ARELMUN'25 has been postponed.</strong></p>
+                    <p>The conference originally scheduled for December 5-7, 2025 has been postponed.</p>
+                    <p>New dates will be announced soon. Please stay tuned for updates on our website and social media channels.</p>
+                    <p>We apologize for any inconvenience and look forward to welcoming you at the rescheduled conference.</p>
+                </div>
+                
+                <div class="coming-soon">
+                    <i class="fas fa-clock"></i>
+                    <h3>New Schedule Coming Soon</h3>
+                    <p>We're working on rescheduling ARELMUN'25. Once the new dates are confirmed, the detailed schedule will be posted here.</p>
+                    <p>In the meantime, committee applications remain open, and we encourage you to apply to be part of this exciting event.</p>
+                    <a href="applications.html" class="btn btn-primary">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AREL MUN</h3>
+                    <p>Istanbul Arel College Model United Nations club aims to provide students with diplomacy, debate and leadership skills.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&amp;utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@arelmun25/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="committees.html">Committees</a></li>
+                        <li><a href="schedule.html">Schedule</a></li>
+                        <li><a href="applications.html">Applications</a></li>
+                        <li><a href="our-team.html">Our Team</a></li>
+                        <li><a href="venue.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> YENIBOSNA MERKEZ, SELAHATTIN PINAR Sk. No 3, 34197 BAHÇELİEVLER/ISTANBUL</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:0535 547 70 46">0535 547 70 46</a></li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:0533 035 10 80">0533 035 10 80</a></li>
+                        <li><i class="fas fa-envelope"></i> arelmun@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="location-navigation">
+                <a href="https://maps.app.goo.gl/q2Qz9Z3f55FRhKB88" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Navigate to Bahçelievler AREL Koleji</span>
+                </a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>ARELMUN'25</p>
+                <p style="color: white;">© 2025 by <a href="https://arelmun.com" target="_blank" style="color: white;">AREL College</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+            
+            if (navMenu.classList.contains('active')) {
+                hamburger.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        window.addEventListener('load', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
