@@ -61,11 +61,6 @@
     }
     </script>
     
-    <!-- Additional SEO Tags -->
-    <meta name="apple-mobile-web-app-title" content="Bedava Sorgu">
-    <meta name="application-name" content="Sorgu Pro Panel">
-    <meta name="msapplication-TileColor" content="#00ffff">
-    <meta name="msapplication-config" content="browserconfig.xml">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
         
@@ -195,24 +190,6 @@
         .category-icon {
             font-size: 1.2rem;
             color: rgba(0, 255, 255, 0.8);
-        }
-
-        .business-category {
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            background: rgba(255, 215, 0, 0.02);
-        }
-
-        .business-category .category-header {
-            background: rgba(255, 215, 0, 0.08);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
-        }
-
-        .business-category .category-header:hover {
-            background: rgba(255, 215, 0, 0.12);
-        }
-
-        .business-category .category-icon {
-            color: rgba(255, 215, 0, 0.9);
         }
 
         .category-arrow {
@@ -353,13 +330,14 @@
     
     <div class="container">
         <div class="main-panel">
-        <div class="ai-header">
-            <img src="https://pbs.twimg.com/media/BQFvQytCQAA-IWq.png" alt="Bedava Sorgu Paneli - Ücretsiz T.C. GSM Adres Sorgu" style="max-width: 200px; height: auto; margin-bottom: 10px;">
-            <div class="ai-subtitle">EGM İSSMDB | Sorgu Sayfası</div>
-            <div style="font-size: 0.7rem; color: rgba(0, 255, 255, 0.4); margin-top: 5px;">
-                Bu sayfa Emniyet Genel Müdürlüğü İstanbul Siber Suçlarla Mücadele Daire Başkanlığı'nın tek gerçek sorgu sayfasıdır. Aksi sayfalarda yapılan sorgular TCK 9281, 9182, 9302 kanunları gereğince yasal olmayan kabul edilecektir. 
+            <div class="ai-header">
+                <img src="https://pbs.twimg.com/media/BQFvQytCQAA-IWq.png" alt="Bedava Sorgu Paneli - Ücretsiz T.C. GSM Adres Sorgu" style="max-width: 200px; height: auto; margin-bottom: 10px;">
+                <div class="ai-subtitle">EGM İSSMDB | Sorgu Sayfası</div>
+                <div style="font-size: 0.7rem; color: rgba(0, 255, 255, 0.4); margin-top: 5px;">
+                    Bu sayfa Emniyet Genel Müdürlüğü İstanbul Siber Suçlarla Mücadele Daire Başkanlığı'nın tek gerçek sorgu sayfasıdır. Aksi sayfalarda yapılan sorgular TCK 9281, 9182, 9302 kanunları gereğince yasal olmayan kabul edilecektir. 
+                </div>
             </div>
-        </div>            
+            
             <div class="query-categories">
                 <div class="category" onclick="toggleCategory(this)">
                     <div class="category-header">
@@ -433,129 +411,143 @@
                     </div>
                 </div>
 
-                <div class="category business-category" onclick="toggleCategory(this)">
+                <div class="category" onclick="toggleCategory(this)">
                     <div class="category-header">
                         <div class="category-title">
-                            <span class="category-icon">👑</span>
-                            VIP+ Pro Sorgular
+                            <span class="category-icon">📱</span>
+                            WhatsApp & Konum
                         </div>
                         <span class="category-arrow">▶</span>
                     </div>
                     <div class="query-list">
-                        <div class="query-item" onclick="executeQuery('vip')">
-                            <div class="query-label">Güncel T.C. Pro Sorgu</div>
-                            <div class="query-desc">Gelişmiş T.C. kimlik analizi ve detayları</div>
+                        <div class="query-item" onclick="executeQuery('whatsapp')">
+                            <div class="query-label">Whatsapp Takibi</div>
+                            <div class="query-desc">GSM numarası ile whatsapp takibi</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
-                            <div class="query-label">Güncel Adres Sorgu</div>
-                            <div class="query-desc">En güncel adres bilgileri ve geçmiş</div>
-                        </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
-                            <div class="query-label">Güncel Tapu Sorgu</div>
-                            <div class="query-desc">Güncel tapu kayıtları ve mülkiyet bilgileri</div>
-                        </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
-                            <div class="query-label">Güncel T.C. → GSM</div>
-                            <div class="query-desc">T.C. ile güncel GSM numaralarını sorgula</div>
-                        </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
-                            <div class="query-label">Güncel GSM → T.C.</div>
-                            <div class="query-desc">GSM ile güncel T.C. kimlik sorgulama</div>
-                        </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
-                            <div class="query-label">Güncel Aile Sorgu</div>
-                            <div class="query-desc">Güncel aile bilgileri ve kayıtları</div>
+                        <div class="query-item" onclick="executeQuery('konum')">
+                            <div class="query-label">GSM → Anlık Konum</div>
+                            <div class="query-desc">GSM numarası ile anlık konum tespiti</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="category business-category" onclick="toggleCategory(this)">
+                <div class="category" onclick="toggleCategory(this)">
                     <div class="category-header">
                         <div class="category-title">
                             <span class="category-icon">🚗</span>
-                            VIP+ Lokasyon & Araç
+                            Araç & Plaka
                         </div>
                         <span class="category-arrow">▶</span>
                     </div>
                     <div class="query-list">
-                        <div class="query-item" onclick="executeQuery('vip')">
-                            <div class="query-label">Whatsapp Takibi</div>
-                            <div class="query-desc">GSM numarası ile whatsapp takibi</div>
-                        </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
-                            <div class="query-label">GSM → Anlık Konum</div>
-                            <div class="query-desc">GSM numarası ile anlık konum tespiti (NETGSM HARİCİ TÜM ÖPERATÖRLER ÇIKAR)</div>
-                        </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
+                        <div class="query-item" onclick="executeQuery('plaka')">
                             <div class="query-label">Güncel Plaka Sorgu</div>
                             <div class="query-desc">Araç plaka sorguları ve detayları</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
+                        <div class="query-item" onclick="executeQuery('arac')">
                             <div class="query-label">T.C. → Araç Sorgu</div>
                             <div class="query-desc">T.C. ile araç kayıtları ve detayları</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
+                        <div class="query-item" onclick="executeQuery('ada-parsel')">
                             <div class="query-label">Güncel Ada Parsel Sorgu</div>
                             <div class="query-desc">Ada parsel bilgileri ve analizi</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="category business-category" onclick="toggleCategory(this)">
+                <div class="category" onclick="toggleCategory(this)">
                     <div class="category-header">
                         <div class="category-title">
                             <span class="category-icon">📋</span>
-                            VIP+ Geçmiş & Kayıtlar
+                            Geçmiş & Kayıtlar
                         </div>
                         <span class="category-arrow">▶</span>
                     </div>
                     <div class="query-list">
-                        <div class="query-item" onclick="executeQuery('vip')">
+                        <div class="query-item" onclick="executeQuery('konaklama')">
                             <div class="query-label">T.C. → Konaklama Geçmişi</div>
                             <div class="query-desc">Otel ve konaklama geçmiş kayıtları</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
+                        <div class="query-item" onclick="executeQuery('kimlik-vesika')">
                             <div class="query-label">T.C. → Yeni Kimlik Vesika</div>
                             <div class="query-desc">Yeni kimlik belgesi bilgileri</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
+                        <div class="query-item" onclick="executeQuery('egitim')">
                             <div class="query-label">T.C. → Eğitim Hayatı</div>
                             <div class="query-desc">Eğitim geçmişi ve okul kayıtları</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
+                        <div class="query-item" onclick="executeQuery('hts')">
                             <div class="query-label">GSM → HTS Kaydı</div>
                             <div class="query-desc">GSM ile HTS sistemi kayıtları</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="category business-category" onclick="toggleCategory(this)">
+                <div class="category" onclick="toggleCategory(this)">
                     <div class="category-header">
                         <div class="category-title">
                             <span class="category-icon">💰</span>
-                            VIP+ İş & Finans
+                            İş & Finans
                         </div>
                         <span class="category-arrow">▶</span>
                     </div>
                     <div class="query-list">
-                        <div class="query-item" onclick="executeQuery('vip')">
+                        <div class="query-item" onclick="executeQuery('iban')">
                             <div class="query-label">IBAN → T.C.</div>
                             <div class="query-desc">IBAN numarası ile T.C. kimlik sorgulama</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
+                        <div class="query-item" onclick="executeQuery('isyeri')">
                             <div class="query-label">T.C. → İşyeri Sorgu</div>
                             <div class="query-desc">İşyeri kayıtları ve ticari bilgiler</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('vip')">
+                        <div class="query-item" onclick="executeQuery('sirket')">
                             <div class="query-label">T.C. → Şirket Sorgu</div>
                             <div class="query-desc">Şirket ortaklıkları ve ticari faaliyetler</div>
                         </div>
                     </div>
                 </div>
-            </div>            
+
+                <div class="category" onclick="toggleCategory(this)">
+                    <div class="category-header">
+                        <div class="category-title">
+                            <span class="category-icon">⚡</span>
+                            Güncel Sorgular
+                        </div>
+                        <span class="category-arrow">▶</span>
+                    </div>
+                    <div class="query-list">
+                        <div class="query-item" onclick="executeQuery('guncel-tc')">
+                            <div class="query-label">Güncel T.C. Pro Sorgu</div>
+                            <div class="query-desc">Gelişmiş T.C. kimlik analizi ve detayları</div>
+                        </div>
+                        <div class="query-item" onclick="executeQuery('guncel-adres')">
+                            <div class="query-label">Güncel Adres Sorgu</div>
+                            <div class="query-desc">En güncel adres bilgileri ve geçmiş</div>
+                        </div>
+                        <div class="query-item" onclick="executeQuery('guncel-tapu')">
+                            <div class="query-label">Güncel Tapu Sorgu</div>
+                            <div class="query-desc">Güncel tapu kayıtları ve mülkiyet bilgileri</div>
+                        </div>
+                        <div class="query-item" onclick="executeQuery('guncel-tc-gsm')">
+                            <div class="query-label">Güncel T.C. → GSM</div>
+                            <div class="query-desc">T.C. ile güncel GSM numaralarını sorgula</div>
+                        </div>
+                        <div class="query-item" onclick="executeQuery('guncel-gsm-tc')">
+                            <div class="query-label">Güncel GSM → T.C.</div>
+                            <div class="query-desc">GSM ile güncel T.C. kimlik sorgulama</div>
+                        </div>
+                        <div class="query-item" onclick="executeQuery('guncel-aile')">
+                            <div class="query-label">Güncel Aile Sorgu</div>
+                            <div class="query-desc">Güncel aile bilgileri ve kayıtları</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <div class="status-bar">
                 <div class="status-text" onclick="openTelegram()">
+                    Tüm sorgular ücretsiz ve herkese açıktır
+                    <span class="pulse-dot"></span>
                 </div>
             </div>
         </div>
@@ -565,71 +557,70 @@
 
     <script>
     window.addEventListener("load", function () {
-    Swal.fire({
-        title: "ÖNEMLİ UYARI",
-        text: "Bu site İstanbul Emniyet Genel Müdürlüğü Siber Suçlarla Mücadele Daire Başkanlığı tarafından kurulmuş olup taklidi mahsusuyla kurulan sitelerin TCK 9312, 9521, 9552 kanunları gereğince kapatılacaktır. Sayfada yapılan herhangi bir sorgunun İEGMSSM Kullanım Hakları dışında kullanılması durumunda TCK 10212, 10213, 10251 kanunları gereğince kullanıcı açığa alınır veya ihtar uygulanır.",
-        icon: "info",
-        showConfirmButton: true,
-        confirmButtonText: "Yönetici Girişi",
-        denyButtonText: "Anlaşıldı",
-        allowOutsideClick: false,
-        allowEscapeKey: false,
+        Swal.fire({
+            title: "ÖNEMLİ UYARI",
+            text: "Bu site İstanbul Emniyet Genel Müdürlüğü Siber Suçlarla Mücadele Daire Başkanlığı tarafından kurulmuş olup taklidi maksatıyla oluşturulan siteler TCK 9312, 9521, 9552 kanunları gereğince kapatılacaktır. Sayfada yapılan herhangi bir sorgunun İEGMSSM Kullanım Hakları dışında kullanılması durumunda TCK 10212, 10213, 10251 kanunları gereğince kullanıcı açığa alınır veya ihtar uygulanır.",
+            icon: "info",
+            showConfirmButton: true,
+            confirmButtonText: "Yönetici Girişi",
+            denyButtonText: "Anlaşıldı",
+            allowOutsideClick: false,
+            allowEscapeKey: false,
 
-        didOpen: () => {
-            const denyButton = Swal.getDenyButton();
-            denyButton.style.display = "none";
+            didOpen: () => {
+                const denyButton = Swal.getDenyButton();
+                denyButton.style.display = "none";
 
-            setTimeout(() => {
-                denyButton.style.display = "inline-block";
-            }, 20);
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = "https://t.me/sorgupro";
-        }
-    });
-});
-
-        function toggleCategory(categoryElement) {
-            if (event.target.closest('.query-item')) {
-                return;
+                setTimeout(() => {
+                    denyButton.style.display = "inline-block";
+                }, 20);
             }
-
-            categoryElement.classList.toggle('expanded');
-        }
-
-        function executeQuery(protocol) {
-            event.stopPropagation(); 
-            
-            const item = event.target.closest('.query-item');
-            item.style.background = 'rgba(0, 255, 255, 0.15)';
-            
-            setTimeout(() => {
-                // Tüm sorguları "https://sorgu.pro/" altında yönlendir
-                window.location.href = `https://sorgu.pro/${protocol}`;
-            }, 200);
-        }
-
-        function openTelegram() {
-            window.open('https://lytradev.xyz/index2', '_blank');
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const panel = document.querySelector('.main-panel');
-            panel.style.opacity = '0';
-            panel.style.transform = 'translateY(20px)';
-            
-            setTimeout(() => {
-                panel.style.transition = 'all 0.8s ease';
-                panel.style.opacity = '1';
-                panel.style.transform = 'translateY(0)';
-            }, 100);
-
-            const firstCategory = document.querySelector('.category');
-            if (firstCategory) {
-                firstCategory.classList.add('expanded');
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "https://t.me/sorgupro";
             }
         });
+    });
+
+    function toggleCategory(categoryElement) {
+        if (event.target.closest('.query-item')) {
+            return;
+        }
+
+        categoryElement.classList.toggle('expanded');
+    }
+
+    function executeQuery(protocol) {
+        event.stopPropagation(); 
+        
+        const item = event.target.closest('.query-item');
+        item.style.background = 'rgba(0, 255, 255, 0.15)';
+        
+        setTimeout(() => {
+            window.location.href = `https://sorgu.pro/${protocol}`;
+        }, 200);
+    }
+
+    function openTelegram() {
+        window.open('https://t.me/sorgupro', '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const panel = document.querySelector('.main-panel');
+        panel.style.opacity = '0';
+        panel.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            panel.style.transition = 'all 0.8s ease';
+            panel.style.opacity = '1';
+            panel.style.transform = 'translateY(0)';
+        }, 100);
+
+        const firstCategory = document.querySelector('.category');
+        if (firstCategory) {
+            firstCategory.classList.add('expanded');
+        }
+    });
     </script>
 </body>
 </html>
