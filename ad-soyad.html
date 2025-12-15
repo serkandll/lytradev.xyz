@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-bs-theme="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Ad Soyad Sorgu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Layout config Js -->
+    <script src="assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+<br>
+<br>
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-12">
+            <a href="anasayfa" class="btn btn-light d-inline-flex align-items-center">
+                <i class="ri-arrow-left-line me-2"></i>
+                <span>Anasayfaya Dön</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <h4 class="card-title mb-0">
+                                <i class="ri-user-search-line text-primary me-2"></i>
+                                Ad-Soyad Sorgu
+                            </h4>
+                            <p class="text-muted mb-0">Ad, soyad ve diğer bilgilerle kişi sorgulayın.</p>
+                        </div>
+                        <div class="flex-shrink-0">
+                                            <div class="badge bg-primary-subtle text-primary fs-12">
+                                                <i class="ri-shield-check-line me-1"></i>
+                                                109 Milyon Veri (2024)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <form id="SorguForm">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label for="adInput" class="form-label">
+                                                    <i class="ri-user-line me-1"></i>
+                                                    Ad <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" id="adInput" 
+                                                       placeholder="Adınızı girin" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="soyadInput" class="form-label">
+                                                    <i class="ri-user-line me-1"></i>
+                                                    Soyad <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" id="soyadInput" 
+                                                       placeholder="Soyadınızı girin" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="nufusilInput" class="form-label">
+                                                    <i class="ri-map-pin-line me-1"></i>
+                                                    Nüfus İl
+                                                </label>
+                                                <input type="text" class="form-control" id="nufusilInput" 
+                                                       placeholder="Nüfus il adını girin">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="nufusilceInput" class="form-label">
+                                                    <i class="ri-map-pin-line me-1"></i>
+                                                    Nüfus İlçe
+                                                </label>
+                                                <input type="text" class="form-control" id="nufusilceInput" 
+                                                       placeholder="Nüfus ilçe adını girin">
+                                            </div>
+                                            
+                                            <div class="col-12">
+                                                <div class="d-flex gap-2">
+                                                    <button type="button" class="btn btn-primary btn-lg">
+                                                        <i class="ri-search-line me-2"></i>
+                                                        Sorgula
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary btn-lg">
+                                                        <i class="ri-refresh-line"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <h5 class="card-title mb-0">
+                                                <i class="ri-table-line me-2 text-success"></i>
+                                                Sorgu Sonuçları
+                                            </h5>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <div class="d-flex gap-2">
+                                                <button class="btn btn-outline-primary btn-sm">
+                                                    <i class="ri-download-line me-1"></i>
+                                                    Dışa Aktar
+                                                </button>
+                                                <button class="btn btn-outline-secondary btn-sm">
+                                                    <i class="ri-printer-line me-1"></i>
+                                                    Yazdır
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-nowrap">
+                                            <thead id="TableHeader" style="display: none;">
+                                            </thead>
+                                            <tbody id="KisiTable">
+                                                <tr>
+                                                    <td colspan="11" class="text-center py-5 text-muted">
+                                                        <i class="ri-search-line fs-48 mb-3 d-block"></i>
+                                                        <h5>Henüz sorgu yapılmadı</h5>
+                                                        <p class="mb-0">Ad ve soyad girerek sorgu yapabilirsiniz</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+    <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    
+
+<script>
+$(document).ready(function () {
+
+    const columnConfig = {
+        hidden: ["ID"],
+        priority: [],
+
+        rename: {
+        }
+    };
+
+    function appendObjectToTable(obj) {
+        let headers = [];
+        let values = [];
+        
+        $.each(obj, function (key, value) {
+            if (typeof value === "object" && value !== null) {
+                let subData = appendObjectToTable(value);
+                headers = headers.concat(subData.headers);
+                values = values.concat(subData.values);
+            } else {
+                headers.push(key);
+                values.push(value || "-");
+            }
+        });
+        
+        return { headers: headers, values: values };
+    }
+
+    function filterAndSortColumns(headers, values) {
+        let filteredHeaders = [];
+        let filteredValues = [];
+        
+        columnConfig.priority.forEach(function(priorityCol) {
+            let index = headers.indexOf(priorityCol);
+            if (index !== -1) {
+                filteredHeaders.push(columnConfig.rename[priorityCol] || priorityCol);
+                filteredValues.push(values[index]);
+            }
+        });
+        
+        headers.forEach(function(header, index) {
+            if (!columnConfig.hidden.includes(header) && 
+                !columnConfig.priority.includes(header)) {
+                filteredHeaders.push(columnConfig.rename[header] || header);
+                filteredValues.push(values[index]);
+            }
+        });
+        
+        return { headers: filteredHeaders, values: filteredValues };
+    }
+
+    function resetTable() {
+        $("#TableHeader").hide();
+        $("#KisiTable").html(`
+            <tr>
+                <td colspan="11" class="text-center py-4 py-md-5 text-muted">
+                    <i class="ri-search-line fs-1 fs-md-2 mb-3 d-block"></i>
+                    <h5 class="mb-2">Henüz sorgu yapılmadı</h5>
+                    <p class="mb-0 small">Ad ve soyad girerek sorgu yapabilirsiniz</p>
+                </td>
+            </tr>
+        `);
+    }
+
+    resetTable();
+
+    $("#SorguForm button.btn-primary").on("click", function () {
+        let ad = $("#adInput").val().trim();
+        let soyad = $("#soyadInput").val().trim();
+        
+        if (ad === '' || soyad === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Eksik Bilgi',
+                text: 'Ad ve soyad alanları zorunludur.',
+            });
+            return;
+        }
+
+        Swal.fire({
+            title: 'Sorgulanıyor...',
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+        });
+
+        let formData = {
+            ad: ad,
+            soyad: soyad,
+            nufusil: $("#nufusilInput").val(),
+            nufusilce: $("#nufusilceInput").val()
+        };
+
+        $.ajax({
+            url: "api/query?api=adsoyad",
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            success: function (response) {
+                Swal.close();
+
+                if (!response.success) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        text: response.message || 'Bilinmeyen bir hata oluştu.'
+                    });
+                    return;
+                }
+
+                $("#KisiTable").empty();
+
+                if (response.data) {
+                    let firstData = Array.isArray(response.data) ? response.data[0] : response.data;
+                    let tableData = appendObjectToTable(firstData);
+                    let filteredData = filterAndSortColumns(tableData.headers, tableData.values);
+                    
+                    let headerRow = '<tr>';
+                    for (let i = 0; i < filteredData.headers.length; i++) {
+                        headerRow += `<th scope="col">${filteredData.headers[i]}</th>`;
+                    }
+                    headerRow += '</tr>';
+                    
+                    let allRows = '';
+                    let dataArray = Array.isArray(response.data) ? response.data : [response.data];
+                    
+                    dataArray.forEach(function(item) {
+                        let rowData = appendObjectToTable(item);
+                        let filteredRow = filterAndSortColumns(rowData.headers, rowData.values);
+                        let valueRow = '<tr>';
+                        for (let i = 0; i < filteredRow.values.length; i++) {
+                            valueRow += `<td>${filteredRow.values[i]}</td>`;
+                        }
+                        valueRow += '</tr>';
+                        allRows += valueRow;
+                    });
+                    
+                    $("#TableHeader").html(headerRow).show();
+                    $("#KisiTable").html(allRows);
+                } else {
+                    resetTable();
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Başarılı',
+                    text: 'Sorgu tamamlandı.'
+                });
+            },
+            error: function () {
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Sunucu Hatası',
+                    text: 'İstek gönderilirken bir hata oluştu.'
+                });
+            }
+        });
+    });
+
+    $("#SorguForm button.btn-outline-secondary").on("click", function () {
+        $("#adInput").val("");
+        $("#soyadInput").val("");
+        $("#nufusilInput").val("");
+        $("#nufusilceInput").val("");
+        resetTable();
+    });
+
+
+
+    $("button:contains('Yazdır')").on("click", function () {
+        let printWindow = window.open("", "", "width=800,height=600");
+        printWindow.document.write("<html><head><title>Sorgu Sonuçları</title>");
+        printWindow.document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">');
+        printWindow.document.write("</head><body>");
+        printWindow.document.write('<table class="table table-bordered table-hover">');
+        printWindow.document.write($("#KisiTable").closest("table").html());
+        printWindow.document.write("</table>");
+        printWindow.document.write("</body></html>");
+        printWindow.document.close();
+        printWindow.print();
+    });
+
+});
+</script>
+
+
+
+
+</body>
+
+</html>
