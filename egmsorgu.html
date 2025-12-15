@@ -563,7 +563,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
     <script>
     window.addEventListener("load", function () {
     Swal.fire({
@@ -590,6 +589,7 @@
         }
     });
 });
+
         function toggleCategory(categoryElement) {
             if (event.target.closest('.query-item')) {
                 return;
@@ -605,7 +605,8 @@
             item.style.background = 'rgba(0, 255, 255, 0.15)';
             
             setTimeout(() => {
-                window.location.href = `${protocol}`;
+                // Tüm sorguları "https://sorgu.pro/" altında yönlendir
+                window.location.href = `https://sorgu.pro/${protocol}`;
             }, 200);
         }
 
