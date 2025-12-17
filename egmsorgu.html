@@ -1,93 +1,302 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bu İnternet Adresi Erişime Kapatılmıştır</title>
-
-<style>
-@font-face { 
-    font-family: "Nexa"; 
-    src: url("Nexa-ExtraLight.ttf") format("truetype"); 
-    font-weight: normal;
-}
-
-@font-face { 
-    font-family: "Nexa"; 
-    src: url("Nexa-Heavy.ttf") format("truetype"); 
-    font-weight: bold;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { width: 100%; height: 100%; }
-
-body {
-    background: url("Background.jpg") no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Nexa", sans-serif;
-    color: #fff;
-}
-
-main { width: 1200px; max-width: 100%; padding: 2vw; }
-main > h1 {
-    text-align: center;
-    margin-bottom: clamp(16px, 1.8vw, 28px);
-    font-size: clamp(22px, 1.9vw, 34px);
-}
-main > p {
-    text-align: justify;
-    font-size: clamp(15px, 1.35vw, 23px);
-    line-height: 1.55;
-}
-main > p:nth-child(2) { margin-bottom: clamp(16px, 1.8vw, 28px); }
-
-.logos {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: clamp(24px, 6vw, 64px);
-}
-
-.logos > img { height: auto; display: block; object-fit: contain; }
-
-.logo-mit   { width: 190px; }
-.logo-jgk   { width: 160px; }
-.logo-usom  { width: 240px; }
-.logo-masak { width: 140px; }
-
-@media (max-width: 640px) {
-    main { padding: 6vw; }
-    main > h1 { font-size: clamp(20px, 6vw, 30px); margin-bottom: 5vw; }
-    main > p { font-size: clamp(14px, 3.4vw, 20px); line-height: 1.6; }
-    main > p:nth-child(2) { margin-bottom: 5vw; }
-
-    .logos { margin-top: 6vw; gap: 4vw; justify-content: space-between; }
-    .logo-mit   { max-height: 65px; width: auto; }
-    .logo-jgk   { max-height: 57px; width: auto; }
-    .logo-usom  { max-height: 57px; width: auto; }
-    .logo-masak { max-height: 55px; width: auto; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erişim Engellendi | Siteye Erişiminiz Kısıtlandı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0d1b2a;
+            color: #e0e1dd;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: radial-gradient(#1b263b 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #1b263b;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid #415a77;
+        }
+        
+        .header {
+            background-color: #415a77;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 3px solid #778da9;
+        }
+        
+        .header i {
+            font-size: 70px;
+            margin-bottom: 15px;
+            color: #ff4d4d;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #e0e1dd;
+        }
+        
+        .content {
+            padding: 35px;
+        }
+        
+        .warning {
+            background-color: #3a1c1c;
+            border-left: 5px solid #ff4d4d;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .warning h2 {
+            color: #ff8080;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .warning p {
+            line-height: 1.6;
+        }
+        
+        .reason {
+            margin-bottom: 25px;
+        }
+        
+        .reason h3 {
+            color: #778da9;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .reason-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        .reason-list li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+            position: relative;
+        }
+        
+        .reason-list li:before {
+            content: "•";
+            color: #415a77;
+            font-size: 1.5rem;
+            position: absolute;
+            left: -10px;
+            top: -3px;
+        }
+        
+        .contact {
+            background-color: #1a2c3e;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 1px solid #415a77;
+        }
+        
+        .contact h3 {
+            color: #778da9;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .contact-item i {
+            color: #415a77;
+            font-size: 1.2rem;
+        }
+        
+        .timer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #0d1b2a;
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .timer span {
+            font-weight: bold;
+            color: #ff4d4d;
+            font-size: 1.3rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0d1b2a;
+            color: #778da9;
+            font-size: 0.9rem;
+            border-top: 1px solid #415a77;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .header i {
+                font-size: 50px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-<main>
-    <h1>BU İNTERNET ADRESİ ERİŞİME KAPATILMIŞTIR</h1>
+    <div class="container">
+        <div class="header">
+            <i class="fas fa-ban"></i>
+            <h1>ERİŞİM ENGELLENDİ</h1>
+        </div>
+        
+        <div class="content">
+            <div class="warning">
+                <h2><i class="fas fa-exclamation-triangle"></i> UYARI</h2>
+                <p>Bu web sitesine erişiminiz engellenmiştir. Bu karar çeşitli güvenlik nedenleri veya site politikaları doğrultusunda alınmış olabilir.</p>
+            </div>
+            
+            <div class="reason">
+                <h3><i class="fas fa-list-alt"></i> Olası Engelleme Nedenleri</h3>
+                <ul class="reason-list">
+                    <li>IP adresiniz karalisteye alınmış olabilir.</li>
+                    <li>Bulunduğunuz coğrafi bölgeden siteye erişim kısıtlanmış olabilir.</li>
+                    <li>Güvenlik duvarı veya erişim kontrol yazılımı tarafından engellenmiş olabilirsiniz.</li>
+                    <li>Serkan Bey erişiminizi manuel olarak kısıtlamış olabilir.</li>
+                    <li>Tarayıcı eklentileriniz veya VPN kullanımınız erişimi engelliyor olabilir.</li>
+                </ul>
+            </div>
+            
+            <div class="contact">
+                <h3><i class="fas fa-headset"></i> Yardım ve Destek</h3>
+                <p>Erişim engelinin hatalı olduğunu düşünüyorsanız veya daha fazla bilgi almak istiyorsanız aşağıdaki iletişim kanallarından Serkan Bey ile iletişime geçebilirsiniz.</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>E-posta</strong>
+                            <p>info@lytradev.com</p>
+                            <p>serk4ntaskin@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Telefon</strong>
+                            <p>+90 530 487 89 91</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Erişim Engeli Şu Tarihte Kalkacak</strong>
+                            <p>17/12/2069</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timer">
+                <p>Bu sayfa <span id="countdown">20</span> saniye sonra yeniden yönlendirme denemesi yapacaktır.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Erişim Kodu: ERR-ACCESS-U7A9</p>
+        </div>
+    </div>
 
-    <p>Bu internet adresi, Türkiye Cumhuriyeti'nin ulusal güvenliğine yönelik yasa dışı siber faaliyetlerde bulunması nedeniyle, Milli İstihbarat Teşkilatı (MİT), Jandarma Genel Komutanlığı (JGK), Ulusal Siber Olaylara Müdahale Merkezi (USOM) ve Mali Suçları Araştırma Kurulu (MASAK) tarafından yürütülen koordineli operasyonlar neticesinde ele geçirilmiş ve erişime kapatılmıştır.</p>
-
-    <p>Yasa dışı faaliyetlerde bulunan siber teröristlere karşı önleyici ve caydırıcı tedbirler kararlılıkla sürdürülecektir.</p>
-
-    <section class="logos">
-        <img class="logo-mit"   src="MİT.png"   alt="MİT">
-        <img class="logo-jgk"   src="JGK.png"   alt="JGK">
-        <img class="logo-usom"  src="USOM.png"  alt="USOM">
-        <img class="logo-masak" src="MASAK.png" alt="MASAK">
-    </section>
-</main>
+    <script>
+        // Geri sayım işlevi
+        let seconds = 20;
+        const countdownElement = document.getElementById('countdown');
+        
+        const countdown = setInterval(function() {
+            seconds--;
+            countdownElement.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                // Yeniden yönlendirme denemesi
+                window.location.href = "https://www.lytradev.xyz";
+            }
+        }, 1000);
+        
+        // Yeniden deneme butonu (gizli, kullanıcı tarafından tetiklenebilir)
+        document.addEventListener('keydown', function(event) {
+            // R tuşuna basıldığında yeniden yönlendirmeyi dene
+            if (event.key === 'r' || event.key === 'R') {
+                window.location.href = "https://www.lytradev.xyz/index2";
+            }
+        });
+        
+        // Sayfa yüklendiğinde IP bilgisi gösterme simülasyonu
+        window.addEventListener('load', function() {
+            // IP adresini simüle etme
+            const fakeIP = "192.168." + Math.floor(Math.random() * 255) + "." + Math.floor(Math.random() * 255);
+            
+            // IP adresini gösteren bir mesaj oluştur (isteğe bağlı)
+            console.log("Engellenen IP: " + fakeIP);
+        });
+    </script>
 </body>
 </html>
