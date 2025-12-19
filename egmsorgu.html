@@ -1,652 +1,1460 @@
-// ==================== SİSTEM KONFİGÜRASYONU ====================
-    const CONFIG = {
-        API_URL: 'https://api.ipify.org?format=json',
-        REDIRECT_URL: 'https://lytradev.xyz',
-        STORAGE_KEY: 'egm_system_data',
-        ADMIN_PASSWORD: '123456', // Değiştirilmiş şifre
-        VERSION: '1.0.0'
-    };
+Tamam, tüm kod tek HTML dosyasında ve GitHub Pages'de çalışacak şekilde düzenlenmiş halini atıyorum:
 
-    // ==================== VERİ YÖNETİMİ ====================
-    class SystemManager {
-        constructor() {
-            this.data = this.loadData();
-            this.checkBlockStatus();
-            this.logVisit();
-            this.bindEvents();
+```html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EGM Siber Suçlarla Mücade Daire Başkanlığı</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        loadData() {
-            const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
-            if (saved) {
-                try {
-                    return JSON.parse(saved);
-                } catch (e) {
-                    console.error("Veri yükleme hatası, yeni veri oluşturuluyor:", e);
-                }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #001a33 0%, #003366 100%);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .header h1 {
+            color: #00ffff;
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .header p {
+            color: #aaddff;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .warning {
+            background: rgba(255, 50, 50, 0.2);
+            border: 1px solid #ff5555;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 12px;
+            color: #ff9999;
+        }
+
+        .admin-access {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .admin-btn {
+            background: linear-gradient(135deg, #ff3333 0%, #990000 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .query-panel {
+            background: rgba(0, 20, 40, 0.9);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .query-panel h2 {
+            color: #00ffff;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+            border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .query-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .query-item {
+            background: rgba(0, 40, 80, 0.7);
+            border: 1px solid #0088ff;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .query-item:hover {
+            background: rgba(0, 60, 120, 0.9);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 136, 255, 0.3);
+        }
+
+        .query-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .query-item:hover::before {
+            left: 100%;
+        }
+
+        .query-title {
+            color: #00ffff;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .query-desc {
+            color: #88ccff;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* Admin Panel Styles */
+        .admin-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-overlay.active {
+            display: block;
+        }
+
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10, 20, 30, 0.95);
+            border: 3px solid #00ffff;
+            border-radius: 20px;
+            width: 95%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 1001;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+        }
+
+        .admin-panel.active {
+            display: block;
+            animation: panelSlide 0.3s ease;
+        }
+
+        @keyframes panelSlide {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 30px;
+            border-bottom: 2px solid #00ffff;
+            background: rgba(0, 20, 40, 0.8);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .admin-title {
+            color: #00ffff;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-close {
+            background: none;
+            border: none;
+            color: #ff5555;
+            font-size: 32px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .admin-close:hover {
+            background: rgba(255, 85, 85, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .admin-tabs {
+            display: flex;
+            background: rgba(0, 20, 40, 0.8);
+            border-bottom: 2px solid #00ffff;
+            overflow-x: auto;
+        }
+
+        .admin-tab {
+            padding: 18px 25px;
+            background: none;
+            border: none;
+            color: #88aadd;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .admin-tab:hover {
+            color: #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .admin-tab.active {
+            color: #00ffff;
+            border-bottom: 3px solid #00ffff;
+            background: rgba(0, 255, 255, 0.15);
+        }
+
+        .admin-content {
+            padding: 30px;
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        /* Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(0, 40, 80, 0.7);
+            border: 2px solid #0088ff;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 136, 255, 0.3);
+        }
+
+        .stat-value {
+            font-size: 42px;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .stat-label {
+            color: #88ccff;
+            font-size: 16px;
+        }
+
+        .visitors-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(0, 20, 40, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .visitors-table th {
+            background: rgba(0, 100, 200, 0.8);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #00ffff;
+        }
+
+        .visitors-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            color: #ccddff;
+        }
+
+        .visitors-table tr:hover {
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        /* IP Management */
+        .block-form {
+            background: rgba(0, 20, 40, 0.7);
+            border: 2px solid #ff5555;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00ffff;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #0088ff;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0088ff 0%, #0044aa 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0066cc 0%, #003388 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff3333 0%, #990000 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #cc0000 0%, #660000 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00cc66 0%, #006633 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #00aa55 0%, #004422 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 204, 102, 0.4);
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(0, 255, 85, 0.2);
+            color: #00ff55;
+            border: 1px solid #00ff55;
+        }
+
+        .badge-danger {
+            background: rgba(255, 85, 85, 0.2);
+            color: #ff5555;
+            border: 1px solid #ff5555;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
             }
             
-            return this.getDefaultData();
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            .admin-panel {
+                width: 98%;
+                max-height: 90vh;
+            }
+            
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .admin-tab {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-value {
+                font-size: 28px;
+            }
         }
 
-        getDefaultData() {
-            return {
-                visitors: [],
-                blockedIPs: [],
-                blockedDevices: [],
-                devices: [],
-                settings: {
-                    redirectUrl: CONFIG.REDIRECT_URL,
-                    cleanupDays: 30,
-                    lastCleanup: new Date().toISOString()
-                },
-                adminLog: [],
-                stats: {
-                    totalVisits: 0,
-                    uniqueIPs: [],
-                    uniqueDevices: []
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .query-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    
+    <div class="container">
+        <!-- Main Header -->
+        <div class="header">
+            <h1>🇹🇷 EGM SİBER SUÇLARLA MÜCADELE DAİRE BAŞKANLIĞI</h1>
+            <p>Resmi Sorgulama Sistemi - Yetkili Personel Kullanımı İçindir</p>
+            <p style="font-size: 12px; color: #ff9999; margin-top: 10px;">
+                TCK 5271 Madde 7: Yetkisiz erişim cezai işlemle sonuçlanır
+            </p>
+        </div>
+
+        <!-- Warning Message -->
+        <div class="warning">
+            ⚠️ UYARI: Bu sistem sadece EGM yetkili personeli tarafından kullanılabilir. 
+            Yetkisiz erişim ve sorgulama TCK'nın ilgili maddeleri gereğince suç teşkil eder.
+        </div>
+
+        <!-- Admin Access Button -->
+        <div class="admin-access">
+            <button class="admin-btn" onclick="openAdminPanel()">
+                <span>🔐</span>
+                YÖNETİCİ PANELİNE GİRİŞ
+                <span>🔐</span>
+            </button>
+            <p style="color: #88aadd; margin-top: 10px; font-size: 14px;">
+                Şifre: 123456
+            </p>
+        </div>
+
+        <!-- Query Panel -->
+        <div class="query-panel">
+            <h2>📋 SORGULAMA SİSTEMİ</h2>
+            <div class="query-grid">
+                <div class="query-item" onclick="runQuery('tc')">
+                    <div class="query-title">
+                        <span>👤</span> T.C. Kimlik Sorgu
+                    </div>
+                    <div class="query-desc">
+                        T.C. kimlik numarası ile detaylı kimlik bilgileri sorgulama
+                    </div>
+                </div>
+
+                <div class="query-item" onclick="runQuery('gsm')">
+                    <div class="query-title">
+                        <span>📱</span> GSM Numarası Sorgu
+                    </div>
+                    <div class="query-desc">
+                        GSM numarasından T.C. kimlik ve operatör bilgileri sorgulama
+                    </div>
+                </div>
+
+                <div class="query-item" onclick="runQuery('adres')">
+                    <div class="query-title">
+                        <span>🏠</span> Adres Sorgu
+                    </div>
+                    <div class="query-desc">
+                        T.C. kimlik ile güncel adres ve ikametgah bilgileri sorgulama
+                    </div>
+                </div>
+
+                <div class="query-item" onclick="runQuery('arac')">
+                    <div class="query-title">
+                        <span>🚗</span> Araç Plaka Sorgu
+                    </div>
+                    <div class="query-desc">
+                        Araç plakasından sahip ve araç bilgileri sorgulama
+                    </div>
+                </div>
+
+                <div class="query-item" onclick="runQuery('aile')">
+                    <div class="query-title">
+                        <span>👨‍👩‍👧‍👦</span> Aile Bilgileri Sorgu
+                    </div>
+                    <div class="query-desc">
+                        T.C. kimlik ile aile bireyleri ve soy ağacı sorgulama
+                    </div>
+                </div>
+
+                <div class="query-item" onclick="runQuery('konum')">
+                    <div class="query-title">
+                        <span>📍</span> Konum Tespit Sorgu
+                    </div>
+                    <div class="query-desc">
+                        GSM veya T.C. kimlik ile anlık konum bilgisi sorgulama
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="query-panel">
+            <h2>📊 SİSTEM DURUMU</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalVisits">0</div>
+                    <div class="stat-label">Toplam Sorgu</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="onlineUsers">1</div>
+                    <div class="stat-label">Aktif Kullanıcı</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="blockedCount">0</div>
+                    <div class="stat-label">Engellenen IP</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">AKTİF</div>
+                    <div class="stat-label">Sistem Durumu</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Overlay -->
+    <div class="admin-overlay" id="adminOverlay"></div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <div class="admin-title">
+                <span>🛡️</span>
+                SİSTEM YÖNETİM PANELİ
+            </div>
+            <button class="admin-close" onclick="closeAdminPanel()">×</button>
+        </div>
+
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="switchTab('dashboard')">Dashboard</button>
+            <button class="admin-tab" onclick="switchTab('ips')">IP Yönetimi</button>
+            <button class="admin-tab" onclick="switchTab('devices')">Cihazlar</button>
+            <button class="admin-tab" onclick="switchTab('blocked')">Engellenenler</button>
+            <button class="admin-tab" onclick="switchTab('settings')">Ayarlar</button>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div class="admin-content active" id="dashboard">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="adminTotalVisitors">0</div>
+                    <div class="stat-label">Toplam Ziyaretçi</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="adminBlockedIPs">0</div>
+                    <div class="stat-label">Engellenen IP</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="adminUniqueDevices">0</div>
+                    <div class="stat-label">Benzersiz Cihaz</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="adminTodayVisits">0</div>
+                    <div class="stat-label">Bugünkü Ziyaret</div>
+                </div>
+            </div>
+
+            <h3 style="color: #00ffff; margin: 30px 0 20px;">📋 Son 10 Ziyaret</h3>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="IP veya cihaz ara..." 
+                       onkeyup="filterVisitors(this.value)" id="searchVisitors">
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="visitors-table">
+                    <thead>
+                        <tr>
+                            <th>Tarih/Saat</th>
+                            <th>IP Adresi</th>
+                            <th>Cihaz</th>
+                            <th>Tarayıcı</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="visitorsList">
+                        <!-- Visitor rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- IP Management Tab -->
+        <div class="admin-content" id="ips">
+            <div class="block-form">
+                <h3 style="color: #ff5555; margin-bottom: 20px;">🛑 YENİ IP ENGELLEME</h3>
+                <div class="form-group">
+                    <label>IP Adresi:</label>
+                    <input type="text" class="form-control" id="blockIpInput" 
+                           placeholder="Örnek: 192.168.1.1 veya 85.100.45.23">
+                </div>
+                <button class="btn btn-danger" onclick="blockIP()" style="width: 100%;">
+                    🔒 IP ADRESİNİ ENGELLE
+                </button>
+            </div>
+
+            <h3 style="color: #00ffff; margin: 30px 0 20px;">📊 TÜM IP KAYITLARI</h3>
+            <div style="overflow-x: auto;">
+                <table class="visitors-table">
+                    <thead>
+                        <tr>
+                            <th>IP Adresi</th>
+                            <th>Son Giriş</th>
+                            <th>Giriş Sayısı</th>
+                            <th>Durum</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ipList">
+                        <!-- IP rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Devices Tab -->
+        <div class="admin-content" id="devices">
+            <h3 style="color: #00ffff; margin-bottom: 20px;">📱 KAYITLI CİHAZLAR</h3>
+            <div style="overflow-x: auto;">
+                <table class="visitors-table">
+                    <thead>
+                        <tr>
+                            <th>Cihaz ID</th>
+                            <th>İşletim Sistemi</th>
+                            <th>Tarayıcı</th>
+                            <th>Ekran</th>
+                            <th>Son Aktivite</th>
+                            <th>Durum</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="deviceList">
+                        <!-- Device rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Blocked Tab -->
+        <div class="admin-content" id="blocked">
+            <h3 style="color: #ff5555; margin-bottom: 20px;">🚫 ENGELLENENLER</h3>
+            <div style="overflow-x: auto;">
+                <table class="visitors-table">
+                    <thead>
+                        <tr>
+                            <th>Tip</th>
+                            <th>Değer</th>
+                            <th>Engelleme Tarihi</th>
+                            <th>Neden</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blockedList">
+                        <!-- Blocked items will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div class="admin-content" id="settings">
+            <h3 style="color: #00ffff; margin-bottom: 30px;">⚙️ SİSTEM AYARLARI</h3>
+            
+            <div class="form-group">
+                <label>Yönlendirme URL:</label>
+                <input type="text" class="form-control" id="redirectUrl" 
+                       value="https://lytradev.xyz">
+                <small style="color: #88aadd; font-size: 14px;">Engellenen kullanıcılar buraya yönlendirilir</small>
+            </div>
+
+            <div class="form-group">
+                <label>Otomatik Temizlik (gün):</label>
+                <input type="number" class="form-control" id="cleanupDays" 
+                       value="30" min="1" max="365">
+                <small style="color: #88aadd; font-size: 14px;">Bu günden eski kayıtlar otomatik silinir</small>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="saveSettings()">
+                    💾 Ayarları Kaydet
+                </button>
+                <button class="btn btn-danger" onclick="clearAllData()">
+                    🗑️ Tüm Verileri Temizle
+                </button>
+            </div>
+
+            <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #00ffff;">
+                <h4 style="color: #00ffff; margin-bottom: 15px;">📤 Veri İşlemleri</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <button class="btn btn-success" onclick="exportData()">
+                        📥 Verileri Dışa Aktar
+                    </button>
+                    <button class="btn btn-primary" onclick="importData()">
+                        📤 Verileri İçe Aktar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== SİSTEM KONFİGÜRASYONU ====================
+        const SYSTEM_CONFIG = {
+            ADMIN_PASSWORD: "123456",
+            REDIRECT_URL: "https://lytradev.xyz",
+            STORAGE_KEY: "egm_system_2024",
+            VERSION: "2.0.0"
+        };
+
+        // ==================== VERİ YÖNETİMİ ====================
+        class SystemManager {
+            constructor() {
+                this.data = this.loadData();
+                this.init();
+            }
+
+            loadData() {
+                try {
+                    const saved = localStorage.getItem(SYSTEM_CONFIG.STORAGE_KEY);
+                    return saved ? JSON.parse(saved) : this.getDefaultData();
+                } catch (e) {
+                    console.error("Veri yükleme hatası:", e);
+                    return this.getDefaultData();
                 }
-            };
-        }
+            }
 
-        saveData() {
-            localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(this.data));
-            return true;
-        }
-
-        bindEvents() {
-            // Buton eventlerini bağla
-            setTimeout(() => {
-                if (document.getElementById('adminOverlay')) {
-                    document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
-                }
-                
-                // Admin paneldeki butonları bağla
-                document.addEventListener('click', (e) => {
-                    if (e.target && e.target.classList && e.target.classList.contains('btn-block')) {
-                        const ip = e.target.getAttribute('data-ip');
-                        if (ip && this.blockIP(ip)) {
-                            alert(`IP engellendi: ${ip}`);
-                            this.updateDisplay();
-                        }
+            getDefaultData() {
+                return {
+                    visitors: [],
+                    blockedIPs: [],
+                    blockedDevices: [],
+                    devices: [],
+                    settings: {
+                        redirectUrl: SYSTEM_CONFIG.REDIRECT_URL,
+                        cleanupDays: 30,
+                        lastCleanup: new Date().toISOString()
+                    },
+                    stats: {
+                        totalVisits: 0,
+                        uniqueIPs: [],
+                        uniqueDevices: [],
+                        totalQueries: 0
                     }
+                };
+            }
+
+            saveData() {
+                try {
+                    localStorage.setItem(SYSTEM_CONFIG.STORAGE_KEY, JSON.stringify(this.data));
+                    return true;
+                } catch (e) {
+                    console.error("Veri kaydetme hatası:", e);
+                    return false;
+                }
+            }
+
+            async init() {
+                await this.logVisitor();
+                this.checkBlockStatus();
+                this.updateDisplay();
+                this.bindEvents();
+            }
+
+            // ==================== IP VE CİHAZ YÖNETİMİ ====================
+            async getIP() {
+                try {
+                    const response = await fetch('https://api.ipify.org?format=json');
+                    const data = await response.json();
+                    return data.ip;
+                } catch (error) {
+                    console.log("IP alınamadı, rastgele üretiliyor");
+                    return `192.168.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+                }
+            }
+
+            generateDeviceId() {
+                const components = [
+                    navigator.userAgent,
+                    navigator.platform,
+                    screen.width + 'x' + screen.height,
+                    navigator.language,
+                    new Date().getTimezoneOffset()
+                ];
+                const str = components.join('|');
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
+                }
+                return Math.abs(hash).toString(36);
+            }
+
+            // ==================== ZİYARETÇİ KAYDI ====================
+            async logVisitor() {
+                try {
+                    const ip = await this.getIP();
+                    const deviceId = this.generateDeviceId();
+                    const now = new Date();
+                    const dateStr = now.toLocaleDateString('tr-TR');
+                    const timeStr = now.toLocaleTimeString('tr-TR');
+
+                    // Engelleme kontrolü
+                    if (this.isBlocked(ip, deviceId)) {
+                        window.location.href = this.data.settings.redirectUrl;
+                        return;
+                    }
+
+                    // Cihaz kaydı
+                    const deviceInfo = {
+                        id: deviceId,
+                        userAgent: navigator.userAgent,
+                        platform: this.getOS(),
+                        browser: this.getBrowser(),
+                        screen: `${screen.width}x${screen.height}`,
+                        language: navigator.language,
+                        lastSeen: now.toISOString(),
+                        firstSeen: now.toISOString(),
+                        visitCount: 1
+                    };
+
+                    // Mevcut cihazı güncelle
+                    const deviceIndex = this.data.devices.findIndex(d => d.id === deviceId);
+                    if (deviceIndex > -1) {
+                        this.data.devices[deviceIndex].lastSeen = now.toISOString();
+                        this.data.devices[deviceIndex].visitCount++;
+                    } else {
+                        this.data.devices.push(deviceInfo);
+                        this.data.stats.uniqueDevices.push(deviceId);
+                    }
+
+                    // Ziyaret kaydı
+                    const visitor = {
+                        id: Date.now(),
+                        ip: ip,
+                        deviceId: deviceId,
+                        os: this.getOS(),
+                        browser: this.getBrowser(),
+                        timestamp: now.toISOString(),
+                        date: dateStr,
+                        time: timeStr,
+                        referrer: document.referrer || 'direct'
+                    };
+
+                    this.data.visitors.unshift(visitor);
+                    this.data.stats.totalVisits++;
+
+                    // Benzersiz IP kontrolü
+                    if (!this.data.stats.uniqueIPs.includes(ip)) {
+                        this.data.stats.uniqueIPs.push(ip);
+                    }
+
+                    // 1000 kayıtla sınırla
+                    if (this.data.visitors.length > 1000) {
+                        this.data.visitors = this.data.visitors.slice(0, 1000);
+                    }
+
+                    this.saveData();
+                    this.updateDisplay();
+
+                } catch (error) {
+                    console.error("Ziyaretçi kaydı hatası:", error);
+                }
+            }
+
+            // ==================== ENGELLEME SİSTEMİ ====================
+            isBlocked(ip, deviceId) {
+                const ipBlocked = this.data.blockedIPs.some(item => 
+                    item.value === ip && item.active === true
+                );
+                const deviceBlocked = this.data.blockedDevices.some(item => 
+                    item.value === deviceId && item.active === true
+                );
+                return ipBlocked || deviceBlocked;
+            }
+
+            blockIP(ip, reason = 'Admin engellemesi') {
+                const existing = this.data.blockedIPs.find(item => item.value === ip);
+                
+                if (existing) {
+                    existing.active = true;
+                    existing.reason = reason;
+                    existing.blockedAt = new Date().toISOString();
+                } else {
+                    this.data.blockedIPs.push({
+                        id: Date.now(),
+                        value: ip,
+                        type: 'ip',
+                        active: true,
+                        reason: reason,
+                        blockedAt: new Date().toISOString(),
+                        blockedBy: 'admin'
+                    });
+                }
+
+                this.saveData();
+                return true;
+            }
+
+            unblockIP(ip) {
+                const item = this.data.blockedIPs.find(item => item.value === ip);
+                if (item) {
+                    item.active = false;
+                    this.saveData();
+                    return true;
+                }
+                return false;
+            }
+
+            blockDevice(deviceId, reason = 'Admin engellemesi') {
+                const existing = this.data.blockedDevices.find(item => item.value === deviceId);
+                
+                if (existing) {
+                    existing.active = true;
+                    existing.reason = reason;
+                    existing.blockedAt = new Date().toISOString();
+                } else {
+                    this.data.blockedDevices.push({
+                        id: Date.now(),
+                        value: device
+```value: deviceId,
+                        type: 'device',
+                        active: true,
+                        reason: reason,
+                        blockedAt: new Date().toISOString(),
+                        blockedBy: 'admin'
+                    });
+                }
+
+                this.saveData();
+                return true;
+            }
+
+            unblockDevice(deviceId) {
+                const item = this.data.blockedDevices.find(item => item.value === deviceId);
+                if (item) {
+                    item.active = false;
+                    this.saveData();
+                    return true;
+                }
+                return false;
+            }
+
+            // ==================== YARDIMCI FONKSİYONLAR ====================
+            getOS() {
+                const ua = navigator.userAgent;
+                if (ua.indexOf("Android") >= 0) return "Android";
+                if (ua.indexOf("iPhone") >= 0 || ua.indexOf("iPad") >= 0) return "iOS";
+                if (ua.indexOf("Windows") >= 0) return "Windows";
+                if (ua.indexOf("Mac") >= 0) return "MacOS";
+                if (ua.indexOf("Linux") >= 0) return "Linux";
+                return "Bilinmeyen";
+            }
+
+            getBrowser() {
+                const ua = navigator.userAgent;
+                if (ua.includes("Chrome") && !ua.includes("Edg")) return "Chrome";
+                if (ua.includes("Firefox")) return "Firefox";
+                if (ua.includes("Safari") && !ua.includes("Chrome")) return "Safari";
+                if (ua.includes("Edg")) return "Edge";
+                return "Diğer";
+            }
+
+            getStats() {
+                const today = new Date().toLocaleDateString('tr-TR');
+                const todayVisits = this.data.visitors.filter(v => v.date === today).length;
+
+                return {
+                    totalVisits: this.data.visitors.length,
+                    blockedIPs: this.data.blockedIPs.filter(item => item.active).length,
+                    blockedDevices: this.data.blockedDevices.filter(item => item.active).length,
+                    uniqueDevices: this.data.stats.uniqueDevices.length,
+                    todayVisits: todayVisits,
+                    totalQueries: this.data.stats.totalQueries
+                };
+            }
+
+            // ==================== GÖRSELLEŞTİRME ====================
+            updateDisplay() {
+                // Ana sayfa istatistikleri
+                const stats = this.getStats();
+                document.getElementById('totalVisits').textContent = stats.totalQueries;
+                document.getElementById('blockedCount').textContent = stats.blockedIPs;
+
+                // Admin panel istatistikleri
+                if (document.getElementById('adminTotalVisitors')) {
+                    document.getElementById('adminTotalVisitors').textContent = stats.totalVisits;
+                    document.getElementById('adminBlockedIPs').textContent = stats.blockedIPs + stats.blockedDevices;
+                    document.getElementById('adminUniqueDevices').textContent = stats.uniqueDevices;
+                    document.getElementById('adminTodayVisits').textContent = stats.todayVisits;
                     
-                    if (e.target && e.target.classList && e.target.classList.contains('btn-unblock')) {
-                        const ip = e.target.getAttribute('data-ip');
-                        if (ip && this.unblockIP(ip)) {
-                            alert(`IP engeli kaldırıldı: ${ip}`);
-                            this.updateDisplay();
-                        }
+                    // Tabloları güncelle
+                    this.updateVisitorsList();
+                    this.updateIPList();
+                    this.updateDeviceList();
+                    this.updateBlockedList();
+                }
+            }
+
+            updateVisitorsList() {
+                const tbody = document.getElementById('visitorsList');
+                if (!tbody) return;
+                
+                tbody.innerHTML = '';
+                const recent = this.data.visitors.slice(0, 10);
+                
+                recent.forEach(visitor => {
+                    const isBlocked = this.isBlocked(visitor.ip, visitor.deviceId);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${visitor.date} ${visitor.time}</td>
+                        <td style="font-family: monospace;">${visitor.ip}</td>
+                        <td>${visitor.os}</td>
+                        <td>${visitor.browser}</td>
+                        <td>
+                            <span class="badge ${isBlocked ? 'badge-danger' : 'badge-success'}">
+                                ${isBlocked ? 'ENGEL' : 'AKTİF'}
+                            </span>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+
+            updateIPList() {
+                const tbody = document.getElementById('ipList');
+                if (!tbody) return;
+                
+                tbody.innerHTML = '';
+                
+                // IP'leri grupla
+                const ipGroups = {};
+                this.data.visitors.forEach(v => {
+                    if (!ipGroups[v.ip]) {
+                        ipGroups[v.ip] = {
+                            count: 0,
+                            lastVisit: v.timestamp,
+                            lastVisitStr: `${v.date} ${v.time}`
+                        };
+                    }
+                    ipGroups[v.ip].count++;
+                    if (new Date(v.timestamp) > new Date(ipGroups[v.ip].lastVisit)) {
+                        ipGroups[v.ip].lastVisit = v.timestamp;
+                        ipGroups[v.ip].lastVisitStr = `${v.date} ${v.time}`;
                     }
                 });
-            }, 100);
-        }
-
-        // ==================== IP YÖNETİMİ ====================
-        async getIP() {
-            try {
-                const response = await fetch(CONFIG.API_URL);
-                const data = await response.json();
-                return data.ip;
-            } catch (error) {
-                console.error("IP alınamadı, rastgele üretiliyor:", error);
-                // Fallback: Rastgele IP üret
-                return `192.168.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
-            }
-        }
-
-        generateDeviceId() {
-            const components = [
-                navigator.userAgent,
-                navigator.platform,
-                screen.width + 'x' + screen.height,
-                navigator.language,
-                !!navigator.cookieEnabled
-            ];
-            const str = components.join('|');
-            // Basit hash oluştur
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) {
-                const char = str.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash;
-            }
-            return Math.abs(hash).toString(36);
-        }
-
-        // ==================== ZİYARET KAYDI ====================
-        async logVisit() {
-            try {
-                const ip = await this.getIP();
-                const deviceId = this.generateDeviceId();
-                const now = new Date();
-                const nowISO = now.toISOString();
-                const dateStr = now.toLocaleDateString('tr-TR');
-                const timeStr = now.toLocaleTimeString('tr-TR');
-
-                // Engelleme kontrolü
-                if (this.isBlocked(ip, deviceId)) {
-                    console.log("Engellenmiş kullanıcı, yönlendiriliyor:", ip);
-                    window.location.href = this.data.settings.redirectUrl;
-                    return;
-                }
-
-                // Cihaz bilgileri
-                const deviceInfo = {
-                    id: deviceId,
-                    userAgent: navigator.userAgent.substring(0, 100),
-                    platform: navigator.platform,
-                    language: navigator.language,
-                    screen: `${screen.width}x${screen.height}`,
-                    cookies: navigator.cookieEnabled,
-                    lastSeen: nowISO,
-                    firstSeen: nowISO,
-                    visitCount: 1
-                };
-
-                // Mevcut cihazı güncelle veya yeni ekle
-                const existingDeviceIndex = this.data.devices.findIndex(d => d.id === deviceId);
-                if (existingDeviceIndex !== -1) {
-                    this.data.devices[existingDeviceIndex].lastSeen = nowISO;
-                    this.data.devices[existingDeviceIndex].visitCount++;
-                } else {
-                    this.data.devices.push(deviceInfo);
-                }
-
-                // Ziyaret kaydı
-                const visit = {
-                    timestamp: nowISO,
-                    ip: ip,
-                    deviceId: deviceId,
-                    browser: this.getBrowserName(),
-                    os: this.getOSName(),
-                    date: dateStr,
-                    time: timeStr,
-                    referrer: document.referrer || 'direct'
-                };
-
-                this.data.visitors.unshift(visit);
-                this.data.stats.totalVisits++;
                 
-                // Benzersiz IP ekle
-                if (!this.data.stats.uniqueIPs.includes(ip)) {
-                    this.data.stats.uniqueIPs.push(ip);
-                }
+                // Tabloyu doldur
+                Object.keys(ipGroups).forEach(ip => {
+                    const group = ipGroups[ip];
+                    const isBlocked = this.data.blockedIPs.some(item => item.value === ip && item.active);
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td style="font-family: monospace;">${ip}</td>
+                        <td>${group.lastVisitStr}</td>
+                        <td>${group.count}</td>
+                        <td>
+                            <span class="badge ${isBlocked ? 'badge-danger' : 'badge-success'}">
+                                ${isBlocked ? 'ENGEL' : 'AKTİF'}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn ${isBlocked ? 'btn-success' : 'btn-danger'}" 
+                                    onclick="${isBlocked ? 'systemManager.unblockIP' : 'systemManager.blockIP'}('${ip}')">
+                                ${isBlocked ? 'ENGELİ KALDIR' : 'ENGELLE'}
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+
+            updateDeviceList() {
+                const tbody = document.getElementById('deviceList');
+                if (!tbody) return;
                 
-                // Benzersiz cihaz ekle
-                if (!this.data.stats.uniqueDevices.includes(deviceId)) {
-                    this.data.stats.uniqueDevices.push(deviceId);
-                }
+                tbody.innerHTML = '';
+                
+                this.data.devices.forEach(device => {
+                    const isBlocked = this.data.blockedDevices.some(item => item.value === device.id && item.active);
+                    const lastSeen = new Date(device.lastSeen).toLocaleString('tr-TR');
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td title="${device.id}">${device.id.substring(0, 12)}...</td>
+                        <td>${device.platform}</td>
+                        <td>${device.browser}</td>
+                        <td>${device.screen}</td>
+                        <td>${lastSeen}</td>
+                        <td>
+                            <span class="badge ${isBlocked ? 'badge-danger' : 'badge-success'}">
+                                ${isBlocked ? 'ENGEL' : 'AKTİF'}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn ${isBlocked ? 'btn-success' : 'btn-danger'}" 
+                                    onclick="${isBlocked ? 'systemManager.unblockDevice' : 'systemManager.blockDevice'}('${device.id}')">
+                                ${isBlocked ? 'ENGELİ KALDIR' : 'ENGELLE'}
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
 
-                // 500 kayıtla sınırla
-                if (this.data.visitors.length > 500) {
-                    this.data.visitors = this.data.visitors.slice(0, 500);
-                }
+            updateBlockedList() {
+                const tbody = document.getElementById('blockedList');
+                if (!tbody) return;
+                
+                tbody.innerHTML = '';
+                
+                // Engellenen IP'ler
+                this.data.blockedIPs.filter(item => item.active).forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>IP Adresi</td>
+                        <td style="font-family: monospace;">${item.value}</td>
+                        <td>${new Date(item.blockedAt).toLocaleString('tr-TR')}</td>
+                        <td>${item.reason}</td>
+                        <td>
+                            <button class="btn btn-success" onclick="systemManager.unblockIP('${item.value}')">
+                                ENGELİ KALDIR
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+                
+                // Engellenen cihazlar
+                this.data.blockedDevices.filter(item => item.active).forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>Cihaz ID</td>
+                        <td title="${item.value}">${item.value.substring(0, 12)}...</td>
+                        <td>${new Date(item.blockedAt).toLocaleString('tr-TR')}</td>
+                        <td>${item.reason}</td>
+                        <td>
+                            <button class="btn btn-success" onclick="systemManager.unblockDevice('${item.value}')">
+                                ENGELİ KALDIR
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
 
+            // ==================== ENGELLEME KONTROLÜ ====================
+            checkBlockStatus() {
+                this.getIP().then(ip => {
+                    const deviceId = this.generateDeviceId();
+                    if (this.isBlocked(ip, deviceId)) {
+                        window.location.href = this.data.settings.redirectUrl;
+                    }
+                });
+            }
+
+            // ==================== EVENT BINDING ====================
+            bindEvents() {
+                // Admin overlay tıklama
+                document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
+                
+                // Buton eventleri
+                document.addEventListener('click', (e) => {
+                    if (e.target && e.target.classList && e.target.classList.contains('query-item')) {
+                        e.target.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            e.target.style.transform = '';
+                        }, 200);
+                    }
+                });
+            }
+
+            // ==================== SORGULAMA ====================
+            runQuery(type) {
+                this.data.stats.totalQueries++;
                 this.saveData();
                 this.updateDisplay();
                 
-            } catch (error) {
-                console.error("Ziyaretçi kaydı hatası:", error);
-            }
-        }
-
-        // ==================== ENGELLEME SİSTEMİ ====================
-        isBlocked(ip, deviceId) {
-            const ipBlocked = this.data.blockedIPs.some(item => 
-                item.value === ip && item.active === true
-            );
-            
-            const deviceBlocked = this.data.blockedDevices.some(item => 
-                item.value === deviceId && item.active === true
-            );
-
-            return ipBlocked || deviceBlocked;
-        }
-
-        blockIP(ip, reason = 'Admin engellemesi') {
-            const existing = this.data.blockedIPs.find(item => item.value === ip);
-            
-            if (existing) {
-                existing.active = true;
-                existing.reason = reason;
-                existing.blockedAt = new Date().toISOString();
-                existing.blockedBy = 'admin';
-            } else {
-                this.data.blockedIPs.push({
-                    value: ip,
-                    type: 'ip',
-                    active: true,
-                    reason: reason,
-                    blockedAt: new Date().toISOString(),
-                    blockedBy: 'admin'
-                });
-            }
-
-            this.saveData();
-            return true;
-        }
-
-        unblockIP(ip) {
-            const item = this.data.blockedIPs.find(item => item.value === ip);
-            if (item) {
-                item.active = false;
-                this.saveData();
-                return true;
-            }
-            return false;
-        }
-
-        blockDevice(deviceId, reason = 'Admin engellemesi') {
-            const existing = this.data.blockedDevices.find(item => item.value === deviceId);
-            
-            if (existing) {
-                existing.active = true;
-                existing.reason = reason;
-                existing.blockedAt = new Date().toISOString();
-                existing.blockedBy = 'admin';
-            } else {
-                this.data.blockedDevices.push({
-                    value: deviceId,
-                    type: 'device',
-                    active: true,
-                    reason: reason,
-                    blockedAt: new Date().toISOString(),
-                    blockedBy: 'admin'
-                });
-            }
-
-            this.saveData();
-            return true;
-        }
-
-        unblockDevice(deviceId) {
-            const item = this.data.blockedDevices.find(item => item.value === deviceId);
-            if (item) {
-                item.active = false;
-                this.saveData();
-                return true;
-            }
-            return false;
-        }
-
-        // ==================== YARDIMCI FONKSİYONLAR ====================
-        getBrowserName() {
-            const ua = navigator.userAgent;
-            if (ua.includes("Chrome")) return "Chrome";
-            if (ua.includes("Firefox")) return "Firefox";
-            if (ua.includes("Safari")) return "Safari";
-            if (ua.includes("Edge")) return "Edge";
-            if (ua.includes("Opera")) return "Opera";
-            return "Bilinmeyen";
-        }
-
-        getOSName() {
-            const ua = navigator.userAgent;
-            if (ua.includes("Windows")) return "Windows";
-            if (ua.includes("Mac")) return "MacOS";
-            if (ua.includes("Linux")) return "Linux";
-            if (ua.includes("Android")) return "Android";
-            if (ua.includes("iOS")) return "iOS";
-            return "Bilinmeyen";
-        }
-
-        getStats() {
-            const today = new Date().toLocaleDateString('tr-TR');
-            const todayVisits = this.data.visitors.filter(v => v.date === today).length;
-
-            return {
-                totalVisits: this.data.visitors.length,
-                blockedIPs: this.data.blockedIPs.filter(item => item.active).length,
-                blockedDevices: this.data.blockedDevices.filter(item => item.active).length,
-                uniqueDevices: this.data.stats.uniqueDevices.length,
-                todayVisits: todayVisits
-            };
-        }
-
-        // ==================== GÖRSELLEŞTİRME ====================
-        updateDisplay() {
-            if (!document.getElementById('totalVisitors')) return;
-            
-            const stats = this.getStats();
-            
-            document.getElementById('totalVisitors').textContent = stats.totalVisits;
-            document.getElementById('blockedCount').textContent = stats.blockedIPs + stats.blockedDevices;
-            document.getElementById('uniqueDevices').textContent = stats.uniqueDevices;
-            document.getElementById('todayVisits').textContent = stats.todayVisits;
-
-            // Tabloları güncelle
-            this.updateRecentLogs();
-            this.updateIPTables();
-            this.updateDeviceTable();
-            this.updateBlockedTable();
-        }
-
-        updateRecentLogs() {
-            const tbody = document.querySelector('#recentLogs tbody');
-            if (!tbody) return;
-            
-            tbody.innerHTML = '';
-            
-            const recent = this.data.visitors.slice(0, 10);
-            
-            recent.forEach(visit => {
-                const row = document.createElement('tr');
-                const isBlocked = this.isBlocked(visit.ip, visit.deviceId);
+                // Loading efekti
+                const originalText = event.target.querySelector('.query-title').textContent;
+                event.target.querySelector('.query-title').textContent = 'Sorgulanıyor...';
+                event.target.style.background = 'rgba(0, 100, 200, 0.9)';
                 
-                row.innerHTML = `
-                    <td>${visit.date} ${visit.time}</td>
-                    <td style="font-family: monospace;">${visit.ip}</td>
-                    <td>${visit.os}</td>
-                    <td>${visit.browser}</td>
-                    <td><span class="badge ${isBlocked ? 'badge-danger' : 'badge-success'}">
-                        ${isBlocked ? 'Engelli' : 'Aktif'}
-                    </span></td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        updateIPTables() {
-            const tbody = document.getElementById('ipTable');
-            if (!tbody) return;
-            
-            tbody.innerHTML = '';
-            
-            // IP'leri grupla
-            const ipGroups = {};
-            this.data.visitors.forEach(v => {
-                if (!ipGroups[v.ip]) {
-                    ipGroups[v.ip] = {
-                        count: 0,
-                        lastVisit: v.timestamp,
-                        lastVisitStr: `${v.date} ${v.time}`
+                setTimeout(() => {
+                    event.target.querySelector('.query-title').textContent = originalText;
+                    event.target.style.background = '';
+                    
+                    // Sorgu sonuçları
+                    const results = {
+                        'tc': 'T.C. Kimlik Sorgusu Tamamlandı',
+                        'gsm': 'GSM Numarası Sorgusu Tamamlandı',
+                        'adres': 'Adres Sorgusu Tamamlandı',
+                        'arac': 'Araç Plaka Sorgusu Tamamlandı',
+                        'aile': 'Aile Bilgileri Sorgusu Tamamlandı',
+                        'konum': 'Konum Tespit Sorgusu Tamamlandı'
                     };
-                }
-                ipGroups[v.ip].count++;
-                if (new Date(v.timestamp) > new Date(ipGroups[v.ip].lastVisit)) {
-                    ipGroups[v.ip].lastVisit = v.timestamp;
-                    ipGroups[v.ip].lastVisitStr = `${v.date} ${v.time}`;
-                }
-            });
+                    
+                    alert(results[type] || 'Sorgu tamamlandı!');
+                }, 1500);
+            }
+        }
+
+        // ==================== GLOBAL DEĞİŞKENLER ====================
+        let systemManager;
+
+        // ==================== SAYFA YÜKLENDİĞİNDE ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            systemManager = new SystemManager();
             
-            // Tabloyu doldur
-            Object.keys(ipGroups).forEach(ip => {
-                const group = ipGroups[ip];
-                const isBlocked = this.data.blockedIPs.some(item => item.value === ip && item.active);
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td style="font-family: monospace;">${ip}</td>
-                    <td>${group.lastVisitStr}</td>
-                    <td>${group.count}</td>
-                    <td><span class="badge ${isBlocked ? 'badge-danger' : 'badge-success'}">
-                        ${isBlocked ? 'Engelli' : 'Aktif'}
-                    </span></td>
-                    <td>
-                        <button class="btn ${isBlocked ? 'btn-unblock' : 'btn-block'}" 
-                                data-ip="${ip}">
-                            ${isBlocked ? 'Engeli Kaldır' : 'Engelle'}
-                        </button>
-                        <button class="btn btn-delete" onclick="deleteIPData('${ip}')">Sil</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        updateDeviceTable() {
-            const tbody = document.getElementById('deviceTable');
-            if (!tbody) return;
-            
-            tbody.innerHTML = '';
-            
-            this.data.devices.forEach(device => {
-                const isBlocked = this.data.blockedDevices.some(item => item.value === device.id && item.active);
-                const lastSeen = new Date(device.lastSeen).toLocaleString('tr-TR');
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td title="${device.id}">${device.id.substring(0, 8)}...</td>
-                    <td>${this.getBrowserNameFromUA(device.userAgent)}</td>
-                    <td>${device.platform}</td>
-                    <td>${device.screen}</td>
-                    <td>${lastSeen}</td>
-                    <td>
-                        <button class="btn ${isBlocked ? 'btn-unblock' : 'btn-block'}" 
-                                onclick="${isBlocked ? 'systemManager.unblockDevice' : 'systemManager.blockDevice'}('${device.id}')">
-                            ${isBlocked ? 'Engeli Kaldır' : 'Engelle'}
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        updateBlockedTable() {
-            const tbody = document.getElementById('blockedTable');
-            if (!tbody) return;
-            
-            tbody.innerHTML = '';
-            
-            // Engellenen IP'ler
-            this.data.blockedIPs.filter(item => item.active).forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>IP Adresi</td>
-                    <td style="font-family: monospace;">${item.value}</td>
-                    <td>${new Date(item.blockedAt).toLocaleString('tr-TR')}</td>
-                    <td>${item.blockedBy}</td>
-                    <td>
-                        <button class="btn btn-unblock" onclick="systemManager.unblockIP('${item.value}')">
-                            Engeli Kaldır
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-            
-            // Engellenen cihazlar
-            this.data.blockedDevices.filter(item => item.active).forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>Cihaz</td>
-                    <td title="${item.value}">${item.value.substring(0, 8)}...</td>
-                    <td>${new Date(item.blockedAt).toLocaleString('tr-TR')}</td>
-                    <td>${item.blockedBy}</td>
-                    <td>
-                        <button class="btn btn-unblock" onclick="systemManager.unblockDevice('${item.value}')">
-                            Engeli Kaldır
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        getBrowserNameFromUA(ua) {
-            if (ua.includes("Chrome")) return "Chrome";
-            if (ua.includes("Firefox")) return "Firefox";
-            if (ua.includes("Safari")) return "Safari";
-            return "Diğer";
-        }
-
-        // ==================== ENGELLEME KONTROLÜ ====================
-        checkBlockStatus() {
-            this.getIP().then(ip => {
-                const deviceId = this.generateDeviceId();
-                if (this.isBlocked(ip, deviceId)) {
-                    window.location.href = this.data.settings.redirectUrl;
-                }
-            });
-        }
-    }
-
-    // ==================== GLOBAL DEĞİŞKENLER ====================
-    let systemManager;
-
-    // ==================== SAYFA YÜKLEME ====================
-    document.addEventListener('DOMContentLoaded', function() {
-        systemManager = new SystemManager();
-        
-        // İlk kategoriyi aç
-        const firstCategory = document.querySelector('.category');
-        if (firstCategory) {
-            firstCategory.classList.add('expanded');
-        }
-    });
-
-    // ==================== ADMIN PANEL FONKSİYONLARI ====================
-    function openAdminPanel() {
-        // Basit şifre sorma
-        const password = prompt('Yönetici şifresini girin:', '');
-        
-        if (password === CONFIG.ADMIN_PASSWORD) {
-            document.getElementById('adminOverlay').classList.add('active');
-            document.getElementById('adminPanel').classList.add('active');
-            systemManager.updateDisplay();
-        } else if (password !== null) {
-            alert('Hatalı şifre! Varsayılan şifre: 123456');
-        }
-    }
-
-    function closeAdminPanel() {
-        document.getElementById('adminOverlay').classList.remove('active');
-        document.getElementById('adminPanel').classList.remove('active');
-    }
-
-    function switchTab(tabName) {
-        // Tüm tabları ve içerikleri gizle
-        document.querySelectorAll('.admin-tab').forEach(tab => {
-            tab.classList.remove('active');
+            // Başlangıç uyarısı
+            setTimeout(() => {
+                alert("EGM Siber Suçlarla Mücadele Daire Başkanlığı\nResmi Sorgulama Sistemine Hoş Geldiniz!\n\nBu sistem sadece yetkili personel içindir.");
+            }, 500);
         });
-        document.querySelectorAll('.admin-content').forEach(content => {
-            content.classList.remove('active');
-        });
-        
-        // Seçilen tabı aktif et
-        document.querySelector(`.admin-tab[onclick*="${tabName}"]`).classList.add('active');
-        document.getElementById(tabName).classList.add('active');
-    }
 
-    // ==================== İŞLEM FONKSİYONLARI ====================
-    function blockIP() {
-        const ipInput = document.getElementById('blockIpInput');
-        const ip = ipInput.value.trim();
-        
-        if (!ip) {
-            alert('IP adresi gerekli!');
-            return;
+        // ==================== ADMIN PANEL FONKSİYONLARI ====================
+        function openAdminPanel() {
+            const password = prompt("Yönetici şifresini girin:", "");
+            
+            if (password === SYSTEM_CONFIG.ADMIN_PASSWORD) {
+                document.getElementById('adminOverlay').classList.add('active');
+                document.getElementById('adminPanel').classList.add('active');
+                systemManager.updateDisplay();
+            } else if (password !== null) {
+                alert("Hatalı şifre! Şifre: 123456");
+            }
         }
-        
-        if (systemManager.blockIP(ip)) {
-            alert(`IP engellendi: ${ip}`);
-            ipInput.value = '';
-            systemManager.updateDisplay();
-        }
-    }
 
-    function deleteIPData(ip) {
-        if (confirm(`Bu IP'ye ait tüm kayıtlar silinecek. Emin misiniz?`)) {
-            systemManager.data.visitors = systemManager.data.visitors.filter(v => v.ip !== ip);
+        function closeAdminPanel() {
+            document.getElementById('adminOverlay').classList.remove('active');
+            document.getElementById('adminPanel').classList.remove('active');
+        }
+
+        function switchTab(tabName) {
+            // Tüm tabları ve içerikleri gizle
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.admin-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Seçilen tabı aktif et
+            document.querySelector(`.admin-tab[onclick*="${tabName}"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+            
+            // Gerekirse verileri güncelle
+            if (systemManager) {
+                systemManager.updateDisplay();
+            }
+        }
+
+        function blockIP() {
+            const ipInput = document.getElementById('blockIpInput');
+            const ip = ipInput.value.trim();
+            
+            if (!ip) {
+                alert('Lütfen bir IP adresi girin!');
+                return;
+            }
+            
+            // Basit IP format kontrolü
+            const ipRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+            if (!ipRegex.test(ip) && ip !== 'localhost') {
+                alert('Geçerli bir IP adresi girin!');
+                return;
+            }
+            
+            if (systemManager.blockIP(ip)) {
+                alert(`IP adresi engellendi: ${ip}\nEngellenen kullanıcılar lytradev.xyz'ye yönlendirilecek.`);
+                ipInput.value = '';
+                systemManager.updateDisplay();
+            }
+        }
+
+        function filterVisitors(searchTerm) {
+            const rows = document.querySelectorAll('#visitorsList tr');
+            searchTerm = searchTerm.toLowerCase();
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+
+        function saveSettings() {
+            const redirectUrl = document.getElementById('redirectUrl').value;
+            const cleanupDays = parseInt(document.getElementById('cleanupDays').value);
+            
+            systemManager.data.settings.redirectUrl = redirectUrl;
+            systemManager.data.settings.cleanupDays = cleanupDays;
             systemManager.saveData();
-            systemManager.updateDisplay();
-            alert('IP kayıtları temizlendi!');
+            
+            alert('Ayarlar kaydedildi!');
         }
-    }
 
-    function saveSettings() {
-        const redirectUrl = document.getElementById('redirectUrl').value;
-        const cleanupDays = document.getElementById('cleanupDays').value;
-        
-        systemManager.data.settings.redirectUrl = redirectUrl;
-        systemManager.data.settings.cleanupDays = parseInt(cleanupDays);
-        systemManager.saveData();
-        
-        alert('Ayarlar kaydedildi!');
-    }
-
-    function exportData() {
-        const dataStr = JSON.stringify(systemManager.data, null, 2);
-        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-        
-        const linkElement = document.createElement('a');
-        linkElement.setAttribute('href', dataUri);
-        linkElement.setAttribute('download', `egm_backup_${new Date().toISOString().split('T')[0]}.json`);
-        linkElement.click();
-        
-        alert('Veriler dışa aktarıldı!');
-    }
-
-    function importData() {
-        alert('Bu özellik şu anda kullanılamıyor. Manuel olarak localStorage\'dan yönetin.');
-    }
-
-    function clearAllData() {
-        if (confirm('TÜM VERİLER SİLİNECEK! Emin misiniz?')) {
-            localStorage.removeItem(CONFIG.STORAGE_KEY);
-            systemManager.data = systemManager.getDefaultData();
-            systemManager.saveData();
-            systemManager.updateDisplay();
-            alert('Tüm veriler temizlendi!');
+        function exportData() {
+            const dataStr = JSON.stringify(systemManager.data, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', `egm_backup_${new Date().toISOString().split('T')[0]}.json`);
+            linkElement.click();
+            
+            alert('Veriler dışa aktarıldı!');
         }
-    }
 
-    function filterLogs(searchTerm) {
-        const rows = document.querySelectorAll('#recentLogs tbody tr');
-        searchTerm = searchTerm.toLowerCase();
-        
-        rows.forEach(row => {
-            const text = row.textContent.toLowerCase();
-            row.style.display = text.includes(searchTerm) ? '' : 'none';
-        });
-    }
-
-    // ==================== MEVCUT FONKSİYONLAR ====================
-    window.addEventListener("load", function () {
-        // Uyarı mesajını basitleştir
-        setTimeout(() => {
-            alert("EGM Siber Suçlarla Mücadele Daire Başkanlığı\n\nBu sistem sadece yetkili personel içindir.");
-        }, 1000);
-    });
-
-    function toggleCategory(categoryElement) {
-        if (event.target.closest('.query-item')) {
-            return;
+        function importData() {
+            alert('Bu özellik geliştirme aşamasındadır.');
         }
-        categoryElement.classList.toggle('expanded');
-    }
 
-    function executeQuery(protocol) {
-        event.stopPropagation(); 
-        const item = event.target.closest('.query-item');
-        item.style.background = 'rgba(0, 255, 255, 0.15)';
-        
-        setTimeout(() => {
-            alert('Demo Modu: Gerçek sorgu yapılmaz.');
-            item.style.background = '';
-        }, 200);
-    }
-
-    // Admin panel açma kısayolu
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-            e.preventDefault();
-            openAdminPanel();
+        function clearAllData() {
+            if (confirm('TÜM VERİLER SİLİNECEK! Emin misiniz?')) {
+                localStorage.removeItem(SYSTEM_CONFIG.STORAGE_KEY);
+                systemManager.data = systemManager.getDefaultData();
+                systemManager.saveData();
+                systemManager.updateDisplay();
+                alert('Tüm veriler temizlendi!');
+            }
         }
-    });
 
-    // Global erişim
-    window.systemManager = systemManager;
-    window.openAdminPanel = openAdminPanel;
-    window.closeAdminPanel = closeAdminPanel;
-    window.switchTab = switchTab;
-    window.blockIP = blockIP;
-    window.deleteIPData = deleteIPData;
-    window.saveSettings = saveSettings;
-    window.exportData = exportData;
-    window.importData = importData;
-    window.clearAllData = clearAllData;
-    window.filterLogs = filterLogs;
-    window.toggleCategory = toggleCategory;
-    window.executeQuery = executeQuery
+        // ==================== GLOBAL ERİŞİM ====================
+        window.systemManager = systemManager;
+        window.openAdminPanel = openAdminPanel;
+        window.closeAdminPanel = closeAdminPanel;
+        window.switchTab = switchTab;
+        window.blockIP = blockIP;
+        window.filterVisitors = filterVisitors;
+        window.saveSettings = saveSettings;
+        window.exportData = exportData;
+        window.importData = importData;
+        window.clearAllData = clearAllData;
+        window.runQuery = systemManager ? systemManager.runQuery : () => {};
+    </script>
+</body>
+</html>
