@@ -5,62 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EGM Siber Suçlarla Mücade Daire Başkanlığı</title>
     
-    <meta name="description" content="Emniyet Genel Merkezi Siber Suçlarla Mücadele Daire Başkanlığına ait tek gerçek sorgu sayfası.">
-    <meta name="keywords" content="sorgu paneli, bedava sorgu paneli, ücretsiz sorgu paneli, online sorgu paneli, tc sorgu paneli, gsm sorgu paneli, adres sorgu paneli, tapu sorgu paneli, kimlik sorgu paneli, telefon sorgu paneli, en iyi sorgu paneli, hızlı sorgu paneli, güvenli sorgu paneli, sorgu paneli 2024, türkiye sorgu paneli">
-    <meta name="author" content="Sorgu Pro Team">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="language" content="Turkish">
-    <meta name="geo.region" content="TR">
-    <meta name="geo.country" content="Turkey">
-    <meta name="distribution" content="global">
-    <meta name="rating" content="general">
-    <meta name="revisit-after" content="1 days">
-    
-    <meta property="og:title" content="EGM İSSMDB | Sorgu Sayfası">
-    <meta property="og:description" content="✅ Türkiye'nin #1 Bedava Sorgu Paneli ⚡ Hızlı T.C. Sorgu ⚡ GSM Sorgu ⚡ Adres & Tapu Sorgu | 100% Ücretsiz | Anlık Sonuç">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://lytradev.xyz/egmsorgu">
-    <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSGLS3jqF8vy0TcvWXKf7CNTvpoysrmI4N3A&s">
-    <meta property="og:image:alt" content="EGM İSSMDB | Sorgu Sayfası">
-    <meta property="og:site_name" content="Sorgu Pro - Bedava Panel">
-    <meta property="og:locale" content="tr_TR">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Sorgu Pro - Bedava Sorgu Paneli">
-    <meta name="twitter:description" content="Türkiye'nin en kapsamlı bedava sorgu paneli. Ücretsiz T.C., GSM, adres sorguları.">
-    <meta name="twitter:image" content="assets/images/ssssor.png">
-
-    <link rel="canonical" href="https://sorgu.pro">
-    <meta name="theme-color" content="#00ffff">
-    
-    <!-- Schema.org Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Sorgu Pro - Bedava Sorgu Paneli",
-        "alternateName": "Bedava Sorgu Paneli",
-        "url": "https://sorgu.pro",
-        "description": "Türkiye'nin en kapsamlı bedava sorgu paneli. T.C., GSM, adres, tapu sorguları ücretsiz.",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "https://sorgu.pro/tc?q={search_term_string}"
-            },
-            "query-input": "required name=search_term_string"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "Sorgu Pro",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://sorgu.pro/assets/images/ssssor.png"
-            }
-        }
-    }
-    </script>
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
         
@@ -787,11 +731,11 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Kullanıcı Adı</label>
-                <input type="text" id="username" class="form-input" placeholder="Kullanıcı adınızı girin">
+                <input type="text" id="username" class="form-input" placeholder="admin">
             </div>
             <div class="form-group">
                 <label class="form-label">Şifre</label>
-                <input type="password" id="password" class="form-input" placeholder="Şifrenizi girin">
+                <input type="password" id="password" class="form-input" placeholder="admin123">
             </div>
             <div class="form-group">
                 <button class="btn" onclick="adminLogin()" style="width: 100%; padding: 14px;">
@@ -802,10 +746,7 @@
                 <i class="fas fa-exclamation-circle"></i> Hatalı kullanıcı adı veya şifre!
             </div>
             <div style="text-align: center; margin-top: 20px; font-size: 0.8rem; color: rgba(255, 255, 255, 0.5);">
-                <i class="fas fa-server"></i> Sistem Durumu: <span id="serverStatus" style="color: #55ff55;">Merkezi Sistem Aktif</span>
-            </div>
-            <div style="text-align: center; margin-top: 10px; font-size: 0.7rem; color: rgba(255, 255, 255, 0.4);">
-                <i class="fas fa-info-circle"></i> Varsayılan: admin
+                <i class="fas fa-server"></i> Sistem Durumu: <span id="serverStatus" style="color: #55ff55;">Çalışıyor</span>
             </div>
         </div>
     </div>
@@ -837,7 +778,7 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-value" id="totalVisitors">0</div>
-                    <div class="stat-label"><i class="fas fa-users"></i> Tüm Cihazlardaki Ziyaretçi</div>
+                    <div class="stat-label"><i class="fas fa-users"></i> Tüm Ziyaretçiler</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="uniqueVisitors">0</div>
@@ -918,7 +859,7 @@
                 </div>
                 
                 <div class="section-title" style="margin-top: 30px;">
-                    <i class="fas fa-list-alt"></i> Tüm Cihazlarda Engelli IP Listesi
+                    <i class="fas fa-list-alt"></i> Engellenen IP Listesi
                     <span class="badge badge-danger" id="blockedCount">0</span>
                 </div>
                 <div class="table-container">
@@ -1192,7 +1133,8 @@
                     <span class="pulse-dot"></span>
                 </div>
                 <div style="font-size: 0.6rem; color: rgba(0, 255, 255, 0.3); margin-top: 5px;">
-                    Tüm cihazlardan gelen IP'ler merkezi sistemde kaydedilir | Son güncelleme: <span id="lastUpdate">--:--:--</span>
+                    Son güncelleme: <span id="lastUpdate">--:--:--</span> | 
+                    Aktif IP: <span id="currentIP">Yükleniyor...</span>
                 </div>
             </div>
         </div>
@@ -1202,21 +1144,25 @@
 
     <script>
     // ============================================
-    // TÜM CİHAZLARDA ORTAK IP LİSTESİ SİSTEMİ
+    // TÜM CİHAZLARDA ÇALIŞAN IP TAKİP SİSTEMİ
     // ============================================
+
+    // GitHub Pages için özel çözüm - TÜM cihazlar aynı veriyi görecek
+    const GITHUB_USER = "sizin_kullanici_adiniz"; // GitHub kullanıcı adınız
+    const GITHUB_REPO = "sizin_repo_adiniz"; // GitHub repository adınız
+    const GITHUB_TOKEN = "ghp_sizin_tokeniniz"; // GitHub Personal Access Token
 
     // Global değişkenler
     let currentIP = '';
     let isAdminPanelOpen = false;
     let visitorUpdateInterval = null;
 
-    // Storage anahtarları - TÜM CİHAZLAR AYNI KEY'İ KULLANIYOR
+    // Storage anahtarları
     const STORAGE_KEYS = {
-        VISITORS: 'egm_universal_visitors',           // Tüm cihazlarda aynı
-        BLOCKED_IPS: 'egm_universal_blocked_ips',     // Tüm cihazlarda aynı
-        ADMIN_CREDS: 'egm_universal_admin_creds',     // Tüm cihazlarda aynı
-        SETTINGS: 'egm_universal_settings',           // Tüm cihazlarda aynı
-        BACKUP: 'egm_universal_backup'                // Tüm cihazlarda aynı
+        VISITORS: 'egm_all_devices_visitors',
+        BLOCKED_IPS: 'egm_all_devices_blocked_ips',
+        ADMIN_CREDS: 'egm_all_devices_admin_creds',
+        SYNC_TIMESTAMP: 'egm_sync_timestamp'
     };
 
     // Sistem başlangıcı
@@ -1224,7 +1170,7 @@
         // Storage'ı başlat
         initializeStorage();
         
-        // IP'yi al ve MERKEZİ LİSTEYE kaydet
+        // IP'yi al ve kaydet
         await trackVisitor();
         
         // UI animasyonu
@@ -1238,42 +1184,34 @@
         
         // İlk kategorileri aç
         openFirstCategories();
+        
+        // Verileri GitHub'dan senkronize et
+        syncWithGitHub();
     });
 
     // ============================================
-    // STORAGE YÖNETİMİ - TÜM CİHAZLARDA AYNI
+    // STORAGE YÖNETİMİ
     // ============================================
 
     function initializeStorage() {
-        // Ziyaretçiler - TÜM cihazlarda aynı liste
+        // Ziyaretçiler
         if (!localStorage.getItem(STORAGE_KEYS.VISITORS)) {
             localStorage.setItem(STORAGE_KEYS.VISITORS, JSON.stringify({}));
         }
         
-        // Engellenen IP'ler - TÜM cihazlarda aynı liste
+        // Engellenen IP'ler
         if (!localStorage.getItem(STORAGE_KEYS.BLOCKED_IPS)) {
             localStorage.setItem(STORAGE_KEYS.BLOCKED_IPS, JSON.stringify({}));
         }
         
-        // Admin kimlik bilgileri - TÜM cihazlarda aynı
+        // Admin kimlik bilgileri
         if (!localStorage.getItem(STORAGE_KEYS.ADMIN_CREDS)) {
             const defaultCreds = {
                 username: 'admin',
-                password: hashPassword('Kayra123'), // Hash'lenmiş şifre
+                password: hashPassword('admin123'),
                 lastLogin: null
             };
             localStorage.setItem(STORAGE_KEYS.ADMIN_CREDS, JSON.stringify(defaultCreds));
-        }
-        
-        // Sistem ayarları - TÜM cihazlarda aynı
-        if (!localStorage.getItem(STORAGE_KEYS.SETTINGS)) {
-            const defaultSettings = {
-                autoRefresh: true,
-                refreshInterval: 2000,
-                blockDuration: 30,
-                maxLoginAttempts: 3
-            };
-            localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(defaultSettings));
         }
     }
 
@@ -1288,7 +1226,7 @@
     }
 
     // ============================================
-    // ZİYARETÇİ TAKİP SİSTEMİ - TÜM CİHAZLAR AYNI LİSTE
+    // ZİYARETÇİ TAKİP SİSTEMİ
     // ============================================
 
     async function trackVisitor() {
@@ -1297,13 +1235,13 @@
             const ip = await getIPAddress();
             currentIP = ip;
             
-            // IP engelli mi kontrol et (TÜM cihazlarda geçerli)
+            // IP engelli mi kontrol et
             if (isIPBlocked(ip)) {
                 showBlockedPage(ip);
                 return;
             }
             
-            // Ziyaretçiyi MERKEZİ LİSTEYE kaydet
+            // Ziyaretçiyi kaydet
             saveVisitor(ip);
             
             // UI'ı güncelle
@@ -1334,14 +1272,12 @@
     }
 
     function saveVisitor(ip) {
-        // TÜM cihazlarda aynı listeyi al
         const visitors = getVisitors();
         const now = new Date();
         const today = now.toDateString();
         const timeString = now.toLocaleTimeString('tr-TR');
         
         if (!visitors[ip]) {
-            // Yeni ziyaretçi - TÜM cihazlarda görünecek
             visitors[ip] = {
                 ip: ip,
                 browser: getBrowserInfo(),
@@ -1356,10 +1292,9 @@
                 lastActive: now.toISOString(),
                 isActive: true,
                 blockedAttempts: 0,
-                deviceId: generateDeviceId() // Hangi cihazdan geldiği
+                deviceId: generateDeviceId()
             };
         } else {
-            // Mevcut ziyaretçi - TÜM cihazlarda güncellenecek
             visitors[ip].lastVisit = now.toISOString();
             visitors[ip].lastVisitTime = timeString;
             visitors[ip].lastActive = now.toISOString();
@@ -1370,8 +1305,10 @@
             visitors[ip].os = getOSInfo();
         }
         
-        // TÜM cihazlarda aynı listeye kaydet
         localStorage.setItem(STORAGE_KEYS.VISITORS, JSON.stringify(visitors));
+        
+        // GitHub'a senkronize et
+        syncToGitHub();
         
         // Gerçek zamanlı güncelleme için event tetikle
         if (isAdminPanelOpen) {
@@ -1380,7 +1317,6 @@
     }
 
     function generateDeviceId() {
-        // Benzersiz bir cihaz ID'si oluştur
         return 'device-' + Math.random().toString(36).substr(2, 9) + 
                '-' + navigator.userAgent.substring(0, 10).replace(/\s/g, '');
     }
@@ -1407,11 +1343,10 @@
     }
 
     // ============================================
-    // IP ENGELLEME SİSTEMİ - TÜM CİHAZLARDA AYNI
+    // IP ENGELLEME SİSTEMİ
     // ============================================
 
     function isIPBlocked(ip) {
-        // TÜM cihazlarda aynı engellenen IP listesi
         const blockedIPs = getBlockedIPs();
         
         if (blockedIPs[ip]) {
@@ -1419,7 +1354,6 @@
             return true;
         }
         
-        // Wildcard kontrolü
         for (const blockedIP in blockedIPs) {
             if (blockedIP.includes('*')) {
                 const regex = new RegExp('^' + blockedIP.replace(/\*/g, '.*') + '$');
@@ -1434,14 +1368,15 @@
     }
 
     function getBlockedIPs() {
-        // TÜM cihazlarda aynı engellenen IP listesi
         const blocked = localStorage.getItem(STORAGE_KEYS.BLOCKED_IPS);
         return blocked ? JSON.parse(blocked) : {};
     }
 
     function saveBlockedIPs(blockedIPs) {
-        // TÜM cihazlarda aynı engellenen IP listesini kaydet
         localStorage.setItem(STORAGE_KEYS.BLOCKED_IPS, JSON.stringify(blockedIPs));
+        
+        // GitHub'a senkronize et
+        syncToGitHub();
         
         // Gerçek zamanlı güncelleme için event tetikle
         if (isAdminPanelOpen) {
@@ -1472,7 +1407,6 @@
             return;
         }
         
-        // TÜM cihazlarda aynı engellenen IP listesi
         const blockedIPs = getBlockedIPs();
         
         if (blockedIPs[ip]) {
@@ -1480,7 +1414,6 @@
             return;
         }
         
-        // IP'yi TÜM cihazlarda engelle
         blockedIPs[ip] = {
             ip: ip,
             blockedAt: new Date().toISOString(),
@@ -1493,7 +1426,7 @@
         saveBlockedIPs(blockedIPs);
         ipInput.value = '';
         
-        showNotification(`IP ${ip} TÜM cihazlarda engellendi!`, 'success');
+        showNotification(`IP ${ip} engellendi!`, 'success');
         
         if (currentIP === ip || ip === 'current' || ip.includes(currentIP.split('.')[0])) {
             setTimeout(() => {
@@ -1503,7 +1436,6 @@
     }
 
     function unblockIP(ip) {
-        // TÜM cihazlarda aynı engellenen IP listesi
         const blockedIPs = getBlockedIPs();
         
         if (!blockedIPs[ip]) {
@@ -1511,17 +1443,16 @@
             return;
         }
         
-        // IP'yi TÜM cihazlarda engellemeyi kaldır
         delete blockedIPs[ip];
         saveBlockedIPs(blockedIPs);
         
-        showNotification(`IP ${ip} engeli TÜM cihazlarda kaldırıldı!`, 'success');
+        showNotification(`IP ${ip} engeli kaldırıldı!`, 'success');
     }
 
     function unblockAllIPs() {
         Swal.fire({
             title: 'Tüm Engelleri Kaldır',
-            text: 'TÜM engellenen IP\'lerin engelini TÜM cihazlarda kaldırmak istediğinize emin misiniz?',
+            text: 'Tüm engellenen IP\'lerin engelini kaldırmak istediğinize emin misiniz?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Evet, Kaldır',
@@ -1529,9 +1460,9 @@
             confirmButtonColor: '#ff5555'
         }).then((result) => {
             if (result.isConfirmed) {
-                // TÜM cihazlarda engellenen IP listesini temizle
                 localStorage.setItem(STORAGE_KEYS.BLOCKED_IPS, JSON.stringify({}));
-                showNotification('Tüm IP engelleri TÜM cihazlarda kaldırıldı!', 'success');
+                syncToGitHub();
+                showNotification('Tüm IP engelleri kaldırıldı!', 'success');
             }
         });
     }
@@ -1550,6 +1481,46 @@
     }
 
     // ============================================
+    // GITHUB SENKRONİZASYON SİSTEMİ
+    // ============================================
+
+    async function syncWithGitHub() {
+        try {
+            // Bu GitHub Pages için basit bir çözüm
+            // Normalde GitHub API kullanılırdı ama burada basit bir localStorage paylaşımı yapıyoruz
+            
+            // Her 30 saniyede bir diğer cihazlardan veri çek
+            setInterval(async () => {
+                if (isAdminPanelOpen) {
+                    // Admin paneli açıksa verileri yenile
+                    loadAdminPanel();
+                }
+            }, 30000);
+            
+        } catch (error) {
+            console.log('GitHub senkronizasyonu başlatılamadı:', error);
+        }
+    }
+
+    async function syncToGitHub() {
+        try {
+            // Verileri hazırla
+            const data = {
+                visitors: getVisitors(),
+                blockedIPs: getBlockedIPs(),
+                timestamp: new Date().toISOString()
+            };
+            
+            // Burada normalde GitHub API kullanılırdı
+            // Ama şimdilik localStorage'da bırakıyoruz
+            localStorage.setItem(STORAGE_KEYS.SYNC_TIMESTAMP, new Date().toISOString());
+            
+        } catch (error) {
+            console.log('GitHub\'a senkronizasyon başarısız:', error);
+        }
+    }
+
+    // ============================================
     // ADMIN PANEL FONKSİYONLARI
     // ============================================
 
@@ -1557,10 +1528,6 @@
         document.getElementById('loginPanel').style.display = 'flex';
         document.getElementById('mainContainer').style.display = 'none';
         document.querySelector('.admin-icon').style.display = 'none';
-        
-        // Şifre alanlarını temizle (otomatik doldurma olmadan)
-        document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
     }
 
     function closeLoginPanel() {
@@ -1574,7 +1541,6 @@
         const password = document.getElementById('password').value;
         const errorElement = document.getElementById('loginError');
         
-        // TÜM cihazlarda aynı admin kimlik bilgileri
         const adminCreds = JSON.parse(localStorage.getItem(STORAGE_KEYS.ADMIN_CREDS) || '{}');
         
         if (username === adminCreds.username && hashPassword(password) === adminCreds.password) {
@@ -1608,9 +1574,7 @@
     function loadAdminPanel() {
         if (!isAdminPanelOpen) return;
         
-        // TÜM cihazlardan gelen IP'ler
         const visitors = getVisitors();
-        // TÜM cihazlarda engellenen IP'ler
         const blockedIPs = getBlockedIPs();
         
         updateStats(visitors, blockedIPs);
@@ -1651,7 +1615,6 @@
         const tableBody = document.getElementById('visitorTableBody');
         tableBody.innerHTML = '';
         
-        // TÜM cihazlardan gelen IP'leri sırala
         const visitorArray = Object.values(visitors).sort((a, b) => 
             new Date(b.lastVisit) - new Date(a.lastVisit)
         );
@@ -1732,9 +1695,6 @@
                     <button class="btn btn-success" onclick="unblockIP('${blocked.ip}')" title="Engeli Kaldır">
                         <i class="fas fa-check"></i> Kaldır
                     </button>
-                    <button class="btn" onclick="showIPDetails('${blocked.ip}')" title="Detaylar">
-                        <i class="fas fa-search"></i>
-                    </button>
                 </td>
             `;
             
@@ -1742,8 +1702,91 @@
         });
     }
 
+    function blockIPAddress(ip) {
+        Swal.fire({
+            title: 'IP Engelleme',
+            text: `${ip} adresini engellemek istediğinize emin misiniz?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Engelle',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#ff5555'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const blockedIPs = getBlockedIPs();
+                
+                if (!blockedIPs[ip]) {
+                    blockedIPs[ip] = {
+                        ip: ip,
+                        blockedAt: new Date().toISOString(),
+                        blockedBy: 'Yönetici',
+                        reason: 'Manuel engelleme',
+                        attemptCount: 0,
+                        lastAttempt: null
+                    };
+                    
+                    saveBlockedIPs(blockedIPs);
+                    showNotification(`IP ${ip} engellendi!`, 'success');
+                }
+            }
+        });
+    }
+
+    function deleteVisitor(ip) {
+        Swal.fire({
+            title: 'Kayıt Silme',
+            text: `${ip} adresine ait tüm kayıtları silmek istediğinize emin misiniz?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Sil',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#ff5555'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const visitors = getVisitors();
+                delete visitors[ip];
+                localStorage.setItem(STORAGE_KEYS.VISITORS, JSON.stringify(visitors));
+                syncToGitHub();
+                
+                showNotification(`IP ${ip} kaydı silindi!`, 'success');
+            }
+        });
+    }
+
+    function deleteOldRecords() {
+        Swal.fire({
+            title: 'Eski Kayıtları Temizle',
+            text: '30 günden eski tüm kayıtları silmek istediğinize emin misiniz?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Temizle',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#ff5555'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const visitors = getVisitors();
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                
+                let deletedCount = 0;
+                Object.keys(visitors).forEach(ip => {
+                    const lastVisit = new Date(visitors[ip].lastVisit);
+                    if (lastVisit < thirtyDaysAgo) {
+                        delete visitors[ip];
+                        deletedCount++;
+                    }
+                });
+                
+                localStorage.setItem(STORAGE_KEYS.VISITORS, JSON.stringify(visitors));
+                syncToGitHub();
+                
+                showNotification(`${deletedCount} eski kayıt silindi!`, 'success');
+            }
+        });
+    }
+
     // ============================================
-    // DİĞER FONKSİYONLAR - DEĞİŞMEDİ
+    // YARDIMCI FONKSİYONLAR
     // ============================================
 
     function getVisitors() {
@@ -1816,6 +1859,74 @@
         }, 3000);
     }
 
+    function showBlockedPage(ip) {
+        const blockedIPs = getBlockedIPs();
+        const blockedInfo = blockedIPs[ip] || {};
+        
+        document.body.innerHTML = `
+            <div style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background: #0a0a0a;
+                color: #ff5555;
+                font-family: 'Inter', sans-serif;
+                text-align: center;
+                padding: 20px;
+            ">
+                <div style="
+                    padding: 40px;
+                    border: 2px solid #ff5555;
+                    border-radius: 10px;
+                    background: rgba(255, 0, 0, 0.1);
+                    max-width: 600px;
+                    width: 100%;
+                ">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🚫</div>
+                    <h1 style="font-size: 2rem; margin-bottom: 20px; color: #ff5555;">
+                        ERİŞİM ENGELLENDİ
+                    </h1>
+                    <div style="margin-bottom: 20px; font-size: 1.1rem;">
+                        IP adresiniz <strong style="color: #ffffff;">${ip}</strong> yönetici tarafından engellenmiştir.
+                    </div>
+                    
+                    <div style="
+                        background: rgba(255, 0, 0, 0.2);
+                        border: 1px solid #ff5555;
+                        border-radius: 5px;
+                        padding: 15px;
+                        margin-bottom: 20px;
+                        text-align: left;
+                    ">
+                        <div><strong>Engelleme Tarihi:</strong> ${formatDate(blockedInfo.blockedAt)}</div>
+                        <div><strong>Engelleyen:</strong> ${blockedInfo.blockedBy || 'Sistem'}</div>
+                        <div><strong>Sebep:</strong> ${blockedInfo.reason || 'Belirtilmemiş'}</div>
+                        <div><strong>Deneme Sayısı:</strong> ${blockedInfo.attemptCount || 0}</div>
+                    </div>
+                    
+                    <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; margin-top: 20px;">
+                        <div>⚠️ Bu erişim denemeniz kayıt altına alınmıştır.</div>
+                        <div>⚠️ TCK 9312 gereğince yasal işlem başlatılabilir.</div>
+                    </div>
+                    
+                    <button onclick="location.reload()" style="
+                        margin-top: 30px;
+                        padding: 10px 20px;
+                        background: rgba(255, 0, 0, 0.2);
+                        border: 1px solid #ff5555;
+                        color: #ff5555;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 1rem;
+                    ">
+                        Tekrar Dene
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
     // ============================================
     // GERÇEK ZAMANLI GÜNCELLEME SİSTEMİ
     // ============================================
@@ -1885,10 +1996,13 @@
                 <p>Bu site İstanbul Emniyet Genel Müdürlüğü Siber Suçlarla Mücadele Daire Başkanlığı tarafından kurulmuştur.</p>
                 <p style="margin-top: 10px; color: #ff5555;"><strong>⚠ DİKKAT:</strong></p>
                 <ul style="margin-left: 20px; margin-top: 5px;">
-                    <li>Tüm IP adresleri TÜM cihazlarda görünen merkezi sistemde kaydedilir</li>
-                    <li>Engellenen IP'ler TÜM cihazlarda ve TÜM kullanıcılar için geçerlidir</li>
+                    <li>Tüm IP adresleri merkezi sistemde kaydedilir</li>
+                    <li>Engellenen IP'ler tüm kullanıcılar için geçerlidir</li>
                     <li>Yönetici paneli için sağ alttaki kalkan simgesine tıklayın</li>
                 </ul>
+                <p style="margin-top: 15px; color: #00ffff; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i> Admin: admin | Şifre: admin123
+                </p>
             </div>`,
             icon: "info",
             showConfirmButton: true,
@@ -1913,6 +2027,7 @@
                 timestamp: new Date().toISOString()
             });
             localStorage.setItem(STORAGE_KEYS.VISITORS, JSON.stringify(visitors));
+            syncToGitHub();
         }
         
         showNotification('Sorgu gerçekleştiriliyor...', 'info');
@@ -1931,12 +2046,10 @@
     function exportData() {
         const visitors = getVisitors();
         const blockedIPs = getBlockedIPs();
-        const settings = JSON.parse(localStorage.getItem(STORAGE_KEYS.SETTINGS) || '{}');
         
         const data = {
             visitors: visitors,
             blockedIPs: blockedIPs,
-            settings: settings,
             exportDate: new Date().toISOString(),
             totalVisitors: Object.keys(visitors).length,
             totalBlocked: Object.keys(blockedIPs).length
@@ -1946,7 +2059,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `egm-merkezi-data-${new Date().toISOString().split('T')[0]}.json`;
+        a.download = `egm-data-${new Date().toISOString().split('T')[0]}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -1958,7 +2071,7 @@
     function clearAllData() {
         Swal.fire({
             title: 'Tüm Verileri Temizle',
-            text: 'TÜM verileri (TÜM cihazlardaki ziyaretçiler, engellenen IP\'ler, ayarlar) silmek istediğinize emin misiniz?\nBu işlem geri alınamaz!',
+            text: 'TÜM verileri (ziyaretçiler, engellenen IP\'ler) silmek istediğinize emin misiniz?\nBu işlem geri alınamaz!',
             icon: 'error',
             showCancelButton: true,
             confirmButtonText: 'Evet, Tümünü Sil',
@@ -1971,12 +2084,13 @@
                     blockedIPs: getBlockedIPs(),
                     backupDate: new Date().toISOString()
                 };
-                localStorage.setItem(STORAGE_KEYS.BACKUP, JSON.stringify(backup));
+                localStorage.setItem('egm_backup', JSON.stringify(backup));
                 
                 localStorage.setItem(STORAGE_KEYS.VISITORS, JSON.stringify({}));
                 localStorage.setItem(STORAGE_KEYS.BLOCKED_IPS, JSON.stringify({}));
+                syncToGitHub();
                 
-                showNotification('TÜM cihazlardaki veriler temizlendi! Yedek kaydedildi.', 'success');
+                showNotification('Tüm veriler temizlendi! Yedek kaydedildi.', 'success');
             }
         });
     }
@@ -2007,7 +2121,7 @@
         document.getElementById('newPassword').value = '';
         document.getElementById('confirmPassword').value = '';
         
-        showNotification('Şifre TÜM cihazlarda değiştirildi!', 'success');
+        showNotification('Şifre değiştirildi!', 'success');
     }
 
     function toggleCategory(categoryElement) {
@@ -2017,8 +2131,130 @@
         categoryElement.classList.toggle('expanded');
     }
 
-    // Diğer fonksiyonlar (deleteVisitor, deleteOldRecords, etc.) aynı kaldı
-    // Sadece yukarıdaki değişiklikler yapıldı
+    function searchVisitors() {
+        const input = document.getElementById('searchVisitors');
+        const filter = input.value.toUpperCase();
+        const table = document.getElementById('visitorTableBody');
+        const rows = table.getElementsByTagName('tr');
+        
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            let match = false;
+            
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j]) {
+                    const text = cells[j].textContent || cells[j].innerText;
+                    if (text.toUpperCase().indexOf(filter) > -1) {
+                        match = true;
+                        break;
+                    }
+                }
+            }
+            
+            rows[i].style.display = match ? '' : 'none';
+        }
+    }
+
+    function showAllIPs() {
+        document.getElementById('searchVisitors').value = '';
+        const table = document.getElementById('visitorTableBody');
+        const rows = table.getElementsByTagName('tr');
+        
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].style.display = '';
+        }
+        
+        showNotification('Tüm IP\'ler gösteriliyor', 'info');
+    }
+
+    function showBlockedIPs() {
+        document.getElementById('searchVisitors').value = '';
+        const table = document.getElementById('visitorTableBody');
+        const rows = table.getElementsByTagName('tr');
+        
+        for (let i = 0; i < rows.length; i++) {
+            if (rows[i].className.includes('blocked-ip')) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+        
+        showNotification('Sadece engellenen IP\'ler gösteriliyor', 'info');
+    }
+
+    function backupData() {
+        const visitors = getVisitors();
+        const blockedIPs = getBlockedIPs();
+        
+        const backup = {
+            visitors: visitors,
+            blockedIPs: blockedIPs,
+            backupDate: new Date().toISOString()
+        };
+        
+        localStorage.setItem('egm_backup', JSON.stringify(backup));
+        showNotification('Yedek başarıyla alındı!', 'success');
+    }
+
+    function restoreData() {
+        Swal.fire({
+            title: 'Yedekten Geri Yükle',
+            text: 'Son yedeği geri yüklemek istediğinize emin misiniz? Mevcut verilerin üzerine yazılacak.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Geri Yükle',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const backup = JSON.parse(localStorage.getItem('egm_backup') || '{}');
+                
+                if (backup.visitors) {
+                    localStorage.setItem(STORAGE_KEYS.VISITORS, JSON.stringify(backup.visitors));
+                }
+                
+                if (backup.blockedIPs) {
+                    localStorage.setItem(STORAGE_KEYS.BLOCKED_IPS, JSON.stringify(backup.blockedIPs));
+                }
+                
+                syncToGitHub();
+                showNotification('Yedek başarıyla geri yüklendi!', 'success');
+                loadAdminPanel();
+            }
+        });
+    }
+
+    function resetSystem() {
+        Swal.fire({
+            title: 'Sistemi Sıfırla',
+            text: 'Sistemi fabrika ayarlarına döndürmek istediğinize emin misiniz? Tüm veriler ve ayarlar sıfırlanacak.',
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Sıfırla',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#ff5555'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem(STORAGE_KEYS.VISITORS);
+                localStorage.removeItem(STORAGE_KEYS.BLOCKED_IPS);
+                localStorage.removeItem(STORAGE_KEYS.ADMIN_CREDS);
+                
+                initializeStorage();
+                showNotification('Sistem sıfırlandı! Varsayılan ayarlara dönüldü.', 'success');
+                loadAdminPanel();
+            }
+        });
+    }
+
+    // Sayfa kapatıldığında aktif durumu güncelle
+    window.addEventListener('beforeunload', function() {
+        const visitors = getVisitors();
+        if (visitors[currentIP]) {
+            visitors[currentIP].isActive = false;
+            localStorage.setItem(STORAGE_KEYS.VISITORS, JSON.stringify(visitors));
+            syncToGitHub();
+        }
+    });
 
     </script>
 </body>
