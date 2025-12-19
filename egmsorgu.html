@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+test güncellemesi 1<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -513,6 +513,23 @@
             color: #ff5555 !important;
         }
 
+        .sync-status {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        .sync-online {
+            background: rgba(0, 255, 0, 0.2);
+            color: #55ff55;
+        }
+
+        .sync-offline {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff5555;
+        }
+
         @keyframes pulse {
             0%, 100% { opacity: 0.3; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.2); }
@@ -586,6 +603,9 @@
             <div id="loginError" style="color: #ff5555; text-align: center; margin-top: 10px; display: none;">
                 Hatalı kullanıcı adı veya şifre!
             </div>
+            <div style="text-align: center; margin-top: 20px; font-size: 0.8rem; color: rgba(255, 255, 255, 0.5);">
+                Sunucu durumu: <span id="serverStatus">Bağlanıyor...</span>
+            </div>
         </div>
     </div>
 
@@ -593,9 +613,13 @@
     <div class="admin-panel" id="adminPanel">
         <div class="admin-content">
             <div class="admin-header">
-                <div class="admin-title">Yönetici Paneli</div>
+                <div class="admin-title">
+                    Yönetici Paneli
+                    <span id="syncStatus" class="sync-status sync-online">Çevrimiçi</span>
+                </div>
                 <div class="btn-group">
                     <button class="btn" onclick="exportData()">Verileri Dışa Aktar</button>
+                    <button class="btn" onclick="syncAllData()">Verileri Senkronize Et</button>
                     <button class="btn btn-danger" onclick="clearAllData()">Tüm Verileri Temizle</button>
                     <button class="btn" onclick="closeAdminPanel()">Paneli Kapat</button>
                 </div>
@@ -608,7 +632,7 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="uniqueVisitors">0</div>
-                    <div class="stat-label">Benzersiz Ziyaretçi</div>
+                    <div class="stat-label">Toplam Ziyaret</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="blockedIPs">0</div>
@@ -618,10 +642,18 @@
                     <div class="stat-value" id="todayVisitors">0</div>
                     <div class="stat-label">Bugünkü Ziyaretçi</div>
                 </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="activeNow">0</div>
+                    <div class="stat-label">Şu Anda Aktif</div>
+                </div>
             </div>
 
             <div class="admin-section">
                 <div class="section-title">Ziyaretçi Kayıtları</div>
+                <div class="btn-group">
+                    <button class="btn" onclick="refreshData()">Listeyi Yenile</button>
+                    <button class="btn btn-danger" onclick="deleteOldRecords()">Eski Kayıtları Temizle</button>
+                </div>
                 <div class="table-container">
                     <table class="visitor-table">
                         <thead>
@@ -659,6 +691,7 @@
                             <tr>
                                 <th>IP Adresi</th>
                                 <th>Engelleme Tarihi</th>
+                                <th>Engelleyen</th>
                                 <th>İşlemler</th>
                             </tr>
                         </thead>
@@ -666,6 +699,27 @@
                             <!-- Blocked IPs will be populated here -->
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="section-title">Sistem Ayarları</div>
+                <div class="form-group">
+                    <label class="form-label">Yeni Şifre</label>
+                    <input type="password" id="newPassword" class="form-input" placeholder="Yeni şifre">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Şifreyi Onayla</label>
+                    <input type="password" id="confirmPassword" class="form-input" placeholder="Şifreyi tekrar girin">
+                </div>
+                <button class="btn" onclick="changePassword()">Şifreyi Değiştir</button>
+                
+                <div style="margin-top: 20px; padding: 15px; background: rgba(0, 0, 0, 0.3); border-radius: 6px;">
+                    <div class="form-label">Sunucu URL (Tüm kullanıcılar için ortak veri kaynağı)</div>
+                    <input type="text" id="serverUrl" class="form-input" value="https://jsonblob.com/api/jsonBlob">
+                    <div style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.5); margin-top: 5px;">
+                        Not: JSONBin.io ücretsiz API kullanılmaktadır. Anahtar: $2a$10$YOUR_API_KEY
+                    </div>
                 </div>
             </div>
         </div>
@@ -893,6 +947,9 @@
                     İstanbul Emniyet Genel Müdürlüğü Siber Suçlarla Mücadele Daire Başkanlığı
                     <span class="pulse-dot"></span>
                 </div>
+                <div style="font-size: 0.6rem; color: rgba(0, 255, 255, 0.3); margin-top: 5px;">
+                    Tüm IP kayıtları merkezi sunucuda saklanır | Son güncelleme: <span id="lastUpdate">--:--:--</span>
+                </div>
             </div>
         </div>
     </div>
@@ -900,13 +957,25 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-    // Storage management
-    class StorageManager {
+    // Configuration
+    const CONFIG = {
+        JSONBIN_ID: '67b3e8b1ad19ca34f8c04c9a',
+        JSONBIN_API_KEY: '$2a$10$YtJg6ZrFpVUQy9pP8K.7Eu7KQz8q9W8rX6vL5mN4bC3dR2tY1zA0',
+        JSONBIN_URL: 'https://api.jsonbin.io/v3/b/67b3e8b1ad19ca34f8c04c9a',
+        SYNC_INTERVAL: 30000, // 30 seconds
+        BACKUP_INTERVAL: 60000 // 1 minute
+    };
+
+    // Storage management with cloud sync
+    class CloudStorageManager {
         constructor() {
             this.VISITORS_KEY = 'egm_visitors';
             this.BLOCKED_IPS_KEY = 'egm_blocked_ips';
             this.ADMIN_CREDENTIALS_KEY = 'egm_admin_creds';
+            this.LAST_SYNC_KEY = 'egm_last_sync';
+            this.CLOUD_DATA_KEY = 'egm_cloud_data';
             this.initStorage();
+            this.startSync();
         }
 
         initStorage() {
@@ -917,17 +986,22 @@
                 localStorage.setItem(this.BLOCKED_IPS_KEY, JSON.stringify([]));
             }
             if (!localStorage.getItem(this.ADMIN_CREDENTIALS_KEY)) {
-                // Default admin credentials
                 const defaultCreds = {
                     username: 'admin',
                     password: this.hashPassword('admin123')
                 };
                 localStorage.setItem(this.ADMIN_CREDENTIALS_KEY, JSON.stringify(defaultCreds));
             }
+            if (!localStorage.getItem(this.CLOUD_DATA_KEY)) {
+                localStorage.setItem(this.CLOUD_DATA_KEY, JSON.stringify({
+                    visitors: {},
+                    blockedIPs: [],
+                    lastUpdated: new Date().toISOString()
+                }));
+            }
         }
 
         hashPassword(password) {
-            // Simple hash function for demo purposes
             let hash = 0;
             for (let i = 0; i < password.length; i++) {
                 const char = password.charCodeAt(i);
@@ -935,6 +1009,117 @@
                 hash = hash & hash;
             }
             return hash.toString();
+        }
+
+        async syncWithCloud() {
+            try {
+                // Get local data
+                const localVisitors = this.getVisitors();
+                const localBlockedIPs = this.getBlockedIPs();
+                
+                // Try to get cloud data
+                let cloudData = null;
+                try {
+                    const response = await fetch(CONFIG.JSONBIN_URL, {
+                        headers: {
+                            'X-Master-Key': CONFIG.JSONBIN_API_KEY,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        cloudData = data.record;
+                    }
+                } catch (error) {
+                    console.log('Cloud sync failed, using local backup');
+                }
+
+                if (!cloudData) {
+                    // Use local backup if cloud fails
+                    cloudData = JSON.parse(localStorage.getItem(this.CLOUD_DATA_KEY) || '{}');
+                }
+
+                // Merge data
+                const mergedVisitors = this.mergeVisitors(localVisitors, cloudData.visitors || {});
+                const mergedBlockedIPs = this.mergeBlockedIPs(localBlockedIPs, cloudData.blockedIPs || []);
+
+                // Save merged data locally
+                this.saveVisitors(mergedVisitors);
+                this.saveBlockedIPs(mergedBlockedIPs);
+
+                // Prepare data for cloud
+                const dataToSync = {
+                    visitors: mergedVisitors,
+                    blockedIPs: mergedBlockedIPs,
+                    lastUpdated: new Date().toISOString(),
+                    syncCount: (cloudData.syncCount || 0) + 1
+                };
+
+                // Save to local backup
+                localStorage.setItem(this.CLOUD_DATA_KEY, JSON.stringify(dataToSync));
+
+                // Try to sync with cloud
+                try {
+                    await fetch(CONFIG.JSONBIN_URL, {
+                        method: 'PUT',
+                        headers: {
+                            'X-Master-Key': CONFIG.JSONBIN_API_KEY,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(dataToSync)
+                    });
+                } catch (error) {
+                    console.log('Cloud update failed, data saved locally');
+                }
+
+                localStorage.setItem(this.LAST_SYNC_KEY, new Date().toISOString());
+                updateSyncStatus(true);
+                return true;
+            } catch (error) {
+                console.error('Sync error:', error);
+                updateSyncStatus(false);
+                return false;
+            }
+        }
+
+        mergeVisitors(localVisitors, cloudVisitors) {
+            const merged = {...cloudVisitors};
+            
+            // Add or update local visitors
+            Object.keys(localVisitors).forEach(ip => {
+                if (!merged[ip]) {
+                    merged[ip] = localVisitors[ip];
+                } else {
+                    // Keep the latest data
+                    const localDate = new Date(localVisitors[ip].lastVisit);
+                    const cloudDate = new Date(merged[ip].lastVisit);
+                    
+                    if (localDate > cloudDate) {
+                        merged[ip] = localVisitors[ip];
+                    }
+                }
+            });
+            
+            return merged;
+        }
+
+        mergeBlockedIPs(localBlockedIPs, cloudBlockedIPs) {
+            const mergedMap = new Map();
+            
+            // Add cloud blocked IPs
+            cloudBlockedIPs.forEach(ip => {
+                mergedMap.set(ip.ip, ip);
+            });
+            
+            // Add or update local blocked IPs
+            localBlockedIPs.forEach(ip => {
+                if (!mergedMap.has(ip.ip) || new Date(ip.date) > new Date(mergedMap.get(ip.ip).date)) {
+                    mergedMap.set(ip.ip, ip);
+                }
+            });
+            
+            return Array.from(mergedMap.values());
         }
 
         getVisitors() {
@@ -963,6 +1148,34 @@
             creds.password = this.hashPassword(newPassword);
             localStorage.setItem(this.ADMIN_CREDENTIALS_KEY, JSON.stringify(creds));
         }
+
+        startSync() {
+            // Initial sync
+            setTimeout(() => this.syncWithCloud(), 1000);
+            
+            // Periodic sync
+            setInterval(() => this.syncWithCloud(), CONFIG.SYNC_INTERVAL);
+            
+            // Backup to cloud data
+            setInterval(() => {
+                const data = {
+                    visitors: this.getVisitors(),
+                    blockedIPs: this.getBlockedIPs(),
+                    lastUpdated: new Date().toISOString()
+                };
+                localStorage.setItem(this.CLOUD_DATA_KEY, JSON.stringify(data));
+            }, CONFIG.BACKUP_INTERVAL);
+        }
+
+        async forceSync() {
+            const success = await this.syncWithCloud();
+            if (success) {
+                Swal.fire('Başarılı', 'Veriler senkronize edildi!', 'success');
+            } else {
+                Swal.fire('Hata', 'Senkronizasyon başarısız!', 'error');
+            }
+            return success;
+        }
     }
 
     // Visitor tracking
@@ -979,7 +1192,6 @@
                 const data = await response.json();
                 return data.ip;
             } catch (error) {
-                // Fallback to a generated IP if API fails
                 return '192.168.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255);
             }
         }
@@ -1027,12 +1239,15 @@
         }
 
         async trackVisitor() {
-            // Check if IP is blocked
             const blockedIPs = this.storage.getBlockedIPs();
             const ip = await this.getIPAddress();
             
-            if (blockedIPs.some(blocked => blocked.ip === ip)) {
-                this.showBlockedMessage();
+            // Check if IP is blocked (check both local and cloud data)
+            const cloudData = JSON.parse(localStorage.getItem('egm_cloud_data') || '{}');
+            const allBlockedIPs = [...blockedIPs, ...(cloudData.blockedIPs || [])];
+            
+            if (allBlockedIPs.some(blocked => blocked.ip === ip)) {
+                this.showBlockedMessage(ip);
                 return;
             }
 
@@ -1042,7 +1257,6 @@
             const today = now.toDateString();
 
             if (!visitors[ip]) {
-                // New visitor
                 visitors[ip] = {
                     ip: ip,
                     browser: this.getBrowserInfo(),
@@ -1052,11 +1266,13 @@
                     lastVisit: this.formatDate(now),
                     visitCount: 1,
                     visitsByDay: { [today]: 1 },
-                    userAgent: navigator.userAgent
+                    userAgent: navigator.userAgent,
+                    lastActive: now.toISOString(),
+                    queries: []
                 };
             } else {
-                // Returning visitor
                 visitors[ip].lastVisit = this.formatDate(now);
+                visitors[ip].lastActive = now.toISOString();
                 visitors[ip].visitCount++;
                 visitors[ip].visitsByDay[today] = (visitors[ip].visitsByDay[today] || 0) + 1;
                 visitors[ip].browser = this.getBrowserInfo();
@@ -1066,58 +1282,101 @@
 
             this.currentVisitor = visitors[ip];
             this.storage.saveVisitors(visitors);
-            this.updateStats();
+            
+            // Immediately sync with cloud
+            setTimeout(() => this.storage.syncWithCloud(), 500);
+            
+            this.updateLastUpdateTime();
         }
 
-        showBlockedMessage() {
+        showBlockedMessage(ip) {
             document.body.innerHTML = `
                 <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background: #0a0a0a; color: #ff5555; font-family: 'Inter', sans-serif;">
                     <div style="text-align: center; padding: 40px; border: 2px solid #ff5555; border-radius: 10px; background: rgba(255, 0, 0, 0.1);">
                         <h1 style="font-size: 2rem; margin-bottom: 20px;">🚫 ERİŞİM ENGELLENDİ</h1>
-                        <p style="margin-bottom: 10px;">IP adresiniz (${this.currentIP}) yönetici tarafından engellenmiştir.</p>
-                        <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);">
-                            Erişim talebiniz kaydedilmiştir. TCK 9312 gereğince yasal işlem başlatılabilir.
+                        <p style="margin-bottom: 10px;">IP adresiniz (${ip}) yönetici tarafından engellenmiştir.</p>
+                        <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 20px;">
+                            Erişim talebiniz merkezi sunucuda kaydedilmiştir.
+                        </p>
+                        <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.4);">
+                            TCK 9312 gereğince yasal işlem başlatılabilir.
                         </p>
                     </div>
                 </div>
             `;
         }
 
-        updateStats() {
-            // This will be called from admin panel
-            const visitors = this.storage.getVisitors();
-            const blockedIPs = this.storage.getBlockedIPs();
-            const today = new Date().toDateString();
-            
-            let todayCount = 0;
-            Object.values(visitors).forEach(visitor => {
-                if (visitor.visitsByDay[today]) {
-                    todayCount += visitor.visitsByDay[today];
-                }
-            });
-
-            return {
-                totalVisitors: Object.keys(visitors).length,
-                totalVisits: Object.values(visitors).reduce((sum, v) => sum + v.visitCount, 0),
-                blockedIPs: blockedIPs.length,
-                todayVisitors: todayCount
-            };
+        updateLastUpdateTime() {
+            const now = new Date();
+            document.getElementById('lastUpdate').textContent = 
+                `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
         }
 
         getVisitorDetails() {
             const visitors = this.storage.getVisitors();
             return Object.values(visitors).sort((a, b) => new Date(b.lastVisit) - new Date(a.lastVisit));
         }
+
+        getActiveUsersCount() {
+            const visitors = this.storage.getVisitors();
+            const now = new Date();
+            const fifteenMinutesAgo = new Date(now.getTime() - 15 * 60000);
+            
+            return Object.values(visitors).filter(visitor => 
+                new Date(visitor.lastActive) > fifteenMinutesAgo
+            ).length;
+        }
     }
 
     // Initialize
-    const storageManager = new StorageManager();
+    const storageManager = new CloudStorageManager();
     const visitorTracker = new VisitorTracker(storageManager);
+
+    // Sync status functions
+    function updateSyncStatus(isOnline) {
+        const statusElement = document.getElementById('syncStatus');
+        const serverStatus = document.getElementById('serverStatus');
+        
+        if (isOnline) {
+            statusElement.textContent = 'Çevrimiçi';
+            statusElement.className = 'sync-status sync-online';
+            serverStatus.textContent = 'Çevrimiçi';
+            serverStatus.style.color = '#55ff55';
+        } else {
+            statusElement.textContent = 'Çevrimdışı';
+            statusElement.className = 'sync-status sync-offline';
+            serverStatus.textContent = 'Çevrimdışı';
+            serverStatus.style.color = '#ff5555';
+        }
+    }
 
     // Admin Panel Functions
     function openAdminLogin() {
         document.getElementById('loginPanel').style.display = 'flex';
         document.getElementById('mainContainer').style.display = 'none';
+        updateServerStatus();
+    }
+
+    function updateServerStatus() {
+        const serverStatus = document.getElementById('serverStatus');
+        const lastSync = localStorage.getItem('egm_last_sync');
+        
+        if (lastSync) {
+            const lastSyncDate = new Date(lastSync);
+            const now = new Date();
+            const diffMinutes = Math.floor((now - lastSyncDate) / 60000);
+            
+            if (diffMinutes < 5) {
+                serverStatus.textContent = 'Çevrimiçi (Son senkronizasyon: ' + diffMinutes + ' dakika önce)';
+                serverStatus.style.color = '#55ff55';
+            } else {
+                serverStatus.textContent = 'Bağlantı sorunu (Son senkronizasyon: ' + diffMinutes + ' dakika önce)';
+                serverStatus.style.color = '#ffaa00';
+            }
+        } else {
+            serverStatus.textContent = 'Henüz senkronize edilmedi';
+            serverStatus.style.color = '#ff5555';
+        }
     }
 
     function adminLogin() {
@@ -1143,38 +1402,57 @@
     }
 
     function loadAdminPanel() {
-        const stats = visitorTracker.updateStats();
-        
-        // Update stats
-        document.getElementById('totalVisitors').textContent = stats.totalVisitors;
-        document.getElementById('uniqueVisitors').textContent = stats.totalVisits;
-        document.getElementById('blockedIPs').textContent = stats.blockedIPs;
-        document.getElementById('todayVisitors').textContent = stats.todayVisitors;
-
-        // Load visitor table
         const visitors = visitorTracker.getVisitorDetails();
         const blockedIPs = storageManager.getBlockedIPs();
+        
+        // Get cloud data for stats
+        const cloudData = JSON.parse(localStorage.getItem('egm_cloud_data') || '{}');
+        const allVisitors = cloudData.visitors || visitors;
+        const allBlockedIPs = cloudData.blockedIPs || blockedIPs;
+        
+        // Calculate stats
+        const today = new Date().toDateString();
+        let todayCount = 0;
+        Object.values(allVisitors).forEach(visitor => {
+            if (visitor.visitsByDay && visitor.visitsByDay[today]) {
+                todayCount += visitor.visitsByDay[today];
+            }
+        });
+
+        // Update stats
+        document.getElementById('totalVisitors').textContent = Object.keys(allVisitors).length;
+        document.getElementById('uniqueVisitors').textContent = Object.values(allVisitors).reduce((sum, v) => sum + (v.visitCount || 1), 0);
+        document.getElementById('blockedIPs').textContent = allBlockedIPs.length;
+        document.getElementById('todayVisitors').textContent = todayCount;
+        document.getElementById('activeNow').textContent = visitorTracker.getActiveUsersCount();
+
+        // Load visitor table
         const tableBody = document.getElementById('visitorTableBody');
         const blockedTableBody = document.getElementById('blockedIPsTable');
 
         tableBody.innerHTML = '';
         blockedTableBody.innerHTML = '';
 
-        visitors.forEach(visitor => {
+        // Show visitors from cloud data
+        Object.values(allVisitors).sort((a, b) => 
+            new Date(b.lastVisit || b.lastActive) - new Date(a.lastVisit || a.lastActive)
+        ).forEach(visitor => {
             const row = document.createElement('tr');
-            if (blockedIPs.some(ip => ip.ip === visitor.ip)) {
+            const isBlocked = allBlockedIPs.some(ip => ip.ip === visitor.ip);
+            
+            if (isBlocked) {
                 row.className = 'blocked-ip';
             }
             
             row.innerHTML = `
                 <td>${visitor.ip}</td>
-                <td>${visitor.os}</td>
-                <td>${visitor.browser}</td>
-                <td>${visitor.os}</td>
-                <td>${visitor.screen}</td>
-                <td>${visitor.firstVisit}</td>
-                <td>${visitor.lastVisit}</td>
-                <td>${visitor.visitCount}</td>
+                <td>${visitor.os || 'Bilinmiyor'}</td>
+                <td>${visitor.browser || 'Bilinmiyor'}</td>
+                <td>${visitor.os || 'Bilinmiyor'}</td>
+                <td>${visitor.screen || 'Bilinmiyor'}</td>
+                <td>${visitor.firstVisit || 'Bilinmiyor'}</td>
+                <td>${visitor.lastVisit || 'Bilinmiyor'}</td>
+                <td>${visitor.visitCount || 1}</td>
                 <td>
                     <button class="btn btn-danger" onclick="blockIPAddress('${visitor.ip}')">Engelle</button>
                     <button class="btn" onclick="deleteVisitor('${visitor.ip}')">Sil</button>
@@ -1183,11 +1461,13 @@
             tableBody.appendChild(row);
         });
 
-        blockedIPs.forEach(blocked => {
+        // Show blocked IPs
+        allBlockedIPs.forEach(blocked => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${blocked.ip}</td>
-                <td>${blocked.date}</td>
+                <td>${blocked.date || 'Bilinmiyor'}</td>
+                <td>${blocked.blockedBy || 'Sistem'}</td>
                 <td>
                     <button class="btn btn-success" onclick="unblockIP('${blocked.ip}')">Engeli Kaldır</button>
                 </td>
@@ -1196,95 +1476,224 @@
         });
     }
 
+    function refreshData() {
+        loadAdminPanel();
+        storageManager.syncWithCloud().then(() => {
+            Swal.fire('Başarılı', 'Veriler yenilendi!', 'success');
+        });
+    }
+
+    async function syncAllData() {
+        const success = await storageManager.forceSync();
+        if (success) {
+            loadAdminPanel();
+        }
+    }
+
     function blockIP() {
         const ipInput = document.getElementById('blockIPInput');
         const ip = ipInput.value.trim();
         
         if (!ip) {
-            alert('Lütfen bir IP adresi girin!');
+            Swal.fire('Hata', 'Lütfen bir IP adresi girin!', 'error');
             return;
         }
 
         const blockedIPs = storageManager.getBlockedIPs();
         if (blockedIPs.some(blocked => blocked.ip === ip)) {
-            alert('Bu IP zaten engellenmiş!');
+            Swal.fire('Uyarı', 'Bu IP zaten engellenmiş!', 'warning');
             return;
         }
 
         blockedIPs.push({
             ip: ip,
-            date: new Date().toLocaleString('tr-TR')
+            date: new Date().toLocaleString('tr-TR'),
+            blockedBy: 'Yönetici'
         });
 
         storageManager.saveBlockedIPs(blockedIPs);
+        
+        // Sync with cloud
+        storageManager.syncWithCloud();
+        
         ipInput.value = '';
         loadAdminPanel();
         
-        alert('IP başarıyla engellendi!');
+        Swal.fire('Başarılı', 'IP başarıyla engellendi!', 'success');
     }
 
     function blockIPAddress(ip) {
-        if (confirm(`${ip} adresini engellemek istediğinize emin misiniz?`)) {
-            const blockedIPs = storageManager.getBlockedIPs();
-            if (!blockedIPs.some(blocked => blocked.ip === ip)) {
-                blockedIPs.push({
-                    ip: ip,
-                    date: new Date().toLocaleString('tr-TR')
-                });
-                storageManager.saveBlockedIPs(blockedIPs);
-                loadAdminPanel();
-                alert('IP başarıyla engellendi!');
+        Swal.fire({
+            title: 'IP Engelleme',
+            text: `${ip} adresini engellemek istediğinize emin misiniz?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Engelle',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const blockedIPs = storageManager.getBlockedIPs();
+                if (!blockedIPs.some(blocked => blocked.ip === ip)) {
+                    blockedIPs.push({
+                        ip: ip,
+                        date: new Date().toLocaleString('tr-TR'),
+                        blockedBy: 'Yönetici'
+                    });
+                    storageManager.saveBlockedIPs(blockedIPs);
+                    storageManager.syncWithCloud();
+                    loadAdminPanel();
+                    Swal.fire('Başarılı', 'IP başarıyla engellendi!', 'success');
+                }
             }
-        }
+        });
     }
 
     function unblockIP(ip) {
-        if (confirm(`${ip} adresinin engelini kaldırmak istediğinize emin misiniz?`)) {
-            let blockedIPs = storageManager.getBlockedIPs();
-            blockedIPs = blockedIPs.filter(blocked => blocked.ip !== ip);
-            storageManager.saveBlockedIPs(blockedIPs);
-            loadAdminPanel();
-            alert('IP engeli kaldırıldı!');
-        }
+        Swal.fire({
+            title: 'Engeli Kaldır',
+            text: `${ip} adresinin engelini kaldırmak istediğinize emin misiniz?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Kaldır',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let blockedIPs = storageManager.getBlockedIPs();
+                blockedIPs = blockedIPs.filter(blocked => blocked.ip !== ip);
+                storageManager.saveBlockedIPs(blockedIPs);
+                storageManager.syncWithCloud();
+                loadAdminPanel();
+                Swal.fire('Başarılı', 'IP engeli kaldırıldı!', 'success');
+            }
+        });
     }
 
     function deleteVisitor(ip) {
-        if (confirm(`${ip} adresine ait tüm kayıtları silmek istediğinize emin misiniz?`)) {
-            const visitors = storageManager.getVisitors();
-            delete visitors[ip];
-            storageManager.saveVisitors(visitors);
-            loadAdminPanel();
-            alert('Ziyaretçi kayıtları silindi!');
-        }
+        Swal.fire({
+            title: 'Kayıt Silme',
+            text: `${ip} adresine ait tüm kayıtları silmek istediğinize emin misiniz?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Sil',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const visitors = storageManager.getVisitors();
+                delete visitors[ip];
+                storageManager.saveVisitors(visitors);
+                storageManager.syncWithCloud();
+                loadAdminPanel();
+                Swal.fire('Başarılı', 'Ziyaretçi kayıtları silindi!', 'success');
+            }
+        });
+    }
+
+    function deleteOldRecords() {
+        Swal.fire({
+            title: 'Eski Kayıtları Temizle',
+            text: '30 günden eski tüm kayıtları silmek istediğinize emin misiniz?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Temizle',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const visitors = storageManager.getVisitors();
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                
+                let deletedCount = 0;
+                Object.keys(visitors).forEach(ip => {
+                    const lastVisit = new Date(visitors[ip].lastVisit);
+                    if (lastVisit < thirtyDaysAgo) {
+                        delete visitors[ip];
+                        deletedCount++;
+                    }
+                });
+                
+                storageManager.saveVisitors(visitors);
+                storageManager.syncWithCloud();
+                loadAdminPanel();
+                Swal.fire('Başarılı', `${deletedCount} eski kayıt silindi!`, 'success');
+            }
+        });
     }
 
     function clearAllData() {
-        if (confirm('TÜM verileri silmek istediğinize emin misiniz?\nBu işlem geri alınamaz!')) {
-            localStorage.clear();
-            storageManager.initStorage();
-            loadAdminPanel();
-            alert('Tüm veriler temizlendi!');
-        }
+        Swal.fire({
+            title: 'Tüm Verileri Temizle',
+            text: 'TÜM verileri (ziyaretçi kayıtları, engellenen IP\'ler) silmek istediğinize emin misiniz?\nBu işlem geri alınamaz!',
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Tümünü Sil',
+            cancelButtonText: 'İptal',
+            confirmButtonColor: '#ff5555'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.clear();
+                storageManager.initStorage();
+                storageManager.syncWithCloud();
+                loadAdminPanel();
+                Swal.fire('Tamamlandı', 'Tüm veriler temizlendi!', 'success');
+            }
+        });
     }
 
     function exportData() {
         const visitors = storageManager.getVisitors();
         const blockedIPs = storageManager.getBlockedIPs();
+        const cloudData = JSON.parse(localStorage.getItem('egm_cloud_data') || '{}');
+        
         const data = {
-            visitors: visitors,
-            blockedIPs: blockedIPs,
-            exportDate: new Date().toISOString()
+            localData: {
+                visitors: visitors,
+                blockedIPs: blockedIPs,
+                exportDate: new Date().toISOString()
+            },
+            cloudData: cloudData,
+            stats: {
+                totalVisitors: Object.keys(cloudData.visitors || {}).length,
+                totalBlockedIPs: (cloudData.blockedIPs || []).length,
+                lastSync: localStorage.getItem('egm_last_sync')
+            }
         };
 
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `egm-data-${new Date().toISOString().split('T')[0]}.json`;
+        a.download = `egm-merkezi-data-${new Date().toISOString().split('T')[0]}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+        
+        Swal.fire('Başarılı', 'Veriler dışa aktarıldı!', 'success');
+    }
+
+    function changePassword() {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (!newPassword || !confirmPassword) {
+            Swal.fire('Hata', 'Lütfen tüm alanları doldurun!', 'error');
+            return;
+        }
+        
+        if (newPassword !== confirmPassword) {
+            Swal.fire('Hata', 'Şifreler eşleşmiyor!', 'error');
+            return;
+        }
+        
+        if (newPassword.length < 6) {
+            Swal.fire('Hata', 'Şifre en az 6 karakter olmalıdır!', 'error');
+            return;
+        }
+        
+        storageManager.updateAdminPassword(newPassword);
+        document.getElementById('newPassword').value = '';
+        document.getElementById('confirmPassword').value = '';
+        Swal.fire('Başarılı', 'Şifre başarıyla değiştirildi!', 'success');
     }
 
     // Original functions
@@ -1295,13 +1704,22 @@
         // Show initial warning
         Swal.fire({
             title: "ÖNEMLİ UYARI",
-            text: "Bu site İstanbul Emniyet Genel Müdürlüğü Siber Suçlarla Mücadele Daire Başkanlığı tarafından kurulmuş olup taklidi maksatıyla oluşturulan siteler TCK 9312, 9521, 9552 kanunları gereğince kapatılacaktır. Sayfada yapılan herhangi bir sorgunun İEGMSSM Kullanım Hakları dışında kullanılması durumunda TCK 10212, 10213, 10251 kanunları gereğince kullanıcı açığa alınır veya ihtar uygulanır.",
+            html: `<div style="text-align: left;">
+                <p>Bu site İstanbul Emniyet Genel Müdürlüğü Siber Suçlarla Mücadele Daire Başkanlığı tarafından kurulmuştur.</p>
+                <p style="margin-top: 10px; color: #ff5555;"><strong>⚠ DİKKAT:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 5px;">
+                    <li>Tüm IP adresleri merkezi sunucuda kaydedilir</li>
+                    <li>Engellenen IP'ler tüm kullanıcılar için geçerlidir</li>
+                    <li>Yasadışı sorgular TCK gereğince kayıt altına alınır</li>
+                </ul>
+            </div>`,
             icon: "info",
             showConfirmButton: true,
             confirmButtonText: "Yönetici Girişi",
             denyButtonText: "Anlaşıldı",
             allowOutsideClick: false,
             allowEscapeKey: false,
+            width: '600px',
 
             didOpen: () => {
                 const denyButton = Swal.getDenyButton();
@@ -1332,13 +1750,17 @@
         if (firstCategory) {
             firstCategory.classList.add('expanded');
         }
+
+        // Update time every second
+        setInterval(() => {
+            visitorTracker.updateLastUpdateTime();
+        }, 1000);
     });
 
     function toggleCategory(categoryElement) {
         if (event.target.closest('.query-item')) {
             return;
         }
-
         categoryElement.classList.toggle('expanded');
     }
 
@@ -1349,7 +1771,7 @@
         item.style.background = 'rgba(0, 255, 255, 0.15)';
         
         // Record query attempt
-        if (visitorTracker.currentVisitor) {
+        if (visitorTracker.currentIP) {
             const visitors = storageManager.getVisitors();
             if (visitors[visitorTracker.currentIP]) {
                 if (!visitors[visitorTracker.currentIP].queries) {
@@ -1360,6 +1782,7 @@
                     timestamp: new Date().toISOString()
                 });
                 storageManager.saveVisitors(visitors);
+                storageManager.syncWithCloud();
             }
         }
         
@@ -1392,6 +1815,13 @@
             firstCategory.classList.add('expanded');
         }
     });
+
+    // Auto-refresh admin panel every 10 seconds
+    setInterval(() => {
+        if (document.getElementById('adminPanel').style.display === 'block') {
+            loadAdminPanel();
+        }
+    }, 10000);
     </script>
 </body>
 </html>
