@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARELMUN'25 - Secret Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6a0dad;
+            --primary-light: #8a2be2;
+            --primary-dark: #4b0082;
+            --secondary: #ffd700;
+            --white: #ffffff;
+            --light: #f8f8ff;
+            --dark: #333333;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            color: var(--white);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .secret-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .secret-header {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+        }
+
+        .secret-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .secret-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .game-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .game-card p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .play-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--secondary);
+            color: var(--dark);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .play-btn:hover {
+            background: var(--white);
+            transform: scale(1.05);
+        }
+
+        .game-container {
+            display: none;
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .game-canvas {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            border: 2px solid var(--secondary);
+        }
+
+        .game-instructions {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        .score-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .control-btn:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .key-hint {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .secret-header h1 {
+                font-size: 2rem;
+            }
+            
+            .game-canvas {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .memory-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .memory-card {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            position: relative;
+        }
+
+        .memory-card .card-front,
+        .memory-card .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .memory-card .card-front {
+            background: var(--secondary);
+            color: var(--dark);
+            font-weight: bold;
+        }
+
+        .memory-card .card-back {
+            background: var(--primary-light);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
+            opacity: 0.5;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div class="secret-container">
+        <div class="secret-header">
+            <h1>ARELMUN Secret Games</h1>
+            <p>Take a break from diplomacy and enjoy these fun games!</p>
+        </div>
+        
+        <div class="games-grid">
+            <div class="game-card" data-game="flappy-bird">
+                <div class="game-icon">
+                    <i class="fas fa-dove"></i>
+                </div>
+                <h3>Flappy Burd</h3>
+                <p>Navigate the eagle through obstacles. Use SPACE, W, or CLICK to flap wings.</p>
+                <button class="play-btn">Play Now</button>
+            </div>
+            
+            <div class="game-card" data-game="snake">
+                <div class="game-icon">
+                    <i class="fas fa-dragon"></i>
+                </div>
+                <h3>Snake Game</h3>
+                <p>Classic snake game with smooth controls. Use ARROW KEYS or WASD.</p>
+                <button class="play-btn">Play Now</button>
+            </div>
+            
+            <div class="game-card" data-game="memory">
+                <div class="game-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Memory Game</h3>
+                <p>Test your memory by matching pairs of UN-themed cards. Click to play.</p>
+                <button class="play-btn">Play Now</button>
+            </div>
+        </div>
+        
+        <div id="flappy-bird-game" class="game-container">
+            <div class="game-header">
+                <button class="back-btn"><i class="fas fa-arrow-left"></i> Back to Games</button>
+                <div class="score-display">Score: <span id="flappy-score">0</span> | High: <span id="flappy-high">0</span></div>
+            </div>
+            <canvas id="flappy-canvas" width="320" height="480" class="game-canvas"></canvas>
+            <div class="game-controls">
+                <button class="control-btn" onclick="flappyJump()"><i class="fas fa-space-shuttle"></i> Space/W/Click</button>
+                <button class="control-btn" onclick="restartFlappy()"><i class="fas fa-redo"></i> Restart</button>
+            </div>
+            <div class="game-instructions">
+                <p><strong>Controls:</strong> SPACE, W, or CLICK to flap | Avoid pipes and ground</p>
+                <p class="key-hint">Game speeds up gradually as your score increases!</p>
+            </div>
+        </div>
+        
+        <div id="snake-game" class="game-container">
+            <div class="game-header">
+                <button class="back-btn"><i class="fas fa-arrow-left"></i> Back to Games</button>
+                <div class="score-display">Score: <span id="snake-score">0</span> | High: <span id="snake-high">0</span></div>
+            </div>
+            <canvas id="snake-canvas" width="400" height="400" class="game-canvas"></canvas>
+            <div class="game-controls">
+                <button class="control-btn" onclick="changeSnakeDirection('up')"><i class="fas fa-arrow-up"></i> Up (W/↑)</button>
+                <button class="control-btn" onclick="changeSnakeDirection('left')"><i class="fas fa-arrow-left"></i> Left (A/←)</button>
+                <button class="control-btn" onclick="changeSnakeDirection('down')"><i class="fas fa-arrow-down"></i> Down (S/↓)</button>
+                <button class="control-btn" onclick="changeSnakeDirection('right')"><i class="fas fa-arrow-right"></i> Right (D/→)</button>
+                <button class="control-btn" onclick="restartSnake()"><i class="fas fa-redo"></i> Restart (R)</button>
+            </div>
+            <div class="game-instructions">
+                <p><strong>Controls:</strong> ARROW KEYS or WASD to move | R to restart</p>
+                <p class="key-hint">Use arrow keys or WASD to control the snake. Eat golden food to grow!</p>
+            </div>
+        </div>
+        
+        <div id="memory-game" class="game-container">
+            <div class="game-header">
+                <button class="back-btn"><i class="fas fa-arrow-left"></i> Back to Games</button>
+                <div class="score-display">Moves: <span id="memory-moves">0</span> | Pairs: <span id="memory-pairs">0</span>/8</div>
+            </div>
+            <div id="memory-board" class="memory-board"></div>
+            <div class="game-controls">
+                <button class="control-btn" onclick="restartMemory()"><i class="fas fa-redo"></i> New Game (N)</button>
+            </div>
+            <div class="game-instructions">
+                <p><strong>Controls:</strong> CLICK to flip cards | N for new game</p>
+                <p class="key-hint">Click cards to flip them. Find all matching pairs with the fewest moves!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const gameId = this.getAttribute('data-game');
+                document.querySelectorAll('.game-container').forEach(container => {
+                    container.style.display = 'none';
+                });
+                const gameContainer = document.getElementById(`${gameId}-game`);
+                gameContainer.style.display = 'block';
+                
+                if (gameId === 'memory') {
+                    initMemoryGame();
+                } else if (gameId === 'snake') {
+                    initSnakeGame();
+                } else if (gameId === 'flappy-bird') {
+                    initFlappyBird();
+                }
+            });
+        });
+
+        document.querySelectorAll('.back-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.game-container').forEach(container => {
+                    container.style.display = 'none';
+                });
+            });
+        });
+
+        let flappyAnimationId;
+
+        function initFlappyBird() {
+            const canvas = document.getElementById('flappy-canvas');
+            const ctx = canvas.getContext('2d');
+            const scoreElement = document.getElementById('flappy-score');
+            const highScoreElement = document.getElementById('flappy-high');
+            
+            let gameState = {
+                bird: {
+                    x: 80,
+                    y: canvas.height / 2 - 15,
+                    width: 34,
+                    height: 24,
+                    velocity: 0,
+                    gravity: 0.15,
+                    jump: -3.5,
+                    color: '#ffd700'
+                },
+                pipes: [],
+                score: 0,
+                highScore: parseInt(localStorage.getItem('flappyHighScore')) || 0,
+                gameOver: false,
+                frameCount: 0,
+                gameStarted: false,
+                baseSpeed: 1.5,
+                currentSpeed: 1.5,
+                startProtection: true,
+                protectionFrames: 120
+            };
+
+            highScoreElement.textContent = gameState.highScore;
+
+            class Pipe {
+                constructor(speed) {
+                    this.x = canvas.width;
+                    this.width = 60;
+                    this.gap = 150;
+                    this.topHeight = Math.random() * (canvas.height - this.gap - 150) + 75;
+                    this.bottomHeight = canvas.height - this.topHeight - this.gap;
+                    this.passed = false;
+                    this.color = '#6a0dad';
+                    this.speed = speed;
+                }
+
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(this.x, 0, this.width, this.topHeight);
+                    
+                    ctx.fillStyle = '#4b0082';
+                    ctx.fillRect(this.x - 3, this.topHeight - 15, this.width + 6, 15);
+                    
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(this.x, canvas.height - this.bottomHeight, this.width, this.bottomHeight);
+                    
+                    ctx.fillStyle = '#4b0082';
+                    ctx.fillRect(this.x - 3, canvas.height - this.bottomHeight, this.width + 6, 15);
+                }
+
+                update() {
+                    this.x -= this.speed;
+                    
+                    if (!this.passed && this.x + this.width < gameState.bird.x) {
+                        this.passed = true;
+                        gameState.score++;
+                        scoreElement.textContent = gameState.score;
+                        
+                        if (gameState.score % 3 === 0) {
+                            gameState.currentSpeed = Math.min(gameState.baseSpeed + (gameState.score * 0.1), 4.0);
+                        }
+                        
+                        if (gameState.score > gameState.highScore) {
+                            gameState.highScore = gameState.score;
+                            highScoreElement.textContent = gameState.highScore;
+                            localStorage.setItem('flappyHighScore', gameState.highScore);
+                        }
+                    }
+                    
+                    if (gameState.startProtection) return;
+                    
+                    const bird = gameState.bird;
+                    if (
+                        bird.x + bird.width - 8 > this.x && 
+                        bird.x + 8 < this.x + this.width &&
+                        (bird.y + 8 < this.topHeight || 
+                         bird.y + bird.height - 8 > canvas.height - this.bottomHeight)
+                    ) {
+                        gameState.gameOver = true;
+                    }
+                }
+            }
+
+            function drawBird() {
+                const bird = gameState.bird;
+                ctx.fillStyle = bird.color;
+                
+                ctx.beginPath();
+                ctx.ellipse(
+                    bird.x + bird.width / 2,
+                    bird.y + bird.height / 2,
+                    bird.width / 2 - 2,
+                    bird.height / 2 - 2,
+                    0, 0, Math.PI * 2
+                );
+                ctx.fill();
+                
+                ctx.fillStyle = '#ff8c00';
+                ctx.beginPath();
+                const wingFlap = Math.sin(gameState.frameCount / 12) * 0.2 + 0.8;
+                ctx.ellipse(
+                    bird.x + bird.width / 3,
+                    bird.y + bird.height / 2,
+                    bird.width / 3 * wingFlap,
+                    bird.height / 3,
+                    Math.PI / 4,
+                    0, Math.PI * 2
+                );
+                ctx.fill();
+                
+                ctx.fillStyle = '#000';
+                ctx.beginPath();
+                ctx.arc(
+                    bird.x + bird.width - 10,
+                    bird.y + 10,
+                    3, 0, Math.PI * 2
+                );
+                ctx.fill();
+                
+                ctx.fillStyle = '#ff4500';
+                ctx.beginPath();
+                ctx.moveTo(bird.x + bird.width, bird.y + 12);
+                ctx.lineTo(bird.x + bird.width + 12, bird.y + 10);
+                ctx.lineTo(bird.x + bird.width, bird.y + 17);
+                ctx.fill();
+            }
+
+            function drawBackground() {
+                const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, '#87CEEB');
+                gradient.addColorStop(1, '#98FB98');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                for (let i = 0; i < 3; i++) {
+                    const cloudX = (i * 200 + gameState.frameCount * 0.2) % (canvas.width + 300) - 150;
+                    ctx.beginPath();
+                    ctx.arc(cloudX, 80 + i * 40, 20, 0, Math.PI * 2);
+                    ctx.arc(cloudX + 15, 70 + i * 40, 25, 0, Math.PI * 2);
+                    ctx.arc(cloudX + 35, 80 + i * 40, 20, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                ctx.fillStyle = '#8B4513';
+                ctx.fillRect(0, canvas.height - 30, canvas.width, 30);
+                
+                ctx.fillStyle = '#228B22';
+                ctx.fillRect(0, canvas.height - 30, canvas.width, 8);
+            }
+
+            function updateGame() {
+                if (gameState.gameOver || !gameState.gameStarted) return;
+                
+                if (gameState.startProtection) {
+                    gameState.protectionFrames--;
+                    if (gameState.protectionFrames <= 0) {
+                        gameState.startProtection = false;
+                    }
+                }
+                
+                gameState.bird.velocity += gameState.bird.gravity;
+                gameState.bird.y += gameState.bird.velocity;
+                
+                if (gameState.bird.y + gameState.bird.height > canvas.height - 30) {
+                    if (gameState.startProtection) {
+                        gameState.bird.y = canvas.height - 30 - gameState.bird.height;
+                        gameState.bird.velocity = 0;
+                    } else {
+                        gameState.bird.y = canvas.height - 30 - gameState.bird.height;
+                        gameState.gameOver = true;
+                    }
+                }
+                
+                if (gameState.bird.y < 0) {
+                    gameState.bird.y = 0;
+                    gameState.bird.velocity = 0;
+                }
+                
+                if (gameState.frameCount % 180 === 0) {
+                    gameState.pipes.push(new Pipe(gameState.currentSpeed));
+                }
+                
+                gameState.pipes.forEach((pipe, index) => {
+                    pipe.update();
+                    
+                    if (pipe.x + pipe.width < 0) {
+                        gameState.pipes.splice(index, 1);
+                    }
+                });
+                
+                gameState.frameCount++;
+            }
+
+            function drawGame() {
+                drawBackground();
+                
+                gameState.pipes.forEach(pipe => pipe.draw());
+                
+                drawBird();
+                
+                if (gameState.startProtection) {
+                    ctx.fillStyle = 'rgba(255, 255, 0, 0.3)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('START PROTECTION', canvas.width / 2, 30);
+                }
+                
+                ctx.fillStyle = '#fff';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText(`Speed: ${gameState.currentSpeed.toFixed(1)}x`, 10, 20);
+                
+                if (!gameState.gameStarted) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 28px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Flappy Burd', canvas.width / 2, canvas.height / 2 - 40);
+                    ctx.font = '18px Arial';
+                    ctx.fillText('Press SPACE, W, or CLICK to start', canvas.width / 2, canvas.height / 2);
+                    ctx.fillText('Game speeds up as you score!', canvas.width / 2, canvas.height / 2 + 30);
+                }
+                
+                else if (gameState.gameOver) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 24px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2 - 30);
+                    ctx.font = '18px Arial';
+                    ctx.fillText(`Score: ${gameState.score}`, canvas.width / 2, canvas.height / 2);
+                    ctx.fillText(`High Score: ${gameState.highScore}`, canvas.width / 2, canvas.height / 2 + 30);
+                    ctx.font = '14px Arial';
+                    ctx.fillText('Press SPACE, W, or CLICK to restart', canvas.width / 2, canvas.height / 2 + 60);
+                }
+            }
+
+            window.flappyJump = function() {
+                if (!gameState.gameStarted) {
+                    gameState.gameStarted = true;
+                } else if (gameState.gameOver) {
+                    restartFlappy();
+                } else {
+                    gameState.bird.velocity = gameState.bird.jump;
+                }
+            };
+
+            window.restartFlappy = function() {
+                if (flappyAnimationId) {
+                    cancelAnimationFrame(flappyAnimationId);
+                }
+                
+                gameState = {
+                    bird: {
+                        x: 80,
+                        y: canvas.height / 2 - 15,
+                        width: 34,
+                        height: 24,
+                        velocity: 0,
+                        gravity: 0.15,
+                        jump: -3.5,
+                        color: '#ffd700'
+                    },
+                    pipes: [],
+                    score: 0,
+                    highScore: gameState.highScore,
+                    gameOver: false,
+                    frameCount: 0,
+                    gameStarted: true,
+                    baseSpeed: 1.5,
+                    currentSpeed: 1.5,
+                    startProtection: true,
+                    protectionFrames: 120
+                };
+                
+                scoreElement.textContent = '0';
+                gameLoop();
+            };
+
+            canvas.addEventListener('click', flappyJump);
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' || e.code === 'KeyW') {
+                    e.preventDefault();
+                    flappyJump();
+                }
+            });
+
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                flappyJump();
+            });
+
+            function gameLoop() {
+                updateGame();
+                drawGame();
+                
+                if (!gameState.gameOver || !gameState.gameStarted) {
+                    flappyAnimationId = requestAnimationFrame(gameLoop);
+                }
+            }
+
+            gameLoop();
+        }
+
+        let snakeGameLoop;
+
+        function initSnakeGame() {
+            const canvas = document.getElementById('snake-canvas');
+            const ctx = canvas.getContext('2d');
+            const scoreElement = document.getElementById('snake-score');
+            const highScoreElement = document.getElementById('snake-high');
+
+            const gridSize = 20;
+            const tileCount = canvas.width / gridSize;
+
+            let gameState = {
+                snake: [
+                    {x: 10, y: 10},
+                    {x: 9, y: 10},
+                    {x: 8, y: 10}
+                ],
+                food: {},
+                dx: 1,
+                dy: 0,
+                score: 0,
+                highScore: parseInt(localStorage.getItem('snakeHighScore')) || 0,
+                gameOver: false,
+                speed: 120,
+                gameStarted: false
+            };
+
+            highScoreElement.textContent = gameState.highScore;
+            generateFood();
+
+            function generateFood() {
+                gameState.food = {
+                    x: Math.floor(Math.random() * tileCount),
+                    y: Math.floor(Math.random() * tileCount)
+                };
+                
+                for (let segment of gameState.snake) {
+                    if (segment.x === gameState.food.x && segment.y === gameState.food.y) {
+                        generateFood();
+                        return;
+                    }
+                }
+            }
+
+            function drawGame() {
+                ctx.fillStyle = '#1a1a1a';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.strokeStyle = '#2a2a2a';
+                ctx.lineWidth = 0.5;
+                for (let x = 0; x < canvas.width; x += gridSize) {
+                    for (let y = 0; y < canvas.height; y += gridSize) {
+                        ctx.strokeRect(x, y, gridSize, gridSize);
+                    }
+                }
+                
+                gameState.snake.forEach((segment, index) => {
+                    if (index === 0) {
+                        ctx.fillStyle = '#6a0dad';
+                        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 1, gridSize - 1);
+                        
+                        ctx.fillStyle = '#fff';
+                        const eyeSize = 3;
+                        const offset = 5;
+                        
+                        if (gameState.dx === 1) {
+                            ctx.fillRect(segment.x * gridSize + gridSize - offset, segment.y * gridSize + offset, eyeSize, eyeSize);
+                            ctx.fillRect(segment.x * gridSize + gridSize - offset, segment.y * gridSize + gridSize - offset - eyeSize, eyeSize, eyeSize);
+                        } else if (gameState.dx === -1) {
+                            ctx.fillRect(segment.x * gridSize + offset, segment.y * gridSize + offset, eyeSize, eyeSize);
+                            ctx.fillRect(segment.x * gridSize + offset, segment.y * gridSize + gridSize - offset - eyeSize, eyeSize, eyeSize);
+                        } else if (gameState.dy === 1) {
+                            ctx.fillRect(segment.x * gridSize + offset, segment.y * gridSize + gridSize - offset, eyeSize, eyeSize);
+                            ctx.fillRect(segment.x * gridSize + gridSize - offset - eyeSize, segment.y * gridSize + gridSize - offset, eyeSize, eyeSize);
+                        } else {
+                            ctx.fillRect(segment.x * gridSize + offset, segment.y * gridSize + offset, eyeSize, eyeSize);
+                            ctx.fillRect(segment.x * gridSize + gridSize - offset - eyeSize, segment.y * gridSize + offset, eyeSize, eyeSize);
+                        }
+                    } else {
+                        ctx.fillStyle = '#8a2be2';
+                        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 1, gridSize - 1);
+                    }
+                });
+                
+                ctx.fillStyle = '#ffd700';
+                ctx.beginPath();
+                ctx.arc(
+                    gameState.food.x * gridSize + gridSize / 2,
+                    gameState.food.y * gridSize + gridSize / 2,
+                    gridSize / 2 - 2,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fill();
+                
+                if (!gameState.gameStarted) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 24px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Snake Game', canvas.width / 2, canvas.height / 2 - 40);
+                    ctx.font = '16px Arial';
+                    ctx.fillText('Press ANY ARROW KEY or WASD to start', canvas.width / 2, canvas.height / 2);
+                    ctx.fillText('Eat the golden food to grow!', canvas.width / 2, canvas.height / 2 + 30);
+                }
+                
+                else if (gameState.gameOver) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 24px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2 - 30);
+                    ctx.font = '18px Arial';
+                    ctx.fillText(`Score: ${gameState.score}`, canvas.width / 2, canvas.height / 2);
+                    ctx.fillText(`High Score: ${gameState.highScore}`, canvas.width / 2, canvas.height / 2 + 30);
+                    ctx.font = '14px Arial';
+                    ctx.fillText('Press R to restart', canvas.width / 2, canvas.height / 2 + 60);
+                }
+            }
+
+            function updateGame() {
+                if (gameState.gameOver || !gameState.gameStarted) return;
+                
+                const head = {x: gameState.snake[0].x + gameState.dx, y: gameState.snake[0].y + gameState.dy};
+                gameState.snake.unshift(head);
+                
+                if (head.x === gameState.food.x && head.y === gameState.food.y) {
+                    gameState.score += 10;
+                    scoreElement.textContent = gameState.score;
+                    
+                    if (gameState.score > gameState.highScore) {
+                        gameState.highScore = gameState.score;
+                        highScoreElement.textContent = gameState.highScore;
+                        localStorage.setItem('snakeHighScore', gameState.highScore);
+                    }
+                    
+                    generateFood();
+                    
+                    if (gameState.score % 50 === 0 && gameState.speed > 60) {
+                        gameState.speed -= 5;
+                    }
+                } else {
+                    gameState.snake.pop();
+                }
+                
+                if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+                    gameState.gameOver = true;
+                }
+                
+                for (let i = 1; i < gameState.snake.length; i++) {
+                    if (head.x === gameState.snake[i].x && head.y === gameState.snake[i].y) {
+                        gameState.gameOver = true;
+                        break;
+                    }
+                }
+            }
+
+            window.changeSnakeDirection = function(direction) {
+                if (!gameState.gameStarted) {
+                    gameState.gameStarted = true;
+                }
+                if (gameState.gameOver) return;
+                
+                switch(direction) {
+                    case 'up':
+                        if (gameState.dy !== 1) { gameState.dx = 0; gameState.dy = -1; }
+                        break;
+                    case 'down':
+                        if (gameState.dy !== -1) { gameState.dx = 0; gameState.dy = 1; }
+                        break;
+                    case 'left':
+                        if (gameState.dx !== 1) { gameState.dx = -1; gameState.dy = 0; }
+                        break;
+                    case 'right':
+                        if (gameState.dx !== -1) { gameState.dx = 1; gameState.dy = 0; }
+                        break;
+                }
+            };
+
+            window.restartSnake = function() {
+                clearTimeout(snakeGameLoop);
+                
+                gameState = {
+                    snake: [
+                        {x: 10, y: 10},
+                        {x: 9, y: 10},
+                        {x: 8, y: 10}
+                    ],
+                    food: {},
+                    dx: 1,
+                    dy: 0,
+                    score: 0,
+                    highScore: gameState.highScore,
+                    gameOver: false,
+                    speed: 120,
+                    gameStarted: true
+                };
+                
+                scoreElement.textContent = '0';
+                generateFood();
+                runSnakeGame();
+            };
+
+            function runSnakeGame() {
+                updateGame();
+                drawGame();
+                
+                if (!gameState.gameOver || !gameState.gameStarted) {
+                    snakeGameLoop = setTimeout(() => {
+                        requestAnimationFrame(runSnakeGame);
+                    }, gameState.speed);
+                }
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (!gameState.gameStarted && (
+                    e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
+                    e.key === 'w' || e.key === 'a' || e.key === 's' || e.key === 'd' ||
+                    e.key === 'W' || e.key === 'A' || e.key === 'S' || e.key === 'D'
+                )) {
+                    gameState.gameStarted = true;
+                }
+
+                if (gameState.gameOver && (e.key === 'r' || e.key === 'R')) {
+                    restartSnake();
+                }
+                
+                if (!gameState.gameOver && gameState.gameStarted) {
+                    switch(e.key) {
+                        case 'ArrowUp':
+                            if (gameState.dy !== 1) { gameState.dx = 0; gameState.dy = -1; }
+                            break;
+                        case 'ArrowDown':
+                            if (gameState.dy !== -1) { gameState.dx = 0; gameState.dy = 1; }
+                            break;
+                        case 'ArrowLeft':
+                            if (gameState.dx !== 1) { gameState.dx = -1; gameState.dy = 0; }
+                            break;
+                        case 'ArrowRight':
+                            if (gameState.dx !== -1) { gameState.dx = 1; gameState.dy = 0; }
+                            break;
+                        case 'w':
+                        case 'W':
+                            if (gameState.dy !== 1) { gameState.dx = 0; gameState.dy = -1; }
+                            break;
+                        case 's':
+                        case 'S':
+                            if (gameState.dy !== -1) { gameState.dx = 0; gameState.dy = 1; }
+                            break;
+                        case 'a':
+                        case 'A':
+                            if (gameState.dx !== 1) { gameState.dx = -1; gameState.dy = 0; }
+                            break;
+                        case 'd':
+                        case 'D':
+                            if (gameState.dx !== -1) { gameState.dx = 1; gameState.dy = 0; }
+                            break;
+                    }
+                }
+            });
+
+            runSnakeGame();
+        }
+
+        function initMemoryGame() {
+            const board = document.getElementById('memory-board');
+            const movesElement = document.getElementById('memory-moves');
+            const pairsElement = document.getElementById('memory-pairs');
+            
+            const symbols = ['🏛️', '🌍', '📜', '⚖️', '🕊️', '💼', '🔍', '🌟'];
+            let cards = [...symbols, ...symbols];
+            let flippedCards = [];
+            let matchedCards = [];
+            let moves = 0;
+            let canFlip = true;
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            function createBoard() {
+                board.innerHTML = '';
+                shuffleArray(cards);
+                
+                cards.forEach((symbol, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'memory-card';
+                    if (matchedCards.includes(index)) {
+                        card.classList.add('matched');
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="card-front">?</div>
+                        <div class="card-back">${symbol}</div>
+                    `;
+                    
+                    card.addEventListener('click', () => flipCard(card, index));
+                    board.appendChild(card);
+                });
+            }
+
+            function flipCard(card, index) {
+                if (!canFlip || card.classList.contains('flipped') || matchedCards.includes(index)) {
+                    return;
+                }
+
+                card.style.transform = 'rotateY(180deg)';
+                card.classList.add('flipped');
+                flippedCards.push({card, index});
+
+                if (flippedCards.length === 2) {
+                    moves++;
+                    movesElement.textContent = moves;
+                    canFlip = false;
+
+                    const [first, second] = flippedCards;
+                    
+                    if (cards[first.index] === cards[second.index]) {
+                        matchedCards.push(first.index, second.index);
+                        first.card.classList.add('matched');
+                        second.card.classList.add('matched');
+                        flippedCards = [];
+                        canFlip = true;
+                        
+                        pairsElement.textContent = matchedCards.length / 2;
+
+                        if (matchedCards.length === cards.length) {
+                            setTimeout(() => {
+                                const stars = moves <= 16 ? '★★★★★' : 
+                                             moves <= 20 ? '★★★★' : 
+                                             moves <= 24 ? '★★★' : 
+                                             moves <= 28 ? '★★' : '★';
+                                alert(`🎉 Congratulations! You won!\nMoves: ${moves}\nRating: ${stars}`);
+                            }, 500);
+                        }
+                    } else {
+                        setTimeout(() => {
+                            first.card.style.transform = 'rotateY(0deg)';
+                            second.card.style.transform = 'rotateY(0deg)';
+                            first.card.classList.remove('flipped');
+                            second.card.classList.remove('flipped');
+                            flippedCards = [];
+                            canFlip = true;
+                        }, 1000);
+                    }
+                }
+            }
+
+            window.restartMemory = function() {
+                flippedCards = [];
+                matchedCards = [];
+                moves = 0;
+                canFlip = true;
+                movesElement.textContent = '0';
+                pairsElement.textContent = '0';
+                createBoard();
+            };
+
+            document.addEventListener('keydown', (e) => {
+                if ((e.key === 'n' || e.key === 'N') && document.getElementById('memory-game').style.display === 'block') {
+                    restartMemory();
+                }
+            });
+
+            createBoard();
+        }
+    </script>
+</body>
+</html>
