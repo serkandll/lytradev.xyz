@@ -29,6 +29,9 @@
             --dark: #333333;
             --shadow: 0 4px 15px rgba(0,0,0,0.1);
             --transition: all 0.3s ease;
+            --christmas-red: #c8102e;
+            --christmas-green: #006b3c;
+            --christmas-gold: #ffd700;
         }
         
         * {
@@ -483,7 +486,7 @@
             color: var(--dark);
         }
         
-        /* YILBAŞI TEMASI - Dekorasyon Stilleri */
+        /* YILBAŞI DEKORASYONLARI */
         .christmas-decorations {
             position: fixed;
             top: 0;
@@ -495,6 +498,81 @@
             overflow: hidden;
         }
         
+        /* GERÇEKÇİ RGB IŞIK ŞERİDİ */
+        .rgb-light-strip {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            z-index: 9998;
+            pointer-events: none;
+            overflow: hidden;
+            background: linear-gradient(90deg, 
+                #ff0000, #ff4000, #ff8000, #ffbf00, 
+                #ffff00, #bfff00, #80ff00, #40ff00,
+                #00ff00, #00ff40, #00ff80, #00ffbf,
+                #00ffff, #00bfff, #0080ff, #0040ff,
+                #0000ff, #4000ff, #8000ff, #bf00ff,
+                #ff00ff, #ff00bf, #ff0080, #ff0040);
+            background-size: 2400% 100%;
+            animation: rgbFlow 30s linear infinite;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5),
+                        0 0 60px rgba(255, 255, 255, 0.3),
+                        0 0 90px rgba(255, 255, 255, 0.1);
+            mask-image: linear-gradient(to right, 
+                transparent 0%, 
+                rgba(0,0,0,0.3) 5%, 
+                rgba(0,0,0,0.7) 10%, 
+                rgba(0,0,0,1) 20%,
+                rgba(0,0,0,1) 80%,
+                rgba(0,0,0,0.7) 90%,
+                rgba(0,0,0,0.3) 95%,
+                transparent 100%);
+        }
+        
+        .rgb-light-strip:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.2) 10px,
+                rgba(255, 255, 255, 0.2) 20px
+            );
+            animation: sparkle 2s infinite alternate;
+        }
+        
+        .rgb-light-strip:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to bottom, 
+                rgba(255,255,255,0.4) 0%,
+                rgba(255,255,255,0.1) 50%,
+                transparent 100%);
+            pointer-events: none;
+        }
+        
+        @keyframes rgbFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* KAR TANELERİ (GÜNCELLENDİ) */
         .snowflakes {
             position: absolute;
             top: 0;
@@ -509,12 +587,14 @@
             background-color: white;
             border-radius: 50%;
             opacity: 0.8;
+            filter: blur(0.5px);
             animation: snowFall linear infinite;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
         
         @keyframes snowFall {
             0% {
-                transform: translateY(-100px) rotate(0deg);
+                transform: translateY(-100px) translateX(0) rotate(0deg);
                 opacity: 0;
             }
             10% {
@@ -524,49 +604,21 @@
                 opacity: 0.8;
             }
             100% {
-                transform: translateY(100vh) rotate(360deg);
+                transform: translateY(100vh) translateX(calc(100px * var(--sway))) rotate(360deg);
                 opacity: 0;
             }
         }
         
-        .holiday-lights {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            z-index: 9998;
-            display: flex;
-            justify-content: space-around;
-            pointer-events: none;
-        }
-        
-        .light {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            animation: lightTwinkle 2s infinite alternate;
-            box-shadow: 0 0 8px currentColor;
-            margin: 0 5px;
-        }
-        
-        @keyframes lightTwinkle {
-            0%, 100% {
-                opacity: 0.6;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.3);
-            }
-        }
-        
+        /* YILBAŞI BAŞLIĞI */
         .christmas-header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(90deg, #c8102e, var(--primary), #006b3c);
+            background: linear-gradient(90deg, 
+                var(--christmas-red), 
+                var(--primary), 
+                var(--christmas-green));
             color: var(--white);
             text-align: center;
             padding: 8px 0;
@@ -576,19 +628,41 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
+        /* BUTONLARA IŞIK EFEKTİ */
         .btn {
             position: relative;
             overflow: hidden;
         }
         
-        .btn:hover:before {
+        .btn-primary {
+            box-shadow: 0 0 15px rgba(106, 13, 173, 0.4);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 0 25px rgba(106, 13, 173, 0.6);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(106, 13, 173, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(106, 13, 173, 0.8);
+            }
+        }
+        
+        .btn-secondary:hover:before {
             content: "";
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255,255,255,0.4), 
+                transparent);
             animation: buttonShine 1.5s infinite;
         }
         
@@ -597,36 +671,51 @@
             100% { left: 100%; }
         }
         
+        /* KARTLARA YILBAŞI EFEKTİ */
         .highlight-card {
             position: relative;
             transition: all 0.4s ease;
+            border-top: 4px solid var(--christmas-red) !important;
         }
         
         .highlight-card:hover {
-            border-color: #ffd700;
-            box-shadow: 0 10px 25px rgba(200, 16, 46, 0.15);
+            border-color: var(--christmas-gold);
+            box-shadow: 0 15px 30px rgba(200, 16, 46, 0.2),
+                        0 0 20px rgba(255, 215, 0, 0.3);
         }
         
+        /* FOOTER IŞIK EFEKTİ */
         footer {
             position: relative;
+            overflow: hidden;
         }
         
         footer:before {
-            content: "✨";
+            content: "";
             position: absolute;
-            bottom: 20px;
-            right: 30px;
-            font-size: 1.5rem;
-            opacity: 0.3;
-            animation: twinkle 3s infinite;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, 
+                var(--christmas-red), 
+                var(--christmas-gold), 
+                var(--christmas-green));
+            animation: footerGlow 3s infinite alternate;
         }
         
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+        @keyframes footerGlow {
+            0%, 100% {
+                opacity: 0.5;
+                filter: blur(5px);
+            }
+            50% {
+                opacity: 1;
+                filter: blur(10px);
+            }
         }
         
-        /* Mobil uyumluluk */
+        /* MOBİL UYUMLULUK */
         @media (max-width: 768px) {
             .header-container {
                 padding: 10px 0;
@@ -708,13 +797,9 @@
                 grid-template-columns: 1fr;
             }
             
-            .holiday-lights {
+            .rgb-light-strip {
                 top: 60px;
-            }
-            
-            .light {
-                width: 10px;
-                height: 10px;
+                height: 15px;
             }
             
             .christmas-header {
@@ -731,13 +816,21 @@
             .hero p {
                 font-size: 1rem;
             }
+            
+            .rgb-light-strip {
+                top: 55px;
+                height: 12px;
+            }
         }
     </style>
 </head>
 
 <body>
     <!-- YILBAŞI DEKORASYONLARI -->
-    <div class="christmas-decorations"></div>
+    <div class="christmas-decorations">
+        <div class="snowflakes"></div>
+    </div>
+    <div class="rgb-light-strip"></div>
     <div class="christmas-header"></div>
 
     <header class="scrolled">
@@ -940,13 +1033,21 @@
             // Header scroll efekti için güncelleme
             window.addEventListener('scroll', function() {
                 const christmasHeader = document.querySelector('.christmas-header');
+                const rgbStrip = document.querySelector('.rgb-light-strip');
+                
                 if (christmasHeader) {
                     if (window.scrollY > 50) {
                         christmasHeader.style.opacity = '0.9';
                         christmasHeader.style.backdropFilter = 'blur(5px)';
+                        if (rgbStrip) {
+                            rgbStrip.style.opacity = '0.9';
+                        }
                     } else {
                         christmasHeader.style.opacity = '1';
                         christmasHeader.style.backdropFilter = 'none';
+                        if (rgbStrip) {
+                            rgbStrip.style.opacity = '1';
+                        }
                     }
                 }
             });
@@ -954,80 +1055,64 @@
         
         // Yılbaşı dekorasyonlarını oluştur
         function createChristmasDecorations() {
-            // Dekorasyon konteyneri oluştur
-            const decorationsContainer = document.querySelector('.christmas-decorations');
-            
             // Yılbaşı başlığı güncelle
             const christmasHeader = document.querySelector('.christmas-header');
             if (christmasHeader) {
-                christmasHeader.innerHTML = '🎄 ARELMUN 2025 - New Year Edition 🎄';
+                christmasHeader.innerHTML = '✨ ARELMUN 2025 - Happy New Year! ✨';
             }
             
             // Kar taneleri oluştur
-            const snowflakes = document.createElement('div');
-            snowflakes.className = 'snowflakes';
+            const snowflakes = document.querySelector('.snowflakes');
             
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < 50; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
                 
                 // Rastgele özellikler
-                const size = Math.random() * 4 + 2;
+                const size = Math.random() * 5 + 2;
                 const left = Math.random() * 100;
-                const duration = Math.random() * 8 + 4;
-                const delay = Math.random() * 5;
+                const duration = Math.random() * 8 + 5;
+                const delay = Math.random() * 10;
+                const sway = Math.random() * 2 - 1; // -1 ile 1 arasında rastgele değer
                 
                 snowflake.style.width = `${size}px`;
                 snowflake.style.height = `${size}px`;
                 snowflake.style.left = `${left}vw`;
                 snowflake.style.animationDuration = `${duration}s`;
                 snowflake.style.animationDelay = `${delay}s`;
+                snowflake.style.setProperty('--sway', sway);
                 
                 snowflakes.appendChild(snowflake);
             }
             
-            decorationsContainer.appendChild(snowflakes);
-            
-            // Yılbaşı ışıkları oluştur
-            const holidayLights = document.createElement('div');
-            holidayLights.className = 'holiday-lights';
-            
-            const lightColors = ['#ff0000', '#00ff00', '#ffff00', '#ff69b4', '#00ffff', '#ffa500'];
-            
-            for (let i = 0; i < 15; i++) {
-                const light = document.createElement('div');
-                light.className = 'light';
-                
-                const color = lightColors[Math.floor(Math.random() * lightColors.length)];
-                const duration = Math.random() * 1.5 + 1;
-                const delay = Math.random() * 2;
-                
-                light.style.backgroundColor = color;
-                light.style.animationDuration = `${duration}s`;
-                light.style.animationDelay = `${delay}s`;
-                
-                holidayLights.appendChild(light);
+            // RGB ışık şeridini canlandır
+            const rgbStrip = document.querySelector('.rgb-light-strip');
+            if (rgbStrip) {
+                setInterval(() => {
+                    // Işık parlaklığını rastgele değiştir
+                    const randomBrightness = Math.random() * 0.3 + 0.7;
+                    rgbStrip.style.opacity = randomBrightness.toString();
+                    
+                    // Renk akış hızını rastgele değiştir
+                    const randomSpeed = Math.random() * 20 + 25;
+                    rgbStrip.style.animationDuration = `${randomSpeed}s`;
+                }, 2000);
             }
-            
-            decorationsContainer.appendChild(holidayLights);
             
             // Kartlara rastgele yılbaşı ikonları ekle
             addHolidayIconsToCards();
             
             // Sayfa yüklendiğinde hafif bir efekt
             setTimeout(() => {
-                document.body.style.transition = 'background-color 1s ease';
-                document.body.style.backgroundColor = 'rgba(248, 248, 255, 0.98)';
-            }, 300);
-            
-            // Işıkların parlaklığını rastgele değiştir
-            setInterval(() => {
-                const lights = document.querySelectorAll('.light');
+                document.body.style.transition = 'background-color 2s ease';
+                document.body.style.backgroundColor = 'rgba(248, 248, 255, 0.97)';
+                
+                // Işık efekti
+                const lights = document.querySelectorAll('.btn, .highlight-card, .social-links a');
                 lights.forEach(light => {
-                    const randomOpacity = Math.random() * 0.4 + 0.6;
-                    light.style.opacity = randomOpacity;
+                    light.style.transition = 'all 0.5s ease';
                 });
-            }, 2000);
+            }, 500);
             
             // Kar tanelerini yenile
             setInterval(() => {
@@ -1037,6 +1122,7 @@
                     if (rect.top > window.innerHeight) {
                         flake.style.top = '-100px';
                         flake.style.left = `${Math.random() * 100}vw`;
+                        flake.style.animationDelay = `${Math.random() * 5}s`;
                     }
                 });
             }, 100);
@@ -1050,17 +1136,28 @@
             cards.forEach((card, index) => {
                 const iconSpan = document.createElement('span');
                 iconSpan.style.position = 'absolute';
-                iconSpan.style.top = '10px';
-                iconSpan.style.right = '10px';
-                iconSpan.style.fontSize = '1.2rem';
-                iconSpan.style.opacity = '0.7';
+                iconSpan.style.top = '15px';
+                iconSpan.style.right = '15px';
+                iconSpan.style.fontSize = '1.5rem';
+                iconSpan.style.opacity = '0.8';
                 iconSpan.style.zIndex = '2';
+                iconSpan.style.animation = 'twinkle 2s infinite alternate';
                 iconSpan.innerHTML = icons[index % icons.length];
                 
                 card.style.position = 'relative';
                 card.appendChild(iconSpan);
             });
         }
+        
+        // Işık efekti için twinkle animasyonu
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes twinkle {
+                0%, 100% { opacity: 0.6; transform: scale(1); }
+                50% { opacity: 1; transform: scale(1.1); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
