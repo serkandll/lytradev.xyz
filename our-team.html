@@ -623,9 +623,48 @@
                 font-size: 1.5rem;
             }
         }
+        /* KAR EFECTİ */
+.snowflakes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.9;
+    filter: blur(0.5px);
+    animation: snowFall linear infinite;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes snowFall {
+    0% {
+        transform: translateY(-100px) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(100vh) translateX(calc(100px * var(--sway))) rotate(360deg);
+        opacity: 0;
+    }
+}
     </style>
 </head>
 <body>
+<div class="snowflakes"></div>
     <header>
         <div class="container header-container">
             <div class="logo">
@@ -957,6 +996,41 @@
                 });
             });
         });
+        // KAR TANELERİ KODU
+function createSnowflakes() {
+    const snowflakes = document.querySelector('.snowflakes');
+    if (!snowflakes) return;
+    for (let i = 0; i < 60; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        const size = Math.random() * 5 + 2;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 8 + 5;
+        const delay = Math.random() * 10;
+        const sway = Math.random() * 2 - 1;
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+        snowflake.style.left = `${left}vw`;
+        snowflake.style.animationDuration = `${duration}s`;
+        snowflake.style.animationDelay = `${delay}s`;
+        snowflake.style.setProperty('--sway', sway);
+        snowflakes.appendChild(snowflake);
+    }
+    setInterval(() => {
+        const flakes = document.querySelectorAll('.snowflake');
+        flakes.forEach(flake => {
+            const rect = flake.getBoundingClientRect();
+            if (rect.top > window.innerHeight) {
+                flake.style.top = '-100px';
+                flake.style.left = `${Math.random() * 100}vw`;
+                flake.style.animationDelay = `${Math.random() * 5}s`;
+            }
+        });
+    }, 100);
+}
+document.addEventListener('DOMContentLoaded', createSnowflakes);
+window.addEventListener('load', createSnowflakes);
     </script>
 </body>
+
 </html>
