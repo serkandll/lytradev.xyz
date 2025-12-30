@@ -1,0 +1,1087 @@
+<!--This website was developed by Kayra MEYDAN>
+<!--Any usage of codes without permission will result in a DMCA notice.-->
+<!--Kayra MEYDAN // for more information, mail info@lytradev.com-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARELMUN'25 - Committees</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/KvXAR6j.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/KvXAR6j.png">
+    <meta name="msapplication-TileColor" content="#6a0dad">
+    <meta name="theme-color" content="#6a0dad">
+    <style>
+        :root {
+            --primary: #6a0dad;
+            --primary-light: #8a2be2;
+            --primary-dark: #4b0082;
+            --secondary: #ffd700;
+            --white: #ffffff;
+            --light: #f8f8ff;
+            --dark: #333333;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Source Sans 3', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            font-size: 2.2rem;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        header.scrolled .logo-text h1,
+        header.scrolled nav ul li a,
+        header.scrolled .hamburger {
+            color: var(--white);
+        }
+
+        header.scrolled .social-nav a {
+            color: var(--white);
+        }
+
+        header.scrolled nav ul li a:after {
+            background: var(--white);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 50px;
+            transition: var(--transition);
+        }
+
+        header.scrolled .logo img {
+            content: url('https://i.imgur.com/KvXAR6j.png');
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            color: var(--primary);
+            transition: var(--transition);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            margin-bottom: 0;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        header.scrolled .logo-text p {
+            color: var(--white);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        header.scrolled nav ul li a:hover {
+            color: var(--secondary);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .social-nav {
+            display: flex;
+            gap: 15px;
+            margin-left: 20px;
+        }
+
+        .social-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(106, 13, 173, 0.1);
+            border-radius: 50%;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .social-nav a:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(106, 13, 173, 0.8), rgba(106, 13, 173, 0.9)), url('https://avatars.mds.yandex.net/get-altay/13206104/2a00000194e04e7c8d2aa85c947e12c1dcc8/orig');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 150px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-weight: 400;
+        }
+
+        .committees-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .committees-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .committee-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .committee-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+
+        .committee-card.active {
+            border-color: var(--primary);
+        }
+
+        .committee-header {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .committee-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .committee-card:hover .committee-image {
+            transform: scale(1.1);
+        }
+
+        .committee-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 50%, rgba(106, 13, 173, 0.8));
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .committee-title {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .committee-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .committee-card.active .committee-content {
+            padding: 25px;
+            max-height: 1000px;
+        }
+
+        .committee-full-name {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .agenda-item {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .agenda-item h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .agenda-item p {
+            color: var(--dark);
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        .committee-categories {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            position: relative;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .location-navigation {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .location-navigation a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--white);
+            text-decoration: none;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: var(--transition);
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .location-navigation a:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 10px 0;
+            }
+            
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.7rem;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                z-index: 1000;
+            }
+            
+            header.scrolled nav ul {
+                background: var(--primary);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .social-nav {
+                margin-left: 0;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero {
+                padding: 130px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .committees-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .committee-header {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .category-title {
+                font-size: 1.5rem;
+            }
+            
+            .committee-title {
+                font-size: 1.3rem;
+            }
+          /* KAR EFECTİ */
+.snowflakes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.9;
+    filter: blur(0.5px);
+    animation: snowFall linear infinite;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes snowFall {
+    0% {
+        transform: translateY(-100px) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(100vh) translateX(calc(100px * var(--sway))) rotate(360deg);
+        opacity: 0;
+    }
+}
+        }
+    </style>
+</head>
+<body>
+  <!-- KAR TANELERİ -->
+<div class="snowflakes"></div>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://static.wixstatic.com/media/9a503f_1e3f21a13d1c4c06b0bfedd3d3ab68af~mv2.png/v1/fill/w_144,h_136,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a-JxjflAtJn-transformed%20(2)_edited_edite.png" alt="Arel MUN Logo">
+                <div class="logo-text">
+                    <h1>AREL MUN</h1>
+                    <p>Model United Nations</p>
+                </div>
+            </div>
+            
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="committees.html">Committees</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="applications.html">Applications</a></li>
+                    <li><a href="our-team.html">Our Team</a></li>
+                    <li><a href="venue.html">Contact</a></li>
+                    <div class="social-nav">
+                        <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@arelmun25/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Committees</h1>
+            <p>Explore the diverse committees of ARELMUN'25 and their agenda items</p>
+        </div>
+    </section>
+
+    <section class="committees-section">
+        <div class="container">
+            <div class="committees-intro">
+                <h2 class="section-title">Our Committees</h2>
+                <p>ARELMUN'25 features a wide range of committees simulating various UN bodies and international organizations. Click on any committee to view its agenda items and details.</p>
+            </div>
+
+            <div class="committee-categories">
+                <h3 class="category-title">General Assembly</h3>
+                <div class="committees-grid">
+                    <div class="committee-card" onclick="toggleCommittee(this)">
+                        <div class="committee-header">
+                            <img src="https://static.wixstatic.com/media/9a503f_cf28f27aae2f4897a3699e379d3103bf~mv2.jpg/v1/crop/x_0,y_35,w_736,h_405/fill/w_622,h_321,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/0.jpg" alt="DISEC" class="committee-image">
+                            <div class="committee-overlay">
+                                <h3 class="committee-title">GA1 - DISEC</h3>
+                            </div>
+                        </div>
+                        <div class="committee-content">
+                            <h4 class="committee-full-name">DISARMAMENT AND INTERNATIONAL SECURITY COMMITTEE</h4>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 1</h4>
+                                <p>Addressing territorial disputes and ensuring the security of maritime routes in the South China Sea, with a focus on preventing military escalation</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 2</h4>
+                                <p>Strengthening international efforts to achieve the denuclearization of North Korea and ensuring compliance with non-proliferation treaties</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 3</h4>
+                                <p>Preventing the Militarization of Space: Developing a Global Treaty to Ban the Use of Space for Military Purposes</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="committee-card" onclick="toggleCommittee(this)">
+                        <div class="committee-header">
+                            <img src="https://static.wixstatic.com/media/9a503f_daafe579d80b4a7a80ca64b7a053e7df~mv2.jpg/v1/crop/x_0,y_27,w_626,h_363/fill/w_634,h_333,al_c,lg_1,q_80,enc_auto/0.jpg" alt="ECOFIN" class="committee-image">
+                            <div class="committee-overlay">
+                                <h3 class="committee-title">GA2 - ECOFIN</h3>
+                            </div>
+                        </div>
+                        <div class="committee-content">
+                            <h4 class="committee-full-name">ECONOMIC AND FINANCIAL AFFAIRS COUNCIL</h4>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 1</h4>
+                                <p>Evaluating how the EU's new carbon tariff policies affect global trade, particularly for emerging economies heavily reliant on high-carbon exports</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 2</h4>
+                                <p>Regulating Cryptocurrencies and Blockchain Technology: Addressing the risks and opportunities of decentralized finance in the global economy</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 3</h4>
+                                <p>Suez Canal Disruptions and Global Trade: Examining the economic impact of shipping blockages and proposing solutions to prevent future trade disruptions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="committee-card" onclick="toggleCommittee(this)">
+                        <div class="committee-header">
+                            <img src="https://static.wixstatic.com/media/9a503f_fd343548d9c1427e88f9f3ab03156f88~mv2.jpg/v1/crop/x_0,y_44,w_1012,h_587/fill/w_622,h_321,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/0.jpg" alt="SOCHUM" class="committee-image">
+                            <div class="committee-overlay">
+                                <h3 class="committee-title">GA3 - SOCHUM</h3>
+                            </div>
+                        </div>
+                        <div class="committee-content">
+                            <h4 class="committee-full-name">SOCIAL AND HUMANITARIAN COMMITTEE</h4>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 1</h4>
+                                <p>Protecting and Preserving the Cultural Heritage of Regions Affected by Conflict: Focusing on the Middle East</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 2</h4>
+                                <p>The ongoing human rights abuses against ethnic minorities, including the Rohingya, and the impact on the global refugee crisis in Myanmar</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 3</h4>
+                                <p>Combatting Gender-Based Violence in Conflict Zones: Ensuring Justice for Survivors</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="committee-card" onclick="toggleCommittee(this)">
+                        <div class="committee-header">
+                            <img src="https://static.wixstatic.com/media/9a503f_447a8e1770434a4c9f93afbae9dd9ce0~mv2.jpg/v1/crop/x_59,y_0,w_1082,h_628/fill/w_622,h_321,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/0.jpg" alt="LEGAL" class="committee-image">
+                            <div class="committee-overlay">
+                                <h3 class="committee-title">GA6 - LEGAL</h3>
+                            </div>
+                        </div>
+                        <div class="committee-content">
+                            <h4 class="committee-full-name">LEGAL COMMITTEE</h4>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 1</h4>
+                                <p>Establishing a Global Legal Framework for Regulating Autonomous Systems and Artificial Intelligence in Cross-Border Jurisdictions</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 2</h4>
+                                <p>Addressing the lack of legal consideration on gene engineering and protection of genetic data</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 3</h4>
+                                <p>Harmonizing data privacy laws across EU member states and addressing challenges related to cross-border data transfers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="committee-categories">
+                <h3 class="category-title">Specialized Committees</h3>
+                <div class="committees-grid">
+                    <div class="committee-card" onclick="toggleCommittee(this)">
+                        <div class="committee-header">
+                            <img src="https://static.wixstatic.com/media/9a503f_629aa212ab504e3ea332b1d9f9552b33~mv2.jpg/v1/crop/x_0,y_32,w_735,h_427/fill/w_622,h_321,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/unnamed.jpg" alt="UNHRC" class="committee-image">
+                            <div class="committee-overlay">
+                                <h3 class="committee-title">SPC1 - UNHRC</h3>
+                            </div>
+                        </div>
+                        <div class="committee-content">
+                            <h4 class="committee-full-name">UNITED NATIONS HUMAN RIGHTS COUNCIL</h4>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 1</h4>
+                                <p>Analyze the role of multinational corporations in preventing child labor within their supply chains and ensuring ethical practices</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 2</h4>
+                                <p>Address the treatment of Uyghur Muslims in China, including reports of mass detentions, forced labor, and cultural suppression</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 3</h4>
+                                <p>The Role of Digital Human Rights in Protecting Vulnerable Populations in Authoritarian Regimes</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="committee-card" onclick="toggleCommittee(this)">
+                        <div class="committee-header">
+                            <img src="https://static.wixstatic.com/media/9a503f_588990a6f7524025b37b59be8d6a977a~mv2.jpg/v1/crop/x_0,y_52,w_620,h_360/fill/w_622,h_321,al_c,lg_1,q_80,enc_avif,quality_auto/unnamed.jpg" alt="UNODC" class="committee-image">
+                            <div class="committee-overlay">
+                                <h3 class="committee-title">SPC2 - UNODC</h3>
+                            </div>
+                        </div>
+                        <div class="committee-content">
+                            <h4 class="committee-full-name">THE UNITED NATIONS OFFICE ON DRUGS AND CRIME</h4>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 1</h4>
+                                <p>The Rise of "Ghost Guns" and 3D-Printed Firearms in Global Crime</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 2</h4>
+                                <p>The Growing Threat of Drug-Resistant Synthetic Opioids</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 3</h4>
+                                <p>The Use of Virtual Reality and the Metaverse for Criminal Activities</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="committee-card" onclick="toggleCommittee(this)">
+                        <div class="committee-header">
+                            <img src="https://static.wixstatic.com/media/9a503f_a2de1c3a0b5444ae8a57f62e4e584845~mv2.jpg/v1/crop/x_0,y_62,w_736,h_427/fill/w_622,h_321,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/unnamed.jpg" alt="WHO" class="committee-image">
+                            <div class="committee-overlay">
+                                <h3 class="committee-title">SPC3 - WHO</h3>
+                            </div>
+                        </div>
+                        <div class="committee-content">
+                            <h4 class="committee-full-name">WORLD HEALTH ORGANIZATION</h4>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 1</h4>
+                                <p>Addressing the use of antibiotics in agriculture and its contribution to AMR, and promoting sustainable farming practices</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 2</h4>
+                                <p>Implementing global initiatives to address the rising rates of mental health disorders, with a focus on integrating mental health services into primary healthcare</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 3</h4>
+                                <p>Tackling the Global Obesity Epidemic: Public Health Policies and Prevention Strategies</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="committee-card" onclick="toggleCommittee(this)">
+                        <div class="committee-header">
+                            <img src="https://static.wixstatic.com/media/9a503f_08c6b622824e49478fa87728d1d3fbbe~mv2.jpg/v1/crop/x_0,y_31,w_735,h_427/fill/w_622,h_321,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/0.jpg" alt="UNWOMEN" class="committee-image">
+                            <div class="committee-overlay">
+                                <h3 class="committee-title">SPC4 - UNWOMEN</h3>
+                            </div>
+                        </div>
+                        <div class="committee-content">
+                            <h4 class="committee-full-name">UN WOMEN</h4>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 1</h4>
+                                <p>Combating femicide and honor killings through international legal frameworks</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 2</h4>
+                                <p>Combating the Global Rise of Digital Misogyny and Incels</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 3</h4>
+                                <p>The Feminization of Aging: Addressing the Socioeconomic Challenges Faced by Elderly Women</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="committee-categories">
+                <h3 class="category-title">Other Committees</h3>
+                <div class="committees-grid">
+                    <div class="committee-card" onclick="toggleCommittee(this)">
+                        <div class="committee-header">
+                            <img src="https://static.wixstatic.com/media/9a503f_70aab7fd2a1b46069095e047e56ca0b7~mv2.jpg/v1/crop/x_0,y_28,w_650,h_377/fill/w_622,h_321,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/0.jpg" alt="ECOSOC" class="committee-image">
+                            <div class="committee-overlay">
+                                <h3 class="committee-title">ECOSOC</h3>
+                            </div>
+                        </div>
+                        <div class="committee-content">
+                            <h4 class="committee-full-name">ECONOMIC AND SOCIAL COMMITTEE</h4>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 1</h4>
+                                <p>Supporting female entrepreneurship, increasing women's participation in the workforce, and promoting gender equality in economic opportunities</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 2</h4>
+                                <p>Ensuring food security through sustainable agricultural practices and rural development initiatives</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 3</h4>
+                                <p>Ensuring access to quality education for refugee children in Jordan, focusing on integrating them into the national education system</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="committee-card" onclick="toggleCommittee(this)">
+                        <div class="committee-header">
+                            <img src="https://static.wixstatic.com/media/9a503f_5c022e3be077463296bde3a5586d99b2~mv2.jpg/v1/crop/x_57,y_0,w_1085,h_630/fill/w_622,h_321,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/unnamed.jpg" alt="UNSC" class="committee-image">
+                            <div class="committee-overlay">
+                                <h3 class="committee-title">UNSC</h3>
+                            </div>
+                        </div>
+                        <div class="committee-content">
+                            <h4 class="committee-full-name">UNITED NATIONS SECURITY COUNCIL</h4>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 1</h4>
+                                <p>Mali-Burkina Faso Border Volatility: Addressing cross-border terrorism, communal violence, and territorial claims impacting the Sahel's stability</p>
+                            </div>
+                            <div class="agenda-item">
+                                <h4>Agenda Item 2</h4>
+                                <p>Serbia-Kosovo Border Stability: Addressing ongoing disputes over recognition and border management, with a focus on EU mediation efforts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AREL MUN</h3>
+                    <p>Istanbul Arel College Model United Nations club aims to provide students with diplomacy, debate and leadership skills.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/arelmun?igsh=NGJhbHN2ZXJraWpp&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@arelmun25/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="committees.html">Committees</a></li>
+                        <li><a href="schedule.html">Schedule</a></li>
+                        <li><a href="applications.html">Applications</a></li>
+                        <li><a href="our-team.html">Our Team</a></li>
+                        <li><a href="venue.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> YENIBOSNA MERKEZ, SELAHATTIN PINAR Sk. No 3, 34197 BAHÇELİEVLER/ISTANBUL</li>
+                        <li><i class="fas fa-phone"></i> 0535 547 70 46</li>
+                        <li><i class="fas fa-phone"></i> 0533 035 10 80</li>
+                        <li><i class="fas fa-envelope"></i> arelmun@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="location-navigation">
+                <a href="https://maps.app.goo.gl/q2Qz9Z3f55FRhKB88" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Navigate to Bahçelievler AREL Koleji</span>
+                </a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>ARELMUN'25 Official Website</p>
+<p style="color: white;">&copy; 2025 by <a href="https://arelmun.com" target="_blank" style="color: white;">AREL College</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleCommittee(card) {
+            const allCards = document.querySelectorAll('.committee-card');
+            allCards.forEach(otherCard => {
+                if (otherCard !== card && otherCard.classList.contains('active')) {
+                    otherCard.classList.remove('active');
+                }
+            });
+            
+            card.classList.toggle('active');
+        }
+
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+            
+            if (navMenu.classList.contains('active')) {
+                hamburger.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        window.addEventListener('load', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.committee-card')) {
+                const allCards = document.querySelectorAll('.committee-card');
+                allCards.forEach(card => {
+                    card.classList.remove('active');
+                });
+            }
+        });
+// KAR TANELERİ KODU
+function createSnowflakes() {
+    const snowflakes = document.querySelector('.snowflakes');
+    if (!snowflakes) return;
+    for (let i = 0; i < 60; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        const size = Math.random() * 5 + 2;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 8 + 5;
+        const delay = Math.random() * 10;
+        const sway = Math.random() * 2 - 1;
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+        snowflake.style.left = `${left}vw`;
+        snowflake.style.animationDuration = `${duration}s`;
+        snowflake.style.animationDelay = `${delay}s`;
+        snowflake.style.setProperty('--sway', sway);
+        snowflakes.appendChild(snowflake);
+    }
+    setInterval(() => {
+        const flakes = document.querySelectorAll('.snowflake');
+        flakes.forEach(flake => {
+            const rect = flake.getBoundingClientRect();
+            if (rect.top > window.innerHeight) {
+                flake.style.top = '-100px';
+                flake.style.left = `${Math.random() * 100}vw`;
+                flake.style.animationDelay = `${Math.random() * 5}s`;
+            }
+        });
+    }, 100);
+}
+document.addEventListener('DOMContentLoaded', createSnowflakes);
+window.addEventListener('load', createSnowflakes);
+    </script>
+</body>
+
+</html>
