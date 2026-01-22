@@ -1,0 +1,672 @@
+// no I dont use ai
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serkaaan | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0fccce;
+            --light: #e6f7ff;
+            --text: #f0f8ff;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            padding: 80px 0 40px;
+            text-align: center;
+            border-bottom: 1px solid rgba(15, 204, 206, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--accent), #4df1f3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .link-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .link-item:hover {
+            background: rgba(15, 204, 206, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .link-item i {
+            color: var(--accent);
+        }
+
+        .intro {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .timeline-section-title {
+            font-size: 1.8rem;
+            margin: 60px 0 30px;
+            padding-left: 20px;
+            border-left: 5px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            width: 45%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: auto;
+            margin-left: 0;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .year {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .server-name {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .role {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #b3e0ff;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 60px;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 200px;
+            position: relative;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 40px rgba(15, 204, 206, 0.3);
+            animation: zoomIn 0.3s ease;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 1001;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 20px;
+            z-index: 1001;
+        }
+
+        .lightbox-nav:hover {
+            color: var(--accent);
+        }
+
+        .lightbox-prev {
+            left: 30px;
+        }
+
+        .lightbox-next {
+            right: 30px;
+        }
+
+        .about-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 70px;
+            border-left: 5px solid var(--accent);
+        }
+
+        .about-title {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 992px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+                margin-right: 0 !important;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+
+            .lightbox-nav {
+                font-size: 2rem;
+                padding: 10px;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .timeline-section-title {
+                font-size: 1.5rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+
+            .intro, .about-section, .timeline-content {
+                padding: 20px;
+            }
+
+            .lightbox-close {
+                top: 10px;
+                right: 20px;
+                font-size: 2.5rem;
+            }
+
+            .links {
+                gap: 10px;
+            }
+
+            .link-item {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .link-item {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+.subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    opacity: 0.85;
+    margin-top: -30px;
+    margin-bottom: 40px;
+    font-style: italic;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">Serkan TAŞKIN</h1>
+            <p class="tagline">A pro dev who cooks discord bots & more 🔥</p>
+        </header>
+
+        <section class="intro">
+            <p>So I spent about six years in the development & moderation of servers, mostly in the Turkish FiveM community, before moving over to the big ER:LC private servers.</p>
+            <p>This timeline shows my journey through major FiveM/ER:LC servers, where I handled everything from bot development and system architecture to internal security and team leadership.</p>
+        </section>
+
+        <h2 class="section-title">Experience Timeline</h2>
+
+        <h3 class="timeline-section-title">FiveM Community (2020-2022)</h3>
+        <section class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="year">2020 - 2022</span>
+                    <h3 class="server-name">MDRP (44k members)</h3>
+                    <p class="role">Staff L3, Developer</p>
+                    <p class="description">Top GunRP server in Turkey with 400+ daily players. Reaching Staff L3 was a literal trust achievement. I Developed Discord bots with advanced whitelist systems.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="year">2020 - 2022</span>
+                    <h3 class="server-name">RaconRP (36k members)</h3>
+                    <p class="role">Staff L3, Bot & Game Developer</p>
+                    <p class="description">Another massive RP server with 300+ daily players. Worked as senior staff and developed core bot and game systems.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="year">2020 - 2022</span>
+                    <h3 class="server-name">WexRP (13k members)</h3>
+                    <p class="role">Grand Master (High Command), Developer</p>
+                    <p class="description">Held high command position while contributing to server development and management.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="year">2020 - 2022</span>
+                    <h3 class="server-name">Well GunRP (23k members)</h3>
+                    <p class="role">Master (High Command), Developer</p>
+                    <p class="description">High command role combined with development duties on a major Turkish GunRP server.</p>
+                </div>
+            </div>
+        </section>
+
+        <h3 class="timeline-section-title">ER:LC & Roblox Community (2023-Present)</h3>
+        <section class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="year">2023</span>
+                    <h3 class="server-name">SouthCali by omed (3k+ members)</h3>
+                    <p class="role">Head Developer, Assistant Director</p>
+                    <p class="description">Led development and later took on assistant director responsibilities.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="year">2023</span>
+                    <h3 class="server-name">LosRP by felix (16k+ members)</h3>
+                    <p class="role">Senior Developer → Head Developer</p>
+                    <p class="description">Joined as Senior Developer handling internal affairs. Uncovered and neutralized a hidden raid command planted by a previous lead, preventing a major raid. Promoted to Head Developer after resolving the crisis.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="year">2024 - 2025</span>
+                    <h3 class="server-name">Los Angeles by axron (13k+ members)</h3>
+                    <p class="role">Head Developer, Deputy Director</p>
+                    <p class="description">Oversaw all development while serving as Deputy Director for a large scale server.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="year">2024 - 2025</span>
+                    <h3 class="server-name">Michigan State by obvelt (3k+ members)</h3>
+                    <p class="role">Head Developer</p>
+                    <p class="description">Brought on as Head Developer. I was working physically in the hotel so I was not really active, which caused me to get terminated from staff team. However I was still the head developer.</p>
+                </div>
+            </div>
+        </section>
+<h2 class="section-title">Some Of My Old Work</h2>
+<p class="subtitle">I know embeds are trash but those are old, I have improved a lot</p>
+        <section class="gallery" id="gallery">
+            <div class="gallery-item">
+                <img src="https://media.discordapp.net/attachments/1378740997756026912/1461692120661229598/image.png?ex=6973635e&is=697211de&hm=3e04decf1e5f2b96784d37db0617bd628a16e8abf84f2465129d6e054ece126e&=&format=webp&quality=lossless&width=1066&height=194" alt="MDRP Server">
+            </div>
+            <div class="gallery-item">
+                <img src="https://media.discordapp.net/attachments/1378740997756026912/1461692121319739516/image.png?ex=6973635e&is=697211de&hm=ef29046dcda70f2d41af7928da1108491ec85e06d7fa5acf50b6deda046b6694&=&format=webp&quality=lossless&width=419&height=119" alt="RaconRP Server">
+            </div>
+            <div class="gallery-item">
+                <img src="https://media.discordapp.net/attachments/1378740997756026912/1461692119298085059/image.png?ex=6973635e&is=697211de&hm=ee71602ca4c770c8b43ee105d9befce23e1c4a558b54411a8a8ec8fbbd2eb75f&=&format=webp&quality=lossless&width=663&height=799" alt="WexRP Server">
+            </div>
+            <div class="gallery-item">
+                <img src="https://media.discordapp.net/attachments/1378740997756026912/1461692120028024997/image.png?ex=6973635e&is=697211de&hm=f163fd4c7793f94dd25f456ea187c4e82cb42acefd261d0cccf67474381c97bc&=&format=webp&quality=lossless&width=699&height=800" alt="Well GunRP Server">
+            </div>
+            <div class="gallery-item">
+                <img src="https://media.discordapp.net/attachments/1378740997756026912/1461692118446637067/image.png?ex=6973635d&is=697211dd&hm=8b930f849143f8c91c713b99b405802d3edeba380c4bd00a2461800338d821ee&=&format=webp&quality=lossless&width=676&height=624" alt="SouthCali Server">
+            </div>
+            <div class="gallery-item">
+                <img src="https://media.discordapp.net/attachments/1378740997756026912/1461692117666500784/image.png?ex=6973635d&is=697211dd&hm=ac91d1b4f77d17edeb38639c7dc80725d486b85ea7b3e519a5ba163af2e6c09b&=&format=webp&quality=lossless&width=636&height=696" alt="LosRP Server">
+            </div>
+            <div class="gallery-item">
+                <img src="https://media.discordapp.net/attachments/752838126040252446/1379808964925198408/image.png?ex=697372bc&is=6972213c&hm=c2b85c04854b0dbf9e76ccc625f96f6a181fe1812b7ca230b68d2ced31bc1599&=&format=webp&quality=lossless&width=836&height=514" alt="Los Angeles Server">
+            </div>
+            <div class="gallery-item">
+                <img src="https://media.discordapp.net/attachments/1307355164050456628/1373597697751126078/image.png?ex=6973438b&is=6971f20b&hm=0dd5e2ba280a6753325063323d593e209c26fc6842ba62c84049f89db1e6518d&=&format=webp&quality=lossless&width=1860&height=444" alt="Michigan State Server">
+            </div>
+            <div class="gallery-item">
+                <img src="https://cdn.discordapp.com/attachments/1377911742574755863/1463938239260921968/image.png?ex=6973a63a&is=697254ba&hm=242dbe604a838cd8b83771105b582b9f4f3cd71f6e18438d39fe419e9396b455&" alt="Lytradev Team">
+            </div>
+            <div class="gallery-item">
+                <img src="https://media.discordapp.net/attachments/1406631797323993110/1411010600972058735/image.png?ex=69739486&is=69724306&hm=9490836f0576385ba35b6c0fbe6fea13c67bde3243de3fc1082a89f168821e50&=&format=webp&quality=lossless&width=1495&height=800" alt="Projects Showcase">
+            </div>
+        </section>
+
+        <div class="lightbox" id="lightbox">
+            <span class="lightbox-close" id="lightboxClose">&times;</span>
+            <span class="lightbox-nav lightbox-prev" id="lightboxPrev">&#10094;</span>
+            <span class="lightbox-nav lightbox-next" id="lightboxNext">&#10095;</span>
+            <img class="lightbox-img" id="lightboxImg" src="" alt="Enlarged view">
+        </div>
+
+        <section class="about-section">
+            <h3 class="about-title">About Lytradev</h3>
+            <p>The name <strong>Lytradev</strong> actually started back in 2021 with just four friends and me. We were trying to build something while working on these servers, but being teenagers without much money or a reputation made it hard. We couldn't get the trust or the advertising we needed, so we ended up forgetting about that project.</p>
+            <br>
+            <p>In 2025, I got the team back together and we made it official. By then, we had the experience and resources to actually invest in proper advertising, a website, and team members. A big break came when one of our team members inherited his father's VDS firm, which now operates under our company. It really made things much easier for us as we did not have to pay for VDS's every month, and we could sell the rest.</p>
+            <br>
+            <p>So, Lytradev is not a new idea it's a reboot. We evolved, and that evolved Lytradev to what it is now.</p>
+        </section>
+
+        <footer>
+            <p>My portfolio for RCPDFR Developer Application</p>
+            <p>plz lemme work with yall 🙏🏼</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+            
+            let currentImageIndex = 0;
+            const images = Array.from(galleryItems).map(item => {
+                const img = item.querySelector('img');
+                return {
+                    src: img.src,
+                    alt: img.alt
+                };
+            });
+
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    openLightbox(currentImageIndex);
+                });
+            });
+
+            function openLightbox(index) {
+                if (images[index]) {
+                    lightboxImg.src = images[index].src;
+                    lightboxImg.alt = images[index].alt;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            function showPrevImage() {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                lightboxImg.src = images[currentImageIndex].src;
+                lightboxImg.alt = images[currentImageIndex].alt;
+            }
+
+            function showNextImage() {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                lightboxImg.src = images[currentImageIndex].src;
+                lightboxImg.alt = images[currentImageIndex].alt;
+            }
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightboxPrev.addEventListener('click', showPrevImage);
+            lightboxNext.addEventListener('click', showNextImage);
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                
+                switch(e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        showPrevImage();
+                        break;
+                    case 'ArrowRight':
+                        showNextImage();
+                        break;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
