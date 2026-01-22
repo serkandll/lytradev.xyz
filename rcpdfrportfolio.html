@@ -439,6 +439,58 @@
     margin-bottom: 40px;
     font-style: italic;
 }
+.notes-section {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 60px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.notes-title {
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.note-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.note-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.note-icon {
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.note-text {
+    flex: 1;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .notes-section {
+        padding: 20px;
+    }
+    
+    .notes-title {
+        font-size: 1.5rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -573,6 +625,18 @@
             <span class="lightbox-nav lightbox-next" id="lightboxNext">&#10095;</span>
             <img class="lightbox-img" id="lightboxImg" src="" alt="Enlarged view">
         </div>
+
+        <section class="notes-section">
+    <h3 class="notes-title">Quick Notes</h3>
+    <div class="note-item">
+        <i class="fas fa-code note-icon"></i>
+        <p class="note-text">Embeds in the photos were made when I was still learning. My current work is way cleaner and looks cooler.</p>
+    </div>
+    <div class="note-item">
+        <i class="fas fa-clipboard note-icon"></i>
+        <p class="note-text">I have more proof but I couldnt find the photos, I am still searching them I will dm fidgetyy when I find.</p>
+    </div>
+</section>
 
         <section class="about-section">
             <h3 class="about-title">About Lytradev</h3>
